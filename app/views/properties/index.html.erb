@@ -1,0 +1,11 @@
+<%= render 'header' %>
+
+<% @properties.each do |property| %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h4><%= link_to property.address, property_path(property) %></h4>
+      <p><%= property.city %>, <%= property.state %> <%= property.zip %></p>
+      <strong>$500.00 / Month</strong>
+    </div>
+  </div>
+<% end %>

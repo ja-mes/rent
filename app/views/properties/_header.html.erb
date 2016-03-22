@@ -1,0 +1,11 @@
+<h1 class="page-header">Properties</h1>
+
+<ul class="nav nav-tabs header-tabs">
+  <li class="<%= isActive 'properties', 'index' %>">
+    <%= link_to "All Properties", properties_path %>
+  </li>
+
+  <li class="<%= isActive 'properties', ['new', 'create'] %>">
+    <%= link_to "New Property", new_property_path %>
+  </li>
+</ul>
