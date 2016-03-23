@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322231350) do
+ActiveRecord::Schema.define(version: 20160323114943) do
 
   create_table "properties", force: :cascade do |t|
     t.string  "address"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20160322231350) do
     t.string  "zip"
     t.decimal "rent"
     t.decimal "deposit"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

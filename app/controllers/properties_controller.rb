@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
+  before_action :authenticate_user!
   def index
-    @properties = Property.all
+    @properties = current_user.properties
   end
 
   def new
@@ -9,6 +10,7 @@ class PropertiesController < ApplicationController
 
   def create
     @property = Property.new(property_params)
+    @property.user = current_user
 
     if @property.save
       flash[:success] = "Property successfully saved"
