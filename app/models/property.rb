@@ -11,6 +11,6 @@ class Property < ActiveRecord::Base
   before_save :upcase_state
 
   def upcase_state
-    self.state.upcase
+    self.state = self.state.upcase
   end
 end

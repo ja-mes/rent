@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PropertyTest < ActiveSupport::TestCase
   def setup
-    @property = Property.new(address: "100 Foo St.", state: "AL", city: "Boaz", zip: "35956", rent: 500, deposit: 300)
+    @obj = { address: "100 Foo St.", state: "AL", city: "Boaz", zip: "35956", rent: 500, deposit: 300 }
+    @property = Property.new(@obj)
     @property.user = users(:one)
   end
 
@@ -20,4 +21,70 @@ class PropertyTest < ActiveSupport::TestCase
     assert_not @property.valid?
   end
 
+  test "address should be unique" do
+    @property.save
+    @property2 = Property.new(@obj)
+    assert_not @property2.valid?
+  end
+
+  test "state should be present" do
+    @property.state = " "
+    assert_not @property.valid?
+  end
+
+  test "state length should not be greater than 2" do
+    @property.state = "AAA"
+    assert_not @property.valid?
+  end
+
+  test "state length should not be less than 2" do
+    @property.state = "A"
+    assert_not @property.valid?
+  end
+
+  test "state should be upcased before saved" do
+    @property.state = "al"
+    @property.save
+    assert_equal @property.state, "AL", "it didn't work"
+  end
+
+  test "city should be present" do
+    @property.city = " "
+    assert_not @property.valid?
+  end
+
+  test "zip should be present" do
+    @property.zip = " "
+    assert_not @property.valid?
+  end
+
+  test "rent should be present" do
+    @property.rent = nil
+    assert_not @property.valid?
+  end
+
+  test "rent should be a number" do
+    @property.rent = "foo"
+    assert_not @property.valid?
+  end
+
+  test "rent should be greater than zero" do
+    @property.rent = -5.25
+    assert_not @property.valid?
+  end
+
+  test "deposit should be present" do
+    @property.deposit = nil
+    assert_not @property.valid?
+  end
+
+  test "deposit should be a number" do
+    @property.deposit = "foo"
+    assert_not @property.valid?
+  end
+
+  test "deposit should be greater than zero" do
+    @property.deposit = -4.50
+    assert_not @property.valid?
+  end
 end
