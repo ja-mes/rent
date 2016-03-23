@@ -1,14 +1,15 @@
-<h3 class="page-header" style="border-bottom: 0; margin-bottom: 5px">
+<h2 class="page-header" style="border-bottom: 0; margin-bottom: 5px; display: inline">
   <%= @property.address %>
-</h3>
-<p><%= @property.city %>, <%= @property.state %> <%= @property.zip %></p>
+  <small><%= @property.city %>, <%= @property.state %> <%= @property.zip %></small>
+</h2>
+
 <hr>
 
 <ul class="nav nav-tabs header-tabs">
   <li class="<%= isActive 'properties', 'show' %>">
-    <%= link_to 'Details', @property %>
+    <%= link_to 'Transactions', @property %>
   </li>
   <li class="<%= isActive 'properties', ['edit', 'update'] %>">
-    <%= link_to 'Edit', edit_property_path(@property) %>
+    <%= link_to 'Details', edit_property_path(@property) %>
   </li>
 </ul>

@@ -1,11 +1,31 @@
-<%= render 'shared/errors', obj: obj %>
+<%= render 'shared/errors', obj: @property %>
 
-<%= form_for obj do |f| %>
+<%= form_for @property do |f| %>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :rent %>
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <%= f.number_field :rent, value: number_with_precision(f.object.rent, precision: 2), class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :deposit %>
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <%= f.number_field :deposit, value: number_with_precision(f.object.deposit, precision: 2), class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
   <div class="form-group">
     <%= f.label :address %>
     <%= f.text_field :address, class: "form-control" %>
   </div>
-
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group">

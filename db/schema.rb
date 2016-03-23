@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322003932) do
+ActiveRecord::Schema.define(version: 20160322231350) do
 
   create_table "properties", force: :cascade do |t|
-    t.string "address"
-    t.string "state"
-    t.string "city"
-    t.string "zip"
+    t.string  "address"
+    t.string  "state"
+    t.string  "city"
+    t.string  "zip"
+    t.decimal "rent"
+    t.decimal "deposit"
   end
 
   create_table "users", force: :cascade do |t|
