@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
-  resources :properties
+
+  resources :properties do
+    resources :customers
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

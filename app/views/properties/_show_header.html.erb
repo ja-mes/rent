@@ -12,4 +12,8 @@
   <li class="<%= isActive 'properties', ['edit', 'update'] %>">
     <%= link_to 'Details', edit_property_path(@property) %>
   </li>
+
+  <li class="<%= isActive 'customers', 'new' %>">
+    <%= link_to "Rent Property", new_customer_path %>
+  </li>
 </ul>

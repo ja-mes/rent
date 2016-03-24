@@ -20,6 +20,13 @@
             <% end %>
           </li>
 
+          <li class="<%= isActive 'customers' %>">
+            <%= link_to customers_path do %>
+              <span class="fa fa-users fa-lg"></span>
+              &nbsp;Customers
+            <% end %>
+          </li>
+          
           <li class="<%= isActive 'properties' %>">
             <%= link_to properties_path do %>
               <span class="fa fa-home fa-lg"></span>
@@ -35,7 +42,6 @@
         <%= render 'layouts/messages' %>
         <%= render 'layouts/navbar' %>
         <%= yield %>
-        <%= debug(params) %>
       </div>
     </div>
   </div>
