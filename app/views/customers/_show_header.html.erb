@@ -1,1 +1,11 @@
 <h2 class="page-header"><%= @customer.full_name %> <small>100 Foo St.</small></h2>
+
+<ul class="nav nav-tabs header-tabs">
+  <li class="<%= isActive 'customers', 'show' %>">
+    <%= link_to 'Transactions', @customer %>
+  </li>
+
+  <li class="<%= isActive 'customers', ['edit', 'update'] %>">
+    <%= link_to 'Customer Details', edit_customer_path(@customer) %>
+  </li>
+</ul>

@@ -26,6 +26,10 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
   end
 
+  def edit
+    @customer = Customer.find(params[:id])
+  end
+
   private
   def customer_params
     params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone)
