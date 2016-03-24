@@ -4,4 +4,8 @@
   <li class="<%= isActive 'customers', 'index' %>">
     <%= link_to 'All Customers', customers_path %>
   </li>
+
+  <li class="<%= isActive 'customers', ['new', 'create'] %>">
+    <%= link_to 'Add Customer', new_customer_path %>
+  </li>
 </ul>
