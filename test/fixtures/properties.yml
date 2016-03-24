@@ -1,0 +1,8 @@
+one:
+  address: "Foo"
+  city: "Blah"
+  state: "AL"
+  zip: "23423"
+  deposit: 300
+  rent: 500
+  user: one
