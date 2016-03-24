@@ -12,6 +12,10 @@ body {
   margin-bottom: 25px;
 }
 
+table.table-hover tbody tr {
+  cursor: pointer;
+}
+
 // flash
 .alert-error {
     background-color: #f2dede;
