@@ -1,8 +1,11 @@
-<h2 class="page-header"><%= @customer.full_name %> <small>100 Foo St.</small></h2>
+ <h3 class="page-header">
+   Joe Blah <br>
+   <small>100 Foo St.<br>Boaz, AL 35950</small>
+   </h3>
 
 <ul class="nav nav-tabs header-tabs">
   <li class="<%= isActive 'customers', 'show' %>">
-    <%= link_to 'Transactions', @customer %>
+    <%= link_to 'Transaction List', @customer %>
   </li>
 
   <li class="<%= isActive 'customers', ['edit', 'update'] %>">

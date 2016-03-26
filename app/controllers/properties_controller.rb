@@ -30,8 +30,7 @@ class PropertiesController < ApplicationController
 
   def update
     @property = Property.find(params[:id])
-    @stale_property = @property
-    if @property.update_attributes(property_params)
+    if @property.update(property_params)
       flash[:success] = "Property successfully updated"
       redirect_to edit_property_path
     else

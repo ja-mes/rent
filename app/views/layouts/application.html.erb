@@ -20,13 +20,13 @@
             <% end %>
           </li>
 
-          <li class="<%= isActive 'customers' %>">
+          <li class="<%= isActive 'customers', ['index', 'new', 'create'] %>">
             <%= link_to customers_path do %>
               <span class="fa fa-users fa-lg"></span>
               &nbsp;Customers
             <% end %>
           </li>
-          
+
           <li class="<%= isActive 'properties' %>">
             <%= link_to properties_path do %>
               <span class="fa fa-home fa-lg"></span>
