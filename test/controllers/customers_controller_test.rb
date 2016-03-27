@@ -26,7 +26,7 @@ class CustomersControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
-  test "create should successfully create customer" do
+  test "create should successfully create customer and set property to rented" do
     sign_in :user, users(:one)
 
     assert_difference 'Customer.count', 1 do
@@ -39,6 +39,7 @@ class CustomersControllerTest < ActionController::TestCase
       }
     end
 
+    assert properties(:one).rented, 'Property not successfully set to rented'
     assert_redirected_to customer_path assigns(:customer)
     assert_equal "Customer successfully created", flash[:success]
   end

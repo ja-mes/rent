@@ -15,6 +15,8 @@ class CustomersController < ApplicationController
     @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
     @customer.user = current_user
 
+    Property.find(customer_params[:property_id]).toggle!(:rented)
+
     if @customer.save
       flash[:success] = "Customer successfully created"
       redirect_to customer_path(@customer)
