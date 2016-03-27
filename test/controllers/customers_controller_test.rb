@@ -55,4 +55,30 @@ class CustomersControllerTest < ActionController::TestCase
     assert_template :show
     assert_not_nil assigns(:customer)
   end
+
+  test "should be able to edit customer" do
+    sign_in :user, users(:one)
+
+    get :edit, id: customers(:one)
+    assert_response :success
+    assert_template :edit
+    assert_not_nil assigns(:customer)
+  end
+
+  test "edit should redirect to signin if no current user" do
+    sign_in :user, users(:one)
+
+    put :update, id: customers(:one), customer: {
+      first_name: "Foo",
+      last_name: "Blah",
+      middle_name: "Bar",
+      phone: "1234",
+    }
+
+    assert_equal "Foo", assigns(:customer).first_name
+    assert_equal "Blah", assigns(:customer).last_name
+    assert_equal "Bar", assigns(:customer).middle_name
+    assert_equal "1234", assigns(:customer).phone
+  end
+
 end
