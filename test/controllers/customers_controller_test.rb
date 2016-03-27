@@ -35,6 +35,7 @@ class CustomersControllerTest < ActionController::TestCase
         middle_name: "Foo",
         last_name: "Blah",
         phone: "123567",
+        property_id: properties(:one).id
       }
     end
 

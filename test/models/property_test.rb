@@ -2,12 +2,21 @@ require 'test_helper'
 
 class PropertyTest < ActiveSupport::TestCase
   def setup
-    @obj = { address: "100 Foo St.", state: "AL", city: "Boaz", zip: "35956", rent: 500, deposit: 300 }
+    @obj = { address: "100 Foo St.", state: "AL", city: "Boaz", zip: "35956", rent: 500, deposit: 300, customer: customers(:one) }
     @property = Property.new(@obj)
     @property.user = users(:one)
   end
 
   test "property should be valid" do
+    assert @property.valid?
+  end
+
+  test "property should have a customer" do
+    assert_not_nil @property.customer
+  end
+
+  test "property should still be valid without a customer" do
+    @property.customer = nil
     assert @property.valid?
   end
 

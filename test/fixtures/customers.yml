@@ -4,4 +4,5 @@ one:
   middle_name: "Test"
   phone: "(123)456-7891"
   full_name: "Foo Test Blah"
+  property: one
   user: one

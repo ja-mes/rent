@@ -1,9 +1,17 @@
 one:
-  id: 1
   address: "Foo"
   city: "Blah"
   state: "AL"
   zip: "23423"
   deposit: 300
   rent: 500
+  user: one
+
+two:
+  address: "Bar"
+  city: "Qux"
+  state: "CA"
+  zip: "123434"
+  deposit: 100
+  rent: 200
   user: one
