@@ -1,11 +1,28 @@
 <%= render 'header' %>
 
-<% @properties.each do |property| %>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <h4><%= link_to property.address, property_path(property) %></h4>
-      <p><%= property.city %>, <%= property.state %> <%= property.zip %></p>
-      <strong>$500.00 / Month</strong>
-    </div>
-  </div>
-<% end %>
+<table class="table table-hover row-links">
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Rent Amount</th>
+      <th>Deposit Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @properties.each do |property| %>
+      <tr data-link="<%= property_path property %>">
+        <td>
+          <%= property.address %>
+        </td>
+        <td>
+          $500
+        </td>
+        <td>
+          $300
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

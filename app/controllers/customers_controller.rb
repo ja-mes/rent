@@ -36,7 +36,7 @@ class CustomersController < ApplicationController
     @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
 
     if @customer.save
-      flash[:success] = "Customer successfully update"
+      flash[:success] = "Customer successfully updated"
       redirect_to edit_customer_path
     else
       render 'edit'
