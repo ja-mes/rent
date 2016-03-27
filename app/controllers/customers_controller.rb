@@ -7,7 +7,12 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new
-    @properties = Property.all
+    @properties = Property.where rented: false
+
+    if @properties.empty?
+      flash[:danger] = "No properties avaiable to rent"
+      redirect_to customers_path
+    end
   end
 
   def create
@@ -31,6 +36,7 @@ class CustomersController < ApplicationController
 
   def edit
     @customer = Customer.find(params[:id])
+    @properties = Property.where rented: false
   end
 
   def update
