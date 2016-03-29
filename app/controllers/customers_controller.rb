@@ -7,7 +7,7 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new
-    @properties = Property.where rented: false
+    @properties = current_user.properties.where customer: nil
 
     if @properties.empty?
       flash[:danger] = "No properties avaiable to rent"
@@ -19,8 +19,6 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
     @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
     @customer.user = current_user
-
-    Property.find(customer_params[:property_id]).toggle!(:rented)
 
     if @customer.save
       flash[:success] = "Customer successfully created"
@@ -36,7 +34,7 @@ class CustomersController < ApplicationController
 
   def edit
     @customer = Customer.find(params[:id])
-    @properties = Property.where rented: false
+    @properties = current_user.properties.where customer: nil
   end
 
   def update

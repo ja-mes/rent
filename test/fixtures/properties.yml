@@ -5,7 +5,6 @@ one:
   zip: "23423"
   deposit: 300
   rent: 500
-  rented: true
   user: one
 
 two:
@@ -15,5 +14,4 @@ two:
   zip: "123434"
   deposit: 100
   rent: 200
-  rented: false
   user: one

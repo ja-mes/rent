@@ -23,7 +23,9 @@
           $300
         </td>
 
-        <td><%= property.customer.full_name %></td>
+        <% if property.customer %>
+          <td><%= property.customer.full_name %></td>
+        <% end %>
 
       </tr>
     <% end %>
