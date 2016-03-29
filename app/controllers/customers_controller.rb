@@ -9,8 +9,6 @@ class CustomersController < ApplicationController
     @customer = Customer.new
     @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
 
-    debugger
-
     if @properties.empty?
       flash[:danger] = "No properties avaiable to rent"
       redirect_to customers_path
@@ -40,6 +38,8 @@ class CustomersController < ApplicationController
   end
 
   def update
+    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
+    
     @customer = Customer.find(params[:id])
     @customer.assign_attributes(customer_params)
     @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
