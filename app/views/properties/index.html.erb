@@ -6,7 +6,7 @@
       <th>Address</th>
       <th>Rent Amount</th>
       <th>Deposit Amount</th>
-      <th>Customer</th>
+      <th>Status</th>
     </tr>
   </thead>
 
@@ -23,9 +23,13 @@
           $300
         </td>
 
-        <% if property.customer %>
-          <td><%= property.customer.full_name %></td>
-        <% end %>
+        <td>
+          <% if property.customer %>
+            <span class="label label-primary">Rented</span>
+          <% else %>
+            <span class="label label-success">Vacant</span>
+          <% end %>
+        </td>
 
       </tr>
     <% end %>

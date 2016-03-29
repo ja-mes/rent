@@ -7,7 +7,9 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new
-    @properties = current_user.properties.where customer: nil
+    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
+
+    debugger
 
     if @properties.empty?
       flash[:danger] = "No properties avaiable to rent"
@@ -34,7 +36,7 @@ class CustomersController < ApplicationController
 
   def edit
     @customer = Customer.find(params[:id])
-    @properties = current_user.properties.where customer: nil
+    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
   end
 
   def update

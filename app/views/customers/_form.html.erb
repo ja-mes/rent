@@ -6,7 +6,7 @@
       <% if @customer.new_record? %>
         <%= f.collection_select :property_id, @properties, :id, :address, {}, class: "form-control" %>
       <% else %>
-        <%= f.select :property_id do %>
+        <%= f.select :property_id, nil, {}, class: "form-control" do %>
           <%= content_tag(:option, @customer.property.address, value: @customer.property_id) %>
           <%= options_from_collection_for_select @properties, :id, :address %>
         <% end %>
