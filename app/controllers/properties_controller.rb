@@ -1,5 +1,8 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_property, only: [:show, :edit, :update]
+  before_action :require_same_user, only: [:show, :edit, :update]
+
   def index
     @properties = current_user.properties
   end
@@ -21,15 +24,12 @@ class PropertiesController < ApplicationController
   end
 
   def show
-    @property = Property.find(params[:id])
   end
 
   def edit
-    @property = Property.find(params[:id])
   end
 
   def update
-    @property = Property.find(params[:id])
     if @property.update(property_params)
       flash[:success] = "Property successfully updated"
       redirect_to edit_property_path
@@ -41,5 +41,16 @@ class PropertiesController < ApplicationController
   private
   def property_params
     params.require(:property).permit(:address, :city, :state, :zip, :deposit, :rent)
+  end
+
+  def set_property
+    @property = Property.find(params[:id])
+  end
+
+  def require_same_user
+    if current_user != @property.user
+      flash[:danger] = "You are not authorized to do that"
+      redirect_to root_path
+    end
   end
 end

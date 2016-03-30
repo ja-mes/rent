@@ -1,5 +1,7 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_customer, only: [:show, :edit, :update]
+  before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
     @customers = current_user.customers
@@ -30,18 +32,15 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @customer = Customer.find(params[:id])
   end
 
   def edit
-    @customer = Customer.find(params[:id])
     @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
   end
 
   def update
     @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
 
-    @customer = Customer.find(params[:id])
     @customer.assign_attributes(customer_params)
     @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
 
@@ -56,5 +55,16 @@ class CustomersController < ApplicationController
   private
   def customer_params
     params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone, :property_id)
+  end
+
+  def set_customer
+    @customer = Customer.find(params[:id])
+  end
+
+  def require_same_user
+    if current_user != @customer.user
+      flash[:danger] = "You are not authorized to do that"
+      redirect_to root_path
+    end
   end
 end
