@@ -19,6 +19,7 @@ class PropertiesControllerTest < ActionController::TestCase
   test "test new" do
     sign_in :user, users(:one)
     get :new
+    assert_template :new
     assert_response :success
     assert_not_nil assigns(:property)
   end
@@ -46,6 +47,24 @@ class PropertiesControllerTest < ActionController::TestCase
     assert_equal 'Property successfully saved', flash[:success]
   end
 
+  test "create should not save property if form is filled out incorrectly" do
+    sign_in :user, users(:one)
+
+    assert_difference 'Property.count', 0 do
+      post :create, property: {
+        address: "",
+        city: "",
+        state: "",
+        zip: "",
+        deposit: nil,
+        rent: nil,
+      }
+    end
+
+    assert_template :new
+    assert_select '.form-errors'
+  end
+
   test "create should redirect to signin if no current user" do
     post :create
     assert_redirected_to new_user_session_path
@@ -60,6 +79,14 @@ class PropertiesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:property)
   end
 
+  test "should only show property if it belongs to current user" do
+    sign_in :user, users(:two)
+
+    get :show, id: properties(:one)
+    assert_redirected_to root_path
+    assert_equal "You are not authorized to do that", flash[:danger]
+  end
+
   test "show should redirect to signin if no current user" do
     get :show, id: properties(:one)
     assert_redirected_to new_user_session_path
@@ -72,6 +99,14 @@ class PropertiesControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :edit
     assert_not_nil assigns(:property)
+  end
+
+  test "should only allow editing if property belongs to current user" do
+    sign_in :user, users(:two)
+
+    get :edit, id: properties(:one)
+    assert_redirected_to root_path
+    assert_equal "You are not authorized to do that", flash[:danger]
   end
 
   test "edit should redirect to signin if no current user" do
@@ -99,6 +134,30 @@ class PropertiesControllerTest < ActionController::TestCase
     assert_equal 200, assigns(:property).rent
 
     assert_equal 'Property successfully updated', flash[:success]
+  end
+
+  test "should not be able to update property if form is filled out incorrectly" do
+    sign_in :user, users(:one)
+
+    put :update, id: properties(:one), property: {
+      address: "",
+      city: "",
+      state: "",
+      zip: "",
+      deposit: nil,
+      rent: nil
+    }
+
+    assert_template :edit
+    assert_select '.form-errors' # error messages should appear
+  end
+
+  test "should only allow updating property if it belongs to current user" do
+    sign_in :user, users(:two)
+
+    get :update, id: properties(:one)
+    assert_redirected_to root_path
+    assert_equal "You are not authorized to do that", flash[:danger]
   end
 
   test "should not be able to update property if not logged in" do
