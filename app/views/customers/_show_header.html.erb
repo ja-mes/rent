@@ -14,14 +14,8 @@
     <p><small>Phone</small> 123456</p>
     <p><small>Payment</small> $500.25</p>
   </div>
-
-  <div class="col-md-5 text-right">
-    <%= link_to "Receive Payment", new_customer_payment_path(@customer), class: "btn btn-success" %>
-    <!-- <button class="btn btn-success">Receive Payment</button> -->
-  </div>
-
 </div>
-  <hr>
+<hr>
 
 <ul class="nav nav-tabs header-tabs">
   <li class="<%= isActive 'customers', 'show' %>">
@@ -31,7 +25,7 @@
   <li class="<%= isActive 'payments', ['new', 'create'] %>">
     <%= link_to "Receive Payment", new_customer_payment_path(@customer) %>
   </li>
-  
+
   <li class="<%= isActive 'customers', ['edit', 'update'] %>">
     <%= link_to 'Edit Customer', edit_customer_path(@customer) %>
   </li>

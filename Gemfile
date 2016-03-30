@@ -7,6 +7,7 @@ gem 'rails'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass', '~> 4.5.0'
+gem 'bootstrap-datepicker-rails'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

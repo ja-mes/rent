@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
 
   resources :properties
-  
+
   resources :customers do
     resources :payments
   end
