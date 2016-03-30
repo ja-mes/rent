@@ -17,6 +17,7 @@ class CustomersController < ApplicationController
 
   def create
     @customer = Customer.new(customer_params)
+    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
     @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
     @customer.user = current_user
 
@@ -39,7 +40,7 @@ class CustomersController < ApplicationController
 
   def update
     @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
-    
+
     @customer = Customer.find(params[:id])
     @customer.assign_attributes(customer_params)
     @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"

@@ -27,7 +27,7 @@
             <% end %>
           </li>
 
-          <li class="<%= isActive 'properties' %>">
+          <li class="<%= isActive 'properties', ['index', 'new', 'create'] %>">
             <%= link_to properties_path do %>
               <span class="fa fa-home fa-lg"></span>
               &nbsp;Properties
