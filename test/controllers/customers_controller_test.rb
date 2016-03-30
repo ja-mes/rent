@@ -160,7 +160,7 @@ class CustomersControllerTest < ActionController::TestCase
   test "users should only be allowed to update their own customers" do
     sign_in :user, users(:two)
     post :update, id: customers(:one)
-    
+
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end

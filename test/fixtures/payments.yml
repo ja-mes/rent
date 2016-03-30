@@ -1,0 +1,6 @@
+one:
+  amount: 500.25
+  date: 2016-03-30
+  memo: "this is the memo"
+  user: one
+  customer: one

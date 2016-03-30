@@ -16,7 +16,8 @@
   </div>
 
   <div class="col-md-5 text-right">
-    <button class="btn btn-success">Receive Payment</button>
+    <%= link_to "Receive Payment", new_customer_payment_path(@customer), class: "btn btn-success" %>
+    <!-- <button class="btn btn-success">Receive Payment</button> -->
   </div>
 
 </div>
@@ -27,6 +28,10 @@
     <%= link_to 'Transaction List', @customer %>
   </li>
 
+  <li class="<%= isActive 'payments', ['new', 'create'] %>">
+    <%= link_to "Receive Payment", new_customer_payment_path(@customer) %>
+  </li>
+  
   <li class="<%= isActive 'customers', ['edit', 'update'] %>">
     <%= link_to 'Edit Customer', edit_customer_path(@customer) %>
   </li>
