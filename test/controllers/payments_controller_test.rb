@@ -45,12 +45,12 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_difference 'Payment.count', 0 do
       post :create, customer_id: users(:one), payment: {
         amount: nil,
-        # date: nil,
+        date: nil,
         memo: " ",
       }
     end
 
     assert_template :new
-    # assert_select 'form-errors'
+    assert_select 'form-errors'
   end
 end

@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
     @payment.customer = @customer
     @payment.user = current_user
 
-    setup_date(@payment)
+    return unless setup_date(@payment)
 
     if @payment.save
       flash[:success] = "Payment successfully created"
@@ -24,6 +24,11 @@ class PaymentsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def edit
+    @payment = Payment.find(params[:id])
+    @today = @payment.date.strftime("%m/%d/%Y")
   end
 
   private
