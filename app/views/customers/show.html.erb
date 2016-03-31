@@ -6,6 +6,25 @@
   </div>
 
   <div class="panel-body">
-    transactions go here
+    <table class="table table-hover row-links">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @transactions.each do |trns| %>
+          <tr data-link="<%= edit_customer_payment_path @customer, trns %>">
+            <td>Payment</td>
+            <td><%= number_with_precision(trns.amount, precision: 2) %></td>
+            <td><%= date_value(trns) %>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
   </div>
 </div>

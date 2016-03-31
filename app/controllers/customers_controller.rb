@@ -32,6 +32,7 @@ class CustomersController < ApplicationController
   end
 
   def show
+    @transactions = Payment.where(user: current_user)
   end
 
   def edit
