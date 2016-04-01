@@ -1,9 +1,16 @@
+<h1 class="display-4 margin-40">Payment</h1>
+
 <%= render 'shared/errors', obj: @payment %>
 
 <%= form_for [@customer, @payment] do |f| %>
   <div class="form-group">
+    <%= f.label :customer %>
+    <%= f.collection_select :customer_id, Customer.where(user: current_user), :id, :full_name, { selected: @customer.id }, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :date %>
-    <%= f.text_field :date, value: date_value(@payment), class: "form-control pickdate" %>
+    <%= f.text_field :date, value: date_value(@payment), class: "form-control pickdate-top" %>
   </div>
 
   <div class="form-group">
@@ -20,6 +27,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit class: "btn btn-primary" %>
+    <%= f.submit class: "btn btn-success" %>
+    <% unless @payment.new_record? %>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
   </div>
 <% end %>

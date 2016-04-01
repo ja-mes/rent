@@ -31,6 +31,10 @@ class PaymentsController < ApplicationController
     @today = @payment.date.strftime("%m/%d/%Y")
   end
 
+  def show
+    redirect_to edit_customer_payment_path(@customer, params[:id])
+  end
+
   private
   def set_customer
     @customer = Customer.find(params[:customer_id])

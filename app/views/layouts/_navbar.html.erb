@@ -1,33 +1,38 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to "Brand", root_path, class: "navbar-brand" %>
-    </div>
+    <%= link_to "Rentals", root_path, class: "navbar-brand" %>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <% if user_signed_in? %>
       <ul class="nav navbar-nav">
-        <% if current_user %>
-          <li></li>
-        <% end %>
-      </ul>
+        <li class="nav-item">
+          <%= link_to 'Summary', root_path, class: "nav-link #{isActive 'pages', 'dashboard'}" %>
+        </li>
 
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li><%= link_to current_user.email, edit_user_registration_path %>
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-        <% else %>
-          <li><%= link_to "Sign Up", new_user_registration_path %></li>
-          <li><%= link_to "Login", new_user_session_path %></li>
-        <% end %>
+        <li class="nav-item">
+          <%= link_to 'Customers', customers_path, class: "nav-link #{isActive 'customers'}" %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to 'Properties', properties_path, class: "nav-link #{isActive 'properties'}" %>
+        </li>
+
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    <% end %>
+
+    <ul class="nav navbar-nav pull-right">
+      <% if user_signed_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span> Settings</a>
+
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Preview">
+            <%= link_to "My Account", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      <% else %>
+        <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
+      <% end %>
+    </ul>
+  </div>
 </nav>

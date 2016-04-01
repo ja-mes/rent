@@ -1,11 +1,11 @@
 <%= render 'header' %>
 
 <table class="table table-hover row-links">
-  <thead>
+  <thead class="thead-default">
     <tr>
       <th>Address</th>
-      <th>Rent Amount</th>
-      <th>Deposit Amount</th>
+      <th>Rent</th>
+      <th>Deposit</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -14,7 +14,7 @@
     <% @properties.each do |property| %>
       <tr data-link="<%= property_path property %>">
         <td>
-          <%= property.address %>
+          <%= property.address %>, <%= property.city %> <%= property.state %> <%= property.zip %>
         </td>
         <td>
           $500

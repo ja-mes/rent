@@ -1,32 +1,32 @@
 <div class="row">
-  <div class="col-md-3">
-    <h3 class="page-header" style="border-bottom: 0; margin-bottom: 5px"><%= @customer.full_name %></h3>
-    <p  style="font-size: 16px; margin-bottom: 25px;"><%= @customer.property.address %> <br> <%= @customer.property.city %> <%= @customer.property.state %> <%= @customer.property.zip %></p>
-    <h4 style="color: green"><span class="fa fa-check"></span> $0.00</h4>
+  <div class="col-md-7">
+    <h3 style="margin-right: 30px; display: inline"><%= @customer.full_name %></h3>
+    <h4 style="color: green; display: inline"><span class="fa fa-check"></span> $0.00</h4>
+    <p  style="margin-bottom: 40px; margin-top: 15px;"><%= @customer.property.address %> <br> <%= @customer.property.city %> <%= @customer.property.state %> <%= @customer.property.zip %></p>
   </div>
 
-  <div class="col-md-2 display-data" style="font-size: 15px">
-    <p><small>Phone</small> <%= @customer.phone %></p>
-    <p><small>Payment</small> $500.25</p>
-  </div>
 
-  <div class="col-md-2 display-data" style="font-size: 15px">
-    <p><small>Phone</small> 123456</p>
-    <p><small>Payment</small> $500.25</p>
+  <div class="col-md-5" style="text-align: right">
+    <%= link_to 'Receive Payment', new_customer_payment_path(@customer), class: 'btn btn-success' %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Transactions
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Invoice</a>
+        <a class="dropdown-item" href="#">Credit</a>
+      </div>
+    </div>
   </div>
 </div>
-<hr>
+
 
 <ul class="nav nav-tabs header-tabs">
-  <li class="<%= isActive 'customers', 'show' %>">
-    <%= link_to 'Transaction List', @customer %>
+  <li class="nav-item">
+    <%= link_to 'Transaction List', @customer, class: "nav-link #{isActive 'customers', 'show'}" %>
   </li>
 
-  <li class="<%= isActive 'payments', ['new', 'create'] %>">
-    <%= link_to "Receive Payment", new_customer_payment_path(@customer) %>
-  </li>
-
-  <li class="<%= isActive 'customers', ['edit', 'update'] %>">
-    <%= link_to 'Edit Customer', edit_customer_path(@customer) %>
+  <li class="nav-item">
+    <%= link_to 'Edit Customer', edit_customer_path(@customer), class: "#{isActive 'customers', ['edit', 'update']} nav-link"%>
   </li>
 </ul>
