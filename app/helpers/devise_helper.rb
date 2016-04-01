@@ -8,19 +8,17 @@ module DeviseHelper
                       resource: resource.class.model_name.human.downcase)
 
     html = <<-HTML
-      <div class="row">
+      <div class="row form-errors" style="margin-bottom: 10px;">
         <div class="col-xs-8 ">
-          <div class="panel panel-danger">
-            <div class="panel-heading">
-              <h2 class="panel-title">
+          <div class="card card-inverse card-danger">
+            <div class="card-block">
+              <h5 class="card-title">
                 #{sentence}
-              </h2>
+              </h5>
 
-              <div class="panel-body">
-                <ul>
-                  #{messages}
-                </ul>
-              </div>
+              <ul class="card-text">
+                #{messages}
+              </ul>
             </div>
           </div>
         </div>

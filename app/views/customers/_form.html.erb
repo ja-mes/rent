@@ -1,41 +1,51 @@
 <%= render 'shared/errors', obj: @customer %>
 
 <%= form_for @customer do |f| %>
-    <div class="form-group">
-      <%= f.label :property %>
-      <% if @customer.new_record? %>
-        <%= f.collection_select :property_id, @properties, :id, :address, {}, class: "form-control" %>
-      <% else %>
-        <%= f.select :property_id, nil, {}, class: "form-control" do %>
-          <%= content_tag(:option, @customer.property.address, value: @customer.property_id) %>
-          <%= options_from_collection_for_select @properties, :id, :address %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :property %>
+        <% if @customer.new_record? %>
+          <%= f.collection_select :property_id, @properties, :id, :address, {}, class: "form-control" %>
+        <% else %>
+          <%= f.select :property_id, nil, {}, class: "form-control" do %>
+            <%= content_tag(:option, @customer.property.address, value: @customer.property_id) %>
+            <%= options_from_collection_for_select @properties, :id, :address %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :middle_name %>
+        <%= f.text_field :middle_name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
     </div>
 
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :phone %>
+        <%= f.telephone_field :phone, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, class: "form-control" %>
+      <div class="form-group">
+        <label>Alt. Phone</label>
+        <input type="text" class="form-control" />
+      </div>
+    </div>
+
   </div>
-
-  <div class="form-group">
-    <%= f.label :middle_name %>
-    <%= f.text_field :middle_name, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :phone %>
-    <%= f.telephone_field :phone, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit class: 'btn btn-primary' %>
-  </div>
-
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
 <% end %>
