@@ -4,7 +4,7 @@
 
 <%= form_for [@customer, @payment] do |f| %>
 
-  <div class="form-group margin-30">
+  <div class="form-group margin-25">
     <%= f.date_select :date, order: [:month, :day, :year] %>
   </div>
 
@@ -29,7 +29,7 @@
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>
     <% unless @payment.new_record? %>
-      <button class="btn btn-danger">Delete</button>
+      <%= link_to 'Delete', customer_payment_path(@customer, @payment), method: :delete, class: "btn btn-danger" %>
     <% end %>
   </div>
 <% end %>
