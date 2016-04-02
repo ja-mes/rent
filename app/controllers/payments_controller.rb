@@ -16,8 +16,6 @@ class PaymentsController < ApplicationController
     @payment.customer = @customer
     @payment.user = current_user
 
-    return unless setup_date(@payment)
-
     if @payment.save
       flash[:success] = "Payment successfully created"
       redirect_to new_customer_payment_path(@customer)
@@ -28,12 +26,23 @@ class PaymentsController < ApplicationController
 
   def edit
     @payment = Payment.find(params[:id])
-    @today = @payment.date.strftime("%m/%d/%Y")
+  end
+
+  def update
+    @payment = Payment.find(params[:id])
+
+    if @payment.update(payment_params)
+      flash[:success] = 'Payment successfully updated'
+      redirect_to edit_customer_payment_path
+    else
+      render 'edit'
+    end
   end
 
   def show
     redirect_to edit_customer_payment_path(@customer, params[:id])
   end
+
 
   private
   def set_customer

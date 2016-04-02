@@ -10,12 +10,4 @@ module ApplicationHelper
       'active'
     end
   end
-
-  def date_value(obj)
-    if obj.new_record?
-      Time.now.strftime("%m/%d/%Y")
-    else
-      obj.date.strftime("%m/%d/%Y")
-    end
-  end
 end

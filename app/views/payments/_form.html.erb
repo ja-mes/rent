@@ -3,14 +3,14 @@
 <%= render 'shared/errors', obj: @payment %>
 
 <%= form_for [@customer, @payment] do |f| %>
-  <div class="form-group">
-    <%= f.label :customer %>
-    <%= f.collection_select :customer_id, Customer.where(user: current_user), :id, :full_name, { selected: @customer.id }, class: "form-control" %>
+
+  <div class="form-group margin-30">
+    <%= f.date_select :date, order: [:month, :day, :year] %>
   </div>
 
   <div class="form-group">
-    <%= f.label :date %>
-    <%= f.text_field :date, value: date_value(@payment), class: "form-control pickdate-top" %>
+    <%= f.label :customer %>
+    <%= f.collection_select :customer_id, Customer.where(user: current_user), :id, :full_name, { selected: @customer.id }, class: "form-control" %>
   </div>
 
   <div class="form-group">
@@ -32,4 +32,9 @@
       <button class="btn btn-danger">Delete</button>
     <% end %>
   </div>
+<% end %>
+
+<%= link_to customer_path(@customer) do %>
+  <i class="fa fa-arrow-left"></i>
+  &nbsp;Back
 <% end %>
