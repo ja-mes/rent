@@ -14,7 +14,7 @@
       <tr data-link="<%= edit_customer_payment_path @customer, trns %>">
         <td>Payment</td>
         <td><%= number_with_precision(trns.amount, precision: 2) %></td>
-        <td><%= trns.date.strftime("%m/%d%Y") %>
+        <td><%= trns.date.strftime("%m/%d/%Y") %>
       </tr>
     <% end %>
 

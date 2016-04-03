@@ -6,7 +6,7 @@
       <div class="form-group">
         <%= f.label :property %>
         <% if @customer.new_record? %>
-          <%= f.collection_select :property_id, @properties, :id, :address, {}, class: "form-control form-control-lg" %>
+          <%= f.collection_select :property_id, @properties, :id, :address, {}, class: "form-control" %>
         <% else %>
           <%= f.select :property_id, nil, {}, class: "form-control" do %>
             <%= content_tag(:option, @customer.property.address, value: @customer.property_id) %>
