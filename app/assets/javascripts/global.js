@@ -4,16 +4,4 @@ $(document).on('turbolinks:load', function() {
   $('table.row-links').on('click', 'tbody tr', function(event) {
     Turbolinks.visit($(this).data('link'))
   });
-
-  // Init date pickers
-  $('input.pickdate').datepicker({
-    autoclose: true,
-    todayHighlight: true
-  });
-
-  $('input.pickdate-top').datepicker({
-    autoclose: true,
-    todayHighlight: true,
-    orientation: "bottom auto"
-  });
 });
