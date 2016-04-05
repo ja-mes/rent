@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :properties
   has_many :customers
   has_many :payments
+  has_many :invoices
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

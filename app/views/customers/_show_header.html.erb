@@ -12,7 +12,7 @@
         Transactions
       </button>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Invoice</a>
+        <%= link_to "Invoice", new_customer_invoice_path(@customer), class: "dropdown-item" %>
         <a class="dropdown-item" href="#">Credit</a>
       </div>
     </div>

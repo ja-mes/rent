@@ -2,7 +2,8 @@ class Customer < ActiveRecord::Base
   belongs_to :user
   belongs_to :property
   has_many :payments
-  
+  has_many :invoices
+
   validates :user_id, presence: true
   validates :property_id, presence: true
   validates :first_name, presence: true

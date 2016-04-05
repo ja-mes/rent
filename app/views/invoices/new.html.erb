@@ -1,8 +1,8 @@
-<h1 class="display-4 margin-40">Payment</h1>
-<%= render 'shared/errors', obj: @payment %>
+<h1 class="display-4 margin-40">Invoice</h1>
 
-<%= form_for [@customer, @payment] do |f| %>
+<%= render 'shared/errors', obj: @invoice %>
 
+<%= form_for [@customer, @invoice] do |f| %>
   <div class="form-group margin-25">
     <%= f.date_select :date, order: [:month, :day, :year] %>
   </div>
@@ -27,8 +27,8 @@
 
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>
-    <% unless @payment.new_record? %>
-      <%= link_to 'Delete', customer_payment_path(@customer, @payment), method: :delete, class: "btn btn-danger" %>
+    <% unless @invoice.new_record? %>
+      <%= link_to 'Delete', customer_invoice_path(@customer, @invoice), method: :delete, class: "btn btn-danger" %>
     <% end %>
   </div>
 <% end %>

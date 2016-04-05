@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :customers do
     resources :payments
+    resources :invoices
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

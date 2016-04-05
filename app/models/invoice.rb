@@ -1,4 +1,4 @@
-class Payment < ActiveRecord::Base
+class Invoice < ActiveRecord::Base
   belongs_to :user
   belongs_to :customer
 
@@ -6,6 +6,4 @@ class Payment < ActiveRecord::Base
   validates :customer_id, presence: true
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
-
-  self.per_page = 2
 end

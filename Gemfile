@@ -7,6 +7,7 @@ gem 'rails'
 gem 'devise'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'font-awesome-sass', '~> 4.5.0'
+gem 'will_paginate', '~> 3.0.6'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
