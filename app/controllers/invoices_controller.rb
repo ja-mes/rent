@@ -15,6 +15,7 @@ class InvoicesController < ApplicationController
     @invoice.user = current_user
 
     if @invoice.save
+      Transaction.create(transactionable: @invoice, user: current_user, customer: @customer, date: @invoice.date)
       flash[:success] = "Invoice successfully saved"
       redirect_to @customer
     else

@@ -19,6 +19,7 @@ class PaymentsController < ApplicationController
     @payment.user = current_user
 
     if @payment.save
+      Transaction.create(transactionable: @payment, user: current_user, customer: @customer, date: @payment.date)
       flash[:success] = "Payment successfully created"
       redirect_to new_customer_payment_path(@customer)
     else

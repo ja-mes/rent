@@ -32,9 +32,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-    payments = Payment.where(user: current_user, customer: @customer)
-    invoices = Invoice.where(user: current_user, customer: @customer)
-    @transactions = payments + invoices
+    @transactions = Transaction.where(user: current_user, customer: @customer).paginate(page: params[:page], per_page: 2).order(date: :desc)
   end
 
   def edit

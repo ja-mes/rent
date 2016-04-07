@@ -10,6 +10,20 @@
   </thead>
 
   <tbody>
-    <%= render @transactions %>
+    <% @transactions.each do |trns| %>
+      <tr data-link="
+        <% if trns.transactionable_type == "Invoice" %>
+          <%= edit_customer_invoice_path @customer, trns.transactionable %>
+        <% else %>
+          <%= edit_customer_payment_path @customer, trns.transactionable %>
+        <% end %>
+      ">
+      <td><%= trns.transactionable_type %></td>
+      <td><%= number_with_precision(trns.transactionable.amount, precision: 2) %></td>
+      <td><%= trns.transactionable.date.strftime("%m/%d/%Y") %></td>
+    </tr>
+    <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @transactions %>
