@@ -16,7 +16,7 @@
     <%= f.label :amount %>
     <div class="input-group">
       <div class="input-group-addon">$</div>
-      <%= f.number_field :amount, value: number_with_precision(f.object.amount, precision: 2), class: "form-control" %>
+      <%= f.number_field :amount, value: number_with_precision(f.object.amount, precision: 2), step: 0.01, class: "form-control" %>
     </div>
   </div>
 
