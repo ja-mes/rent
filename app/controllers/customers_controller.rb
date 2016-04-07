@@ -32,7 +32,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @transactions = Transaction.where(user: current_user, customer: @customer).paginate(page: params[:page], per_page: 2).order(date: :desc)
+    @transactions = Transaction.where(user: current_user, customer: @customer).paginate(page: params[:page]).order(date: :desc)
   end
 
   def edit

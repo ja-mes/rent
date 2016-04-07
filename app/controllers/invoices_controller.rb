@@ -23,6 +23,31 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def edit
+    @invoice = Invoice.find(params[:id])
+  end
+
+  def update
+    @invoice = Invoice.find(params[:id])
+    if @invoice.update(invoice_params)
+      flash[:success] = "Invoice successfully updated"
+      redirect_to edit_customer_invoice_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @invoice = Invoice.find(params[:id])
+    @invoice.destroy
+    flash[:danger] = "Invoice successfully deleted"
+    redirect_to @customer
+  end
+
+  def show
+    redirect_to edit_customer_invoice_path(@customer, params[:id])
+  end
+
   private
   def invoice_params
     params.require(:invoice).permit(:amount, :date, :memo)
