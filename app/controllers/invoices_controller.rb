@@ -1,5 +1,9 @@
 class InvoicesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_customer
+  before_action :require_same_user
+  before_action :set_invoice, only: [:edit, :update, :destroy]
+  before_action :require_same_invoice_user, only: [:edit, :update, :destroy]
 
   def index
     redirect_to @customer
@@ -55,5 +59,23 @@ class InvoicesController < ApplicationController
 
   def set_customer
     @customer = Customer.find(params[:customer_id])
+  end
+
+  def set_invoice
+    @invoice = Invoice.find(params[:id])
+  end
+
+  def require_same_user
+    if current_user != @customer.user
+      flash[:danger] = "You are not authorized to do that"
+      redirect_to root_path
+    end
+  end
+
+  def require_same_invoice_user
+    if current_user != @invoice.user
+      flash[:danger] = "You are not authorized to do that"
+      redirect_to root_path
+    end
   end
 end

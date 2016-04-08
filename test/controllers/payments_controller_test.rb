@@ -13,7 +13,7 @@ class PaymentsControllerTest < ActionController::TestCase
 
   test "should only allow new if customer belongs to user" do
     sign_in :user, users(:user_without_properties)
-    get :new, customer_id: users(:one)
+    get :new, customer_id: customers(:one)
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end

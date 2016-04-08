@@ -15,3 +15,12 @@ two:
   deposit: 100
   rent: 200
   user: one
+
+three:
+  address: "Quz"
+  city: "Blah"
+  state: "AZ"
+  zip: "234234"
+  deposit: 500
+  rent: 1000
+  user: two
