@@ -4,3 +4,10 @@ one:
   memo: "this is the memo"
   user: one
   customer: one
+
+two:
+  amount: 200
+  date: 2016-05-06
+  memo: "this is the amazing memo"
+  user: two
+  customer: two

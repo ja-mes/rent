@@ -31,6 +31,10 @@ class PaymentsController < ApplicationController
   end
 
   def update
+    # @trasaction = @payment.transactions
+
+    debugger
+
     if @payment.update(payment_params)
       flash[:success] = 'Payment successfully updated'
       redirect_to edit_customer_payment_path

@@ -1,6 +1,12 @@
 class PaymentsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
+  test "index should redirect to customer" do
+    sign_in :user, users(:one)
+    get :index, customer_id: customers(:one)
+    assert_redirected_to customers(:one)
+  end
+
   test "get new" do
     sign_in :user, users(:one)
     get :new, customer_id: customers(:one)
@@ -26,7 +32,7 @@ class PaymentsControllerTest < ActionController::TestCase
   test "create should create payment" do
     sign_in :user, users(:one)
 
-    assert_difference 'Payment.count', 1 do
+    assert_difference ['Payment.count', 'Transaction.count'], 1 do
       post :create, customer_id: users(:one), payment: {
         amount: "300",
         date: "03/11/2016",
@@ -130,5 +136,44 @@ class PaymentsControllerTest < ActionController::TestCase
   test "show should redirect to customer" do
     sign_in :user, users(:one)
     get :show, customer_id: customers(:one), id: payments(:one)
+  end
+
+  test "destroy should successfully destroy invoice" do
+    sign_in :user, users(:one)
+
+    assert_difference 'Payment.count', -1 do
+      delete :destroy, customer_id: customers(:one), id: payments(:one)
+    end
+
+    assert_not_nil assigns(:payment)
+    assert_redirected_to customers(:one)
+  end
+
+  test "destroy should not work if the user is not logged in" do
+    assert_difference 'Payment.count', 0 do
+      delete :destroy, customer_id: customers(:one), id: payments(:one)
+    end
+
+    assert_redirected_to new_user_session_path
+  end
+
+  test "destroy should only work if the customer belongs to the user" do
+    sign_in :user, users(:user_without_properties)
+
+    assert_difference 'Payment.count', 0 do
+      delete :destroy, customer_id: customers(:one), id: payments(:one)
+    end
+
+    assert_redirected_to root_path
+  end
+
+  test "destroy should only work if the invoice belongs to the user" do
+    sign_in :user, users(:one)
+
+    assert_difference 'Payment.count', 0 do
+      delete :destroy, customer_id: customers(:one), id: payments(:two)
+    end
+
+    assert_redirected_to root_path
   end
 end

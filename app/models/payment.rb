@@ -1,7 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :customer
-  has_many :transactions, as: :transactionable, dependent: :destroy
+  has_one :transactions, as: :transactionable, dependent: :destroy
 
   validates :user_id, presence: true
   validates :customer_id, presence: true
