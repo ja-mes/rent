@@ -1,0 +1,11 @@
+one:
+  date: 2016-05-08
+  user: one
+  customer: one
+  transactionable: one (Payment)
+
+two:
+  date: 2016-05-07
+  user: one
+  customer: one
+  transactionable: one (Invoice)

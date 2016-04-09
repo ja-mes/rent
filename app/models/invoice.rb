@@ -1,7 +1,7 @@
 class Invoice < ActiveRecord::Base
   belongs_to :user
   belongs_to :customer
-  has_one :transactions, as: :transactionable, dependent: :destroy
+  has_one :tran, as: :transactionable, dependent: :destroy
 
   validates :user_id, presence: true
   validates :customer_id, presence: true

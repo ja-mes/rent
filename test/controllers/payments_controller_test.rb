@@ -32,7 +32,7 @@ class PaymentsControllerTest < ActionController::TestCase
   test "create should create payment" do
     sign_in :user, users(:one)
 
-    assert_difference ['Payment.count', 'Transaction.count'], 1 do
+    assert_difference ['Payment.count', 'Tran.count'], 1 do
       post :create, customer_id: users(:one), payment: {
         amount: "300",
         date: "03/11/2016",
@@ -141,7 +141,7 @@ class PaymentsControllerTest < ActionController::TestCase
   test "destroy should successfully destroy invoice" do
     sign_in :user, users(:one)
 
-    assert_difference 'Payment.count', -1 do
+    assert_difference ['Payment.count', 'Tran.count'], -1 do
       delete :destroy, customer_id: customers(:one), id: payments(:one)
     end
 

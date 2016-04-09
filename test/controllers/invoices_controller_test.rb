@@ -33,7 +33,7 @@ class InvoicesControllerTest < ActionController::TestCase
   test "create should create invoice and transaction" do
     sign_in :user, users(:one)
 
-    assert_difference ['Invoice.count', 'Transaction.count'] do
+    assert_difference ['Invoice.count', 'Tran.count'] do
       post :create, customer_id: customers(:one), invoice: {
         amount: "500",
         date: "03/10/2016",
@@ -149,7 +149,7 @@ class InvoicesControllerTest < ActionController::TestCase
   test "destroy should successfully destroy invoice" do
     sign_in :user, users(:one)
 
-    assert_difference 'Invoice.count', -1 do
+    assert_difference ['Invoice.count', 'Tran.count'], -1 do
       delete :destroy, customer_id: customers(:one), id: invoices(:one)
     end
 

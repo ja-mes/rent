@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407004813) do
+ActiveRecord::Schema.define(version: 20160409004639) do
 
   create_table "customers", force: :cascade do |t|
     t.string  "first_name"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20160407004813) do
     t.integer "user_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
+  create_table "trans", force: :cascade do |t|
     t.integer "transactionable_id"
     t.string  "transactionable_type"
     t.integer "user_id"
