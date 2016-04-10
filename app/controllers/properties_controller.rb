@@ -4,7 +4,7 @@ class PropertiesController < ApplicationController
   before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
-    @properties = current_user.properties
+    @properties = Property.where(user: current_user).paginate(page: params[:page], per_page: 5).order(:address)
   end
 
   def new
