@@ -17,10 +17,10 @@
           <%= property.address %>, <%= property.city %> <%= property.state %> <%= property.zip %>
         </td>
         <td>
-          $500
+          <%= number_to_currency(property.rent) %>
         </td>
         <td>
-          $300
+          <%= number_to_currency(property.deposit) %>
         </td>
 
         <td>
