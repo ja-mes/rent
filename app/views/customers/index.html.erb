@@ -7,8 +7,8 @@
     <tr>
       <th>Name</th>
       <th>Property</th>
-      <th>Phone</th>
       <th>Balance</th>
+      <th>Phone</th>
     </tr>
   </thead>
 
@@ -22,13 +22,11 @@
           <%= customer.property.address %>, <%= customer.property.city %>, <%= customer.property.state %> <%= customer.property.zip %>
         </td>
         <td>
-          <%= customer.phone %>
-        </td>
-
-        <td>
           <%= number_to_currency(customer.balance) %>
         </td>
-
+        <td>
+          <%= customer.phone %>
+        </td>
       </tr>
     <% end %>
   </tbody>
