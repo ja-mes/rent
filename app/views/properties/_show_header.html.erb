@@ -10,10 +10,4 @@
   <li class="nav-item">
     <%= link_to 'Edit Property', edit_property_path(@property), class: "#{isActive 'properties', ['edit', 'update']} nav-link" %>
   </li>
-
-  <% unless @property.customer %>
-    <li class="nav-item">
-      <%= link_to "Rent Property", new_customer_path, class: "#{isActive 'customers', 'new'} nav-link" %>
-    </li>
-  <% end %>
 </ul>
