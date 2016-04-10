@@ -4,6 +4,7 @@ one:
   middle_name: "Test"
   phone: "(123)456-7891"
   full_name: "Foo Test Blah"
+  balance: 0.00
   property: one
   user: one
 
@@ -13,5 +14,6 @@ two:
   middle_name: "adfasdf"
   phone: "(123)456-7891"
   full_name: "joe adfasdf test"
+  balance: 0.00
   property: three
   user: two

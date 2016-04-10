@@ -27,6 +27,11 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_not @invoice.valid?
   end
 
+  test 'amount should have a maximum of 2 decimals' do
+    @invoice.amount = 2.222
+    assert_not @invoice.valid?
+  end
+
   test 'date should be present' do
     @invoice.date = nil
     assert_not @invoice.valid?

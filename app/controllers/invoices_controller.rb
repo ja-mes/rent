@@ -20,6 +20,8 @@ class InvoicesController < ApplicationController
 
     if @invoice.save
       Tran.create(transactionable: @invoice, user: current_user, customer: @customer, date: @invoice.date)
+      @customer.increment!(:balance, by = @invoice.amount)
+
       flash[:success] = "Invoice successfully saved"
       redirect_to @customer
     else
@@ -28,14 +30,17 @@ class InvoicesController < ApplicationController
   end
 
   def edit
-    @invoice = Invoice.find(params[:id])
   end
 
   def update
-    @invoice = Invoice.find(params[:id])
+    old_amount = @invoice.amount
 
     if @invoice.update(invoice_params)
       @invoice.tran.update_attributes(customer: @customer, date: @invoice.date)
+
+      @customer.increment(:balance, by = -old_amount)
+      @customer.increment!(:balance, by = @invoice.amount)
+
       flash[:success] = "Invoice successfully updated"
       redirect_to edit_customer_invoice_path
     else
@@ -44,8 +49,8 @@ class InvoicesController < ApplicationController
   end
 
   def destroy
-    @invoice = Invoice.find(params[:id])
     @invoice.destroy
+    @customer.increment!(:balance, by = -@invoice.amount)
     flash[:danger] = "Invoice successfully deleted"
     redirect_to @customer
   end

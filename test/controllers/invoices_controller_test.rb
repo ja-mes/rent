@@ -41,6 +41,7 @@ class InvoicesControllerTest < ActionController::TestCase
       }
     end
 
+    assert_equal assigns(:customer).balance, 500.00
     assert_redirected_to customers(:one)
     assert_not_nil assigns(:invoice)
     assert_equal "Invoice successfully saved", flash[:success]
@@ -104,12 +105,13 @@ class InvoicesControllerTest < ActionController::TestCase
     sign_in :user, users(:one)
 
     put :update, customer_id: customers(:one), id: invoices(:one), invoice: {
-      amount: "123",
+      amount: "200",
       date: "05/08/2016",
       memo: "blah memo"
     }
 
-    assert_equal assigns(:invoice).amount, 123
+    assert_equal assigns(:customer).balance, -300.22
+    assert_equal assigns(:invoice).amount, 200
     assert_equal assigns(:invoice).date, Date.strptime("05/08/2016", "%d/%m/%Y")
     assert_equal assigns(:invoice).memo, "blah memo"
   end
@@ -153,6 +155,7 @@ class InvoicesControllerTest < ActionController::TestCase
       delete :destroy, customer_id: customers(:one), id: invoices(:one)
     end
 
+    assert_equal assigns(:customer).balance, -500.22
     assert_not_nil assigns(:invoice)
     assert_redirected_to customers(:one)
   end

@@ -40,7 +40,8 @@ class PaymentsControllerTest < ActionController::TestCase
       }
     end
 
-    assert_redirected_to new_customer_payment_path(customers(:one))
+    assert_equal assigns(:customer).balance, -300.00
+    assert_redirected_to customers(:one)
     assert_not_nil assigns(:payment)
     assert_equal "Payment successfully created", flash[:success]
   end
@@ -96,12 +97,13 @@ class PaymentsControllerTest < ActionController::TestCase
   test "update should successfully update payment" do
     sign_in :user, users(:one)
     put :update, customer_id: customers(:one), id: payments(:one), payment: {
-      amount: "823",
+      amount: "200",
       date: "05/08/2016",
       memo: "blah memo",
     }
 
-    assert_equal assigns(:payment).amount, 823
+    assert_equal assigns(:customer).balance, 300.25
+    assert_equal assigns(:payment).amount, 200
     assert_equal assigns(:payment).date, Date.strptime("05/08/2016", "%d/%m/%Y")
     assert_equal assigns(:payment).memo, "blah memo"
 
@@ -145,6 +147,7 @@ class PaymentsControllerTest < ActionController::TestCase
       delete :destroy, customer_id: customers(:one), id: payments(:one)
     end
 
+    assert_equal assigns(:customer).balance, assigns(:payment).amount
     assert_not_nil assigns(:payment)
     assert_redirected_to customers(:one)
   end

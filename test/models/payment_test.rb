@@ -27,6 +27,11 @@ class PaymentTest < ActiveSupport::TestCase
     assert_not @payment.valid?
   end
 
+  test 'amount should have a maximum of 2 decimals' do
+    @payment.amount = 2.222
+    assert_not @payment.valid?
+  end
+
   test "date should be present" do
     @payment.date = nil
     assert_not @payment.valid?

@@ -14,19 +14,19 @@
 
   <tbody>
     <% @customers.each do |customer| %>
-      <tr data-link="<%= customer_path customer %>">
+      <tr data-link="<%= customer_path customer %>" class="<%= customer.balance > 0 ? 'table-danger' : '' %> ">
         <td>
           <%= customer.full_name %>
         </td>
         <td>
-          100 Foo St., Boaz AL 35950
+          <%= customer.property.address %>, <%= customer.property.city %>, <%= customer.property.state %> <%= customer.property.zip %>
         </td>
         <td>
-          12124234
+          <%= customer.phone %>
         </td>
 
         <td>
-          $500.00
+          <%= number_to_currency(customer.balance) %>
         </td>
 
       </tr>

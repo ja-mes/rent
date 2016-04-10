@@ -1,8 +1,10 @@
 <div class="row">
   <div class="col-md-7">
     <h3 style="margin-right: 30px; display: inline"><%= @customer.full_name %></h3>
-    <h4 style="color: green; display: inline"><span class="fa fa-check"></span> $0.00</h4>
-    <p  style="margin-bottom: 40px; margin-top: 15px;"><%= @customer.property.address %>, <%= @customer.property.city %> <%= @customer.property.state %> <%= @customer.property.zip %></p>
+    <h4 style="<%= @customer.balance > 0 ? 'color: red;' : 'color: green;' %> display: inline">
+      <span class="fa <%= @customer.balance > 0 ? 'fa-exclamation-circle' : 'fa-check' %>"></span> <%= number_to_currency(@customer.balance) %>
+    </h4>
+    <p  style="margin-bottom: 30px; margin-top: 15px;"><%= @customer.property.address %> <br> <%= @customer.property.city %> <%= @customer.property.state %> <%= @customer.property.zip %></p>
   </div>
 
   <div class="col-md-5" style="text-align: right">
