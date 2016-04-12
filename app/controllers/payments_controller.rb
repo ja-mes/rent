@@ -14,13 +14,11 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @payment = Payment.new(payment_params)
-    @payment.customer = @customer
+    @payment = @customer.payments.build(payment_params)
     @payment.user = current_user
 
     if @payment.save
-      Tran.create(transactionable: @payment, user: current_user, customer: @customer, date: @payment.date)
-      @customer.increment!(:balance, by = -@payment.amount)
+      @payment.after_save
       flash[:success] = "Payment successfully created"
       redirect_to @customer
     else
@@ -35,10 +33,7 @@ class PaymentsController < ApplicationController
     old_amount = @payment.amount
 
     if @payment.update(payment_params)
-      @payment.tran.update_attributes(customer: @customer, date: @payment.date)
-
-      @customer.increment(:balance, by = old_amount)
-      @customer.increment!(:balance, by = -@payment.amount)
+      @payment.after_update old_amount
 
       flash[:success] = 'Payment successfully updated'
       redirect_to edit_customer_payment_path
@@ -49,7 +44,7 @@ class PaymentsController < ApplicationController
 
   def destroy
     @payment.destroy
-    @customer.increment!(:balance, by = @payment.amount)
+    @payment.after_destroy
     flash[:danger] = "Payment successfully deleted"
     redirect_to @customer
   end

@@ -27,11 +27,6 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
   end
 
-  test "full_name should be present" do
-    @customer.full_name = " "
-    assert_not @customer.valid?
-  end
-
   test "full_name should be unique" do
     @customer.save
     @customer2 = Customer.new(

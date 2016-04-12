@@ -12,8 +12,7 @@ class PropertiesController < ApplicationController
   end
 
   def create
-    @property = Property.new(property_params)
-    @property.user = current_user
+    @property = current_user.properties.build(property_params)
 
     if @property.save
       flash[:success] = "Property successfully saved"

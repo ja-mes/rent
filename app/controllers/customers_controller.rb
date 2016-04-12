@@ -9,7 +9,7 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new
-    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
+    @properties = current_user.vacant_properties
 
     if @properties.empty?
       flash[:danger] = "No properties avaiable to rent"
@@ -18,10 +18,8 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.new(customer_params)
-    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
-    @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
-    @customer.user = current_user
+    @properties = current_user.vacant_properties
+    @customer = current_user.customers.build(customer_params)
 
     if @customer.save
       flash[:success] = "Customer successfully created"
@@ -32,20 +30,17 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @transactions = Tran.where(user: current_user, customer: @customer).paginate(page: params[:page]).order(date: :desc)
+    @transactions = current_user.grab_trans(@customer).paginate(page: params[:page]).order(date: :desc)
   end
 
   def edit
-    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
+    @properties = current_user.vacant_properties
   end
 
   def update
-    @properties = current_user.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
+    @properties = current_user.vacant_properties
 
-    @customer.assign_attributes(customer_params)
-    @customer.full_name = "#{@customer.first_name} #{@customer.middle_name} #{@customer.last_name}"
-
-    if @customer.save
+    if @customer.update(customer_params)
       flash[:success] = "Customer successfully updated"
       redirect_to edit_customer_path
     else
