@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
-    @customers = Customer.where(user: current_user).paginate(page: params[:page], per_page: 5).order(:last_name)
+    @customers = Customer.search(params[:search], current_user).paginate(page: params[:page], per_page: 5)
   end
 
   def new

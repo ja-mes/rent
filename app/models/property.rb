@@ -14,4 +14,16 @@ class Property < ActiveRecord::Base
   def upcase_state
     self.state = self.state.upcase
   end
+
+  def full_address
+    "#{self.address}, #{self.city}, #{self.state} #{self.zip}"
+  end
+
+  def self.search(search, user)
+    if search
+      where('address LIKE ? OR city LIKE ? OR state LIKE ? or zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").where(user: user)
+    else
+      where(user: user)
+    end
+  end
 end

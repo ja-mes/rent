@@ -10,4 +10,12 @@ class Customer < ActiveRecord::Base
   validates :last_name, presence: true
   validates :full_name, presence: true
   validates_uniqueness_of :full_name
+
+  def self.search(search, user)
+    if search
+      joins(:property).where('full_name LIKE ? OR balance LIKE ? OR properties.address LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%").where(user: user)
+    else
+      where(user: user)
+    end
+  end
 end

@@ -1,6 +1,6 @@
 <%= render 'header' %>
 
-<input class="form-control" placeholder="search..." style="margin-bottom: 30px" />
+<%= render 'shared/search', path: customers_path %>
 
 <table class="table table-hover row-links">
   <thead class="thead-default">
@@ -9,26 +9,12 @@
       <th>Property</th>
       <th>Balance</th>
       <th>Phone</th>
+      <th>Action</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @customers.each do |customer| %>
-      <tr data-link="<%= customer_path customer %>" class="<%= customer.balance > 0 ? 'table-danger' : '' %> ">
-        <td>
-          <%= customer.full_name %>
-        </td>
-        <td>
-          <%= customer.property.address %>, <%= customer.property.city %>, <%= customer.property.state %> <%= customer.property.zip %>
-        </td>
-        <td>
-          <%= number_to_currency(customer.balance) %>
-        </td>
-        <td>
-          <%= customer.phone %>
-        </td>
-      </tr>
-    <% end %>
+    <%= render @customers %>
   </tbody>
 </table>
 

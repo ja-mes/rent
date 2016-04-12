@@ -1,0 +1,20 @@
+<tr data-link="<%= customer_path customer %>" class="<%= customer.balance > 0 ? 'table-danger' : '' %> ">
+  <td>
+    <%= customer.full_name %>
+  </td>
+  <td>
+    <%= customer.property.address %>, <%= customer.property.city %>, <%= customer.property.state %> <%= customer.property.zip %>
+  </td>
+  <td>
+    <%= number_to_currency(customer.balance) %>
+  </td>
+  <td>
+    <%= customer.phone %>
+  </td>
+
+  <td>
+    <% if customer.balance > 0 %>
+      <%= link_to 'Payment', new_customer_payment_path(customer) %>
+    <% end %>
+  </td>
+</tr>
