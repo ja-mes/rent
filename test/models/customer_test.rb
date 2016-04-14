@@ -37,4 +37,30 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal 1, Customer.search('Foo Test Blah', users(:one)).length
     assert_equal 1, Customer.search('Foo Test', users(:one)).length
   end
+
+
+  test "after_find should create invoice and only do it once" do
+    @customer.due_date = Date.today.day.to_s
+    @customer.save
+
+    assert_difference 'Invoice.count' do
+      customer = Customer.find(@customer.id)
+      assert customer.charged_today?
+    end
+
+    assert_difference 'Invoice.count', 0 do
+      Customer.find(@customer.id)
+    end
+  end
+
+  test "after_find should only create invoice if this is the due date" do
+    @customer.due_date = (Date.today.day.to_i - 1).to_s
+    @customer.charged_today = true
+    @customer.save
+
+    assert_difference 'Invoice.count', 0 do
+      customer = Customer.find(@customer.id)
+      assert_not customer.charged_today
+    end
+  end
 end

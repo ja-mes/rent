@@ -8,7 +8,7 @@ class CustomersController < ApplicationController
   end
 
   def new
-    @customer = Customer.new
+    @customer = Customer.new(due_date: Date.today.beginning_of_month)
     @properties = current_user.vacant_properties
 
     if @properties.empty?
@@ -50,7 +50,7 @@ class CustomersController < ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone, :alt_phone, :property_id)
+    params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone, :alt_phone, :property_id, :due_date, :rent)
   end
 
   def set_customer

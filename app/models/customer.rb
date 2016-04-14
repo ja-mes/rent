@@ -10,6 +10,25 @@ class Customer < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
 
+
+  after_find do
+    today = Date.today
+
+    if today.day.to_s == self.due_date
+      unless self.charged_today?
+        invoice = self.invoices.build(amount: self.rent, date: today, memo: "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}")
+        invoice.user = self.user
+        invoice.save
+        self.toggle!(:charged_today)
+      end
+    else
+      if self.charged_today?
+        self.toggle!(:charged_today)
+      end
+    end
+  end
+
+
   def self.search(search, user)
     if search
       joins(:property)

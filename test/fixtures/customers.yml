@@ -3,7 +3,11 @@ one:
   last_name: "Blah"
   middle_name: "Test"
   phone: "(123)456-7891"
+  alt_phone: "(456)124-1011"
   balance: 0.00
+  charged_today: false
+  rent: 500
+  due_date: "1"
   property: one
   user: one
 
