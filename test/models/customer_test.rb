@@ -27,26 +27,15 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
   end
 
-  test "full_name should be unique" do
-    @customer.save
-    @customer2 = Customer.new(
-      first_name: "Foo",
-      last_name: "Blah",
-      middle_name: "Test",
-      phone: "(123)456-7891",
-      full_name: "Foo Test Blah",
-      property: properties(:one),
-      user: users(:one),
-    )
-    assert_not @customer2.valid?
-  end
-
   test "full_name should return full_name for customer" do
     assert_equal @customer.full_name, "Foo Test Blah"
   end
 
   test "search should find customers by the specified search" do
     results = Customer.search('Foo', users(:one))
-    assert_equal 1, results.length
+    assert_equal 1, Customer.search('Foo', users(:one)).length
+    assert_equal 1, Customer.search('Foo Blah', users(:one)).length
+    assert_equal 1, Customer.search('Foo Test Blah', users(:one)).length
+    assert_equal 1, Customer.search('Foo Test', users(:one)).length
   end
 end

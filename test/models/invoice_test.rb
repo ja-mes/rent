@@ -42,11 +42,29 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
-  test "after save should create transaction and update customer balance" do
-    invoice = invoices(:two)
-
+  test "after_save should work" do
+    invoice = @invoice.dup
     assert_difference 'Tran.count' do
-      invoice.after_save
+      invoice.save
+      assert_equal invoice.customer.balance, invoice.amount
     end
+  end
+
+
+  test "after_update should work" do
+    @invoice.date = "2016-08-07"
+    @invoice.save
+    assert_equal @invoice.tran.date, @invoice.date
+  end
+
+  test "after_destroy should work" do
+    @invoice.destroy
+    assert_equal @invoice.customer.balance, -@invoice.amount
+  end
+
+  test "calculate_balance should work" do
+    @invoice.amount = 200
+    @invoice.calculate_balance(500)
+    assert_equal @invoice.customer.balance, -300
   end
 end

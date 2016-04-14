@@ -9,7 +9,6 @@ class Customer < ActiveRecord::Base
   validates :property_id, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates_uniqueness_of :full_name
 
   def self.search(search, user)
     if search
