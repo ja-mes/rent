@@ -18,7 +18,6 @@ class InvoicesController < ApplicationController
     @invoice.user = current_user
 
     if @invoice.save
-      @invoice.after_save
       flash[:success] = "Invoice successfully saved"
       redirect_to @customer
     else
@@ -33,7 +32,7 @@ class InvoicesController < ApplicationController
     old_amount = @invoice.amount
 
     if @invoice.update(invoice_params)
-      @invoice.after_update old_amount
+      @invoice.calculate_balance old_amount
       flash[:success] = "Invoice successfully updated"
       redirect_to edit_customer_invoice_path
     else
@@ -43,8 +42,7 @@ class InvoicesController < ApplicationController
 
   def destroy
     @invoice.destroy
-    @invoice.after_destroy
-    
+
     flash[:danger] = "Invoice successfully deleted"
     redirect_to @customer
   end

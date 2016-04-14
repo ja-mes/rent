@@ -40,4 +40,13 @@ class CustomerTest < ActiveSupport::TestCase
     )
     assert_not @customer2.valid?
   end
+
+  test "full_name should return full_name for customer" do
+    assert_equal @customer.full_name, "Foo Test Blah"
+  end
+
+  test "search should find customers by the specified search" do
+    results = Customer.search('Foo', users(:one))
+    assert_equal 1, results.length
+  end
 end

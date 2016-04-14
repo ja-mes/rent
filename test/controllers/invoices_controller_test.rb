@@ -101,6 +101,8 @@ class InvoicesControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
+
+
   test "update should successfully update invoice" do
     sign_in :user, users(:one)
 
@@ -110,7 +112,6 @@ class InvoicesControllerTest < ActionController::TestCase
       memo: "blah memo"
     }
 
-    assert_equal assigns(:customer).balance, -300.22
     assert_equal assigns(:invoice).amount, 200
     assert_equal assigns(:invoice).date, Date.strptime("05/08/2016", "%d/%m/%Y")
     assert_equal assigns(:invoice).memo, "blah memo"
@@ -148,6 +149,8 @@ class InvoicesControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
+
+
   test "destroy should successfully destroy invoice" do
     sign_in :user, users(:one)
 
@@ -155,7 +158,6 @@ class InvoicesControllerTest < ActionController::TestCase
       delete :destroy, customer_id: customers(:one), id: invoices(:one)
     end
 
-    assert_equal assigns(:customer).balance, -500.22
     assert_not_nil assigns(:invoice)
     assert_redirected_to customers(:one)
   end

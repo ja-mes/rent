@@ -41,4 +41,12 @@ class InvoiceTest < ActiveSupport::TestCase
     @invoice.memo = nil
     assert @invoice.valid?
   end
+
+  test "after save should create transaction and update customer balance" do
+    invoice = invoices(:two)
+
+    assert_difference 'Tran.count' do
+      invoice.after_save
+    end
+  end
 end

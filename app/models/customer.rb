@@ -14,7 +14,11 @@ class Customer < ActiveRecord::Base
   def self.search(search, user)
     if search
       joins(:property)
-      .where('first_name LIKE ? OR middle_name LIKE ? OR last_name LIKE ? OR balance LIKE ? OR properties.address LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+      .where("first_name LIKE ? OR middle_name LIKE ?"\
+       " OR last_name LIKE ? OR concat_ws(' ' , first_name, middle_name, last_name) LIKE ?"\
+       " OR concat_ws(' ' , first_name, last_name) LIKE ?"\
+       " OR properties.address LIKE ?",
+       "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
       .where(user: user)
     else
       where(user: user)

@@ -7,6 +7,8 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_redirected_to customers(:one)
   end
 
+
+
   test "get new" do
     sign_in :user, users(:one)
     get :new, customer_id: customers(:one)
@@ -28,6 +30,8 @@ class PaymentsControllerTest < ActionController::TestCase
     get :new, customer_id: users(:one)
     assert_redirected_to new_user_session_path
   end
+
+
 
   test "create should create payment" do
     sign_in :user, users(:one)
@@ -94,6 +98,8 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_equal "You are not authorized to do that", flash[:danger]
   end
 
+
+
   test "update should successfully update payment" do
     sign_in :user, users(:one)
     put :update, customer_id: customers(:one), id: payments(:one), payment: {
@@ -102,7 +108,6 @@ class PaymentsControllerTest < ActionController::TestCase
       memo: "blah memo",
     }
 
-    assert_equal assigns(:customer).balance, 300.25
     assert_equal assigns(:payment).amount, 200
     assert_equal assigns(:payment).date, Date.strptime("05/08/2016", "%d/%m/%Y")
     assert_equal assigns(:payment).memo, "blah memo"
@@ -127,6 +132,7 @@ class PaymentsControllerTest < ActionController::TestCase
     put :update, customer_id: customers(:one), id: payments(:one)
     assert_redirected_to new_user_session_path
   end
+
   test "update should not work if customer does not belong to user" do
     sign_in :user, users(:user_without_properties)
 
@@ -147,7 +153,6 @@ class PaymentsControllerTest < ActionController::TestCase
       delete :destroy, customer_id: customers(:one), id: payments(:one)
     end
 
-    assert_equal assigns(:customer).balance, assigns(:payment).amount
     assert_not_nil assigns(:payment)
     assert_redirected_to customers(:one)
   end
