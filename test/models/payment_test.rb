@@ -60,7 +60,7 @@ class PaymentTest < ActiveSupport::TestCase
 
   test "calculate_balance should work" do
     @payment.amount = 200
-    @payment.calculate_balance(500)
+    @payment.calculate_balance(500, customers(:one))
     assert_equal @payment.customer.balance, 300
   end
 end

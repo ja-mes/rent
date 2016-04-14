@@ -37,14 +37,15 @@ class PaymentsControllerTest < ActionController::TestCase
     sign_in :user, users(:one)
 
     assert_difference ['Payment.count', 'Tran.count'], 1 do
-      post :create, customer_id: users(:one), payment: {
+      post :create, customer_id: customers(:one), payment: {
+        customer_id: customers(:one).id,
         amount: "300",
         date: "03/11/2016",
         memo: "hello world",
       }
     end
 
-    assert_equal assigns(:customer).balance, -300.00
+    assert_equal assigns(:payment).customer.balance, -300.00
     assert_redirected_to customers(:one)
     assert_not_nil assigns(:payment)
     assert_equal "Payment successfully created", flash[:success]

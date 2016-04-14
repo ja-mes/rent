@@ -64,6 +64,17 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test "calculate_balance should work" do
     @invoice.amount = 200
+    @invoice.calculate_balance(500, customers(:one))
     assert_equal @invoice.customer.balance, -300
+  end
+
+  test "calculate_balance should work if this is a new customer" do
+    @invoice.amount = 200
+    @invoice.customer = customers(:three)
+    @invoice.save
+    @invoice.calculate_balance(500, customers(:one))
+    debugger
+    assert_equal @invoice.customer.balance, 200
+    assert_equal customers(:one).balance, -500
   end
 end

@@ -24,3 +24,12 @@ three:
   deposit: 500
   rent: 1000
   user: two
+
+four:
+  address: "Amazing"
+  city: "Chuck"
+  state: "FL"
+  zip: "234234"
+  deposit: 500
+  rent: 1000
+  user: one

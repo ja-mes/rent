@@ -35,13 +35,14 @@ class InvoicesControllerTest < ActionController::TestCase
 
     assert_difference ['Invoice.count', 'Tran.count'] do
       post :create, customer_id: customers(:one), invoice: {
+        customer_id: customers(:one).id,
         amount: "500",
         date: "03/10/2016",
         memo: "this is the memo"
       }
     end
 
-    assert_equal assigns(:customer).balance, 500.00
+    assert_equal assigns(:invoice).customer.balance, 500.00
     assert_redirected_to customers(:one)
     assert_not_nil assigns(:invoice)
     assert_equal "Invoice successfully saved", flash[:success]
