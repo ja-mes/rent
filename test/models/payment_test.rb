@@ -36,4 +36,31 @@ class PaymentTest < ActiveSupport::TestCase
     @payment.date = nil
     assert_not @payment.valid?
   end
+
+
+  test "after_create should work" do
+    payment = @payment.dup
+
+    assert_difference 'Tran.count' do
+      payment.save
+      assert_equal payment.customer.balance, -payment.amount
+    end
+  end
+
+  test "after_update should work" do
+    @payment.date = "2016-08-07"
+    @payment.save
+    assert_equal @payment.tran.date, @payment.date
+  end
+
+  test "after_destroy should work" do
+    @payment.destroy
+    assert_equal @payment.customer.balance, @payment.amount
+  end
+
+  test "calculate_balance should work" do
+    @payment.amount = 200
+    @payment.calculate_balance(500)
+    assert_equal @payment.customer.balance, 300
+  end
 end

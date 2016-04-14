@@ -32,7 +32,6 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "search should find customers by the specified search" do
-    results = Customer.search('Foo', users(:one))
     assert_equal 1, Customer.search('Foo', users(:one)).length
     assert_equal 1, Customer.search('Foo Blah', users(:one)).length
     assert_equal 1, Customer.search('Foo Test Blah', users(:one)).length

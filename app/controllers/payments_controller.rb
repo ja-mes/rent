@@ -18,7 +18,6 @@ class PaymentsController < ApplicationController
     @payment.user = current_user
 
     if @payment.save
-      @payment.after_save
       flash[:success] = "Payment successfully created"
       redirect_to @customer
     else
@@ -33,7 +32,7 @@ class PaymentsController < ApplicationController
     old_amount = @payment.amount
 
     if @payment.update(payment_params)
-      @payment.after_update old_amount
+      @payment.calculate_balance old_amount
 
       flash[:success] = 'Payment successfully updated'
       redirect_to edit_customer_payment_path
@@ -44,7 +43,6 @@ class PaymentsController < ApplicationController
 
   def destroy
     @payment.destroy
-    @payment.after_destroy
     flash[:danger] = "Payment successfully deleted"
     redirect_to @customer
   end

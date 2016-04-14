@@ -42,14 +42,14 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
-  test "after_save should work" do
+
+  test "after_create should work" do
     invoice = @invoice.dup
     assert_difference 'Tran.count' do
       invoice.save
       assert_equal invoice.customer.balance, invoice.amount
     end
   end
-
 
   test "after_update should work" do
     @invoice.date = "2016-08-07"
