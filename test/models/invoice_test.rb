@@ -53,8 +53,10 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test "after_update should work" do
     @invoice.date = "2016-08-07"
+    @invoice.customer = customers(:three)
     @invoice.save
     assert_equal @invoice.tran.date, @invoice.date
+    assert_equal @invoice.tran.customer, customers(:three)
   end
 
   test "after_destroy should work" do
@@ -69,12 +71,10 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   test "calculate_balance should work if this is a new customer" do
-    @invoice.amount = 200
+    @invoice.amount = 500
     @invoice.customer = customers(:three)
-    @invoice.save
-    @invoice.calculate_balance(500, customers(:one))
-    debugger
-    assert_equal @invoice.customer.balance, 200
-    assert_equal customers(:one).balance, -500
+    @invoice.calculate_balance(200, customers(:one))
+    assert_equal @invoice.customer.balance, 500
+    assert_equal customers(:one).balance, -200
   end
 end

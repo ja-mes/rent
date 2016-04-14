@@ -35,7 +35,7 @@ class InvoicesControllerTest < ActionController::TestCase
 
     assert_difference ['Invoice.count', 'Tran.count'] do
       post :create, customer_id: customers(:one), invoice: {
-        customer_id: customers(:one).id,
+        customer_id: customers(:three).id,
         amount: "500",
         date: "03/10/2016",
         memo: "this is the memo"
@@ -43,10 +43,8 @@ class InvoicesControllerTest < ActionController::TestCase
     end
 
     assert_equal assigns(:invoice).customer.balance, 500.00
-    assert_redirected_to customers(:one)
-    assert_not_nil assigns(:invoice)
+    assert_redirected_to assigns(:invoice).customer
     assert_equal "Invoice successfully saved", flash[:success]
-
   end
 
   test "create should only work if the user is logged in" do
@@ -108,11 +106,13 @@ class InvoicesControllerTest < ActionController::TestCase
     sign_in :user, users(:one)
 
     put :update, customer_id: customers(:one), id: invoices(:one), invoice: {
+      customer_id: customers(:three).id,
       amount: "200",
       date: "05/08/2016",
       memo: "blah memo"
     }
 
+    assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))
     assert_equal assigns(:invoice).amount, 200
     assert_equal assigns(:invoice).date, Date.strptime("05/08/2016", "%d/%m/%Y")
     assert_equal assigns(:invoice).memo, "blah memo"
