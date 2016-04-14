@@ -21,9 +21,14 @@ class Payment < ActiveRecord::Base
     self.customer.increment!(:balance, by = self.amount)
   end
 
-  def calculate_balance(old_amount)
-    self.customer.increment(:balance, by = old_amount)
-    self.customer.increment!(:balance, by = -self.amount)
+  def calculate_balance(old_amount, old_customer)
+    if old_customer == self.customer
+      self.customer.increment(:balance, by = old_amount)
+      self.customer.increment!(:balance, by = -self.amount)
+    else
+      old_customer.increment!(:balance, by = old_amount)
+      self.customer.increment!(:balance, by = -self.amount)
+    end
   end
 
 end

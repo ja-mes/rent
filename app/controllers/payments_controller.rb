@@ -14,12 +14,12 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @payment = @customer.payments.build(payment_params)
+    @payment = Payment.new(payment_params)
     @payment.user = current_user
 
     if @payment.save
       flash[:success] = "Payment successfully created"
-      redirect_to @customer
+      redirect_to @payment.customer
     else
       render 'new'
     end
@@ -30,12 +30,13 @@ class PaymentsController < ApplicationController
 
   def update
     old_amount = @payment.amount
+    old_customer = @payment.customer
 
     if @payment.update(payment_params)
-      @payment.calculate_balance old_amount
+      @payment.calculate_balance old_amount, old_customer
 
       flash[:success] = 'Payment successfully updated'
-      redirect_to edit_customer_payment_path
+      redirect_to edit_customer_payment_path(@payment.customer, @payment)
     else
       render 'edit'
     end
@@ -76,6 +77,6 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:amount, :date, :memo)
+    params.require(:payment).permit(:customer_id, :amount, :date, :memo)
   end
 end

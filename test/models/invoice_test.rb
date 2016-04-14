@@ -64,7 +64,6 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test "calculate_balance should work" do
     @invoice.amount = 200
-    @invoice.calculate_balance(500)
     assert_equal @invoice.customer.balance, -300
   end
 end

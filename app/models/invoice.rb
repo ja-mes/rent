@@ -15,15 +15,20 @@ class Invoice < ActiveRecord::Base
   end
 
   after_update do
-    self.tran.update_attributes(date: self.date)
+    self.tran.update_attributes(customer: self.customer, date: self.date)
   end
 
   after_destroy do
     self.customer.increment!(:balance, by = -self.amount)
   end
 
-  def calculate_balance(old_amount)
-    self.customer.increment(:balance, by = -old_amount)
-    self.customer.increment!(:balance, by = self.amount)
+  def calculate_balance(old_amount, old_customer)
+    if old_customer == self.customer
+      self.customer.increment(:balance, by = -old_amount)
+      self.customer.increment!(:balance, by = self.amount)
+    else
+      old_customer.increment!(:balance, by = -old_amount)
+      self.customer.increment!(:balance, by = self.amount)
+    end
   end
 end

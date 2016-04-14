@@ -14,12 +14,12 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    @invoice = @customer.invoices.build(invoice_params)
+    @invoice = Invoice.new(invoice_params)
     @invoice.user = current_user
 
     if @invoice.save
       flash[:success] = "Invoice successfully saved"
-      redirect_to @customer
+      redirect_to @invoice.customer
     else
       render 'new'
     end
@@ -30,11 +30,12 @@ class InvoicesController < ApplicationController
 
   def update
     old_amount = @invoice.amount
+    old_customer = @invoice.customer
 
     if @invoice.update(invoice_params)
-      @invoice.calculate_balance old_amount
+      @invoice.calculate_balance old_amount, old_customer
       flash[:success] = "Invoice successfully updated"
-      redirect_to edit_customer_invoice_path
+      redirect_to edit_customer_invoice_path(@invoice.customer, @invoice)
     else
       render 'edit'
     end
@@ -53,7 +54,7 @@ class InvoicesController < ApplicationController
 
   private
   def invoice_params
-    params.require(:invoice).permit(:amount, :date, :memo)
+    params.require(:invoice).permit(:customer_id, :amount, :date, :memo)
   end
 
   def set_customer
