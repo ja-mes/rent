@@ -1,10 +1,15 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: [:show, :edit, :update]
+  before_action :set_customer, only: [:show, :edit, :update, :archive]
   before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
-    @customers = Customer.search(params[:search], current_user).paginate(page: params[:page], per_page: 5)
+    @customers = Customer.search(params[:search], params[:display], current_user).paginate(page: params[:page], per_page: 5)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
@@ -46,6 +51,10 @@ class CustomersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def archive
+    @customer.archive
   end
 
   private

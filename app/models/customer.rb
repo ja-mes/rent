@@ -14,7 +14,7 @@ class Customer < ActiveRecord::Base
   after_find do
     today = Date.today
 
-    if today.day.to_s == self.due_date
+    if self.active && (today.day.to_s == self.due_date)
       unless self.charged_today?
         invoice = self.invoices.build(amount: self.rent, date: today, memo: "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}")
         invoice.user = self.user
@@ -28,22 +28,39 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  after_create do
+    self.property.toggle!(:rented)
+  end
 
-  def self.search(search, user)
+
+  def self.search(search, display_param, user)
     if search
-      joins(:property)
-      .where("first_name LIKE ? OR middle_name LIKE ?"\
+      query = "first_name LIKE ? OR middle_name LIKE ?"\
        " OR last_name LIKE ? OR concat_ws(' ' , first_name, middle_name, last_name) LIKE ?"\
        " OR concat_ws(' ' , first_name, last_name) LIKE ?"\
        " OR properties.address LIKE ?",
-       "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
-      .where(user: user)
+       "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
+
+      if display_param == nil || display_param == 'active'
+        joins(:property).where(query).where(user: user, active: true)
+      else
+        joins(:property).where(query).where(user: user)
+      end
     else
-      where(user: user)
+      if display_param == nil || display_param == 'active'
+        return where(user: user, active: true)
+      else
+        return where(user: user)
+      end
     end
   end
 
   def full_name
     "#{self.first_name} #{self.middle_name} #{self.last_name}"
+  end
+
+  def archive
+    self.toggle!(:active)
+    self.property.toggle!(:rented)
   end
 end

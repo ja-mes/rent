@@ -1,6 +1,8 @@
 <%= render 'header' %>
 
-<%= render 'shared/search', path: properties_path %>
+<div class="row margin-25">
+  <%= render 'shared/search', path: properties_path %>
+</div>
 
 <table class="table table-hover row-links">
   <thead class="thead-default">
@@ -26,7 +28,7 @@
         </td>
 
         <td>
-          <% if property.customer %>
+          <% if property.rented %>
             <span class="label label-primary">Rented</span>
           <% else %>
             <span class="label label-success">Vacant</span>

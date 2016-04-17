@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :invoices
   end
 
+  get '/customers/archive/:id', to: 'customers#archive', as: 'archive_customer'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

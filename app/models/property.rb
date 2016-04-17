@@ -1,6 +1,6 @@
 class Property < ActiveRecord::Base
   belongs_to :user
-  has_one :customer
+  has_many :customers
   validates :user_id, presence: true
   validates :address, presence: true
   validates_uniqueness_of :address

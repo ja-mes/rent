@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414165021) do
+ActiveRecord::Schema.define(version: 20160416005105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160414165021) do
     t.boolean "charged_today", default: false, null: false
     t.decimal "rent"
     t.string  "due_date"
+    t.boolean "active",        default: true,  null: false
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160414165021) do
     t.decimal "rent"
     t.decimal "deposit"
     t.integer "user_id"
+    t.boolean "rented",  default: false, null: false
   end
 
   create_table "trans", force: :cascade do |t|

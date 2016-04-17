@@ -59,7 +59,11 @@
     </div>
 
   </div>
-    <div class="form-group">
-      <%= f.submit class: 'btn btn-primary' %>
-    </div>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary' %>
+
+    <% unless @customer.new_record? %>
+      <%= link_to 'Archive Customer', archive_customer_path(@customer), class: 'btn btn-warning' %>
+    <% end %>
+  </div>
 <% end %>

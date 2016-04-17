@@ -1,6 +1,14 @@
 <%= render 'header' %>
 
-<%= render 'shared/search', path: customers_path %>
+<div class="row margin-25">
+  <%= render 'shared/search', path: customers_path %>
+  <div class="col-md-3">
+    <%= form_tag customers_path, remote: true, method: 'get', id: 'customer_display', class: 'form-inline' do %>
+      <%= select_tag :display, options_for_select([['Active', 'active'], ['All', 'all']], params[:display]), class: "form-control pull-xs-right" %>
+      <%= label_tag :display, nil, class: 'pull-xs-right', style: 'margin-right: 10px' %>
+    <% end %>
+  </div>
+</div>
 
 <table class="table table-hover row-links">
   <thead class="thead-default">

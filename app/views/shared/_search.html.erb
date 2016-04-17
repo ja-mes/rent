@@ -1,21 +1,19 @@
-<div class="row" style="margin-bottom: 25px">
-  <div class="col-md-6">
-    <%= form_tag path, method: 'get', id: 'customers_search' do %>
-      <div class="input-group">
-        <%= text_field_tag :search, params[:search], autocomplete: 'off', class: 'form-control', placeholder: 'Search...' %>
-        <span class="input-group-btn">
-          <%= button_tag name: nil, type: "submit", class: "btn btn-secondary" do %>
-            <i class="fa fa-search"></i>
-          <% end %>
-        </span>
-      </div>
-    <% end %>
-  </div>
-  <div class="col-md-6">
-    <% if params[:search] %>
-      <%= link_to path do %>
-        <i class="fa fa-times"></i> &nbsp;Clear Search
+<div class="col-md-6">
+  <%= form_tag path, method: 'get', id: 'customers_search' do %>
+  <div class="input-group">
+    <%= text_field_tag :search, params[:search], autocomplete: 'off', class: 'form-control', placeholder: 'Search...' %>
+    <span class="input-group-btn">
+      <%= button_tag name: nil, type: "submit", class: "btn btn-secondary" do %>
+      <i class="fa fa-search"></i>
       <% end %>
-    <% end %>
+    </span>
   </div>
+  <% end %>
+</div>
+<div class="col-md-3">
+  <% if params[:search] %>
+    <%= link_to path do %>
+      <i class="fa fa-times"></i> &nbsp;Clear Search
+    <% end %>
+  <% end %>
 </div>
