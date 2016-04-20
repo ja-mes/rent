@@ -38,6 +38,50 @@ property3 = Property.create do |i|
   i.rented = true
 end
 
+property4 = Property.create do |i|
+  i.user = user
+  i.address = "400 Test St."
+  i.state = "AL"
+  i.city = "Foo"
+  i.zip = "35976"
+  i.rent = 600
+  i.deposit = 800
+  i.rented = true
+end
+
+property5 = Property.create do |i|
+  i.user = user
+  i.address = "500 Test St."
+  i.state = "AL"
+  i.city = "Foo"
+  i.zip = "35976"
+  i.rent = 600
+  i.deposit = 800
+  i.rented = true
+end
+
+property6 = Property.create do |i|
+  i.user = user
+  i.address = "600 Test St."
+  i.state = "AL"
+  i.city = "Foo"
+  i.zip = "35976"
+  i.rent = 600
+  i.deposit = 800
+  i.rented = true
+end
+
+property7 = Property.create do |i|
+  i.user = user
+  i.address = "700 Test St."
+  i.state = "AL"
+  i.city = "Foo"
+  i.zip = "35976"
+  i.rent = 600
+  i.deposit = 800
+  i.rented = true
+end
+
 customer = Customer.create do |i|
   i.user = user
   i.property = property
@@ -119,6 +163,36 @@ customer6 = Customer.create do |i|
   i.first_name = "First5"
   i.middle_name = "Middle5"
   i.last_name = "Last5"
+  i.phone = "(256)456-7891"
+  i.alt_phone = "(256)123-456"
+  i.balance = 0
+  i.charged_today = false
+  i.rent = 600
+  i.due_date = "1"
+  i.active = true
+end
+
+customer7 = Customer.create do |i|
+  i.user = user
+  i.property = property6
+  i.first_name = "First6"
+  i.middle_name = "Middle6"
+  i.last_name = "Last6"
+  i.phone = "(256)456-7891"
+  i.alt_phone = "(256)123-456"
+  i.balance = 0
+  i.charged_today = false
+  i.rent = 600
+  i.due_date = "1"
+  i.active = true
+end
+
+customer8 = Customer.create do |i|
+  i.user = user
+  i.property = property7
+  i.first_name = "First7"
+  i.middle_name = "Middle7"
+  i.last_name = "Last7"
   i.phone = "(256)456-7891"
   i.alt_phone = "(256)123-456"
   i.balance = 0

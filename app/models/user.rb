@@ -10,8 +10,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def vacant_properties
+  def rentable_properties
     self.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
+  end
+
+  def vacant_properties
+    self.properties.where(rented: false)
   end
 
   def grab_trans(customer)

@@ -4,23 +4,14 @@ class CustomersController < ApplicationController
   before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
-    if params[:search].blank? || params[:display] == 'active' || params[:display] == 'all'
-      session[:customer_display] = params[:display]
-    end
-
-    @customers = Customer.search(params[:search], session[:customer_display], current_user).paginate(page: params[:page], per_page: 5)
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @customers = Customer.search(params[:search], params[:display], current_user).paginate(page: params[:page], per_page: 5)
   end
 
   def new
     @customer = Customer.new(due_date: Date.today.beginning_of_month)
     @properties = current_user.vacant_properties
 
-    if @properties.empty?
+    if @properties.blank?
       flash[:danger] = "No properties avaiable to rent"
       redirect_to customers_path
     end
@@ -43,7 +34,7 @@ class CustomersController < ApplicationController
   end
 
   def edit
-    @properties = current_user.vacant_properties
+    @properties = current_user.rentable_properties
   end
 
   def update
