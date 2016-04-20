@@ -8,6 +8,6 @@ $(document).on('turbolinks:load', function() {
   $('#customers_search input').focus()
 
   $('#customer_display').change(function() {
-    $(this).submit();
+    $(this).submit()
   });
 });

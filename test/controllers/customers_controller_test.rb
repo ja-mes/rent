@@ -51,7 +51,7 @@ class CustomersControllerTest < ActionController::TestCase
     assert_equal assigns(:customer).full_name, "Joe Foo Blah"
     assert_equal assigns(:customer).user, users(:one)
 
-    assert properties(:one).customer
+    assert properties(:one).customers
     assert_redirected_to customer_path assigns(:customer)
     assert_equal "Customer successfully created", flash[:success]
   end

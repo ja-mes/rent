@@ -4,7 +4,11 @@ class CustomersController < ApplicationController
   before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
-    @customers = Customer.search(params[:search], params[:display], current_user).paginate(page: params[:page], per_page: 5)
+    if params[:search].blank? || params[:display] == 'active' || params[:display] == 'all'
+      session[:customer_display] = params[:display]
+    end
+
+    @customers = Customer.search(params[:search], session[:customer_display], current_user).paginate(page: params[:page], per_page: 5)
 
     respond_to do |format|
       format.html

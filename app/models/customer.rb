@@ -10,7 +10,6 @@ class Customer < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-
   after_find do
     today = Date.today
 
@@ -41,13 +40,13 @@ class Customer < ActiveRecord::Base
        " OR properties.address LIKE ?",
        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
 
-      if display_param == nil || display_param == 'active'
-        joins(:property).where(query).where(user: user, active: true)
+      if display_param.blank? || display_param == 'active'
+        return joins(:property).where(query).where(user: user, active: true)
       else
-        joins(:property).where(query).where(user: user)
+        return joins(:property).where(query).where(user: user)
       end
     else
-      if display_param == nil || display_param == 'active'
+      if display_param.blank? || display_param == 'active'
         return where(user: user, active: true)
       else
         return where(user: user)
