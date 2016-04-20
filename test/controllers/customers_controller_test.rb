@@ -165,4 +165,13 @@ class CustomersControllerTest < ActionController::TestCase
     assert_equal "You are not authorized to do that", flash[:danger]
   end
 
+  test "archive should work" do
+    sign_in :user, users(:one)
+
+    get :archive, id: customers(:one)
+    assert_not_nil assigns(:customer)
+    assert_not assigns(:customer).active
+    assert_redirected_to assigns(:customer)
+    assert_not_nil flash[:danger]
+  end
 end

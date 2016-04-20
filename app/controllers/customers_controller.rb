@@ -59,6 +59,8 @@ class CustomersController < ApplicationController
 
   def archive
     @customer.archive
+    redirect_to @customer
+    flash[:danger] = "Customer successfully archived"
   end
 
   private

@@ -6,6 +6,7 @@ one:
   deposit: 300
   rent: 500
   user: one
+  rented: true
 
 two:
   address: "Bar"
@@ -15,6 +16,7 @@ two:
   deposit: 100
   rent: 200
   user: one
+  rented: false
 
 three:
   address: "Quz"
@@ -24,6 +26,7 @@ three:
   deposit: 500
   rent: 1000
   user: two
+  rented: true
 
 four:
   address: "Amazing"
@@ -33,3 +36,4 @@ four:
   deposit: 500
   rent: 1000
   user: one
+  rented: true

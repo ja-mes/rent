@@ -10,6 +10,7 @@ one:
   due_date: "1"
   property: one
   user: one
+  active: true
 
 two:
   first_name: "joe"
@@ -19,6 +20,7 @@ two:
   balance: 0.00
   property: three
   user: two
+  active: true
 
 three:
   first_name: "First"
@@ -32,3 +34,4 @@ three:
   due_date: "2"
   property: four
   user: one
+  active: false
