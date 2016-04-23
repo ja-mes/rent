@@ -11,6 +11,8 @@ class InvoicesController < ApplicationController
 
   def new
     @invoice = Invoice.new
+
+    3.times { @invoice.invoice_trans.build }
   end
 
   def create
@@ -54,7 +56,7 @@ class InvoicesController < ApplicationController
 
   private
   def invoice_params
-    params.require(:invoice).permit(:customer_id, :amount, :date, :memo)
+    params.require(:invoice).permit(:customer_id, :amount, :date, :memo, invoice_trans_attributes: [:id, :amount, :memo])
   end
 
   def set_customer

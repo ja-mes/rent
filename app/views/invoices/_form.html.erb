@@ -31,6 +31,64 @@
       <%= link_to 'Delete', customer_invoice_path(@customer, @invoice), method: :delete, class: "btn btn-danger" %>
     <% end %>
   </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Account</th>
+        <th>Amount</th>
+        <!-- <th>Memo</th>
+        <th>Property</th>
+        <th></th> -->
+      </tr>
+    </thead>
+
+    <%= f.fields_for :invoice_trans do |ff| %>
+      <tr>
+        <td>
+          <%= ff.number_field :amount, placeholder: "0.00"%>
+        </td>
+
+        <td>
+          <%= ff.text_field :memo %>
+        </td>
+      </tr>
+    <% end %>
+    <!-- <tbody>
+      <tr>
+        <td>
+          <select name="charges[items][][account]">
+            <option value="foo">Repairs and Maintenance</option>
+            <option value="foo">foo</option>
+            <option value="foo">foo</option>
+          </select>
+        </td>
+
+        <td>
+          <input type="number" placeholder="0.00" name="charges[items][][amount]"/>
+        </td>
+
+        <td>
+          <input type="text" name="charges[items][][memo]"/>
+        </td>
+
+        <td>
+          <select name="charges[items][][address]">
+            <option value="foo">100 Foo St., Blah, AL 35950</option>
+            <option value="foo">foo</option>
+            <option value="foo">foo</option>
+          </select>
+        </td>
+        <td>
+          <a href="#"><i class="fa fa-remove"></i></a>
+        </td>
+
+      </tr> 
+    </tbody> -->
+  </table>
 <% end %>
 
-<%= link_to 'Back', customer_path(@customer) %>
+
+<button class="btn btn-secondary btn-sm"><i class="fa fa-plus"></i></button>
+
+

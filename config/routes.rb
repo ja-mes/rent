@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'pages#index'
-
   get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
 
   resources :properties
@@ -10,8 +9,10 @@ Rails.application.routes.draw do
     resources :payments
     resources :invoices
   end
-
   get '/customers/archive/:id', to: 'customers#archive', as: 'archive_customer'
+
+  resources :accounts
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
