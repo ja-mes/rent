@@ -4,7 +4,8 @@ class Invoice < ActiveRecord::Base
   has_many :invoice_trans, dependent: :destroy
   has_one :tran, as: :transactionable, dependent: :destroy
 
-  accepts_nested_attributes_for :invoice_trans, allow_destroy: true
+  accepts_nested_attributes_for :invoice_trans, allow_destroy: true 
+  validates_associated :invoice_trans, message: "can't be blank"
 
   validates :user_id, presence: true
   validates :customer_id, presence: true
