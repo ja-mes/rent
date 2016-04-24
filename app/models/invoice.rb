@@ -1,10 +1,10 @@
 class Invoice < ActiveRecord::Base
   belongs_to :user
   belongs_to :customer
-  has_many :invoice_trans
+  has_many :invoice_trans, dependent: :destroy
   has_one :tran, as: :transactionable, dependent: :destroy
 
-  accepts_nested_attributes_for :invoice_trans
+  accepts_nested_attributes_for :invoice_trans, allow_destroy: true
 
   validates :user_id, presence: true
   validates :customer_id, presence: true

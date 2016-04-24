@@ -43,7 +43,7 @@ class InvoicesControllerTest < ActionController::TestCase
     end
 
     assert_equal assigns(:invoice).customer.balance, 500.00
-    assert_redirected_to assigns(:invoice).customer
+    assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))
     assert_equal "Invoice successfully saved", flash[:success]
   end
 

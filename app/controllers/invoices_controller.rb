@@ -11,8 +11,7 @@ class InvoicesController < ApplicationController
 
   def new
     @invoice = Invoice.new
-
-    3.times { @invoice.invoice_trans.build }
+    @invoice.invoice_trans.build 
   end
 
   def create
@@ -21,7 +20,7 @@ class InvoicesController < ApplicationController
 
     if @invoice.save
       flash[:success] = "Invoice successfully saved"
-      redirect_to @invoice.customer
+      redirect_to edit_customer_invoice_path(@invoice.customer, @invoice)
     else
       render 'new'
     end
@@ -56,7 +55,7 @@ class InvoicesController < ApplicationController
 
   private
   def invoice_params
-    params.require(:invoice).permit(:customer_id, :amount, :date, :memo, invoice_trans_attributes: [:id, :amount, :memo])
+    params.require(:invoice).permit(:customer_id, :amount, :date, :memo, invoice_trans_attributes: [:id, :amount, :memo, :_destroy])
   end
 
   def set_customer
