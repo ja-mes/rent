@@ -23,6 +23,8 @@ class AccountsController < ApplicationController
 
   def show
     @account = Account.find(params[:id])
+
+    @trans = InvoiceTran.where(user: current_user, account: @account)
   end
   
   def edit
