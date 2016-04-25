@@ -17,10 +17,9 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    @invoice = Invoice.new(invoice_params)
+    @invoice = current_user.invoices.new(invoice_params)
     @invoice.invoice_trans.each {|tran| tran.user_id = current_user.id}
-    @invoice.user = current_user
-    @accounts = current_user.accounts
+    @accounts ||= current_user.accounts
 
     if @invoice.save
       flash[:success] = "Invoice successfully saved"

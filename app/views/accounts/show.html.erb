@@ -9,17 +9,11 @@
   </thead>
 
   <tbody>
-    <% @trans.each do |a| %>
-      <tr data-link="<%= edit_customers_invoice_path(a.customer, a) %>">
+    <% @trans.each do |t| %>
+      <tr data-link="<%= edit_customer_invoice_path(t.invoice.customer, t) %>">
         <td>Invoice</td>
-        <td><%= number_to_currency(a.amount) %></td>
+        <td><%= number_to_currency(t.amount) %></td>
       </tr>
     <% end %>
-    <!--<#% @accounts.each do |a| %>
-      <tr data-link="<#%= account_path a %>">
-        <td><#%= a.name %></td>
-        <td><#%= number_to_currency(a.balance) %></td>
-      </tr>
-    <#% end %> -->
   </tbody>
 </table>

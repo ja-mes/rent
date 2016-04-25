@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account, only: [:show, :edit, :update, :destroy]
+  before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
     @accounts = current_user.accounts
@@ -22,9 +23,8 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @account = Account.find(params[:id])
-
-    @trans = InvoiceTran.where(user: current_user, account: @account)
+    @account = current_user.accounts.find(params[:id])
+    @trans = @account.invoice_trans
   end
   
   def edit
@@ -46,5 +46,12 @@ class AccountsController < ApplicationController
 
   def set_account
     @account = Account.find(params[:id])
+  end
+
+  def require_same_user
+    if current_user != @account.user
+      flash[:danger] = "You are not authorized to do that"
+      redirect_to root_path
+    end
   end
 end

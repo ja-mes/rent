@@ -20,7 +20,7 @@ class CustomersController < ApplicationController
   def create
     @properties = current_user.vacant_properties
     @customer = current_user.customers.build(customer_params)
-
+  
     if @customer.save
       flash[:success] = "Customer successfully created"
       redirect_to customer_path(@customer)
