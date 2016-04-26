@@ -12,6 +12,7 @@ class InvoicesController < ApplicationController
   def new
     @invoice = Invoice.new
     @accounts = current_user.accounts
+    @properties = current_user.properties
 
     @invoice.invoice_trans.build
   end
@@ -19,7 +20,8 @@ class InvoicesController < ApplicationController
   def create
     @invoice = current_user.invoices.new(invoice_params)
     @invoice.invoice_trans.each {|tran| tran.user_id = current_user.id}
-    @accounts ||= current_user.accounts
+    @accounts = current_user.accounts
+    @properties ||= current_user.properties
 
     if @invoice.save
       flash[:success] = "Invoice successfully saved"
@@ -31,6 +33,7 @@ class InvoicesController < ApplicationController
 
   def edit
     @accounts = current_user.accounts
+    @properties ||= current_user.properties
   end
 
   def update
@@ -59,7 +62,7 @@ class InvoicesController < ApplicationController
 
   private
   def invoice_params
-    params.require(:invoice).permit(:customer_id, :amount, :date, :memo, invoice_trans_attributes: [:id, :account_id, :amount, :memo, :_destroy])
+    params.require(:invoice).permit(:customer_id, :amount, :date, :memo, invoice_trans_attributes: [:id, :account_id, :property_id, :amount, :memo, :_destroy])
   end
 
   def set_customer

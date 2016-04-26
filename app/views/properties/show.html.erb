@@ -1,1 +1,19 @@
 <%= render 'show_header' %>
+
+<table class="table table-hover row-links">
+  <thead class="thead-default">
+    <tr>
+      <th>Type</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trans.each do |t| %>
+      <tr data-link="<%= edit_customer_invoice_path(t.invoice.customer, t) %>">
+        <td>Invoice</td>
+        <td><%= number_to_currency(t.amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
