@@ -30,18 +30,27 @@ class InvoicesControllerTest < ActionController::TestCase
     assert_equal "You are not authorized to do that", flash[:danger]
   end
 
-  test "create should create invoice and transaction" do
+  test "create should create invoice, invoice_trans and transaction" do
     sign_in :user, users(:one)
 
     assert_difference ['Invoice.count', 'Tran.count'] do
       post :create, customer_id: customers(:one), invoice: {
-        customer_id: customers(:three).id,
+        customer_id: customers(:three),
         amount: "500",
         date: "03/10/2016",
-        memo: "this is the memo"
+        memo: "this is the memo",
+        invoice_trans_attributes: {
+          "0" => {
+            account_id: accounts(:one).id,
+            amount: 500,
+            memo: "foo bar",
+            property_id: properties(:four).id
+          }
+        }
       }
     end
 
+    assert_not_nil assigns(:invoice)
     assert_equal assigns(:invoice).customer.balance, 500.00
     assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))
     assert_equal "Invoice successfully saved", flash[:success]

@@ -15,9 +15,24 @@ class Customer < ActiveRecord::Base
 
     if self.active && (today.day.to_s == self.due_date)
       unless self.charged_today?
-        invoice = self.invoices.build(amount: self.rent, date: today, memo: "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}")
-        invoice.user = self.user
+        invoice = self.invoices.build do |i|
+          i.amount = self.rent
+          i.date = today
+          i.memo = "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}"
+          i.user = self.user 
+        end
+        invoice.skip_tran_validation = true
         invoice.save
+
+        invoice_tran = InvoiceTran.create do |t|
+          t.user = self.user
+          t.account_id = Account.find_by(name: "Rental Income", user: self.user).id
+          t.invoice = invoice
+          t.amount = self.rent
+          t.memo = "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}"
+          t.property_id = self.property.id
+        end
+
         self.toggle!(:charged_today)
       end
     else

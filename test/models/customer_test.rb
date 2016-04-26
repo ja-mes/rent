@@ -50,6 +50,8 @@ class CustomerTest < ActiveSupport::TestCase
     @customer.due_date = Date.today.day.to_s
     @customer.save
 
+    #debugger
+
     assert_difference 'Invoice.count' do
       customer = Customer.find(@customer.id)
       assert customer.charged_today?

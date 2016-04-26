@@ -10,3 +10,7 @@ $(document).on("click", '.remove_invoice_tran', function() {
   $(this).prev().val("1");
   $(this).closest('.invoice_tran_fields').hide();
 });
+
+$(document).on('turbolinks:load', function() {
+  $('.remove_invoice_tran').prev().val("false");
+});

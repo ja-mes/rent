@@ -42,9 +42,13 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
-
   test "after_create should work" do
-    invoice = @invoice.dup
+    invoice = @invoice.dup 
+    @invoice.invoice_trans.each do |t| 
+      t.user = users(:one)
+      invoice.invoice_trans << t.dup 
+    end
+
     assert_difference 'Tran.count' do
       invoice.save
       assert_equal invoice.customer.balance, invoice.amount

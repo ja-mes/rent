@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  after_create do
+    Account.create(name: "Rental Income", balance: 0, user: self)
+  end
+
   def rentable_properties
     self.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
   end

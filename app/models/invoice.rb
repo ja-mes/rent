@@ -1,14 +1,20 @@
 class Invoice < ActiveRecord::Base
+  attr_accessor :skip_tran_validation
+
   belongs_to :user
   belongs_to :customer
-  has_many :invoice_trans, dependent: :destroy, inverse_of: :invoice
   has_one :tran, as: :transactionable, dependent: :destroy
+
+  # invoice trans
+  has_many :invoice_trans, dependent: :destroy, inverse_of: :invoice
+  validates_presence_of :invoice_trans, unless: :skip_tran_validation
+  accepts_nested_attributes_for :invoice_trans, allow_destroy: :true
+
+  # invoice validations
   validates :user_id, presence: true
   validates :customer_id, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
-
-  accepts_nested_attributes_for :invoice_trans, allow_destroy: true 
 
   after_create do
     self.create_tran(user: self.user, customer: self.customer, date: self.date)

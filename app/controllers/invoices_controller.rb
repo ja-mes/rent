@@ -3,6 +3,7 @@ class InvoicesController < ApplicationController
   before_action :set_customer
   before_action :require_same_user
   before_action :set_invoice, only: [:edit, :update, :destroy]
+  before_action :set_vars, except: [:index, :show, :destroy]
   before_action :require_same_invoice_user, only: [:edit, :update, :destroy]
 
   def index
@@ -11,17 +12,12 @@ class InvoicesController < ApplicationController
 
   def new
     @invoice = Invoice.new
-    @accounts = current_user.accounts
-    @properties = current_user.properties
-
     @invoice.invoice_trans.build
   end
 
   def create
     @invoice = current_user.invoices.new(invoice_params)
-    @invoice.invoice_trans.each {|tran| tran.user_id = current_user.id}
-    @accounts = current_user.accounts
-    @properties ||= current_user.properties
+    @invoice.invoice_trans.each {|tran| tran.user = current_user}
 
     if @invoice.save
       flash[:success] = "Invoice successfully saved"
@@ -32,15 +28,16 @@ class InvoicesController < ApplicationController
   end
 
   def edit
-    @accounts = current_user.accounts
-    @properties ||= current_user.properties
   end
 
   def update
     old_amount = @invoice.amount
     old_customer = @invoice.customer
 
-    if @invoice.update(invoice_params)
+    @invoice.attributes = invoice_params
+    @invoice.invoice_trans.each {|tran| tran.user = current_user}
+
+    if @invoice.save
       @invoice.calculate_balance old_amount, old_customer
       flash[:success] = "Invoice successfully updated"
       redirect_to edit_customer_invoice_path(@invoice.customer, @invoice)
@@ -71,6 +68,11 @@ class InvoicesController < ApplicationController
 
   def set_invoice
     @invoice = Invoice.find(params[:id])
+  end
+
+  def set_vars
+    @accounts = current_user.accounts
+    @properties = current_user.properties
   end
 
   def require_same_user
