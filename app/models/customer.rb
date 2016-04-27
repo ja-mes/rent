@@ -45,7 +45,7 @@ class Customer < ActiveRecord::Base
   after_create do
     self.property.toggle!(:rented)
   end
-
+  
 
   def self.search(search, display_param, user)
     if search
@@ -56,13 +56,13 @@ class Customer < ActiveRecord::Base
        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
 
       if display_param.blank? || display_param == 'active'
-        return joins(:property).where(query).where(user: user, active: true)
+        return joins(:property).where(query).where(user: user, active: true).order(:last_name)
       else
         return joins(:property).where(query).where(user: user)
       end
     else
       if display_param.blank? || display_param == 'active'
-        return where(user: user, active: true)
+        return where(user: user, active: true).order(:last_name)
       else
         return where(user: user)
       end
