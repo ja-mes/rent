@@ -7,7 +7,7 @@ class InvoicesControllerTest < ActionController::TestCase
     assert_redirected_to customers(:one)
   end
 
-  test "new action should work" do
+  test "get new" do
     sign_in :user, users(:one)
     get :new, customer_id: customers(:one)
 
@@ -18,7 +18,7 @@ class InvoicesControllerTest < ActionController::TestCase
     assert assigns(:invoice).new_record?
   end
 
-  test "new should not work if user is not logged in" do
+  test "get new should not work if user is not logged in" do
     get :new, customer_id: customers(:one)
     assert_redirected_to new_user_session_path
   end
@@ -33,7 +33,7 @@ class InvoicesControllerTest < ActionController::TestCase
   test "create should create invoice, invoice_trans and transaction" do
     sign_in :user, users(:one)
 
-    assert_difference ['Invoice.count', 'Tran.count'] do
+    assert_difference ['Invoice.count', 'Tran.count', 'InvoiceTran.count'] do
       post :create, customer_id: customers(:one), invoice: {
         customer_id: customers(:three),
         amount: "500",
@@ -110,7 +110,7 @@ class InvoicesControllerTest < ActionController::TestCase
   end
 
 
-
+  
   test "update should successfully update invoice" do
     sign_in :user, users(:one)
 
@@ -118,7 +118,15 @@ class InvoicesControllerTest < ActionController::TestCase
       customer_id: customers(:three).id,
       amount: "200",
       date: "05/08/2016",
-      memo: "blah memo"
+      memo: "blah memo",
+      invoice_trans_attributes: {
+        "0" => {
+          account_id: accounts(:two).id,
+          amount: 300,
+          memo: "memo 1",
+          property_id: properties(:four).id
+        }
+      }
     }
 
     assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))

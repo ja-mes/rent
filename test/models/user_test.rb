@@ -12,4 +12,11 @@ class UserTest < ActiveSupport::TestCase
   test "grab_trans should return transactions for the specified customer" do
     assert_equal @user.grab_trans(customers(:one)).count, 2
   end
+
+  test "after create should add default accounts" do
+    assert_difference 'Account.count' do
+      @user = User.create(:email => 'never_before_used_email_address@blah.com', :password => 'password', :password_confirmation => 'password')
+    end
+    assert_equal @user.accounts.first.name, "Rental Income"
+  end
 end

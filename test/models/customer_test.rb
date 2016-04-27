@@ -52,12 +52,12 @@ class CustomerTest < ActiveSupport::TestCase
 
     #debugger
 
-    assert_difference 'Invoice.count' do
+    assert_difference ['Invoice.count', 'InvoiceTran.count'] do
       customer = Customer.find(@customer.id)
       assert customer.charged_today?
     end
 
-    assert_difference 'Invoice.count', 0 do
+    assert_difference ['Invoice.count', 'InvoiceTran.count'], 0 do
       Customer.find(@customer.id)
     end
   end
