@@ -8,3 +8,8 @@ two:
   balance: 0.00
   user: one
 
+three:
+  name: "Deposits"
+  balance: 0.00
+  user: one
+

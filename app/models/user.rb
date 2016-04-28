@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   after_create do
     Account.create(name: "Rental Income", balance: 0, user: self)
+    Account.create(name: "Deposits", balance: 0, user: self)
   end
 
   def rentable_properties

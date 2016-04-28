@@ -43,7 +43,8 @@ class CustomersControllerTest < ActionController::TestCase
         middle_name: "Foo",
         last_name: "Blah",
         phone: "123567",
-        property_id: properties(:one).id
+        property_id: properties(:one).id,
+        deposit: "300"
       }
     end
 
@@ -65,7 +66,8 @@ class CustomersControllerTest < ActionController::TestCase
         middle_name: "",
         last_name: "",
         phone: "",
-        property_id: nil
+        property_id: nil,
+        deposit: nil
       }
     end
 

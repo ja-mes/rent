@@ -76,4 +76,10 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.active
     assert_not @customer.property.rented?
   end
+
+  test "create deposit should create deposit" do
+    assert_difference ['Invoice.count', 'Tran.count', 'InvoiceTran.count'] do
+      @customer.create_deposit "300"
+    end
+  end
 end

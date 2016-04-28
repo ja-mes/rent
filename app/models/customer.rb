@@ -45,6 +45,26 @@ class Customer < ActiveRecord::Base
   after_create do
     self.property.toggle!(:rented)
   end
+
+  def create_deposit(amount)
+    invoice = self.invoices.build do |i|
+      i.amount = amount
+      i.date = Date.today
+      i.memo = "Deposit"
+      i.user = self.user
+    end
+    invoice.skip_tran_validation = true
+    invoice.save
+
+    InvoiceTran.create do |t|
+      t.user = self.user
+      t.account_id = Account.find_by(name: "Deposits", user: self.user).id
+      t.invoice = invoice
+      t.amount = amount
+      t.memo = "Deposit"
+      t.property_id = self.property.id
+    end
+  end
   
 
   def self.search(search, display_param, user)
