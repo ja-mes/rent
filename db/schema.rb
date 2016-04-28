@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428173006) do
+ActiveRecord::Schema.define(version: 20160428220424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_trans", force: :cascade do |t|
+    t.decimal  "amount"
+    t.string   "memo"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "invoice_id"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.integer  "property_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.string  "name"
@@ -45,17 +56,6 @@ ActiveRecord::Schema.define(version: 20160428173006) do
     t.decimal "rent"
     t.string  "due_date"
     t.boolean "active",        default: true,  null: false
-  end
-
-  create_table "invoice_trans", force: :cascade do |t|
-    t.decimal  "amount"
-    t.string   "memo"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "invoice_id"
-    t.integer  "account_id"
-    t.integer  "user_id"
-    t.integer  "property_id"
   end
 
   create_table "invoices", force: :cascade do |t|

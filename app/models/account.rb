@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   belongs_to :user
-  has_many :invoice_trans
+  has_many :account_trans
 
   validates :user_id, presence: true
   validates :name, presence: true

@@ -23,7 +23,7 @@ class PropertiesController < ApplicationController
   end
 
   def show
-    @trans = @property.invoice_trans
+    @trans = @property.account_trans
   end
 
   def edit

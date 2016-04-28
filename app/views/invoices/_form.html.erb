@@ -37,13 +37,13 @@
     </thead>
 
     <tbody>
-      <%= f.fields_for :invoice_trans do |ff| %>
-        <%= render 'invoice_tran_fields', f: ff %>
+      <%= f.fields_for :account_trans do |ff| %>
+        <%= render 'account_tran_fields', f: ff %>
       <% end %>
     </tbody>
 
   </table>
-  <%= link_to_add_fields "Remove", f, :invoice_trans, "btn btn-secondary btn-sm margin-30", "fa fa-plus" %>
+  <%= link_to_add_fields "Remove", f, :account_trans, "btn btn-secondary btn-sm margin-30", "fa fa-plus" %>
 
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>

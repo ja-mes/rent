@@ -30,16 +30,16 @@ class InvoicesControllerTest < ActionController::TestCase
     assert_equal "You are not authorized to do that", flash[:danger]
   end
 
-  test "create should create invoice, invoice_trans and transaction" do
+  test "create should create invoice, account_trans and transaction" do
     sign_in :user, users(:one)
 
-    assert_difference ['Invoice.count', 'Tran.count', 'InvoiceTran.count'] do
+    assert_difference ['Invoice.count', 'Tran.count', 'AccountTran.count'] do
       post :create, customer_id: customers(:one), invoice: {
         customer_id: customers(:three),
         amount: "500",
         date: "03/10/2016",
         memo: "this is the memo",
-        invoice_trans_attributes: {
+        account_trans_attributes: {
           "0" => {
             account_id: accounts(:one).id,
             amount: 500,
@@ -119,7 +119,7 @@ class InvoicesControllerTest < ActionController::TestCase
       amount: "200",
       date: "05/08/2016",
       memo: "blah memo",
-      invoice_trans_attributes: {
+      account_trans_attributes: {
         "0" => {
           account_id: accounts(:two).id,
           amount: 300,

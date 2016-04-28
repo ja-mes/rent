@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
 
   def show
     @account = current_user.accounts.find(params[:id])
-    @trans = @account.invoice_trans
+    @trans = @account.account_trans
   end
   
   def edit

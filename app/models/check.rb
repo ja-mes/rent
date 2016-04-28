@@ -6,6 +6,7 @@ class Check < ActiveRecord::Base
   validates :date, presence: true
   validates :num, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
+
   after_create do
     account = Account.find_by(user: self.user, name: "Checking")
     account.increment!(:balance, by = -self.amount)
@@ -14,5 +15,11 @@ class Check < ActiveRecord::Base
   after_destroy do
     account = Account.find_by(user: self.user, name: "Checking")
     account.increment!(:balance, by = self.amount)
+  end
+
+  def calculate_balance(old_amount)
+    account = Account.find_by(user: self.user, name: "Checking")
+    account.increment(:balance, by = old_amount)
+    account.increment!(:balance, by = -self.amount)
   end
 end

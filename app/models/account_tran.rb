@@ -1,4 +1,4 @@
-class InvoiceTran < ActiveRecord::Base
+class AccountTran < ActiveRecord::Base
   belongs_to :user
   belongs_to :invoice
   belongs_to :accounts

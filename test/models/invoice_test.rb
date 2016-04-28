@@ -44,9 +44,9 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test "after_create should work" do
     invoice = @invoice.dup 
-    @invoice.invoice_trans.each do |t| 
+    @invoice.account_trans.each do |t| 
       t.user = users(:one)
-      invoice.invoice_trans << t.dup 
+      invoice.account_trans << t.dup 
     end
 
     assert_difference 'Tran.count' do

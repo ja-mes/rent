@@ -50,12 +50,12 @@ class CustomerTest < ActiveSupport::TestCase
     @customer.due_date = Date.today.day.to_s
     @customer.save
 
-    assert_difference ['Invoice.count', 'InvoiceTran.count'] do
+    assert_difference ['Invoice.count', 'AccountTran.count'] do
       customer = Customer.find(@customer.id)
       assert customer.charged_today?
     end
 
-    assert_difference ['Invoice.count', 'InvoiceTran.count'], 0 do
+    assert_difference ['Invoice.count', 'AccountTran.count'], 0 do
       Customer.find(@customer.id)
     end
   end
@@ -78,7 +78,7 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "create deposit should create deposit" do
-    assert_difference ['Invoice.count', 'Tran.count', 'InvoiceTran.count'] do
+    assert_difference ['Invoice.count', 'Tran.count', 'AccountTran.count'] do
       @customer.create_deposit "300"
     end
   end

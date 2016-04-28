@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :invoices
   has_many :trans
   has_many :accounts
-  has_many :invoice_trans
+  has_many :account_trans
   has_many :checks
 
   # Include default devise modules. Others available are:

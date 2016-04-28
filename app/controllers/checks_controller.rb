@@ -29,7 +29,9 @@ class ChecksController < ApplicationController
   end
 
   def update
+    old_amount = @check.amount
     if @check.update(check_params)
+      @check.calculate_balance old_amount
       flash[:success] = "Check successfully updated"
       redirect_to @check
     else

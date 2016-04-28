@@ -24,7 +24,7 @@ class Customer < ActiveRecord::Base
         invoice.skip_tran_validation = true
         invoice.save
 
-        invoice_tran = InvoiceTran.create do |t|
+        account_tran = AccountTran.create do |t|
           t.user = self.user
           t.account_id = Account.find_by(name: "Rental Income", user: self.user).id
           t.invoice = invoice
@@ -56,7 +56,7 @@ class Customer < ActiveRecord::Base
     invoice.skip_tran_validation = true
     invoice.save
 
-    InvoiceTran.create do |t|
+    AccountTran.create do |t|
       t.user = self.user
       t.account_id = Account.find_by(name: "Deposits", user: self.user).id
       t.invoice = invoice
