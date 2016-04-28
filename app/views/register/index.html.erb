@@ -1,0 +1,29 @@
+<h1 class="display-4 margin-40">Check Register</h1>
+
+<div class="card">
+  <h4 class="card-header <%= @balance >= 0 ? 'text-success' : 'text-danger' %>">
+    <%= number_to_currency(@balance) %>
+  </h4>
+
+  <div class="card-block">
+    <table class="table table-hover row-links">
+      <thead class="thead-default">
+        <tr>
+          <th>Type</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @trans.each do |t| %>
+          <tr data-link="<%= check_path t %>">
+            <td>Check</td>
+            <td><%= t.amount %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>  
+  </div>
+</div>
+
+

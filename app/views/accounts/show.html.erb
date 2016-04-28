@@ -5,6 +5,7 @@
     <tr>
       <th>Type</th>
       <th>Amount</th>
+      <th>Deposit</th>
     </tr>
   </thead>
 
@@ -13,6 +14,7 @@
       <tr data-link="<%= edit_customer_invoice_path(t.invoice.customer, t) %>">
         <td>Invoice</td>
         <td><%= number_to_currency(t.amount) %></td>
+        <td><%= truncate(t.memo, length: 25) %>
       </tr>
     <% end %>
   </tbody>

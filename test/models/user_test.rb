@@ -14,10 +14,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "after create should add default accounts" do
-    assert_difference 'Account.count', 2 do
+    assert_difference 'Account.count', 3 do
       @user = User.create(:email => 'never_before_used_email_address@blah.com', :password => 'password', :password_confirmation => 'password')
     end
     assert_equal @user.accounts.first.name, "Rental Income"
-    assert_equal @user.accounts.last.name, "Deposits"
+    assert_equal @user.accounts.second.name, "Deposits"
+    assert_equal @user.accounts.third.name, "Checking"
   end
 end

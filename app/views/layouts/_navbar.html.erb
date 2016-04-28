@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
   <div class="container-fluid">
     <%= link_to "Rentals", root_path, class: "navbar-brand" %>
 
@@ -16,8 +16,15 @@
           <%= link_to 'Properties', properties_path, class: "nav-link #{isActive 'properties'}" %>
         </li>
 
-        <li class="nav-item">
-          <%= link_to 'Accounts', accounts_path, class: "nav-link #{isActive 'accounts'}" %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Transactions</a>
+
+          <div class="dropdown-menu" aria-labelledby="Preview">
+            <%= link_to 'Check Register', register_path, class: "dropdown-item #{isActive 'register'}" %>
+            <%= link_to 'New Check', new_check_path, class: "dropdown-item #{isActive 'checks', ['new', 'create']}" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Accounts', accounts_path, class: "dropdown-item #{isActive 'accounts'}" %>
+          </div>
         </li>
 
       </ul>

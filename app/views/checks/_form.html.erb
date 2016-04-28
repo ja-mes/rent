@@ -1,0 +1,43 @@
+<h1 class="display-4 margin-40">
+  Check 
+  <% unless @check.new_record? %>
+    <small class="text-muted">#<%= @check.num %></small>
+  <% end %>
+</h1>
+
+<%= render 'shared/errors', obj: @check %>
+
+<%= form_for [@check], html: { style: "margin-top: 20px" } do |f| %>
+  <div class="form-group margin-20">
+    <%= f.date_select :date, order: [:month, :day, :year] %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :num %>
+    <%= f.number_field :num, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :amount %>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <%= f.number_field :amount, value: number_with_precision(f.object.amount, precision: 2), step: 0.01, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :memo %>
+    <%= f.text_area :memo, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-success" %>
+    <% unless @check.new_record? %>
+      <%= link_to 'Delete', check_path(@check), method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+<% end %>
+
+<% unless @check.new_record? %>
+  <%= link_to 'Back', register_path %>
+<% end %>
