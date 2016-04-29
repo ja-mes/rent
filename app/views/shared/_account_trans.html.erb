@@ -1,0 +1,20 @@
+<table class="table" style="margin-bottom: 10px">
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Amount</th>
+      <th>Memo</th>
+      <th>Property</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= f.fields_for :account_trans do |ff| %>
+      <%= render 'shared/account_tran_fields', f: ff %>
+    <% end %>
+  </tbody>
+
+</table>
+<%= link_to_add_fields "Remove", f, :account_trans, "btn btn-secondary btn-sm margin-30", "fa fa-plus" %>
+

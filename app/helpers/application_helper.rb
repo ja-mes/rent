@@ -15,7 +15,7 @@ module ApplicationHelper
     new_object = f.object.class.reflect_on_association(association).klass.new  
     new_object.user = current_user
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|  
-      render(association.to_s.singularize + "_fields", :f => builder)  
+      render("shared/" + association.to_s.singularize + "_fields", :f => builder)  
     end  
     link_to "#", :onclick => h("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => cssClass do
       if fa

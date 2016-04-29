@@ -25,30 +25,13 @@
     <%= f.text_area :memo, class: "form-control" %>
   </div>
 
-  <table class="table" style="margin-bottom: 10px">
-    <thead>
-      <tr>
-        <th>Account</th>
-        <th>Amount</th>
-        <th>Memo</th>
-        <th>Property</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <%= f.fields_for :account_trans do |ff| %>
-        <%= render 'account_tran_fields', f: ff %>
-      <% end %>
-    </tbody>
-
-  </table>
-  <%= link_to_add_fields "Remove", f, :account_trans, "btn btn-secondary btn-sm margin-30", "fa fa-plus" %>
-
+  <%= render 'shared/account_trans', f: f, obj: @invoice %>
+  
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>
-    <% unless @invoice.new_record? %>
-      <%= link_to 'Delete', customer_invoice_path(@customer, @invoice), method: :delete, class: "btn btn-danger" %>
+
+    <% unless obj.new_record? %>
+      <%= link_to 'Delete', customer_invoice_path(@customer, obj), method: :delete, class: "btn btn-danger" %>
     <% end %>
   </div>
 <% end %>

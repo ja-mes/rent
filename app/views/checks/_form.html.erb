@@ -30,8 +30,11 @@
     <%= f.text_area :memo, class: "form-control" %>
   </div>
 
+  <%= render 'shared/account_trans', f: f, obj: @check %>
+
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>
+
     <% unless @check.new_record? %>
       <%= link_to 'Delete', check_path(@check), method: :delete, class: "btn btn-danger" %>
     <% end %>
