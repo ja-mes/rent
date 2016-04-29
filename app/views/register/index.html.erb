@@ -7,9 +7,10 @@
 
   <div class="card-block">
     <table class="table table-hover row-links">
-      <thead class="thead-default">
+      <thead>
         <tr>
           <th>Type</th>
+          <th>Date</th>
           <th>Amount</th>
         </tr>
       </thead>
@@ -18,7 +19,8 @@
         <% @trans.each do |t| %>
           <tr data-link="<%= check_path t %>">
             <td>Check</td>
-            <td><%= t.amount %></td>
+            <td><%= t.date %></td>
+            <td><%= number_to_currency(t.amount) %></td>
           </tr>
         <% end %>
       </tbody>

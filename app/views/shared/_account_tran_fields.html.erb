@@ -1,4 +1,4 @@
-<tr class="invoice_tran_fields">
+<tr class="account_tran_fields">
   <td>
     <%= f.collection_select :account_id, @accounts, :id, :name, {}  %>
   </td>
@@ -17,6 +17,6 @@
 
   <td>
     <%= f.hidden_field :_destroy %>
-    <a href="#" class="remove_invoice_tran"><i class="fa fa-remove"></i></a>
+    <a href="#" class="remove_account_tran"><i class="fa fa-remove"></i></a>
   </td>
 </tr>

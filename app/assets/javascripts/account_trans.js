@@ -5,12 +5,12 @@ function add_fields(link, association, content) {
   $('table tr:last').after(content.replace(regexp, new_id));  
 }
 
-$(document).on("click", '.remove_invoice_tran', function() {
+$(document).on("click", '.remove_account_tran', function() {
   event.preventDefault();
   $(this).prev().val("1");
-  $(this).closest('.invoice_tran_fields').hide();
+  $(this).closest('.account_tran_fields').hide();
 });
 
 $(document).on('turbolinks:load', function() {
-  $('.remove_invoice_tran').prev().val("false");
+  $('.remove_account_tran').prev().val("false");
 });
