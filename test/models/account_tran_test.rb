@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AccountTranTest < ActiveSupport::TestCase
+class InvoiceTranTest < ActiveSupport::TestCase
   test "invoice tran should be valid" do
   end
 end
