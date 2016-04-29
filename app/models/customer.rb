@@ -27,7 +27,7 @@ class Customer < ActiveRecord::Base
         account_tran = AccountTran.create do |t|
           t.user = self.user
           t.account_id = Account.find_by(name: "Rental Income", user: self.user).id
-          t.invoice = invoice
+          t.account_transable = invoice
           t.amount = self.rent
           t.memo = "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}"
           t.property_id = self.property.id
@@ -59,7 +59,7 @@ class Customer < ActiveRecord::Base
     AccountTran.create do |t|
       t.user = self.user
       t.account_id = Account.find_by(name: "Deposits", user: self.user).id
-      t.invoice = invoice
+      t.account_transable = invoice
       t.amount = amount
       t.memo = "Deposit"
       t.property_id = self.property.id

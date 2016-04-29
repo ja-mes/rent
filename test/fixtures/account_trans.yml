@@ -3,14 +3,10 @@
 one:
   amount: 9.99
   memo: MyString
-  invoice: one
+  account_transable: one (Invoice)
 
 two:
   amount: 9.99
   memo: MyString
-  invoice: two
+  account_transable: two (Invoice)
 
-three:
-  amount: 9.99
-  memo: MyString
-  invoice: nil

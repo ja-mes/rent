@@ -10,7 +10,7 @@
 
   <tbody>
     <% @trans.each do |t| %>
-      <tr data-link="<%= edit_customer_invoice_path(t.invoice.customer, t) %>">
+      <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t) %>">
         <td>Invoice</td>
         <td><%= number_to_currency(t.amount) %></td>
       </tr>

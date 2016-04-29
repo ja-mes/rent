@@ -7,7 +7,6 @@ class Invoice < ActiveRecord::Base
 
   # invoice trans
   has_many :account_trans, as: :account_transable, dependent: :destroy
-#  has_many :account_trans, dependent: :destroy, inverse_of: :invoice
   validates_presence_of :account_trans, unless: :skip_tran_validation
   accepts_nested_attributes_for :account_trans, allow_destroy: :true
 
