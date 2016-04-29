@@ -16,6 +16,8 @@ class InvoicesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:customer)
     assert_not_nil assigns(:invoice)
     assert assigns(:invoice).new_record?
+    assert_not_nil assigns(:properties)
+    assert_not_nil assigns(:accounts)
   end
 
   test "get new should not work if user is not logged in" do
