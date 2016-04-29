@@ -1,7 +1,8 @@
 class ChecksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_check, only: [:edit, :update, :destroy]
+  before_action :set_check, only: [:show, :edit, :update, :destroy]
   before_action :set_vars, except: [:index, :show, :destroy]
+  before_action :require_same_user, only: [:show, :edit, :update, :destroy]
 
   def index
     redirect_to new_check_path
@@ -65,5 +66,12 @@ class ChecksController < ApplicationController
   def set_vars
     @accounts = current_user.accounts
     @properties = current_user.properties
+  end
+
+  def require_same_user
+    if current_user != @check.user
+      flash[:danger] = "You are not authorized to do that"
+      redirect_to root_path
+    end
   end
 end
