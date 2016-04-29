@@ -27,3 +27,4 @@ class Check < ActiveRecord::Base
     account.increment!(:balance, by = -self.amount)
   end
 end
+

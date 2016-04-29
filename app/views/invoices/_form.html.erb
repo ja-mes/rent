@@ -30,8 +30,8 @@
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>
 
-    <% unless obj.new_record? %>
-      <%= link_to 'Delete', customer_invoice_path(@customer, obj), method: :delete, class: "btn btn-danger" %>
+    <% unless @invoice.new_record? %>
+      <%= link_to 'Delete', customer_invoice_path(@customer, @invoice), method: :delete, class: "btn btn-danger" %>
     <% end %>
   </div>
 <% end %>

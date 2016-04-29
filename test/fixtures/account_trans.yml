@@ -10,3 +10,15 @@ two:
   memo: MyString
   account_transable: two (Invoice)
 
+
+check1:
+  amount: 9.99
+  memo: MyString
+  account_transable: one (Check)
+
+check2:
+  amount: 9.99
+  memo: MyString
+  account_transable: two (Check)
+
+

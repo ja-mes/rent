@@ -5,14 +5,19 @@
     <tr>
       <th>Type</th>
       <th>Amount</th>
-      <th>Deposit</th>
+      <th>Memo</th>
     </tr>
   </thead>
 
   <tbody>
     <% @trans.each do |t| %>
-      <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t.account_transable) %>">
-        <td>Invoice</td>
+      <% if t.account_transable_type == "Check" %>
+        <tr data-link="<%= edit_check_path(t.account_transable) %>">
+          <td>Check</td>
+      <% elsif t.account_transable_type == "Invoice" %>
+        <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t.account_transable) %>">
+          <td>Invoice</td>
+      <% end %>
         <td><%= number_to_currency(t.amount) %></td>
         <td><%= truncate(t.memo, length: 25) %>
       </tr>

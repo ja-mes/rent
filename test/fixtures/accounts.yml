@@ -13,3 +13,7 @@ three:
   balance: 0.00
   user: one
 
+four:
+  name: "Checking"
+  balance: 0.00
+  user: one
