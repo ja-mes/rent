@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :accounts
   resources :checks
+  resources :deposits
 
   get '/register', to: 'register#index', as: 'register'
 end

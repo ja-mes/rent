@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :accounts
   has_many :account_trans
   has_many :checks
+  has_many :deposits
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -17,6 +18,7 @@ class User < ActiveRecord::Base
     Account.create(name: "Rental Income", balance: 0, user: self)
     Account.create(name: "Deposits", balance: 0, user: self)
     Account.create(name: "Checking", balance: 0, user: self)
+    Account.create(name: "Undeposited Funds", balance: 0, user: self)
   end
 
   def rentable_properties

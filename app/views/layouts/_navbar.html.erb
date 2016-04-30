@@ -20,9 +20,10 @@
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Transactions</a>
 
           <div class="dropdown-menu" aria-labelledby="Preview">
-            <%= link_to 'Check Register', register_path, class: "dropdown-item #{isActive 'register'}" %>
-            <%= link_to 'New Check', new_check_path, class: "dropdown-item #{isActive 'checks', ['new', 'create']}" %>
+            <%= link_to 'Create Check', new_check_path, class: "dropdown-item #{isActive 'checks', ['new', 'create']}" %>
+            <%= link_to 'Create Deposit', new_deposit_path, class: "dropdown-item #{isActive 'deposits', ['new', 'create']}" %>
             <div class="dropdown-divider"></div>
+            <%= link_to 'Check Register', register_path, class: "dropdown-item #{isActive 'register'}" %>
             <%= link_to 'Accounts', accounts_path, class: "dropdown-item #{isActive 'accounts'}" %>
           </div>
         </li>

@@ -7,8 +7,6 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_redirected_to customers(:one)
   end
 
-
-
   test "get new" do
     sign_in :user, users(:one)
     get :new, customer_id: customers(:one)
@@ -45,6 +43,7 @@ class PaymentsControllerTest < ActionController::TestCase
       }
     end
 
+    assert_equal assigns(:payment).account, accounts(:five)
     assert_equal assigns(:payment).customer.balance, -300.00
     assert_redirected_to customers(:one)
     assert_not_nil assigns(:payment)
