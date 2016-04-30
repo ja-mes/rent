@@ -15,9 +15,11 @@ class ChecksController < ApplicationController
 
   def create
     @check = current_user.checks.new(check_params)
+
+    debugger
     @check.account_trans.each do |tran|
       tran.user = current_user
-      tran.date = check_params[:date]
+      tran.date = @check.date
     end
 
     if @check.save
@@ -41,7 +43,7 @@ class ChecksController < ApplicationController
     @check.attributes = check_params
     @check.account_trans.each do |tran|
       tran.user = current_user
-      tran.date = check_params[:date]
+      tran.date = @check.date
     end
 
     if @check.save

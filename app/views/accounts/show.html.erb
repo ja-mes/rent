@@ -4,6 +4,7 @@
   <thead class="thead-default">
     <tr>
       <th>Type</th>
+      <th>Date</th>
       <th>Amount</th>
       <th>Memo</th>
     </tr>
@@ -18,6 +19,7 @@
         <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t.account_transable) %>">
           <td>Invoice</td>
       <% end %>
+        <td><%= t.date %></td>
         <td><%= number_to_currency(t.amount) %></td>
         <td><%= truncate(t.memo, length: 25) %>
       </tr>

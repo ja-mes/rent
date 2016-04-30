@@ -20,7 +20,7 @@ class InvoicesController < ApplicationController
 
     @invoice.account_trans.each do |tran|
       tran.user = current_user
-      tran.date = invoice_params[:date]
+      tran.date = @invoice.date
     end
 
     if @invoice.save
@@ -42,7 +42,7 @@ class InvoicesController < ApplicationController
 
     @invoice.account_trans.each do |tran| 
       tran.user = current_user
-      tran.date = invoice_params[:date]
+      tran.date = @invoice.date
     end
 
     if @invoice.save
