@@ -4,21 +4,24 @@ one:
   amount: 9.99
   memo: MyString
   account_transable: one (Invoice)
+  date: 2016-08-07
 
 two:
   amount: 9.99
   memo: MyString
   account_transable: two (Invoice)
+  date: 2016-08-07
 
 
 check1:
   amount: 9.99
   memo: MyString
   account_transable: one (Check)
+  date: 2016-08-07
 
 check2:
   amount: 9.99
   memo: MyString
   account_transable: two (Check)
-
+  date: 2016-08-07
 

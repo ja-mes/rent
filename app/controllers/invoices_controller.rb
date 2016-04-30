@@ -17,7 +17,11 @@ class InvoicesController < ApplicationController
 
   def create
     @invoice = current_user.invoices.new(invoice_params)
-    @invoice.account_trans.each {|tran| tran.user = current_user}
+
+    @invoice.account_trans.each do |tran|
+      tran.user = current_user
+      tran.date = invoice_params[:date]
+    end
 
     if @invoice.save
       flash[:success] = "Invoice successfully saved"
@@ -35,7 +39,11 @@ class InvoicesController < ApplicationController
     old_customer = @invoice.customer
 
     @invoice.attributes = invoice_params
-    @invoice.account_trans.each {|tran| tran.user = current_user}
+
+    @invoice.account_trans.each do |tran| 
+      tran.user = current_user
+      tran.date = invoice_params[:date]
+    end
 
     if @invoice.save
       @invoice.calculate_balance old_amount, old_customer

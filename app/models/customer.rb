@@ -31,6 +31,7 @@ class Customer < ActiveRecord::Base
           t.amount = self.rent
           t.memo = "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}"
           t.property_id = self.property.id
+          t.date = invoice.date
         end
 
         self.toggle!(:charged_today)
@@ -63,6 +64,7 @@ class Customer < ActiveRecord::Base
       t.amount = amount
       t.memo = "Deposit"
       t.property_id = self.property.id
+      t.date = invoice.date
     end
   end
   

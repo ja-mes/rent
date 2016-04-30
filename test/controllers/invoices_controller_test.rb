@@ -54,6 +54,11 @@ class InvoicesControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:invoice)
     assert_equal assigns(:invoice).customer.balance, 500.00
+
+    # account trans should have date and user assigned
+    assert_equal assigns(:invoice).account_trans.first.date, Date.strptime("03/10/2016", "%d/%m/%Y") 
+    assert_equal assigns(:invoice).account_trans.first.user, users(:one)
+
     assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))
     assert_equal "Invoice successfully saved", flash[:success]
   end

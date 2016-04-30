@@ -15,7 +15,10 @@ class ChecksController < ApplicationController
 
   def create
     @check = current_user.checks.new(check_params)
-    @check.account_trans.each {|tran| tran.user = current_user}
+    @check.account_trans.each do |tran|
+      tran.user = current_user
+      tran.date = check_params[:date]
+    end
 
     if @check.save
       flash[:success] = "Check successfully saved"
@@ -36,7 +39,10 @@ class ChecksController < ApplicationController
     old_amount = @check.amount
 
     @check.attributes = check_params
-    @check.account_trans.each {|tran| tran.user = current_user}
+    @check.account_trans.each do |tran|
+      tran.user = current_user
+      tran.date = check_params[:date]
+    end
 
     if @check.save
       @check.calculate_balance old_amount

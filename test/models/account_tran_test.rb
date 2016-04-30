@@ -26,4 +26,9 @@ class AccountTranTest < ActiveSupport::TestCase
     @tran.amount = nil
     assert_not @tran.valid?
   end
+
+  test "date should be present" do
+    @tran.date = nil
+    assert_not @tran.valid?
+  end
 end

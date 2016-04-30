@@ -45,6 +45,11 @@ class ChecksControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:check)
     assert_equal -assigns(:check).amount, accounts(:four).balance
+
+    # should assign account tran date and user
+    assert_equal assigns(:check).account_trans.first.date, Date.strptime("03/10/2016", "%d/%m/%Y") 
+    assert_equal assigns(:check).account_trans.first.user, users(:one)
+
     assert_redirected_to assigns(:check)
   end
 
