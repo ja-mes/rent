@@ -19,7 +19,7 @@
         <% @trans.each do |t| %>
           <tr data-link="<%= check_path t %>">
             <td>Check</td>
-            <td><%= t.date %></td>
+            <td><%= t.date.strftime("%m/%d/%Y") %></td>
             <td><%= number_to_currency(t.amount) %></td>
           </tr>
         <% end %>
