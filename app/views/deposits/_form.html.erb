@@ -1,0 +1,39 @@
+<h1 class="display-4 margin-40">Deposit</h1>
+
+<%= render 'shared/errors', obj: @deposit %>
+
+<%= form_for @deposit do |f| %>
+  <div class="card">
+    <h4 class="card-header">$0.00</h4>
+
+    <div class="card-block">
+      <table class="table">
+        <thead>
+          <th><input type="checkbox" class="deposit_check_box_select_all" /></th>
+          <th>Received From</th>
+          <th>Date</th>
+          <th>Amount</th>
+        </thead>
+
+        <tbody>
+          <% @payments.each_with_index do |payment, i| %>
+            <tr>
+              <td>
+                <input type="checkbox" name="deposit[payment][<%= payment.id %>][selected]" class="deposit_check_box"/>
+              </td>
+
+              <td><%= link_to payment.customer.full_name, edit_customer_payment_path(payment.customer, payment) %></td>
+              <td><%= payment.date %></td>
+              <td class="deposit_amount"><%= number_to_currency(payment.amount) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+  <% unless @deposit.new_record? %>
+    <%= link_to 'Delete', deposit_path(@deposit), method: :delete, class: "btn btn-danger" %>
+  <% end %>
+<% end %>
