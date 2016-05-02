@@ -32,8 +32,14 @@
     </div>
   </div>
 
-  <%= f.submit class: "btn btn-primary" %>
-  <% unless @deposit.new_record? %>
-    <%= link_to 'Delete', deposit_path(@deposit), method: :delete, class: "btn btn-danger" %>
-  <% end %>
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+    <% unless @deposit.new_record? %>
+      <%= link_to 'Delete', deposit_path(@deposit), method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+<% end %>
+
+<% unless @deposit.new_record? %>
+  <%= link_to 'Back', register_path %>
 <% end %>
