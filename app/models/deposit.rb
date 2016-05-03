@@ -10,4 +10,15 @@ class Deposit < ActiveRecord::Base
   after_create do
     self.create_tran(user: self.user, date: self.date)
   end
+
+  after_destroy do
+    account = Account.find_by(user: self.user, name: "Checking")
+    account.increment!(:balance, by = -self.amount)
+  end
+
+  def calculate_balance(old_amount = nil)
+    account = Account.find_by(user: self.user, name: "Checking")
+    account.increment(:balance, by = -old_amount) if old_amount
+    account.increment!(:balance, by = self.amount)
+  end
 end

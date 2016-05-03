@@ -14,18 +14,23 @@ class DepositsController < ApplicationController
   end
 
   def create
-    @deposit = current_user.deposits.build(deposit_params)
+    debugger 
+    @deposit = current_user.deposits.new(deposit_params)
     @deposit.amount = 0
+    debugger
     @payments = Account.find_by(name: "Undeposited Funds", user: current_user).payments.where(deposit: nil)
 
     @payments.each do |p|
       if payment_params[:payment].key?(p.id.to_s)
         p.update_attribute(:deposit, @deposit)
         @deposit.amount += p.amount
+        debugger
       end
     end
 
     if @deposit.save
+      debugger
+      @deposit.calculate_balance
       flash[:success] = "Deposit successfully saved"
       redirect_to @deposit
     else
@@ -42,6 +47,7 @@ class DepositsController < ApplicationController
   end
 
   def update
+    old_amount = @deposit.amount
     @deposit.assign_attributes(deposit_params)
     @account = Account.find_by(name: "Undeposited Funds", user: current_user)
 
@@ -53,6 +59,7 @@ class DepositsController < ApplicationController
     end
 
     if @deposit.save
+      @deposit.calculate_balance old_amount
       flash[:success] = "Deposit successfully saved"
       redirect_to @deposit
     else
