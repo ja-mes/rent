@@ -20,15 +20,14 @@
           <% if t.transactionable_type == "Deposit" %>
             <tr data-link="<%= deposit_path t.transactionable %>">
               <td>Deposit</td>
-            </tr>
-          <% else %>
-            <tr data-link="<%= check_path t.transactionable %>">
-              <td>Check</td>
-              <td><%= t.date.strftime("%m/%d/%Y") %></td>
-              <td><%= number_to_currency(t.transactionable.amount) %></td>
+            <% else %>
+              <tr data-link="<%= check_path t.transactionable %>">
+                <td>Check</td>
+              <% end %>
+            <td><%= t.date.strftime("%m/%d/%Y") %></td>
+            <td><%= number_to_currency(t.transactionable.amount) %></td>
             </tr>
           <% end %>
-        <% end %>
       </tbody>
     </table>  
   </div>
