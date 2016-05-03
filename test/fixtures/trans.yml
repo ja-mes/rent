@@ -19,3 +19,21 @@ four:
   date: 2016-05-07
   user: one
   transactionable: one (Deposit)
+
+five:
+  date: 2016-05-08
+  user: one
+  customer: one
+  transactionable: four (Payment)
+
+six:
+  date: 2016-05-08
+  user: one
+  customer: one
+  transactionable: three (Payment)
+
+seven:
+  date: 2016-05-08
+  user: one
+  customer: one
+  transactionable: five (Payment)

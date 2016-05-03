@@ -26,7 +26,7 @@ class ChecksControllerTest < ActionController::TestCase
   test "post create" do
     sign_in :user, users(:one)
 
-    assert_difference ['Check.count', 'AccountTran.count'] do
+    assert_difference ['Check.count', 'AccountTran.count', 'Tran.count'] do
       post :create, check: {
         num: "2",
         amount: "500",

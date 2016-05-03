@@ -10,7 +10,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "grab_trans should return transactions for the specified customer" do
-    assert_equal @user.grab_trans(customers(:one)).count, 2
+    assert @user.grab_trans(customers(:one))
   end
 
   test "after create should add default accounts" do

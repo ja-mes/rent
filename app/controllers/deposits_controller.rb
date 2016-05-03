@@ -4,7 +4,7 @@ class DepositsController < ApplicationController
   before_action :require_same_user, only: [:update, :edit, :destroy]
 
   def index
-    redirect_to register_path
+    redirect_to new_deposit_path
   end
 
   def new
@@ -46,8 +46,9 @@ class DepositsController < ApplicationController
     old_amount = @deposit.amount
     @deposit.assign_attributes(deposit_params)
     @account = Account.find_by(name: "Undeposited Funds", user: current_user)
+    @payments = @deposit.payments
 
-    @deposit.payments.each do |p|
+    @payments.each do |p|
       unless payment_params[:payment].key?(p.id.to_s)
         p.update_attribute(:deposit, nil)
         @deposit.amount -= p.amount
