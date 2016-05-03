@@ -68,6 +68,18 @@ class CheckTest < ActiveSupport::TestCase
     end
   end
 
+  test "after_update should update check tran" do
+    check = @check.dup
+    check.date = "4/12/2016".to_date
+    @check.account_trans.each do |t| 
+      t.user = users(:one)
+      check.account_trans << t.dup 
+    end
+
+    check.save
+    assert_equal check.tran.date, Date.strptime("4/12/2016", "%d/%m/%Y")
+  end
+
   test "after_destroy should update account balance" do
     @check.amount = 500
     @check.destroy

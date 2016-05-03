@@ -9,3 +9,8 @@ two:
   user: one
   customer: one
   transactionable: one (Invoice)
+
+three:
+  date: 2016-05-07
+  user: one
+  transactionable: one (Check)

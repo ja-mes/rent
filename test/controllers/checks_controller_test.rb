@@ -117,6 +117,7 @@ class ChecksControllerTest < ActionController::TestCase
     assert_redirected_to check
     assert_equal check.amount, 600
     assert_equal check.date, Date.strptime("3/11/2016", "%d/%m/%Y")
+    assert_equal check.tran.date, Date.strptime("3/11/2016", "%d/%m/%Y")
   end
 
   test "user must be logged in for update" do

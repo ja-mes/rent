@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class DepositTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @deposit = deposits(:one)
+  end
+  #
+  #test "deposit should be valid" do
+  #end
+
 end
