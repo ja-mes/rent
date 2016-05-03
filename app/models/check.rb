@@ -18,6 +18,10 @@ class Check < ActiveRecord::Base
     account.increment!(:balance, by = -self.amount)
   end
 
+  after_update do
+    self.tran.update_attributes(date: self.date)
+  end
+
   after_destroy do
     account = Account.find_by(user: self.user, name: "Checking")
     account.increment!(:balance, by = self.amount)
