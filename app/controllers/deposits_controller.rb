@@ -14,12 +14,14 @@ class DepositsController < ApplicationController
   end
 
   def create
-    @deposit = current_user.deposits.build
-    @account = Account.find_by(name: "Undeposited Funds", user: current_user)
+    @deposit = current_user.deposits.build(deposit_params)
+    @deposit.amount = 0
+    @payments = Account.find_by(name: "Undeposited Funds", user: current_user).payments.where(deposit: nil)
 
-    @account.payments.where(deposit: nil).each do |p|
-      if deposit_params[:payment].key?(p.id.to_s)
+    @payments.each do |p|
+      if payment_params[:payment].key?(p.id.to_s)
         p.update_attribute(:deposit, @deposit)
+        @deposit.amount += p.amount
       end
     end
 
@@ -40,11 +42,13 @@ class DepositsController < ApplicationController
   end
 
   def update
+    @deposit.assign_attributes(deposit_params)
     @account = Account.find_by(name: "Undeposited Funds", user: current_user)
 
     @deposit.payments.each do |p|
-      unless deposit_params[:payment].key?(p.id.to_s)
+      unless payment_params[:payment].key?(p.id.to_s)
         p.update_attribute(:deposit, nil)
+        @deposit.amount -= p.amount
       end
     end
 
@@ -64,8 +68,12 @@ class DepositsController < ApplicationController
   end
 
   private
-  def deposit_params
+  def payment_params
     params.require(:deposit).permit(payment: [:id, :selected])
+  end
+
+  def deposit_params
+    params.require(:deposit).permit(:date)
   end
 
   def set_deposit

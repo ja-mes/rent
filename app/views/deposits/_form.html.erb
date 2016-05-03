@@ -3,6 +3,10 @@
 <%= render 'shared/errors', obj: @deposit %>
 
 <%= form_for @deposit do |f| %>
+  <div class="form-group margin-20">
+    <%= f.date_select :date, order: [:month, :day, :year] %>
+  </div>
+
   <div class="card">
     <h4 class="card-header">$0.00</h4>
 
