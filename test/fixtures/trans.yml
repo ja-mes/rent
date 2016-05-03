@@ -14,3 +14,8 @@ three:
   date: 2016-05-07
   user: one
   transactionable: one (Check)
+
+four:
+  date: 2016-05-07
+  user: one
+  transactionable: one (Deposit)

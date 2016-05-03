@@ -11,3 +11,12 @@ two:
   memo: "this is the amazing memo"
   user: two
   customer: two
+
+three:
+  amount: 200
+  date: 2016-05-06
+  memo: MyString
+  user: one
+  customer: one
+  deposit: one
+

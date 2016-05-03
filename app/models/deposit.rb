@@ -7,15 +7,19 @@ class Deposit < ActiveRecord::Base
   validates :date, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
 
-  after_create do
+  after_create :create_deposit_tran
+  after_update :update_tran
+  after_destroy :remove_amount
+
+  def create_deposit_tran
     self.create_tran(user: self.user, date: self.date)
   end
 
-  after_update do
+  def update_tran 
     self.tran.update_attributes(date: self.date)
   end
 
-  after_destroy do
+  def remove_amount
     account = Account.find_by(user: self.user, name: "Checking")
     account.increment!(:balance, by = -self.amount)
   end

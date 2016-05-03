@@ -5,6 +5,10 @@ class CheckTest < ActiveSupport::TestCase
     @check = checks(:one)
   end
 
+  test "should be valid" do
+    assert @check.valid?
+  end
+
   test "should belong to user" do
     @check.user_id = nil
     assert_not @check.valid?
