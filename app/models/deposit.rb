@@ -6,6 +6,7 @@ class Deposit < ActiveRecord::Base
   validates :user_id, presence: true
   validates :date, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
+  validates_presence_of :payments
 
   after_create :create_deposit_tran
   after_update :update_tran

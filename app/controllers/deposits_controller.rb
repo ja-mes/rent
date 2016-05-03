@@ -18,12 +18,15 @@ class DepositsController < ApplicationController
     @deposit.amount = 0
     @payments = Account.find_by(name: "Undeposited Funds", user: current_user).payments.where(deposit: nil)
 
-    @payments.each do |p|
-      if payment_params[:payment].key?(p.id.to_s)
-        p.update_attribute(:deposit, @deposit)
-        @deposit.amount += p.amount
+    if payment_params.length > 0
+      @payments.each do |p|
+        if payment_params[:payment].key?(p.id.to_s)
+          @deposit.payments << p
+          @deposit.amount += p.amount
+        end
       end
     end
+
 
     if @deposit.save
       @deposit.calculate_balance
