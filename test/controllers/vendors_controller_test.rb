@@ -60,6 +60,7 @@ class VendorsControllerTest < ActionController::TestCase
     get :show, id: vendors(:one)
     assert_template :show
     assert_response :success
+    assert_not_nil assigns(:trans)
   end
 
   test "show should not work if the user is not logged in" do

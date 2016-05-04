@@ -25,6 +25,7 @@ class VendorsController < ApplicationController
   end
 
   def show
+    @trans = current_user.checks.where(vendor: @vendor)
   end
 
   def edit

@@ -11,6 +11,14 @@
   </thead>
 
   <tbody>
+    <% @trans.each do |t| %>
+      <tr data-link="<%= check_path t %>">
+        <td>Check</td>
+        <td><%= t.date %></td>
+        <td><%= number_to_currency(t.amount) %></td>
+        <td><%= t.memo %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
