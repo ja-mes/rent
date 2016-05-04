@@ -1,0 +1,17 @@
+<%= render 'header' %>
+
+<table class="table table-hover row-links">
+  <thead class="thead-default">
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vendors.each do |v| %>
+      <tr data-link="<%= v %>">
+        <td><%= v.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

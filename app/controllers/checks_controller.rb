@@ -63,7 +63,7 @@ class ChecksController < ApplicationController
 
   private
   def check_params
-    params.require(:check).permit(:amount, :date, :memo, :num, account_trans_attributes: [:id, :account_id, :property_id, :amount, :memo, :_destroy])
+    params.require(:check).permit(:amount, :date, :memo, :num, :vendor_id, account_trans_attributes: [:id, :account_id, :property_id, :amount, :memo, :_destroy])
   end
 
   def set_check

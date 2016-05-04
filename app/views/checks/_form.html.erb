@@ -13,6 +13,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :vendor %>
+    <%= f.collection_select :vendor_id, Vendor.where(user: current_user), :id, :name, {}, class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
     <%= f.label :num %>
     <%= f.number_field :num, class: "form-control" %>
   </div>

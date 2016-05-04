@@ -1,0 +1,10 @@
+<h1 class="display-4 margin-40">Vendors</h1>
+
+<ul class="nav nav-tabs header-tabs">
+  <li class="nav-item">
+    <%= link_to 'All Vendors', vendors_path, class: "nav-link #{isActive 'vendors', 'index'}" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'New Vendor', new_vendor_path, class: "nav-link #{isActive 'vendors', ['new', 'create']}" %>
+  </li>
+</ul>

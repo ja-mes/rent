@@ -1,0 +1,12 @@
+<h3 class="margin-35"><%= @vendor.name %></h3>
+
+<ul class="nav nav-tabs header-tabs">
+  <li class="nav-item">
+    <%= link_to 'Vendor List', @vendor, class: "nav-link #{isActive 'vendors', 'show'}" %>
+  </li>
+
+  <li class="nav-item">
+    <%= link_to 'Edit Vendor', edit_vendor_path(@vendor), class: "nav-link #{isActive 'vendors', ['edit', 'update']}" %>
+  </li>
+</ul>
+

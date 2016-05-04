@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'vendors/index'
+
+  get 'vendors/new'
+
+  get 'vendors/create'
+
+  get 'vendors/show'
+
   resources :vendors
 
   devise_for :users
