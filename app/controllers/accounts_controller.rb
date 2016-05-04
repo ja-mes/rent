@@ -24,12 +24,7 @@ class AccountsController < ApplicationController
 
   def show
     @account = current_user.accounts.find(params[:id])
-
-    if @account.name = "Undeposited Funds"
-      @trans = @account.payments
-    else
-      @trans = @account.account_trans
-    end
+    @trans = @account.account_trans
   end
   
   def edit

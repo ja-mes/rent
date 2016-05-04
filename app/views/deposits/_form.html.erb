@@ -1,6 +1,8 @@
 <h1 class="display-4 margin-40">Deposit</h1>
 
-<%= render 'shared/errors', obj: @deposit %>
+<div style="margin-bottom: 25px">
+  <%= render 'shared/errors', obj: @deposit %>
+</div>
 
 <%= form_for @deposit do |f| %>
   <div class="form-group margin-20">

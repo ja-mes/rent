@@ -12,9 +12,9 @@
 
   <tbody>
     <% @trans.each do |t| %>
-      <% if t.class.name == "Payment" %>
-        <tr data-link="<%= edit_customer_payment_path(t.customer, t) %>">
-          <td>Payment</td>
+      <% if t.account_transable_type == "Deposit" %>
+        <tr data-link="<%= edit_deposit_path(t) %>">
+          <td>Deposit</td>
       <% elsif t.account_transable_type == "Check" %>
         <tr data-link="<%= edit_check_path(t.account_transable) %>">
           <td>Check</td>

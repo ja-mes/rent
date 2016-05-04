@@ -49,7 +49,7 @@ class DepositTest < ActiveSupport::TestCase
   test "create_tran should create tran for deposit" do
     deposit = @deposit.dup
     assert_difference 'Tran.count' do
-      deposit.create_deposit_tran
+      deposit.create_deposit_trans
     end
   end
 

@@ -1,19 +1,26 @@
 class Deposit < ActiveRecord::Base
   belongs_to :user
-  has_many :payments
+
   has_one :tran, as: :transactionable, dependent: :destroy
+
+  has_many :payments
+  validates_presence_of :payments
+  has_many :account_trans, as: :account_transable, dependent: :destroy
 
   validates :user_id, presence: true
   validates :date, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
-  validates_presence_of :payments
 
-  after_create :create_deposit_tran
+  after_create :create_deposit_trans
   after_update :update_tran
   after_destroy :remove_amount
 
-  def create_deposit_tran
+  def create_deposit_trans
     self.create_tran(user: self.user, date: self.date)
+
+    account = self.user.accounts.find_by(name: "Undeposited Funds")
+    self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
+    debugger
   end
 
   def update_tran 
