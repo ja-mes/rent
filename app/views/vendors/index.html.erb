@@ -9,7 +9,7 @@
 
   <tbody>
     <% @vendors.each do |v| %>
-      <tr data-link="<%= v %>">
+      <tr data-link="<%= vendor_path v %>">
         <td><%= v.name %></td>
       </tr>
     <% end %>
