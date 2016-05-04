@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :vendors
+
   devise_for :users
   root 'pages#index'
   get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
