@@ -56,7 +56,18 @@ class DepositsControllerTest < ActionController::TestCase
     assert_equal deposit.tran.date, deposit.date
   end
 
-  # TODO: add test to ensure save fails if no payments are specified after implemented 
+  test "create should not work if no payments are specified" do
+    sign_in :user, users(:one)
+
+    assert_difference ['Deposit.count', 'Tran.count'], 0 do
+      post :create, deposit: {
+        date: "03/10/2016",
+        payment: {}
+      }
+    end
+
+    assert assigns(:deposit).errors.count > 0
+  end
 
   test "create should only work if the user is logged in" do
     assert_difference ['Deposit.count', 'Tran.count'], 0 do
@@ -117,6 +128,17 @@ class DepositsControllerTest < ActionController::TestCase
     assert_equal deposit.amount, (9.99 - payment2.amount)
       
     assert_equal deposit.payments.count, 1
+  end
+
+  test "update should not remove payments if they are all unchecked" do
+    sign_in :user, users(:one)
+
+    put :update, id: deposits(:one), deposit: {
+      date:  "5/10/2016",
+      payments: {}
+    }
+
+    assert assigns(:deposit).payments.count > 0
   end
 
   test "update should not work if user is not logged in" do
