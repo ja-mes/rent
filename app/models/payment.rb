@@ -3,6 +3,7 @@ class Payment < ActiveRecord::Base
   belongs_to :customer
   belongs_to :account
   belongs_to :deposit
+
   has_one :tran, as: :transactionable, dependent: :destroy
 
   validates :user_id, presence: true
