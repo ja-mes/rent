@@ -20,7 +20,6 @@ class Deposit < ActiveRecord::Base
 
     account = self.user.accounts.find_by(name: "Undeposited Funds")
     self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
-    debugger
   end
 
   def update_tran 

@@ -47,9 +47,9 @@ class DepositTest < ActiveSupport::TestCase
   end
 
   test "create_tran should create tran for deposit" do
-    deposit = @deposit.dup
+    @deposit.tran = nil
     assert_difference 'Tran.count' do
-      deposit.create_deposit_trans
+      @deposit.create_deposit_trans
     end
   end
 
