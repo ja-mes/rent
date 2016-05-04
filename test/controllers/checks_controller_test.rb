@@ -28,6 +28,7 @@ class ChecksControllerTest < ActionController::TestCase
 
     assert_difference ['Check.count', 'AccountTran.count', 'Tran.count'] do
       post :create, check: {
+        vendor_id: vendors(:one).id,
         num: "2",
         amount: "500",
         date: "03/10/2016",
@@ -45,6 +46,7 @@ class ChecksControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:check)
     assert_equal -assigns(:check).amount, accounts(:four).balance
+    assert_equal assigns(:check).vendor, vendors(:one)
 
     # should assign account tran date and user
     assert_equal assigns(:check).account_trans.first.date, Date.strptime("03/10/2016", "%d/%m/%Y") 
@@ -99,6 +101,7 @@ class ChecksControllerTest < ActionController::TestCase
     sign_in :user, users(:one)
 
     put :update, id: checks(:one), check: {
+      vendor_id: vendors(:one).id,
       num: "3",
       amount: "600",
       date: "03/11/2016",
@@ -116,6 +119,7 @@ class ChecksControllerTest < ActionController::TestCase
     check = assigns(:check)
     assert_redirected_to check
     assert_equal check.amount, 600
+    assert_equal check.vendor, vendors(:one)
     assert_equal check.date, Date.strptime("3/11/2016", "%d/%m/%Y")
     assert_equal check.tran.date, Date.strptime("3/11/2016", "%d/%m/%Y")
   end
