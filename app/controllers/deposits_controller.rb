@@ -51,16 +51,18 @@ class DepositsController < ApplicationController
     @account = Account.find_by(name: "Undeposited Funds", user: current_user)
     @payments = @deposit.payments
 
-    @payments.each do |p|
-      unless payment_params[:payment].key?(p.id.to_s)
-        p.update_attribute(:deposit, nil)
-        @deposit.amount -= p.amount
+    if payment_params.length > 0
+      @payments.each do |p|
+        unless payment_params[:payment].key?(p.id.to_s)
+          @deposit.payments.delete(p)
+          @deposit.amount -= p.amount
+        end
       end
-    end
+    end 
 
     if @deposit.save
       @deposit.calculate_balance old_amount
-      flash[:success] = "Deposit successfully saved"
+      flash[:success] = "Deposit successfully updated"
       redirect_to @deposit
     else
       render 'new'
