@@ -44,7 +44,7 @@ class Customer < ActiveRecord::Base
   end
 
   after_create do
-    self.property.toggle!(:rented)
+    self.property.update_attribute(:rented, true)
   end
 
   def create_deposit(amount)

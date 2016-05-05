@@ -82,4 +82,11 @@ class CustomerTest < ActiveSupport::TestCase
       @customer.create_deposit "300"
     end
   end
+
+  test "after_create should set properties rented attribute to false" do
+    customer = @customer.dup
+    customer.property = properties(:two)
+    customer.save
+    assert_equal properties(:two).rented, true
+  end
 end
