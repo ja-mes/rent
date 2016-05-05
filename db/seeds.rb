@@ -13,7 +13,6 @@ property = Property.create do |i|
   i.zip = "35956"
   i.rent = 500
   i.deposit = 200
-  #i.rented = true
 end
 
 property2 = Property.create do |i|
@@ -24,7 +23,6 @@ property2 = Property.create do |i|
   i.zip = "12345"
   i.rent = 200
   i.deposit = 50
-  #i.rented = true
 end
 
 property3 = Property.create do |i|
@@ -35,7 +33,6 @@ property3 = Property.create do |i|
   i.zip = "35976"
   i.rent = 600
   i.deposit = 800
-  #i.rented = true
 end
 
 property4 = Property.create do |i|
@@ -46,7 +43,6 @@ property4 = Property.create do |i|
   i.zip = "35976"
   i.rent = 600
   i.deposit = 800
-  #i.rented = true
 end
 
 property5 = Property.create do |i|
@@ -57,7 +53,6 @@ property5 = Property.create do |i|
   i.zip = "35976"
   i.rent = 600
   i.deposit = 800
-  #i.rented = true
 end
 
 property6 = Property.create do |i|
@@ -68,7 +63,6 @@ property6 = Property.create do |i|
   i.zip = "35976"
   i.rent = 600
   i.deposit = 800
-  #i.rented = true
 end
 
 property7 = Property.create do |i|
@@ -79,7 +73,6 @@ property7 = Property.create do |i|
   i.zip = "35976"
   i.rent = 600
   i.deposit = 800
-  #i.rented = true
 end
 
 customer = Customer.create do |i|
