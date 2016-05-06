@@ -31,4 +31,8 @@
   <li class="nav-item">
     <%= link_to 'Customer Details', edit_customer_path(@customer), class: "#{isActive 'customers', ['edit', 'update']} nav-link"%>
   </li>
+
+  <li class="nav-item">
+    <%= link_to 'Notes', customer_notes_path(@customer), class: "#{isActive 'notes'} nav-link"%>
+  </li>
 </ul>

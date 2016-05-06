@@ -60,6 +60,10 @@ class CustomersController < ApplicationController
     params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone, :alt_phone, :property_id, :due_date, :rent)
   end
 
+  def note_params
+    params.require(:note).permit(:content)
+  end
+
   def set_customer
     @customer = Customer.find(params[:id])
   end

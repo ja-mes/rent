@@ -1,0 +1,23 @@
+<%= form_for [@customer, @note], remote: true do |f| %>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Add Note</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <%= f.text_area :content, class: "form-control", rows: "5" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+

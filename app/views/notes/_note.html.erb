@@ -1,0 +1,13 @@
+<li class="list-group-item" id="<%= note.id %>">
+  <%= truncate note.content, length: 100 %>
+
+  <span class="pull-right">
+    <%= link_to edit_customer_note_path(@customer, note), remote: true, class: "btn btn-secondary btn-sm" do %>
+      <i class="fa fa-pencil"></i>
+    <% end %>
+
+    <%= link_to customer_note_path(@customer, note), method: :delete, remote: true, class: "btn btn-danger btn-sm" do %>
+      <i class="fa fa-trash"></i>
+    <% end %>
+  </span>
+</li>

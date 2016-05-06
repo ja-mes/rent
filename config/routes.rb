@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   resources :customers do
     resources :payments
     resources :invoices
+    resources :notes
   end
   get '/customers/archive/:id', to: 'customers#archive', as: 'archive_customer'
+
 
   resources :accounts
   resources :checks

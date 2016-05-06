@@ -1,0 +1,16 @@
+<%= render 'customers/show_header' %>
+
+<!-- Button trigger modal -->
+<div class="margin-25">
+  <%= link_to new_customer_note_path(@customer), remote: true, class: "btn btn-primary" do %>
+    <i class="fa fa-plus"></i>
+  <% end %>
+</div>
+
+<div class="modal fade" id="addNoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+<ul id="customer_notes_display" class="list-group">
+  <%= render @notes %>
+</ul>
+

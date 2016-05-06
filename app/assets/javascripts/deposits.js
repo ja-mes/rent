@@ -14,10 +14,10 @@ $(document).on('turbolinks:load', function() {
       }
     });
 
-    $('form h4').html("$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+    $('#deposit_form h4').html("$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
   }
    
-  $('form.edit_deposit input[type="checkbox"]').prop({ 'checked': true });
+  $('#deposit_form.edit_deposit input[type="checkbox"]').prop({ 'checked': true });
   calculateTotal();
 
 
@@ -41,7 +41,7 @@ $(document).on('turbolinks:load', function() {
       bool = false
     }
 
-    $('form input[type="checkbox"]').prop({ 'checked': bool });
+    $('#deposit_form input[type="checkbox"]').prop({ 'checked': bool });
 
     calculateTotal();
   });
