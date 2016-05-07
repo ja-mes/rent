@@ -55,11 +55,13 @@ class NotesControllerTest < ActionController::TestCase
 
     assert_difference 'Note.count' do
       xhr :post, :create, customer_id: customers(:one), note: {
-        content: "foobar"
+        content: "foobar",
+        date: "05/08/2016"
       }
     end
 
     assert_equal assigns(:note).content, "foobar"
+    assert_equal assigns(:note).date, Date.strptime("05/08/2016", "%d/%m/%Y") 
   end
 
   test "post create requires user" do
@@ -107,11 +109,13 @@ class NotesControllerTest < ActionController::TestCase
 
     note = notes(:one)
     xhr :put, :update, customer_id: customers(:one), id: note, note: {
-      content: "the new content"
+      content: "the new content",
+      date: "04/07/2016"
     }
 
     note.reload
     assert_equal note.content, "the new content"
+    assert_equal assigns(:note).date, Date.strptime("04/07/2016", "%d/%m/%Y") 
   end
 
   test "put update requires user" do

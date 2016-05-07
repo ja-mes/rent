@@ -4,8 +4,10 @@ one:
   user: one
   customer: one
   content: MyString
+  date: 2016-05-08
 
 two:
   user: two
-  customer: one
+  customer: two
   content: MyString
+  date: 2016-05-08
