@@ -12,7 +12,7 @@ class NotesController < ApplicationController
 
   def index
     @note = Note.new
-    @notes = current_user.notes.where(customer: @customer)
+    @notes = current_user.notes.where(customer: @customer).order("date DESC")
   end
 
   def new 
@@ -51,6 +51,6 @@ class NotesController < ApplicationController
   end
 
   def note_params
-    params.require(:note).permit(:content)
+    params.require(:note).permit(:content, :date)
   end
 end

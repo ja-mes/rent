@@ -1,2 +1,2 @@
-$('#customer_notes_display #<%= @note.id %>').replaceWith("<%= j(render @note) %>")
+$('#customer_notes_display').html("<%= j(render @note.customer.notes.order("date DESC")) %>")
 $('#addNoteModal').modal('hide')
