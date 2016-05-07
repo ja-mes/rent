@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   before_action :require_same_user, only: [:show, :edit, :update]
 
   def index
-    @accounts = current_user.accounts
+    @accounts = current_user.accounts.order(:name)
   end
 
   def new

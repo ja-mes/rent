@@ -10,7 +10,11 @@
 
   <tbody>
     <% @accounts.each do |a| %>
-      <tr data-link="<%= account_path a %>">
+      <% if a.name == "Checking" %>
+        <tr data-link="<%= register_path %>">
+      <% else %>
+          <tr data-link="<%= account_path a %>">
+      <% end %>
         <td><%= a.name %></td>
         <td><%= number_to_currency(a.balance) %></td>
       </tr>
