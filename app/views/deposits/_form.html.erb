@@ -10,7 +10,12 @@
   </div>
 
   <div class="card">
-    <h4 class="card-header">$0.00</h4>
+    <div class="card-header">
+      <span class="pull-right">
+        <%= f.number_field :discrepancies, placeholder: "Discrepancies", class: "form-control" %>
+      </span>
+      <h4>$0.00</h4>
+    </div>
 
     <div class="card-block">
       <table class="table">

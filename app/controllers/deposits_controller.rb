@@ -82,7 +82,7 @@ class DepositsController < ApplicationController
   end
 
   def deposit_params
-    params.require(:deposit).permit(:date)
+    params.require(:deposit).permit(:date, :discrepancies)
   end
 
   def set_deposit

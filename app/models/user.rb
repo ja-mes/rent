@@ -17,10 +17,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   after_create do
-    Account.create(name: "Rental Income", balance: 0, user: self)
-    Account.create(name: "Deposits", balance: 0, user: self)
-    Account.create(name: "Checking", balance: 0, user: self)
-    Account.create(name: "Undeposited Funds", balance: 0, user: self)
+    Account.create([
+      {name: "Rental Income", balance: 0, user: self},       
+      {name: "Deposits", balance: 0, user: self},
+      {name: "Checking", balance: 0, user: self},
+      {name: "Undeposited Funds", balance: 0, user: self},
+      {name: "Deposit Discrepancies", balance: 0, user: self},
+    ])
   end
 
   def rentable_properties

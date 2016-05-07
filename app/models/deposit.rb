@@ -10,6 +10,7 @@ class Deposit < ActiveRecord::Base
   validates :user_id, presence: true
   validates :date, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
+  validates :discrepancies, allow_blank: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
 
   after_create :create_deposit_trans
   after_update :update_tran
@@ -20,6 +21,11 @@ class Deposit < ActiveRecord::Base
 
     account = self.user.accounts.find_by(name: "Undeposited Funds")
     self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
+
+    if self.discrepancies
+      discrepancies_account = self.user.accounts.find_by(name: "Deposit Discrepancies")
+      self.account_trans.create(user: self.user, date: self.date, amount: self.discrepancies, account_id: discrepancies_account.id)
+    end
   end
 
   def update_tran 
