@@ -2,6 +2,10 @@ class NotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer
   before_action :set_note, only: [:edit, :update, :destroy]
+
+  before_action do
+    require_same_user(@customer)
+  end
   before_action only: [:show, :edit, :update, :destroy] do
     require_same_user(@note)
   end
@@ -13,9 +17,6 @@ class NotesController < ApplicationController
 
   def new 
     @note = Note.new
-  end
-
-  def edit
   end
 
   def create
