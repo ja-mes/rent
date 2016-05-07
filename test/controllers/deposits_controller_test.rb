@@ -33,6 +33,7 @@ class DepositsControllerTest < ActionController::TestCase
     assert_difference ['Deposit.count', 'Tran.count'] do
       post :create, deposit: {
         date: "03/10/2016",
+        discrepancies: 20.5,
         payment: {
           "#{payment.id}" => {
             "selected": "on"
@@ -48,10 +49,12 @@ class DepositsControllerTest < ActionController::TestCase
     payment.reload
     payment2.reload
 
+    assert_equal deposit.date, "03/10/2016".to_date
+    assert_equal deposit.discrepancies, 20.5
+
     assert_equal payment.deposit, deposit
     assert_equal payment2.deposit, deposit
     assert_equal deposit.amount, (payment.amount + payment2.amount)
-    assert_equal deposit.date, "03/10/2016".to_date
     assert_equal accounts(:four).balance, (payment.amount + payment2.amount)
     assert_equal deposit.tran.date, deposit.date
   end
@@ -115,6 +118,7 @@ class DepositsControllerTest < ActionController::TestCase
 
     put :update, id: deposits(:one), deposit: {
       date:  "5/10/2016",
+      discrepancies: 80.25,
       payment: {
         "#{payment.id}" => {
           "selected": "on"
@@ -125,6 +129,7 @@ class DepositsControllerTest < ActionController::TestCase
     deposit = assigns(:deposit)
 
     assert_equal deposit.date, "5/10/2016".to_date
+    assert_equal deposit.discrepancies, 80.25
     assert_equal deposit.amount, (9.99 - payment2.amount)
       
     assert_equal deposit.payments.count, 1

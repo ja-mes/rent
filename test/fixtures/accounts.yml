@@ -22,3 +22,8 @@ five:
   name: "Undeposited Funds"
   balance: 0.00
   user: one
+
+six:
+  name: "Deposit Discrepancies"
+  balance: 0.00
+  user: one
