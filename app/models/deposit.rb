@@ -16,20 +16,37 @@ class Deposit < ActiveRecord::Base
   after_update :update_tran
   after_destroy :remove_amount
 
-  def create_deposit_trans
-    self.create_tran(user: self.user, date: self.date)
-
-    account = self.user.accounts.find_by(name: "Undeposited Funds")
-    self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
-
+  def create_discrepancies
     if self.discrepancies
       discrepancies_account = self.user.accounts.find_by(name: "Deposit Discrepancies")
       self.account_trans.create(user: self.user, date: self.date, amount: self.discrepancies, account_id: discrepancies_account.id)
     end
   end
 
+  def create_deposit_trans
+    self.create_tran(user: self.user, date: self.date)
+
+    account = self.user.accounts.find_by(name: "Undeposited Funds")
+    self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
+    self.create_discrepancies
+  end
+
+  # deposit trans must be updated manually
   def update_tran 
     self.tran.update_attributes(date: self.date)
+
+    if self.account_trans.count == 1
+      self.account_trans.first.update_attributes(date: self.date, amount: self.amount)
+
+      self.create_discrepancies
+    else
+      self.account_trans.first.update_attributes(date: self.date, amount: self.amount)
+      if self.discrepancies 
+        self.account_trans.second.update_attributes(date: self.date, amount: self.discrepancies)
+      else
+        self.account_trans.second.destroy
+      end
+    end
   end
 
   def remove_amount

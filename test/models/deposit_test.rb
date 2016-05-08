@@ -68,10 +68,31 @@ class DepositTest < ActiveSupport::TestCase
     end
   end
 
-  test "after update should update deposit" do
-    @deposit.date = "4/12/2016".to_date
+  test "update tran should update trans" do
+    @deposit.amount = 200.25 
+    @deposit.discrepancies = 25.80
+    @deposit.date = "05/03/2016"
+
     @deposit.update_tran
-    assert_equal @deposit.date, Date.strptime("4/12/2016", "%d/%m/%Y")
+
+    assert_equal @deposit.tran.date, "05/03/2016".to_date
+    assert_equal @deposit.account_trans.first.amount, 200.25
+    assert_equal @deposit.account_trans.second.amount, 25.80
+  end
+
+  test "update tran should destroy discrepancies if they are removed" do
+    @deposit.discrepancies = nil
+
+    @deposit.update_tran
+    assert_equal @deposit.account_trans.count, 1
+  end
+
+  test "update tran should update only deposit account tran if no discrepancies exist" do
+    @deposit.discrepancies = nil
+    @deposit.account_trans.second.destroy
+    @deposit.amount = 500.85
+    @deposit.update_tran
+    assert_equal @deposit.account_trans.first.amount, 500.85
   end
 
   test "remove amount should remove amount from checking account" do
@@ -101,5 +122,11 @@ class DepositTest < ActiveSupport::TestCase
       @deposit.calculate_balance 200
       account.reload
     end
+  end
+
+  test "create discrepancies should create discrepancies" do
+    @deposit.discrepancies = 500.25
+    @deposit.create_discrepancies
+    assert_equal @deposit.account_trans.third.amount, 500.25
   end
 end
