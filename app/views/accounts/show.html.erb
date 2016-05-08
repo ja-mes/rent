@@ -8,6 +8,14 @@
     <%= date_select :to, :date, order: [:month, :day, :year], default: to_date %>
 
     <button class="btn btn-sm btn-primary" style="margin-left: 10px">Update</button>
+
+    &nbsp;
+
+    <% if params[:to] && params[:from] %>
+      <%= link_to account_path(@account) do %>
+        <i class="fa fa-times"></i>&nbsp; Clear
+      <% end %>
+    <% end %>
   </div>
 <% end %>
 
