@@ -3,6 +3,8 @@ module ApplicationHelper
     if action == nil
       if params[:controller] == controller
         'active'
+      elsif controller.include? params[:controller]
+        'active'
       end
     elsif params[:controller] == controller && params[:action] == action
       'active'
