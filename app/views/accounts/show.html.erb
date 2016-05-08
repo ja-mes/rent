@@ -1,31 +1,50 @@
 <%= render 'show_header' %>
 
-<table class="table table-hover row-links">
-  <thead class="thead-default">
-    <tr>
-      <th>Type</th>
-      <th>Date</th>
-      <th>Amount</th>
-      <th>Memo</th>
-    </tr>
-  </thead>
+<%= form_tag account_path(@account), method: 'get', id: 'accounts_date_range' do %>
+  <div class="margin-25">
+    From: &nbsp;
+    <%= date_select :from, :date, order: [:month, :day, :year], default: from_date %>
+    &nbsp; To: &nbsp;
+    <%= date_select :to, :date, order: [:month, :day, :year], default: to_date %>
 
-  <tbody>
-    <% @trans.each do |t| %>
-      <% if t.account_transable_type == "Deposit" %>
-        <tr data-link="<%= edit_deposit_path(t.account_transable) %>">
-          <td>Deposit</td>
-      <% elsif t.account_transable_type == "Check" %>
-        <tr data-link="<%= edit_check_path(t.account_transable) %>">
-          <td>Check</td>
-      <% elsif t.account_transable_type == "Invoice" %>
-        <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t.account_transable) %>">
-          <td>Invoice</td>
-      <% end %>
-        <td><%= t.date.strftime("%m/%d/%Y") %></td>
-        <td><%= number_to_currency(t.amount) %></td>
-        <td><%= truncate(t.memo, length: 25) %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <button class="btn btn-sm btn-primary" style="margin-left: 10px">Update</button>
+  </div>
+<% end %>
+
+<div class="card">
+  <div class="card-block">
+
+    <table class="table table-hover row-links">
+      <thead class="thead-default">
+        <tr>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Memo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @trans.each do |t| %>
+          <% if t.account_transable_type == "Deposit" %>
+            <tr data-link="<%= edit_deposit_path(t.account_transable) %>">
+              <td>Deposit</td>
+          <% elsif t.account_transable_type == "Check" %>
+            <tr data-link="<%= edit_check_path(t.account_transable) %>">
+              <td>Check</td>
+          <% elsif t.account_transable_type == "Invoice" %>
+            <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t.account_transable) %>">
+              <td>Invoice</td>
+          <% end %>
+            <td><%= t.date.strftime("%m/%d/%Y") %></td>
+            <td><%= number_to_currency(t.amount) %></td>
+            <td><%= truncate(t.memo, length: 25) %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-footer">
+    <strong><%= number_to_currency(@total) %></strong>
+  </div>
+</div>
