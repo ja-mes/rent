@@ -23,7 +23,7 @@ class AccountTran < ActiveRecord::Base
       to = Date.new to['date(1i)'].to_i, to['date(2i)'].to_i, to['date(3i)'].to_i
       AccountTran.where(date: from..to)
     else
-      AccountTran.all
+      AccountTran.where(date: 1.month.ago..Date.today)
     end
 
   end
