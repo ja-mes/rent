@@ -1,0 +1,19 @@
+<%= form_tag path, method: 'get', id: 'date_range' do %>
+  <div class="margin-25">
+    From: &nbsp;
+    <%= date_select :from, :date, order: [:month, :day, :year], default: from_date %>
+    &nbsp; To: &nbsp;
+    <%= date_select :to, :date, order: [:month, :day, :year], default: to_date %>
+
+    <button class="btn btn-sm btn-primary" style="margin-left: 10px">Update</button>
+
+    &nbsp;
+
+    <% if params[:to] && params[:from] %>
+      <%= link_to path do %>
+        <i class="fa fa-times"></i>&nbsp; Clear
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+

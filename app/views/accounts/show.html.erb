@@ -1,23 +1,6 @@
 <%= render 'show_header' %>
 
-<%= form_tag account_path(@account), method: 'get', id: 'accounts_date_range' do %>
-  <div class="margin-25">
-    From: &nbsp;
-    <%= date_select :from, :date, order: [:month, :day, :year], default: from_date %>
-    &nbsp; To: &nbsp;
-    <%= date_select :to, :date, order: [:month, :day, :year], default: to_date %>
-
-    <button class="btn btn-sm btn-primary" style="margin-left: 10px">Update</button>
-
-    &nbsp;
-
-    <% if params[:to] && params[:from] %>
-      <%= link_to account_path(@account) do %>
-        <i class="fa fa-times"></i>&nbsp; Clear
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+<%= render 'shared/date_range', path: account_path(@account) %>
 
 <div class="card">
   <div class="card-block">

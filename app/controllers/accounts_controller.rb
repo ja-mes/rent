@@ -23,7 +23,6 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @account = current_user.accounts.find(params[:id])
     trans = @account.account_trans.date_range(params[:from], params[:to])
     @total = trans.calculate_total
     @trans = trans.paginate(page: params[:page])
