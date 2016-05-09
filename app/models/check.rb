@@ -10,6 +10,18 @@ class Check < ActiveRecord::Base
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
   validates :num, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validate :totals_must_equal
+
+  def totals_must_equal
+    amount = 0
+    self.account_trans.each do |tran|
+      amount += tran.amount
+    end
+
+    unless amount == self.amount
+      errors.add(:base, "Check total must equal expenses total")
+    end
+  end
 
   # account trans
   has_many :account_trans, as: :account_transable, dependent: :destroy

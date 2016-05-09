@@ -103,7 +103,7 @@ class ChecksControllerTest < ActionController::TestCase
     put :update, id: checks(:one), check: {
       vendor_id: vendors(:one).id,
       num: "3",
-      amount: "600",
+      amount: "609.99",
       date: "03/11/2016",
       memo: "test",
       account_trans_attributes: {
@@ -117,8 +117,9 @@ class ChecksControllerTest < ActionController::TestCase
     }
 
     check = assigns(:check)
+
     assert_redirected_to check
-    assert_equal check.amount, 600
+    assert_equal check.amount, 609.99
     assert_equal check.vendor, vendors(:one)
     assert_equal check.date, Date.strptime("3/11/2016", "%d/%m/%Y")
     assert_equal check.tran.date, Date.strptime("3/11/2016", "%d/%m/%Y")
