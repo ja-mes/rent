@@ -25,7 +25,12 @@
     <%= f.text_area :memo, class: "form-control" %>
   </div>
 
-  <%= render 'shared/account_trans', f: f, obj: @invoice %>
+  <div class="card">
+    <div class="card-header" id="invoice_trans_total">$0.00</div>
+    <div class="card-block">
+      <%= render 'shared/account_trans', f: f, obj: @invoice %>
+    </div>
+  </div>
   
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>
