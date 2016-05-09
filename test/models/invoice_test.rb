@@ -42,6 +42,11 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
+  test "totals must equal should ensure that totals of expenses and invoice equal" do
+    @invoice.amount = 200
+    assert_not @invoice.valid?
+  end
+
   test "after_create should work" do
     invoice = @invoice.dup 
     @invoice.account_trans.each do |t| 

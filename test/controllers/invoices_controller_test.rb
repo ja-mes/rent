@@ -123,13 +123,13 @@ class InvoicesControllerTest < ActionController::TestCase
 
     put :update, customer_id: customers(:one), id: invoices(:one), invoice: {
       customer_id: customers(:three).id,
-      amount: "200",
+      amount: "700.22",
       date: "05/08/2016",
       memo: "blah memo",
       account_trans_attributes: {
         "0" => {
           account_id: accounts(:two).id,
-          amount: 300,
+          amount: 200,
           memo: "memo 1",
           property_id: properties(:four).id
         }
@@ -137,7 +137,7 @@ class InvoicesControllerTest < ActionController::TestCase
     }
 
     assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))
-    assert_equal assigns(:invoice).amount, 200
+    assert_equal assigns(:invoice).amount, 700.22
     assert_equal assigns(:invoice).date, Date.strptime("05/08/2016", "%d/%m/%Y")
     assert_equal assigns(:invoice).memo, "blah memo"
   end

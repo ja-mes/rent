@@ -15,6 +15,18 @@ class Invoice < ActiveRecord::Base
   validates :customer_id, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
+  validate :totals_must_equal, unless: :skip_tran_validation
+
+  def totals_must_equal
+    amount = 0
+    self.account_trans.each do |tran|
+      amount += tran.amount
+    end
+
+    unless amount == self.amount
+      errors.add(:base, "Invoice total must equal expenses total")
+    end
+  end
 
   after_create do
     self.create_tran(user: self.user, customer: self.customer, date: self.date)
