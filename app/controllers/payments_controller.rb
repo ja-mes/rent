@@ -2,8 +2,14 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer
   before_action :set_payment, only: [:edit, :update, :destroy]
-  before_action :require_same_user
-  before_action :require_same_payment_user, only: [:edit, :update, :destroy]
+
+  before_action do
+    require_same_user(@customer)
+  end
+  before_action only: [:edit, :update, :destroy] do
+    require_same_user(@payment)
+  end
+
 
   def index
     redirect_to @customer
@@ -61,20 +67,6 @@ class PaymentsController < ApplicationController
 
   def set_payment
     @payment = Payment.find(params[:id])
-  end
-
-  def require_same_user
-    if current_user != @customer.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
-  end
-
-  def require_same_payment_user
-    if current_user != @payment.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
   end
 
   def payment_params

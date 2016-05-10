@@ -1,7 +1,9 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account, only: [:show, :edit, :update, :destroy]
-  before_action :require_same_user, only: [:show, :edit, :update]
+  before_action only: [:show, :edit, :update] do
+    require_same_user(@account)
+  end
 
   def index
     @accounts = current_user.accounts.order(:name)
@@ -47,12 +49,5 @@ class AccountsController < ApplicationController
 
   def set_account
     @account = Account.find(params[:id])
-  end
-
-  def require_same_user
-    if current_user != @account.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
   end
 end

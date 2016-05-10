@@ -1,7 +1,9 @@
 class DepositsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_deposit, only: [:update, :edit, :destroy]
-  before_action :require_same_user, only: [:update, :edit, :destroy]
+  before_action only: [:update, :edit, :destroy] do
+    require_same_user(@deposit)
+  end
 
   def index
     redirect_to new_deposit_path
@@ -87,12 +89,5 @@ class DepositsController < ApplicationController
 
   def set_deposit
     @deposit = Deposit.find(params[:id])
-  end
-
-  def require_same_user
-    if current_user != @deposit.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
   end
 end

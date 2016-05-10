@@ -1,7 +1,10 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_property, only: [:show, :edit, :update]
-  before_action :require_same_user, only: [:show, :edit, :update]
+
+  before_action only: [:show, :edit, :update] do
+    require_same_user(@property)
+  end
 
   def index
     @properties = Property.search(params[:search], current_user).paginate(page: params[:page], per_page: 5)
@@ -47,12 +50,5 @@ class PropertiesController < ApplicationController
 
   def set_property
     @property = Property.find(params[:id])
-  end
-
-  def require_same_user
-    if current_user != @property.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
   end
 end

@@ -1,10 +1,15 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer
-  before_action :require_same_user
   before_action :set_invoice, only: [:edit, :update, :destroy]
   before_action :set_vars, except: [:index, :show, :destroy]
-  before_action :require_same_invoice_user, only: [:edit, :update, :destroy]
+
+  before_action do
+    require_same_user(@customer)
+  end
+  before_action only: [:edit, :update, :destroy] do
+    require_same_user(@invoice)
+  end
 
   def index
     redirect_to @customer
@@ -81,19 +86,5 @@ class InvoicesController < ApplicationController
   def set_vars
     @accounts = current_user.accounts
     @properties = current_user.properties
-  end
-
-  def require_same_user
-    if current_user != @customer.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
-  end
-
-  def require_same_invoice_user
-    if current_user != @invoice.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
   end
 end

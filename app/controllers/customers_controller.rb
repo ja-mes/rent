@@ -1,7 +1,9 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer, only: [:show, :edit, :update, :archive]
-  before_action :require_same_user, only: [:show, :edit, :update]
+  before_action only: [:show, :edit, :update] do
+    require_same_user(@customer)
+  end
 
   def index
     @customers = Customer.search(params[:search], params[:display], current_user).paginate(page: params[:page], per_page: 5)
@@ -66,12 +68,5 @@ class CustomersController < ApplicationController
 
   def set_customer
     @customer = Customer.find(params[:id])
-  end
-
-  def require_same_user
-    if current_user != @customer.user
-      flash[:danger] = "You are not authorized to do that"
-      redirect_to root_path
-    end
   end
 end
