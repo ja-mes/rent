@@ -25,6 +25,9 @@
           <% elsif t.account_transable_type == "Invoice" %>
             <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t.account_transable) %>">
               <td>Invoice</td>
+          <% elsif t.account_transable_type == "Payment" %>
+            <tr data-link="<%= edit_customer_payment_path(t.account_transable.customer, t.account_transable) %>">
+              <td>Payment</td>
           <% end %>
             <td><%= t.date.strftime("%m/%d/%Y") %></td>
             <td><%= number_to_currency(t.amount) %></td>

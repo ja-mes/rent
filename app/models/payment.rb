@@ -5,11 +5,17 @@ class Payment < ActiveRecord::Base
   belongs_to :deposit
 
   has_one :tran, as: :transactionable, dependent: :destroy
+  has_one :account_tran, as: :account_transable, dependent: :destroy
 
   validates :user_id, presence: true
   validates :customer_id, presence: true
   validates :amount, presence: true, :format => { :with => /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
+
+  before_create do
+    account = self.user.accounts.find_by(name: "Undeposited Funds")
+    self.create_account_tran(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
+  end
 
   after_create do
     self.create_tran(user: self.user, customer: self.customer, date: self.date)
