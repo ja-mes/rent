@@ -28,6 +28,8 @@ class Deposit < ActiveRecord::Base
 
     account = self.user.accounts.find_by(name: "Undeposited Funds")
     self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
+
+    # XXX: discrepancies account_tran MUST be created after the deposit account_tran
     self.create_discrepancies
   end
 
