@@ -13,8 +13,7 @@ class Payment < ActiveRecord::Base
   validates :date, presence: true
 
   before_create do
-    account = self.user.accounts.find_by(name: "Undeposited Funds")
-    self.create_account_tran(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
+    self.create_account_tran(user: self.user, date: self.date, amount: self.amount, memo: self.memo, account_id: self.account.id)
   end
 
   after_create do
@@ -24,6 +23,7 @@ class Payment < ActiveRecord::Base
 
   after_update do
     self.tran.update_attributes(customer: self.customer, date: self.date)
+    self.account_tran.update_attributes(date: self.date, amount: self.amount, memo: self.memo)
   end
 
   after_destroy do

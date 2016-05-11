@@ -42,3 +42,19 @@ deposit2:
   memo: MyString
   account_transable: one (Deposit)
   date: 2016-08-07
+
+payment1: 
+  user: one
+  amount: 500.25
+  memo: "this is the memo"
+  account_transable: one (Payment)
+  account_id: five
+
+payment2: 
+  user: one
+  amount: 88.60
+  memo: "the string"
+  account_transable: four (Payment)
+  account_id: five
+
+

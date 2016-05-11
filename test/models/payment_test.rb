@@ -38,6 +38,21 @@ class PaymentTest < ActiveSupport::TestCase
   end
 
 
+  test "before_create should create account_tran" do
+    payment = @payment.dup
+
+    assert_difference 'AccountTran.count' do
+      payment.save
+    end
+
+    tran = payment.account_tran
+
+    assert_equal tran.user, payment.user 
+    assert_equal tran.amount, payment.amount
+    assert_equal tran.date, payment.date
+    assert_equal tran.account_id, accounts(:five).id
+  end
+
   test "after_create should work" do
     payment = @payment.dup
 
@@ -49,8 +64,14 @@ class PaymentTest < ActiveSupport::TestCase
 
   test "after_update should work" do
     @payment.date = "2016-08-07"
+    @payment.amount = "1000"
+    @payment.memo = "foobar"
     @payment.save
+
     assert_equal @payment.tran.date, @payment.date
+    assert_equal @payment.account_tran.date, @payment.date
+    assert_equal @payment.account_tran.amount, @payment.amount
+    assert_equal @payment.account_tran.memo, @payment.memo
   end
 
   test "after_destroy should work" do

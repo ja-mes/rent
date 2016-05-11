@@ -162,6 +162,10 @@ class DepositsControllerTest < ActionController::TestCase
   test "destroy should destroy deposit" do
     sign_in :user, users(:one)
 
+    deposits(:one).payments = []
+    deposits(:one).payments << payments(:one)
+    deposits(:one).payments << payments(:four)
+
     assert_difference 'Deposit.count', -1 do
       delete :destroy, id: deposits(:one)
     end
