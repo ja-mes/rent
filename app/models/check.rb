@@ -15,7 +15,9 @@ class Check < ActiveRecord::Base
   def totals_must_equal
     amount = 0
     self.account_trans.each do |tran|
-      amount += tran.amount
+      if tran.amount
+        amount += tran.amount
+      end
     end
 
     unless amount == self.amount
