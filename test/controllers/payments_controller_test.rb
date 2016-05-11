@@ -115,6 +115,23 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_redirected_to edit_customer_payment_path
   end
 
+  test "update should not work if the payment has been deposited" do
+    sign_in :user, users(:one)
+
+    payments(:one).update_attribute :deposit, deposits(:one)
+
+    put :update, customer_id: customers(:one), id: payments(:one), payment: {
+      amount: "500",
+      date: "06/02/2016",
+      memo: "foobar",
+    }
+
+    assert_not_equal assigns(:payment).amount, 500
+    assert_not_equal assigns(:payment).date, "06/02/2016".to_date
+    assert_not_equal assigns(:payment).memo, "foobar"
+    assert_template :edit
+  end
+
   test "update should not save with invalid data" do
     sign_in :user, users(:one)
 

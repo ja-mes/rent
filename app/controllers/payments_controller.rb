@@ -39,12 +39,15 @@ class PaymentsController < ApplicationController
     old_amount = @payment.amount
     old_customer = @payment.customer
 
-    if @payment.update(payment_params)
+    if !@payment.deposit && @payment.update(payment_params)
       @payment.calculate_balance old_amount, old_customer
 
       flash[:success] = 'Payment successfully updated'
       redirect_to edit_customer_payment_path(@payment.customer, @payment)
     else
+      if @payment.deposit
+        flash.now[:danger] = 'Payment must be removed from deposit before it can be updated'
+      end
       render 'edit'
     end
   end
