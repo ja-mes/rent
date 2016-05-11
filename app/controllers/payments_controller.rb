@@ -50,9 +50,14 @@ class PaymentsController < ApplicationController
   end
 
   def destroy
-    @payment.destroy
-    flash[:danger] = "Payment successfully deleted"
-    redirect_to @customer
+    if @payment.deposit
+      flash[:danger] = 'Payment must be removed from deposit before it can be deleted'
+      render 'edit'
+    else
+      @payment.destroy
+      flash[:danger] = "Payment successfully deleted"
+      redirect_to @customer
+    end
   end
 
   def show

@@ -157,6 +157,18 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_redirected_to customers(:one)
   end
 
+  test "destroy should not work if the payment has been deposited" do
+    sign_in :user, users(:one)
+
+    payments(:one).update_attribute :deposit, deposits(:one)
+
+    assert_difference ['Payment.count', 'Tran.count'], 0 do
+      delete :destroy, customer_id: customers(:one), id: payments(:one)
+    end
+
+    assert_not_nil flash[:danger]
+  end
+
   test "destroy should not work if the user is not logged in" do
     assert_difference 'Payment.count', 0 do
       delete :destroy, customer_id: customers(:one), id: payments(:one)
