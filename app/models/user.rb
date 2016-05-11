@@ -18,11 +18,10 @@ class User < ActiveRecord::Base
 
   after_create do
     Account.create([
-      {name: "Rental Income", balance: 0, user: self},       
-      {name: "Deposits", balance: 0, user: self},
-      {name: "Checking", balance: 0, user: self},
-      {name: "Undeposited Funds", balance: 0, user: self},
-      {name: "Deposit Discrepancies", balance: 0, user: self},
+      {name: "Rental Income", account_type: "Income", balance: 0, user: self},       
+      {name: "Checking", account_type: "Bank",  balance: 0, user: self},
+      {name: "Undeposited Funds", account_type: "Other Current Assets", balance: 0, user: self},
+      {name: "Deposit Discrepancies", account_type: "Other Current Assets", balance: 0, user: self},
     ])
   end
 

@@ -14,6 +14,7 @@ class AccountsController < ApplicationController
   end
 
   def create
+    debugger
     @account = current_user.accounts.build(account_params)
 
     if @account.save
@@ -44,7 +45,7 @@ class AccountsController < ApplicationController
 
   private
   def account_params
-    params.require(:account).permit(:name)
+    params.require(:account).permit(:name, :type)
   end
 
   def set_account
