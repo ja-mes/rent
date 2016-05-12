@@ -1,6 +1,6 @@
 <tr class="account_tran_fields">
   <td>
-    <%= f.collection_select :account_id, @accounts, :id, :name, {}  %>
+    <%= f.collection_select :account_id, @accounts, :id, :name, {}, class: "chosen_select" %>
   </td>
 
   <td>
@@ -12,7 +12,7 @@
   </td>
 
   <td>
-    <%= f.collection_select :property_id, @properties, :id, :full_address, {}  %>
+    <%= f.collection_select :property_id, @properties, :id, :full_address, {}, class: "chosen_select" %>
   </td>
 
   <td>

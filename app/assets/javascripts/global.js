@@ -12,4 +12,6 @@ $(document).on('turbolinks:load', function() {
   $('#customer_display').change(function() {
     $(this).submit()
   });
+
+  $('.chosen_select').chosen()
 });

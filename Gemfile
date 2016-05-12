@@ -13,6 +13,9 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 
+gem 'compass-rails'
+gem 'chosen-rails'
+
 # Use pg as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
