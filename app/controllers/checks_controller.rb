@@ -22,7 +22,6 @@ class ChecksController < ApplicationController
     @check.account_trans.each do |tran|
       tran.user = current_user
       tran.date = @check.date
-      tran.inc = false
     end
 
     if @check.save

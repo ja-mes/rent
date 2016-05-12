@@ -20,7 +20,7 @@ class Deposit < ActiveRecord::Base
     if self.discrepancies
       discrepancies_account = self.user.accounts.find_by(name: "Deposit Discrepancies")
       # TODO revise inc
-      self.account_trans.create(user: self.user, date: self.date, amount: self.discrepancies, account_id: discrepancies_account.id, inc: false)
+      self.account_trans.create(user: self.user, date: self.date, amount: self.discrepancies, account_id: discrepancies_account.id)
     end
   end
 
@@ -28,7 +28,7 @@ class Deposit < ActiveRecord::Base
     self.create_tran(user: self.user, date: self.date)
 
     account = self.user.accounts.find_by(name: "Undeposited Funds")
-    self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id, inc: false)
+    self.account_trans.create(user: self.user, date: self.date, amount: self.amount, account_id: account.id)
 
     # XXX: discrepancies account_tran MUST be created after the deposit account_tran
     self.create_discrepancies

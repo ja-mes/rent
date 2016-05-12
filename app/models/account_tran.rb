@@ -7,7 +7,6 @@ class AccountTran < ActiveRecord::Base
   validates :user_id, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
-  validates :inc, inclusion: [true, false]
 
   def self.calculate_total(account)
     total = 0
