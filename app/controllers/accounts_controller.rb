@@ -34,7 +34,7 @@ class AccountsController < ApplicationController
   end
 
   def update
-    if @account.update(account_params)
+    if @account.update_attribute(:name, account_params[:name])
       flash[:success] = 'Account successfully updated'
       redirect_to edit_account_path(@account)
     else
