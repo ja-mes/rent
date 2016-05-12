@@ -14,7 +14,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @account = current_user.accounts.build(account_params)
+    @account = current_user.accounts.build(create_params)
 
     if @account.save
       flash[:success] = "Account successfully saved"
@@ -34,7 +34,7 @@ class AccountsController < ApplicationController
   end
 
   def update
-    if @account.update_attribute(:name, account_params[:name])
+    if @account.update(update_params)
       flash[:success] = 'Account successfully updated'
       redirect_to edit_account_path(@account)
     else
@@ -43,8 +43,12 @@ class AccountsController < ApplicationController
   end
 
   private
-  def account_params
+  def create_params
     params.require(:account).permit(:name, :account_type)
+  end
+
+  def update_params
+    params.require(:account).permit(:name)
   end
 
   def set_account

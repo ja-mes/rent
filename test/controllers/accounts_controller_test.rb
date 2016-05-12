@@ -96,6 +96,17 @@ class AccountsControllerTest < ActionController::TestCase
     assert_equal assigns(:account).name, "Bar"
   end
 
+  test "post update should not update type" do
+    sign_in :user, users(:one)
+
+    post :update, id: accounts(:one), account: {
+      name: "Bar",
+      account_type: "Expenses"
+    }
+
+    assert_equal assigns(:account).account_type, "Income"
+  end
+
   test "post update should not work if invalid form data is submitted" do
     sign_in :user, users(:one)
 
