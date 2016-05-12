@@ -26,6 +26,7 @@ class InvoicesController < ApplicationController
     @invoice.account_trans.each do |tran|
       tran.user = current_user
       tran.date = @invoice.date
+      tran.inc = true
     end
 
     if @invoice.save

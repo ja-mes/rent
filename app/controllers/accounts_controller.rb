@@ -14,7 +14,6 @@ class AccountsController < ApplicationController
   end
 
   def create
-    debugger
     @account = current_user.accounts.build(account_params)
 
     if @account.save
@@ -27,7 +26,7 @@ class AccountsController < ApplicationController
 
   def show
     trans = @account.account_trans.date_range(params[:from], params[:to])
-    @total = trans.calculate_total
+    @total = trans.calculate_total(@account)
     @trans = trans.paginate(page: params[:page])
   end
   

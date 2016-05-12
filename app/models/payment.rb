@@ -13,7 +13,7 @@ class Payment < ActiveRecord::Base
   validates :date, presence: true
 
   before_create do
-    self.create_account_tran(user: self.user, date: self.date, amount: self.amount, memo: self.memo, account_id: self.account.id)
+    self.create_account_tran(user: self.user, date: self.date, amount: self.amount, memo: self.memo, account_id: self.account.id, inc: true)
   end
 
   after_create do
