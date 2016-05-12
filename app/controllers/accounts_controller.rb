@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = current_user.accounts.order(:name)
+    @accounts = current_user.accounts.order(:account_type)
   end
 
   def new
@@ -44,7 +44,7 @@ class AccountsController < ApplicationController
 
   private
   def account_params
-    params.require(:account).permit(:name, :type)
+    params.require(:account).permit(:name, :account_type)
   end
 
   def set_account
