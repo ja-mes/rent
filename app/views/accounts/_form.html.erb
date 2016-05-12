@@ -3,7 +3,13 @@
 <%= form_for @account do |f| %>
   <div class="form-group">
     <%= f.label :type %>
-    <%= f.select :account_type, options_for_select([['Income', 'Income'], ['Expenses', 'Expenses']]), {}, class: "form-control" %>
+    <% accounts = options_for_select([
+      ['Income', 'Income'],
+      ['Expenses', 'Expenses'],
+      ['Other Current Assets', 'Other Current Assets'],
+      ['Other Income', 'Other Income'],
+    ]) %>
+    <%= f.select :account_type, accounts, {}, class: "form-control" %>
   </div>
 
   <div class="form-group">

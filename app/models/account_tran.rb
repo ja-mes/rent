@@ -12,18 +12,27 @@ class AccountTran < ActiveRecord::Base
   def self.calculate_total(account)
     total = 0
 
+    inc_accounts = ["Income", "Other Current Assets", "Other Income"]
+    dec_accounts = ["Expenses"]
+
+    dec_account_trans = ["Check", "Deposit"]
+    inc_account_trans = ["Payment", "Invoice"]
+
     AccountTran.all.each do |t|
-      if account.account_type == "Income" || account.account_type == "Other Current Assets"
-        if t.inc?
+      # deposit discrepancies should be incremented for deposits
+      if account.name == "Deposit Discrepancies" && t.account_transable_type == "Deposit"
+        total += t.amount
+      elsif inc_accounts.include? account.account_type 
+        if inc_account_trans.include? t.account_transable_type
           total += t.amount
-        else
+        elsif dec_account_trans.include? t.account_transable_type
           total -= t.amount
         end
-      elsif account.account_type == "Expense"
-        if t.inc?
-          total -= t.amount
-        else
+      elsif dec_accounts.include? account.account_type
+        if inc_account_trans.include? t.account_transable_type
           total += t.amount
+        elsif dec_account_trans.include? t.account_transable_type
+          total -= t.amount
         end
       end
     end

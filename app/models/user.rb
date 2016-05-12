@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
       {name: "Rental Income", account_type: "Income", balance: 0, user: self},       
       {name: "Checking", account_type: "Bank", balance: 0, user: self},
       {name: "Undeposited Funds", account_type: "Other Current Assets", balance: 0, user: self},
-      {name: "Deposit Discrepancies", account_type: "Other Current Assets", balance: 0, user: self},
+      {name: "Deposit Discrepancies", account_type: "Other Income", balance: 0, user: self},
       {name: "Repairs and Maintenance", account_type: "Expenses", balance: 0, user: self},
     ])
   end
