@@ -33,7 +33,8 @@ class AccountsControllerTest < ActionController::TestCase
 
     assert_difference 'Account.count' do
       post :create, account: {
-        name: "Foo"
+        name: "Foo",
+        account_type: "Income"
       }
     end
 

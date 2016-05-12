@@ -34,7 +34,13 @@ class AccountTranTest < ActiveSupport::TestCase
 
   test "calculate total should calculate balance" do
     trans = AccountTran.where(amount: 9.99).limit(3)
-    assert_equal trans.calculate_total, 29.97
+    assert_equal trans.calculate_total(accounts(:one)), -29.97
+  end
+
+  test "calculate total should work for dec accounts" do
+    trans = AccountTran.where(amount: 9.99, account_transable_type: "Check").limit(2)
+
+    assert_equal trans.calculate_total(accounts(:two)), 19.98
   end
 
   test "date range should return transactions for a date range" do

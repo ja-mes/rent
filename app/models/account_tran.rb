@@ -29,9 +29,9 @@ class AccountTran < ActiveRecord::Base
         end
       elsif dec_accounts.include? account.account_type
         if inc_account_trans.include? t.account_transable_type
-          total += t.amount
-        elsif dec_account_trans.include? t.account_transable_type
           total -= t.amount
+        elsif dec_account_trans.include? t.account_transable_type
+          total += t.amount
         end
       end
     end

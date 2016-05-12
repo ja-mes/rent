@@ -1,16 +1,19 @@
 one: 
   name: "Rental Income"
   balance: 0.00
+  account_type: "Income"
   user: one
   
 two: 
   name: "Pest Control"
   balance: 0.00
+  account_type: "Expenses"
   user: one
 
 three:
   name: "Deposits"
   balance: 0.00
+  account_type: "Other Current Assets"
   user: one
 
 four:
@@ -21,9 +24,11 @@ four:
 five:
   name: "Undeposited Funds"
   balance: 0.00
+  account_type: "Other Current Assets"
   user: one
 
 six:
   name: "Deposit Discrepancies"
   balance: 0.00
+  account_type: "Other Current Assets"
   user: one

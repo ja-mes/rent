@@ -18,9 +18,9 @@ class UserTest < ActiveSupport::TestCase
       @user = User.create(:email => 'never_before_used_email_address@blah.com', :password => 'password', :password_confirmation => 'password')
     end
     assert_equal @user.accounts.first.name, "Rental Income"
-    assert_equal @user.accounts.second.name, "Deposits"
-    assert_equal @user.accounts.third.name, "Checking"
-    assert_equal @user.accounts.fourth.name, "Undeposited Funds"
-    assert_equal @user.accounts.fifth.name, "Deposit Discrepancies"
+    assert_equal @user.accounts.second.name, "Checking"
+    assert_equal @user.accounts.third.name, "Undeposited Funds"
+    assert_equal @user.accounts.fourth.name, "Deposit Discrepancies"
+    assert_equal @user.accounts.fifth.name, "Repairs and Maintenance"
   end
 end
