@@ -27,7 +27,7 @@ class PropertiesController < ApplicationController
 
   def show
     trans = @property.account_trans.date_range(params[:from], params[:to])
-    @total = trans.calculate_total
+    @total = trans.calculate_property_total
     @trans = trans.paginate(page: params[:page], per_page: 2)
   end
 
