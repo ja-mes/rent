@@ -14,7 +14,6 @@ two:
   account_transable: two (Invoice)
   date: 2016-08-07
 
-
 check1:
   user: one
   amount: 9.99

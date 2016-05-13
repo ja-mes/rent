@@ -43,6 +43,11 @@ class AccountTranTest < ActiveSupport::TestCase
     assert_equal trans.calculate_total(accounts(:two)), 19.98
   end
 
+  test "should subtract checks and add invoices" do
+    trans = account_trans(:one).merge account_trans(:check1)
+    assert_equal trans.calculate_property_total, account_trans(:one) - account_trans(:check1)
+  end
+
   test "date range should return transactions for a date range" do
    trans = AccountTran.all.limit(3).date_range(
       {'date(1i)' => "2016", "date(2i)" => "7", "date(3i)" => "7" },
