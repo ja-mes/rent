@@ -44,8 +44,8 @@ class AccountTranTest < ActiveSupport::TestCase
   end
 
   test "should subtract checks and add invoices" do
-    trans = account_trans(:one).merge account_trans(:check1)
-    assert_equal trans.calculate_property_total, account_trans(:one) - account_trans(:check1)
+    trans = properties(:one).account_trans
+    assert_equal trans.calculate_property_total, account_trans(:one).amount - account_trans(:check1).amount
   end
 
   test "date range should return transactions for a date range" do
