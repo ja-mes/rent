@@ -59,6 +59,24 @@ class DepositsControllerTest < ActionController::TestCase
     assert_equal deposit.tran.date, deposit.date
   end
 
+  test "post create should create two account trans for deposit and discrepancies" do
+    sign_in :user, users(:one)
+
+    payment = payments(:one)
+
+    assert_difference ['AccountTran.count'], 2 do
+      post :create, deposit: {
+        date: "03/10/2016",
+        discrepancies: 20.5,
+        payment: {
+          "#{payment.id}" => {
+            "selected": "on"
+          },
+        }
+      }
+    end
+  end
+
   test "post create should work without deposit discrepancies" do
     sign_in :user, users(:one)
 

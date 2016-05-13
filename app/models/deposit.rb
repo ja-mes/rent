@@ -19,7 +19,6 @@ class Deposit < ActiveRecord::Base
   def create_discrepancies
     if self.discrepancies
       discrepancies_account = self.user.accounts.find_by(name: "Deposit Discrepancies")
-      # TODO revise inc
       self.account_trans.create(user: self.user, date: self.date, amount: self.discrepancies, account_id: discrepancies_account.id)
     end
   end
