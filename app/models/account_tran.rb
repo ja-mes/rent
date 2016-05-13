@@ -17,7 +17,7 @@ class AccountTran < ActiveRecord::Base
     dec_account_trans = ["Check", "Deposit"]
     inc_account_trans = ["Payment", "Invoice"]
 
-    AccountTran.all.each do |t|
+    AccountTran.find_each do |t|
       # deposit discrepancies should be incremented for deposits
       if account.name == "Deposit Discrepancies" && t.account_transable_type == "Deposit"
         total += t.amount
@@ -42,7 +42,7 @@ class AccountTran < ActiveRecord::Base
   def self.calculate_property_total
     total = 0
 
-    AccountTran.all.each do |t|
+    AccountTran.find_each do |t|
       if t.account_transable_type == "Invoice" 
         total += t.amount
       elsif t.account_transable_type == "Check"
