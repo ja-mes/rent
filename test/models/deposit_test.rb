@@ -46,6 +46,7 @@ class DepositTest < ActiveSupport::TestCase
     assert_not @deposit.valid?
   end
 
+
   test "create_deposit_trans should create account_tran for deposit and discrepancies" do
     @deposit.discrepancies = 20
 
