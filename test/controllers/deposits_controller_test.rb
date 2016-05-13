@@ -54,9 +54,28 @@ class DepositsControllerTest < ActionController::TestCase
 
     assert_equal payment.deposit, deposit
     assert_equal payment2.deposit, deposit
-    assert_equal deposit.amount, (payment.amount + payment2.amount)
-    assert_equal accounts(:four).balance, (payment.amount + payment2.amount)
+    assert_equal deposit.amount, (payment.amount + payment2.amount + deposit.discrepancies)
+    assert_equal accounts(:four).balance, (payment.amount + payment2.amount + deposit.discrepancies)
     assert_equal deposit.tran.date, deposit.date
+  end
+
+  test "post create should work without deposit discrepancies" do
+    sign_in :user, users(:one)
+
+    payment = payments(:one)
+    
+    assert_difference ['Deposit.count', 'Tran.count'] do
+      post :create, deposit: {
+        date: "03/10/2016",
+        payment: {
+          "#{payment.id}" => {
+            "selected": "on"
+          },
+        }
+      }
+    end
+
+    assert_equal assigns(:deposit).amount, payment.amount
   end
 
   test "create should not work if no payments are specified" do
@@ -130,9 +149,24 @@ class DepositsControllerTest < ActionController::TestCase
 
     assert_equal deposit.date, "5/10/2016".to_date
     assert_equal deposit.discrepancies, 80.25
-    assert_equal deposit.amount, (9.99 - payment2.amount)
+    assert_equal deposit.amount, (9.99 - payment2.amount + deposit.discrepancies)
       
     assert_equal deposit.payments.count, 1
+  end
+
+  test "update should work without discrepancies" do
+    sign_in :user, users(:one)
+
+    payment = payments(:three)
+
+    put :update, id: deposits(:one), deposit: {
+      date: "5/10/2016",
+      "#{payment.id}" => {
+        "selected": "on"
+      }
+    }
+
+    assert_redirected_to assigns(:deposit)
   end
 
   test "update should not remove payments if they are all unchecked" do

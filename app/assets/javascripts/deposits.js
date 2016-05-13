@@ -14,12 +14,16 @@ $(document).on('turbolinks:load', function() {
       }
     });
 
+    total += +$('#deposit_discrepancies').val()
+
     $('#deposit_form h4').html("$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
   }
    
   $('#deposit_form.edit_deposit input[type="checkbox"]').prop({ 'checked': true });
   calculateTotal();
 
+
+  $('#deposit_discrepancies').change(calculateTotal)
 
   $('.deposit_check_box').click(function() {
     calculateTotal();

@@ -29,6 +29,9 @@ class DepositsController < ApplicationController
       end
     end
 
+    if @deposit.discrepancies
+      @deposit.amount += @deposit.discrepancies
+    end
 
     if @deposit.save
       @deposit.calculate_balance
@@ -49,6 +52,8 @@ class DepositsController < ApplicationController
 
   def update
     old_amount = @deposit.amount
+    old_discrepancies = @deposit.discrepancies || 0
+
     @deposit.assign_attributes(deposit_params)
     @account = Account.find_by(name: "Undeposited Funds", user: current_user)
     @payments = @deposit.payments
@@ -61,6 +66,11 @@ class DepositsController < ApplicationController
         end
       end
     end 
+
+    if @deposit.discrepancies
+      @deposit.amount -= old_discrepancies
+      @deposit.amount += @deposit.discrepancies
+    end
 
     if @deposit.save
       @deposit.calculate_balance old_amount
