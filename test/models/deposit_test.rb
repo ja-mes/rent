@@ -48,11 +48,16 @@ class DepositTest < ActiveSupport::TestCase
 
 
   test "create_deposit_trans should create account_tran for deposit and discrepancies" do
+    @deposit.account_trans = []
+    @deposit.amount = 50
     @deposit.discrepancies = 20
 
     assert_difference 'AccountTran.count', 2 do
       @deposit.create_deposit_trans
     end
+
+    assert_equal @deposit.account_trans.first.amount, 30
+    assert_equal @deposit.account_trans.second.amount, 20
   end
 
   test "create_deposit_trans should not create discrepancies account_tran if no discrepancies exist" do
@@ -77,7 +82,7 @@ class DepositTest < ActiveSupport::TestCase
     @deposit.update_tran
 
     assert_equal @deposit.tran.date, "05/03/2016".to_date
-    assert_equal @deposit.account_trans.first.amount, 200.25
+    assert_equal @deposit.account_trans.first.amount, 200.25 - 25.80
     assert_equal @deposit.account_trans.second.amount, 25.80
   end
 
