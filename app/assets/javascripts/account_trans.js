@@ -9,7 +9,6 @@ function add_fields(link, association, content) {
 ;(function () {
 
   function calculateTotal() {
-    console.log("run")
     var total = 0;
 
     $('.account_tran_amount').each(function(i, elem) {
