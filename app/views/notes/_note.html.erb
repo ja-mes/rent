@@ -1,25 +1,13 @@
-<li class="list-group-item" id="<%= note.id %>">
-  <div class="row">
-    <div class="col-md-6">
-      <%= truncate note.content, length: 100 %>
-    </div>
+<tr id="<%= note.id %>">
+  <td><%= truncate note.content, length: 100 %></td>
+  <td><%= note.date.strftime("%m/%d/%Y") %></td> 
+  <td class="text-xs-right">
+    <%= link_to edit_customer_note_path(@customer, note), remote: true, class: "btn btn-secondary btn-sm" do %>
+      <i class="fa fa-pencil"></i>
+    <% end %>
 
-    <div class="col-md-3">
-      <span class="pull-right">
-        <strong><%= note.date.strftime("%m/%d/%Y") %></strong>
-      </span>
-    </div>
-
-    <div class="col-md-3">
-      <span class="pull-right">
-        <%= link_to edit_customer_note_path(@customer, note), remote: true, class: "btn btn-secondary btn-sm" do %>
-          <i class="fa fa-pencil"></i>
-        <% end %>
-
-        <%= link_to customer_note_path(@customer, note), method: :delete, remote: true, class: "btn btn-danger btn-sm" do %>
-          <i class="fa fa-trash"></i>
-        <% end %>
-      </span>
-    </div>
-  </div>
-</li>
+    <%= link_to customer_note_path(@customer, note), method: :delete, remote: true, class: "btn btn-danger btn-sm" do %>
+      <i class="fa fa-trash"></i>
+    <% end %>
+  </td> 
+</tr>

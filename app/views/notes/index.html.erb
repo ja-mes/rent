@@ -10,7 +10,17 @@
 <div class="modal fade" id="addNoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 
-<ul id="customer_notes_display" class="list-group">
-  <%= render @notes %>
-</ul>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Description</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody id="customer_notes_display">
+    <%= render @notes %>
+  </tbody>
+</table>
 
