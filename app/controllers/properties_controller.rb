@@ -7,7 +7,7 @@ class PropertiesController < ApplicationController
   end
 
   def index
-    @properties = Property.search(params[:search], current_user).paginate(page: params[:page], per_page: 5)
+    @properties = Property.search(params[:search], current_user).paginate(page: params[:page], per_page: 5).order(:address)
   end
 
   def new
