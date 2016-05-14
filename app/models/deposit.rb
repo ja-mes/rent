@@ -10,7 +10,8 @@ class Deposit < ActiveRecord::Base
   validates :user_id, presence: true
   validates :date, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
-  #validates :discrepancies, allow_blank: true 
+  #validates :discrepancies, allow_blank: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
+  validates_numericality_of :discrepancies, allow_blank: true
 
   after_create :create_deposit_trans
   after_update :update_tran
