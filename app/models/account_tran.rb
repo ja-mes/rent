@@ -5,7 +5,7 @@ class AccountTran < ActiveRecord::Base
   belongs_to :account_transable, polymorphic: true
 
   validates :user_id, presence: true
-  validates_numericality_of :amount, allow_blank: true
+  validates_numericality_of :amount
   validates :date, presence: true
 
   def self.calculate_total(account)

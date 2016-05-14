@@ -27,6 +27,11 @@ class AccountTranTest < ActiveSupport::TestCase
     assert_not @tran.valid?
   end
 
+  test "amount can be negative" do
+    @tran.amount = -500
+    assert @tran.valid?
+  end
+
   test "date should be present" do
     @tran.date = nil
     assert_not @tran.valid?
