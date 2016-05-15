@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = current_user.accounts.order(:account_type)
+    @accounts = current_user.accounts.order(:name)
   end
 
   def new

@@ -17,7 +17,7 @@
           <tr data-link="<%= account_path a %>">
       <% end %>
         <td><%= a.name %></td>
-        <td><%= a.account_type %></td>
+        <td><%= a.account_type.name %></td>
         <td><%= number_to_currency(a.balance) %></td>
       </tr>
     <% end %>
