@@ -17,12 +17,18 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   after_create do
+    income = AccountType.create(user: self, name: "Income", inc: true)
+    checking = AccountType.create(user: self, name: "Bank", inc: true)
+    undeposited = AccountType.create(user: self, name: "Other Current Assets", inc: true)
+    discrepancies = AccountType.create(user: self, name: "Other Income", inc: true)
+    repairs = AccountType.create(user: self, name: "Expenses", inc: false)
+
     Account.create([
-      {name: "Rental Income", account_type: "Income", balance: 0, required: true, user: self},       
-      {name: "Checking", account_type: "Bank", balance: 0, required: true, user: self},
-      {name: "Undeposited Funds", account_type: "Other Current Assets", balance: 0, required: true, user: self},
-      {name: "Deposit Discrepancies", account_type: "Other Income", balance: 0, required: true, user: self},
-      {name: "Repairs and Maintenance", account_type: "Expenses", balance: 0, required: true, user: self},
+      {name: "Rental Income", account_type: income, balance: 0, required: true, user: self},       
+      {name: "Checking", account_type: checking, balance: 0, required: true, user: self},
+      {name: "Undeposited Funds", account_type: undeposited, balance: 0, required: true, user: self},
+      {name: "Deposit Discrepancies", account_type: discrepancies, balance: 0, required: true, user: self},
+      {name: "Repairs and Maintenance", account_type: repairs, balance: 0, required: true, user: self},
     ])
   end
 
