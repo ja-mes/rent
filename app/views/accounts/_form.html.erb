@@ -5,13 +5,7 @@
   <% if @account.new_record? %>
     <div class="form-group">
       <%= f.label :type %>
-      <% accounts = options_for_select([
-        ['Income', 'Income'],
-        ['Expenses', 'Expenses'],
-        ['Other Current Assets', 'Other Current Assets'],
-        ['Other Income', 'Other Income'],
-      ]) %>
-    <%= f.select :account_type, accounts, {}, class: "form-control" %>
+      <%= f.collection_select :account_type_id, @account_types, :id, :name, {}, class: "form-control chosen_select" %>
     </div>
   <% end %>
 

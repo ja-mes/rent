@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :invoices
   has_many :trans
   has_many :accounts
+  has_many :account_types
   has_many :account_trans
   has_many :checks
   has_many :deposits

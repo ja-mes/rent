@@ -11,6 +11,7 @@ class AccountsController < ApplicationController
 
   def new
     @account = Account.new
+    @account_types = current_user.account_types.all
   end
 
   def create
@@ -44,7 +45,7 @@ class AccountsController < ApplicationController
 
   private
   def create_params
-    params.require(:account).permit(:name, :account_type)
+    params.require(:account).permit(:name, :account_type_id)
   end
 
   def update_params
