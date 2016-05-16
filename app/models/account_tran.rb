@@ -14,24 +14,27 @@ class AccountTran < ActiveRecord::Base
     dec_account_trans = ["Check", "Deposit"]
     inc_account_trans = ["Payment", "Invoice"]
 
-    AccountTran.find_each do |t|
-      # deposit discrepancies should be incremented for deposits
-      if account.name == "Deposit Discrepancies" && t.account_transable_type == "Deposit"
-        total += t.amount
-      elsif t.account.account_type.inc?
-        if inc_account_trans.include? t.account_transable_type
-          total += t.amount
-        else
-          total -= t.amount
-        end
-      elsif !t.account.account_type.inc?
-        if inc_account_trans.include? t.account_transable_type
-          total -= t.amount
-        elsif dec_account_trans.include? t.account_transable_type
-          total += t.amount
-        end
-      end
-    end
+    total = AccountTran.sum(:amount)
+    #debugger
+    
+    #AccountTran.find_each do |t|
+    #  # deposit discrepancies should be incremented for deposits
+    #  if account.name == "Deposit Discrepancies" && t.account_transable_type == "Deposit"
+    #    total += t.amount
+    #  elsif t.account.account_type.inc?
+    #    if inc_account_trans.include? t.account_transable_type
+    #      total += t.amount
+    #    else
+    #      total -= t.amount
+    #    end
+    #  elsif !t.account.account_type.inc?
+    #    if inc_account_trans.include? t.account_transable_type
+    #      total -= t.amount
+    #    elsif dec_account_trans.include? t.account_transable_type
+    #      total += t.amount
+    #    end
+    #  end
+    #end
 
     total
   end
