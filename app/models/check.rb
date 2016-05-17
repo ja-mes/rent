@@ -20,6 +20,7 @@ class Check < ActiveRecord::Base
       end
     end
 
+    amount *= -1
     unless amount == self.amount
       errors.add(:base, "Check total must equal expenses total")
     end

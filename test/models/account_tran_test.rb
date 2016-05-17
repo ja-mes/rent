@@ -43,7 +43,8 @@ class AccountTranTest < ActiveSupport::TestCase
   end
 
   test "calculate total should work for dec accounts" do
-    trans = AccountTran.where(amount: 9.99, account_transable_type: "Check").limit(2)
+    trans = accounts(:one).account_trans
+    #trans = AccountTran.where(amount: 9.99, account_transable_type: "Check").limit(2)
 
     assert_equal trans.calculate_total(accounts(:two)), 19.98
   end

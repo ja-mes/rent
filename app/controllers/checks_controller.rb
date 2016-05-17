@@ -22,6 +22,7 @@ class ChecksController < ApplicationController
     @check.account_trans.each do |tran|
       tran.user = current_user
       tran.date = @check.date
+      tran.amount *= -1 # checks are dec tran
     end
 
     if @check.save
@@ -46,6 +47,7 @@ class ChecksController < ApplicationController
     @check.account_trans.each do |tran|
       tran.user = current_user
       tran.date = @check.date
+      tran.amount *= -1 # checks are dec
     end
 
     if @check.save

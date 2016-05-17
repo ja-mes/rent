@@ -6,6 +6,7 @@ one:
   memo: MyString
   account_transable: one (Invoice)
   date: 2016-08-07
+  account: one
   property: one
 
 two:
@@ -17,15 +18,16 @@ two:
 
 check1:
   user: one
-  amount: 9.99
+  amount: -9.99
   memo: MyString
   account_transable: one (Check)
   date: 2016-08-07
+  account: one
   property: one
 
 check2:
   user: one
-  amount: 9.99
+  amount: -9.99
   memo: MyString
   account_transable: two (Check)
   date: 2016-08-07

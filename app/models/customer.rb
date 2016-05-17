@@ -20,7 +20,7 @@ class Customer < ActiveRecord::Base
           i.amount = self.rent
           i.date = today
           i.memo = "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}"
-          i.user = self.user 
+          i.user = self.user
         end
         invoice.skip_tran_validation = true
         invoice.save
@@ -68,7 +68,7 @@ class Customer < ActiveRecord::Base
       t.date = invoice.date
     end
   end
-  
+
 
   def self.search(search, display_param, user)
     if search

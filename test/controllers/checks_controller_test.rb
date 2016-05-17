@@ -100,6 +100,8 @@ class ChecksControllerTest < ActionController::TestCase
   test "put update" do
     sign_in :user, users(:one)
 
+    checks(:one).account_trans.destroy_all
+
     put :update, id: checks(:one), check: {
       vendor_id: vendors(:one).id,
       num: "3",
@@ -109,7 +111,7 @@ class ChecksControllerTest < ActionController::TestCase
       account_trans_attributes: {
         "0" => {
           account_id: accounts(:two).id,
-          amount: 600,
+          amount: 609.99,
           memo: "test2",
           property_id: properties(:one).id
         }

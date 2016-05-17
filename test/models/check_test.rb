@@ -63,7 +63,7 @@ class CheckTest < ActiveSupport::TestCase
     check.amount = 500
     @check.account_trans.each do |t| 
       t.user = users(:one)
-      t.amount = 500
+      t.amount = -500
       check.account_trans << t.dup 
     end
 

@@ -22,7 +22,7 @@ class CustomersController < ApplicationController
   def create
     @properties = current_user.vacant_properties
     @customer = current_user.customers.build(customer_params)
-  
+
     if @customer.save
       @customer.create_deposit params[:customer][:deposit]
       flash[:success] = "Customer successfully created"
