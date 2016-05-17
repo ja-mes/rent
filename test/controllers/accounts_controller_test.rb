@@ -34,7 +34,7 @@ class AccountsControllerTest < ActionController::TestCase
     assert_difference 'Account.count' do
       post :create, account: {
         name: "Foo",
-        account_type: "Income"
+        account_type_id: account_types(:income)
       }
     end
 
@@ -47,9 +47,12 @@ class AccountsControllerTest < ActionController::TestCase
 
     assert_difference 'Account.count', 0 do
       post :create, account: {
-        name: ""
+        name: "",
+        account_type_id: ""
       }
     end
+
+    assert_template 'new'
   end
 
   test "post create should not work if user is not logged in" do
@@ -101,10 +104,10 @@ class AccountsControllerTest < ActionController::TestCase
 
     post :update, id: accounts(:one), account: {
       name: "Bar",
-      account_type: "Expenses"
+      account_type_id: account_types(:expenses)
     }
 
-    assert_equal assigns(:account).account_type, "Income"
+    assert_equal assigns(:account).account_type, account_types(:income)
   end
 
   test "post update should not work if invalid form data is submitted" do

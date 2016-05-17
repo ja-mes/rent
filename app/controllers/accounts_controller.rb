@@ -16,6 +16,7 @@ class AccountsController < ApplicationController
 
   def create
     @account = current_user.accounts.build(create_params)
+    @account_types = current_user.account_types.all
 
     if @account.save
       flash[:success] = "Account successfully saved"

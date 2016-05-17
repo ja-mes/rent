@@ -1,11 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user_id: 1
-  name: MyString
-  inc: 
+income:
+  user: one
+  name: "Income"
+  inc: true
 
-two:
-  user_id: 1
-  name: MyString
-  inc: 
+bank:
+  user: one
+  name: "Bank"
+  inc: true
+     
+other_current_assets:
+  user: one
+  name: "Other Current Assets"
+  inc: true
+
+other_income:
+  user: one
+  name: "Other Income"
+  inc: true
+
+expenses:
+  user: one
+  name: "Expenses"
+  inc: false
