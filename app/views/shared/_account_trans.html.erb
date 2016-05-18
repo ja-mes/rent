@@ -11,10 +11,10 @@
 
   <tbody>
     <%= f.fields_for :account_trans do |ff| %>
-      <%= render 'shared/account_tran_fields', f: ff %>
+      <%= render 'shared/account_tran_fields', f: ff, dec: dec %>
     <% end %>
   </tbody>
 
 </table>
-<%= link_to_add_fields "Remove", f, :account_trans, "btn btn-secondary btn-sm margin-30", "fa fa-plus" %>
+<%= link_to_add_fields "Remove", f, :account_trans, dec, "btn btn-secondary btn-sm margin-30", "fa fa-plus" %>
 
