@@ -68,6 +68,7 @@ class AccountsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :show
     assert_not_nil assigns(:account)
+    assert_equal assigns(:negate), !assigns(:account).account_type.inc
   end
 
   test "get show should not work if user is not logged in" do

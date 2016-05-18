@@ -30,6 +30,8 @@ class AccountsController < ApplicationController
     trans = @account.account_trans.date_range(params[:from], params[:to])
     @total = trans.calculate_total(@account)
     @trans = trans.paginate(page: params[:page])
+    
+    @negate = !@account.account_type.inc
   end
   
   def edit
