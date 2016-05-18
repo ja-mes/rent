@@ -45,7 +45,7 @@ class InvoicesController < ApplicationController
 
     @invoice.attributes = invoice_params
 
-    @invoice.account_trans.each do |tran| 
+    @invoice.account_trans.each do |tran|
       tran.user = current_user
       tran.date = @invoice.date
     end

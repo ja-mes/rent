@@ -9,7 +9,7 @@ class Deposit < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :date, presence: true
-  validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
+  validates_numericality_of :amount
   #validates :discrepancies, allow_blank: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
   validates_numericality_of :discrepancies, allow_blank: true
 
@@ -28,7 +28,9 @@ class Deposit < ActiveRecord::Base
     self.create_tran(user: self.user, date: self.date)
 
     account = self.user.accounts.find_by(name: "Undeposited Funds")
+
     tran_amount = self.discrepancies ? self.amount - self.discrepancies : self.amount
+    tran_amount *= -1 # deposits are type dec
     self.account_trans.create(user: self.user, date: self.date, amount: tran_amount, account_id: account.id)
 
     # XXX: discrepancies account_tran MUST be created after the deposit account_tran
@@ -41,11 +43,13 @@ class Deposit < ActiveRecord::Base
 
     if self.account_trans.count == 1
       tran_amount = self.discrepancies ? self.amount - self.discrepancies : self.amount
+      tran_amount *= -1
       self.account_trans.first.update_attributes(date: self.date, amount: tran_amount)
 
       self.create_discrepancies
     else
       tran_amount = self.discrepancies ? self.amount - self.discrepancies : self.amount
+      tran_amount *= -1
       self.account_trans.first.update_attributes(date: self.date, amount: tran_amount)
       if self.discrepancies 
         self.account_trans.second.update_attributes(date: self.date, amount: self.discrepancies)
