@@ -36,16 +36,10 @@ class DepositTest < ActiveSupport::TestCase
     assert_not @deposit.valid?
   end
 
-  test "amount should not be negative" do
+  test "amount can be negative" do
     @deposit.amount = -5
-    assert_not @deposit.valid?
+    assert @deposit.valid?
   end
-
-  test "amount should not have more than two decimal places" do
-    @deposit.amount = -5.25
-    assert_not @deposit.valid?
-  end
-
 
   test "create_deposit_trans should create account_tran for deposit and discrepancies" do
     @deposit.account_trans = []
@@ -56,7 +50,7 @@ class DepositTest < ActiveSupport::TestCase
       @deposit.create_deposit_trans
     end
 
-    assert_equal @deposit.account_trans.first.amount, 30
+    assert_equal @deposit.account_trans.first.amount, -30
     assert_equal @deposit.account_trans.second.amount, 20
   end
 
@@ -82,7 +76,7 @@ class DepositTest < ActiveSupport::TestCase
     @deposit.update_tran
 
     assert_equal @deposit.tran.date, "05/03/2016".to_date
-    assert_equal @deposit.account_trans.first.amount, 200.25 - 25.80
+    assert_equal @deposit.account_trans.first.amount, -(200.25 - 25.80)
     assert_equal @deposit.account_trans.second.amount, 25.80
   end
 
@@ -98,7 +92,7 @@ class DepositTest < ActiveSupport::TestCase
     @deposit.account_trans.second.destroy
     @deposit.amount = 500.85
     @deposit.update_tran
-    assert_equal @deposit.account_trans.first.amount, 500.85
+    assert_equal @deposit.account_trans.first.amount, -500.85
   end
 
   test "remove amount should remove amount from checking account" do
