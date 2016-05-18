@@ -18,17 +18,7 @@ class AccountTran < ActiveRecord::Base
   end
 
   def self.calculate_property_total
-    total = 0
-
-    AccountTran.find_each do |t|
-      if t.account_transable_type == "Invoice" 
-        total += t.amount
-      elsif t.account_transable_type == "Check"
-        total -= t.amount
-      end
-    end
-
-    total
+    AccountTran.sum(:amount)
   end
 
   def self.date_range(from, to)

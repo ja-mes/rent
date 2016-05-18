@@ -49,7 +49,7 @@ class AccountTranTest < ActiveSupport::TestCase
 
   test "should subtract checks and add invoices" do
     trans = properties(:one).account_trans
-    assert_equal trans.calculate_property_total, account_trans(:one).amount - account_trans(:check1).amount
+    assert_equal trans.calculate_property_total, account_trans(:one).amount + account_trans(:check1).amount
   end
 
   test "date range should return transactions for a date range" do
