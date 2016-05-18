@@ -12,7 +12,7 @@ class AccountTran < ActiveRecord::Base
     total = 0
 
     total = AccountTran.sum(:amount)
-    total *= -1 unless account.account_type.inc
+    total *= -1 unless total == 0 || account.account_type.inc
 
     total
   end

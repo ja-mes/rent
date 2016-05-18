@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
     Account.create([
       {name: "Rental Income", account_type: income, balance: 0, required: true, user: self},       
       {name: "Checking", account_type: bank, balance: 0, required: true, user: self},
-      {name: "Undeposited Funds", account_type: expenses, balance: 0, required: true, user: self},
-      {name: "Deposit Discrepancies", account_type: other_income, balance: 0, required: true, user: self},
+      {name: "Undeposited Funds", account_type: other_current_assets, balance: 0, required: true, user: self},
+      {name: "Deposit Discrepancies", account_type: expenses, balance: 0, required: true, user: self},
       {name: "Repairs and Maintenance", account_type: expenses, balance: 0, required: true, user: self},
     ])
   end
