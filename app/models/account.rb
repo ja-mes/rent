@@ -1,4 +1,5 @@
 class Account < ActiveRecord::Base
+  # ASSOCIATIONs
   belongs_to :user
   belongs_to :account_type
   has_many :account_trans
@@ -8,7 +9,9 @@ class Account < ActiveRecord::Base
   validates :name, presence: true
   validates :balance, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ } 
   validates :account_type, presence: true
+  validate :not_required, on: :update
 
-  # XXX: When making an addition to this list updated calculate total method in account_tran.rb
-  #validates :account_type, inclusion: ["Bank", "Income", "Other Current Assets", "Other Income", "Expenses"], presence: true
+  def not_required
+    self.errors.add(:base, "Cannot update default account") if self.required
+  end
 end

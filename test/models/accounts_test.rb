@@ -1,20 +1,34 @@
 class AccountsTest < ActiveSupport::TestCase
+  def setup
+    @account = accounts(:one)
+  end
   test "account should be valid" do
-    assert accounts(:one).valid?
+    assert @account.valid?
   end 
 
   test "user_id should be present" do
-    accounts(:one).user = nil
-    assert_not accounts(:one).valid?
+    @account.user = nil
+    assert_not @account.valid?
   end
 
   test "name should be present" do
-    accounts(:one).name = "  "
-    assert_not accounts(:one).valid?
+    @account.name = "  "
+    assert_not @account.valid?
   end
 
   test "balance should be present" do
-    accounts(:one).balance = nil
-    assert_not accounts(:one).valid?
+    @account.balance = nil
+    assert_not @account.valid?
+  end
+
+  test "should not be able to updated required accounts" do
+    first_name = @account.name
+
+    @account.required = true
+    @account.name = "foobar"
+    @account.save
+
+    @account.reload
+    assert_equal first_name, @account.name
   end
 end
