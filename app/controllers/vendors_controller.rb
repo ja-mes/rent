@@ -26,6 +26,7 @@ class VendorsController < ApplicationController
 
   def show
     @trans = current_user.checks.where(vendor: @vendor)
+    @total = @trans.sum(:amount)
   end
 
   def edit

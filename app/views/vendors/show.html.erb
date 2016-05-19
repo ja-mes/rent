@@ -1,24 +1,33 @@
 <%= render 'show_header' %>
 
-<table class="table table-hover row-links">
-  <thead class="thead-default">
-    <tr>
-      <th>Type</th>
-      <th>Date</th>
-      <th>Amount</th>
-      <th>Memo</th>
-    </tr>
-  </thead>
+<div class="card">
+  <div class="card-block">
 
-  <tbody>
-    <% @trans.each do |t| %>
-      <tr data-link="<%= check_path t %>">
-        <td>Check</td>
-        <td><%= t.date %></td>
-        <td><%= number_to_currency(t.amount) %></td>
-        <td><%= t.memo %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <table class="table table-hover row-links">
+      <thead class="thead-default">
+        <tr>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Memo</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @trans.each do |t| %>
+          <tr data-link="<%= check_path t %>">
+            <td>Check</td>
+            <td><%= t.date %></td>
+            <td><%= number_to_currency(t.amount) %></td>
+            <td><%= t.memo %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-footer">
+    <strong><%= number_to_currency(@total) %></strong>
+  </div>
+</div>
 
