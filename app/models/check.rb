@@ -51,5 +51,15 @@ class Check < ActiveRecord::Base
     account.increment(:balance, by = old_amount)
     account.increment!(:balance, by = -self.amount)
   end
+
+  def self.date_range(from, to)
+    if from && to 
+      from = Date.new from['date(1i)'].to_i, from['date(2i)'].to_i, from['date(3i)'].to_i
+      to = Date.new to['date(1i)'].to_i, to['date(2i)'].to_i, to['date(3i)'].to_i
+      Check.where(date: from..to)
+    else
+      Check.where(date: 1.month.ago..Date.today)
+    end
+  end
 end
 

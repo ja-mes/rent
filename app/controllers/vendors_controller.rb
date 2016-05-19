@@ -25,7 +25,7 @@ class VendorsController < ApplicationController
   end
 
   def show
-    @trans = current_user.checks.where(vendor: @vendor)
+    @trans = current_user.checks.where(vendor: @vendor).date_range(params[:from], params[:to])
     @total = @trans.sum(:amount)
   end
 

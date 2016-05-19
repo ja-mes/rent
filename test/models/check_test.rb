@@ -99,4 +99,13 @@ class CheckTest < ActiveSupport::TestCase
       account.reload
     end
   end
+
+  test "date range should return transactions for date range" do
+   trans = Check.all.limit(2).date_range(
+      {'date(1i)' => "2016", "date(2i)" => "4", "date(3i)" => "28" },
+      {'date(1i)' => "2016", "date(2i)" => "5", "date(3i)" => "28" }
+    )
+
+   assert_equal trans.count, 2
+  end
 end
