@@ -15,8 +15,10 @@
       <tr data-link="
         <% if trns.transactionable_type == "Invoice" %>
           <%= edit_customer_invoice_path @customer, trns.transactionable %>
-        <% else %>
+        <% elsif trns.transactionable_type == "Payment" %>
           <%= edit_customer_payment_path @customer, trns.transactionable %>
+        <% elsif trns.transactionable_type == "Credit" %>
+          <%= edit_customer_credit_path @customer, trns.transactionable %>
         <% end %>
       ">
       <td><%= trns.transactionable_type %></td>

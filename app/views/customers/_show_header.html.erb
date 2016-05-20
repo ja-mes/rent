@@ -15,7 +15,7 @@
       </button>
       <div class="dropdown-menu">
         <%= link_to "Invoice", new_customer_invoice_path(@customer), class: "dropdown-item" %>
-        <a class="dropdown-item" href="#">Credit</a>
+        <%= link_to "Credit", new_customer_credit_path(@customer), class: "dropdown-item" %>
       </div>
     </div>
   </div>

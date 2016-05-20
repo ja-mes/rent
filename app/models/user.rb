@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :deposits
   has_many :vendors
   has_many :notes
+  has_many :credits
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
