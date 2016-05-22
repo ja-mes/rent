@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
   end
 
   def index
-    @customers = Customer.search(params[:search], params[:display], current_user).paginate(page: params[:page], per_page: 5)
+    @customers = Customer.search(params[:search], params[:display], current_user).paginate(page: params[:page])
   end
 
   def new

@@ -1,18 +1,19 @@
-user = User.create(email: "test@example.com", password: 'password', password_confirmation: 'password')
+user = User.create!(email: "test@example.com", password: 'password', password_confirmation: 'password')
 
-property = Property.create(user: user, address: "100 Test St.", state: "AL", city: "Boaz", zip: "35956", rent: 500, deposit: 200)
-property2 = Property.create(user: user, address: "200 Test St.", state: "CA", city: "Elk", zip: "12345", rent: 200, deposit: 50)
-property3 = Property.create(user: user, address: "300 Test St.", state: "AL", city: "Foo", zip: "35976", rent: 600, deposit:  800)
-property4 = Property.create(user: user, address: "400, Test St.", state: "AL", city: "Foo", zip: "35976", rent: 600, deposit: 800)
-property5 = Property.create(user: user, address: "500, Test St.", state: "AL", city: "Foo", zip: "35976", rent: 600, deposit: 800)
-property6 = Property.create(user: user, address: "600, Test St.", state: "AL", city: "Foo", zip: "35976", rent: 600, deposit: 800)
-property7 = Property.create(user: user, address: "700, Test St.", state: "AL", city: "Foo", zip: "35976", rent: 600, deposit: 800)
+100.times do
+  property = Property.create!(user: user, address: "#{Faker::Address.street_address}  #{Faker::Address.street_suffix}", state: Faker::Address.state_abbr, city: Faker::Address.city, zip: Faker::Address.zip, rent: Faker::Commerce.price, deposit: Faker::Commerce.price)
+  customer = Customer.create!(user: user, property: property, first_name: Faker::Name.first_name, middle_name: Faker::Name.first_name, last_name: Faker::Name.last_name, phone: Faker::PhoneNumber.cell_phone, alt_phone: Faker::PhoneNumber.phone_number, balance: 0, charged_today: false, rent: 500, due_date: "1", active: true)
 
-customer = Customer.create(user: user, property: property, first_name: "First", middle_name: "Middle", last_name: "Last", phone: "(256)456-7891", alt_phone: "(256)123-456", balance:  0, charged_today: false, rent: 500, due_date: "1", active: true)
-customer2 = Customer.create(user: user, property: property, first_name: "Joe", middle_name: "Foo", last_name: "Blah", phone: "(256)456-7891", alt_phone: "(256)123-456", balance: 0, charged_today: false, rent: 200, due_date: "2", active: false)
-customer3 = Customer.create(user: user, property: property2, first_name: "First2", middle_name: "Middle2", last_name: "Last2", phone: "(256)456-7891", alt_phone: "(256)123-456", balance: 0, charged_today: false, rent: 200, due_date: "10", active: true)
-customer4 = Customer.create(user: user, property: property3, first_name: "First3", middle_name: "Middle3", last_name: "Last3", phone: "(256)456-7891", alt_phone: "(256)123-456", balance: 0, charged_today: false, rent: 600, due_date: "1", active: true)
-customer5 = Customer.create(user: user, property: property4, first_name: "First4", middle_name: "Middle4", last_name: "Last4", phone: "(256)456-7891", alt_phone: "(256)123-456", balance: 0, charged_today: false, rent: 600, due_date: "1", active: true)
-customer6 = Customer.create(user: user, property: property5, first_name: "First5", middle_name: "Middle5", last_name: "Last5", phone: "(256)456-7891", alt_phone: "(256)123-456", balance: 0, charged_today: false, rent: 600, due_date: "1", active: true)
-customer7 = Customer.create(user: user, property: property6, first_name: "First6", middle_name: "Middle6", last_name: "Last6", phone: "(256)456-7891", alt_phone: "(256)123-456", balance: 0, charged_today: false, rent: 600, due_date: "1", active: true)
-customer8 = Customer.create(user: user, property: property7, first_name: "First7", middle_name: "Middle7", last_name: "Last7", phone: "(256)456-7891", alt_phone: "(256)123-456", balance: 0, charged_today: false, rent: 600, due_date: "1", active: true)
+  10.times do
+    invoice = Invoice.new(user: user, customer: customer, amount: Faker::Commerce.price, date: Date.today, memo: Faker::Lorem.sentence)
+    invoice.skip_tran_validation = true
+    invoice.save
+
+    AccountTran.create!(user: user, amount: invoice.amount, memo: invoice.memo, account: Account.find_by(name: "Rental Income"), property: Property.order("RANDOM()").first, date: invoice.date, account_transable: invoice)
+  end
+
+  11.times do
+    Payment.create!(user: user, customer: customer, amount: Faker::Commerce.price, date: Date.today, memo: Faker::Lorem.sentence, account: Account.find_by(name: "Undeposited Funds"))
+  end
+
+end

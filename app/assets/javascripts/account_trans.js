@@ -1,13 +1,24 @@
+function update_delete_button() {
+  if ($('.account_tran_fields:visible').length <= 1) {
+    $('.remove_account_tran').closest('.form-group').hide();
+  }
+  else {
+    $('.remove_account_tran').closest('.form-group').show();
+  }
+}
+  
 function add_fields(link, association, content) {  
   event.preventDefault();
   var new_id = new Date().getTime();  
   var regexp = new RegExp("new_" + association, "g");  
-  $('table tr:last').after(content.replace(regexp, new_id));  
-  $('.chosen_select').chosen()
+  $('.account_tran_fields:last').after(content.replace(regexp, new_id));  
+  $(this).closest('.remove_account_tran').show();
+
+  $('.chosen_select').chosen();
+  update_delete_button()
 }
 
 ;(function () {
-
   function calculateTotal() {
     var total = 0;
 
@@ -22,6 +33,7 @@ function add_fields(link, association, content) {
 
   $(document).on('turbolinks:load', function() {
     calculateTotal();
+    update_delete_button();
     $('.remove_account_tran').prev().val("false");
   });
 
@@ -33,7 +45,8 @@ function add_fields(link, association, content) {
     event.preventDefault();
     $(this).prev().val("1");
     $(this).closest('.account_tran_fields').hide();
-    calculateTotal()
-  });
+    calculateTotal();
 
+    update_delete_button();
+  });
 })();

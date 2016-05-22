@@ -15,6 +15,7 @@ end
 
 gem 'compass-rails'
 gem 'chosen-rails'
+gem 'faker'
 
 # Use pg as the database for Active Record
 gem 'pg'
