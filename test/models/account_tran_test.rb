@@ -39,12 +39,12 @@ class AccountTranTest < ActiveSupport::TestCase
 
   test "calculate total should calculate balance" do
     trans = accounts(:one).account_trans
-    assert_equal trans.calculate_total(accounts(:one)), 490.23
+    assert_equal trans.calculate_total(accounts(:one)), 480.24
   end
 
   test "calculate total should work for dec accounts" do
     trans = accounts(:one).account_trans
-    assert_equal trans.calculate_total(accounts(:two)), -490.23
+    assert_equal trans.calculate_total(accounts(:two)), -480.24
   end
 
   test "should subtract checks and add invoices" do

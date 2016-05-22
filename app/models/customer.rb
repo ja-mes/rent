@@ -5,6 +5,7 @@ class Customer < ActiveRecord::Base
   has_many :invoices
   has_many :trans
   has_many :notes
+  has_many :credits
 
   validates :user_id, presence: true
   validates :property_id, presence: true

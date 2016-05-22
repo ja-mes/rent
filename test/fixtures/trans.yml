@@ -37,3 +37,11 @@ seven:
   user: one
   customer: one
   transactionable: five (Payment)
+
+credit1:
+  date: 2016-05-20
+  user: one
+  customer: one
+  transactionable: one (Credit)
+
+
