@@ -42,6 +42,11 @@
               <td>Payment</td>
               <td><%= t.date.strftime("%m/%d/%Y") %></td>
               <td><%= number_to_currency(t.amount) %></td>
+          <% elsif t.account_transable_type == "Credit" %>
+            <tr data-link="<%= edit_customer_credit_path(t.account_transable.customer, t.account_transable) %>">
+              <td>Credit</td>
+              <td><%= t.date.strftime("%m/%d/%Y") %></td>
+              <td><%= number_to_currency(t.amount) %></td>
           <% end %>
             <td><%= truncate(t.memo, length: 25) %>
           </tr>

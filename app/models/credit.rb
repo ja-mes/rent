@@ -14,7 +14,7 @@ class Credit < ActiveRecord::Base
   validates :date, presence: true
 
   # HOOKS
-  before_validation :setup_account_trans, on: :create
+  before_validation :setup_account_trans
   after_create :create_credit_tran, :add_balance
   after_update :update_credit_tran
   after_destroy :remove_balance
@@ -30,9 +30,14 @@ class Credit < ActiveRecord::Base
 
   # ACCOUNT TRANS
   def setup_account_trans
-    self.account_trans.each do |t|
-      t.user = self.user
-      t.date = self.date
+    if self.new_record?
+      self.account_trans.each do |t|
+        t.user = self.user
+        t.date = self.date
+        t.amount *= -1 if t.amount
+      end
+    else
+      self.account_trans.each {|t| t.amount *= -1 if t.amount}
     end
   end
 
