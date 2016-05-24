@@ -6,6 +6,8 @@
   </li>
 
   <li class="nav-item">
-    <%= link_to 'Edit Account', edit_account_path(@account), class: "nav-link #{isActive 'accounts', ['edit', 'update']}" %>
+    <% unless @account.required %>
+      <%= link_to 'Edit Account', edit_account_path(@account), class: "nav-link #{isActive 'accounts', ['edit', 'update']}" %>
+    <% end %>
   </li>
 </ul>
