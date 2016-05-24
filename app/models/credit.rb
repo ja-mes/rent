@@ -31,14 +31,10 @@ class Credit < ActiveRecord::Base
 
   # ACCOUNT TRANS
   def setup_account_trans
-    if self.new_record?
-      self.account_trans.each do |t|
-        t.user = self.user
-        t.date = self.date
-        t.amount *= -1 if t.amount
-      end
-    else
-      self.account_trans.each {|t| t.amount *= -1 if t.amount}
+    self.account_trans.each do |t|
+      t.user = self.user
+      t.date = self.date
+      t.amount *= -1 if t.amount
     end
   end
 

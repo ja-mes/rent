@@ -4,13 +4,8 @@ class CreditsController < ApplicationController
   before_action :set_credit, only: [:edit, :update, :destroy]
   before_action :set_vars, except: [:index, :show, :destroy]
 
-  before_action do
-    require_same_user(@customer)
-  end
-
-  before_action only: [:edit, :update, :destroy] do
-    require_same_user(@credit)
-  end
+  before_action { require_same_user(@customer) }
+  before_action only: [:edit, :update, :destroy] { require_same_user(@credit) }
 
   def index
     redirect_to @customer
@@ -46,6 +41,10 @@ class CreditsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def show
+    redirect_to edit_customer_credit_path(@customer, params[:id])
   end
 
   def destroy
