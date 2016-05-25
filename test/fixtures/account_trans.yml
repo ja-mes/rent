@@ -61,7 +61,7 @@ payment2:
   account_id: five
 
 credit1:
-  user: 1
+  user: one
   amount: -9.99
   memo: MyString
   account_transable: one (Credit)

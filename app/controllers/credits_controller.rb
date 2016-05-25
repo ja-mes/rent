@@ -18,6 +18,7 @@ class CreditsController < ApplicationController
 
   def create
     @credit = current_user.credits.new(credit_params)
+    @credit.setup_account_trans
 
     if @credit.save
       flash[:success] = "Credit successfully saved"
@@ -33,8 +34,11 @@ class CreditsController < ApplicationController
   def update
     old_amount = @credit.amount
     old_customer = @credit.customer
+
+    @credit.attributes = credit_params
+    @credit.setup_account_trans
      
-    if @credit.update(credit_params)
+    if @credit.save
       @credit.calculate_balance old_amount, old_customer
       flash[:success] = "Credit successfully updated"
       redirect_to edit_customer_credit_path(@credit.customer, @credit)

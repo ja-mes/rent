@@ -13,12 +13,20 @@ class Credit < ActiveRecord::Base
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
   validates_presence_of :account_trans
+  validate :totals_must_equal
 
   # HOOKS
-  before_validation :setup_account_trans
   after_create :create_credit_tran, :add_balance
   after_update :update_credit_tran
   after_destroy :remove_balance
+
+
+  # VALIDATION METHODS
+  def totals_must_equal
+    amount = 0
+    self.account_trans.each { |t| amount -= t.amount}
+    errors.add(:base, "Credit total must equal expenses total") unless amount == self.amount
+  end
 
   # TRANS
   def create_credit_tran

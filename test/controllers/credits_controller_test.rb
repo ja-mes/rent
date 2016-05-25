@@ -45,7 +45,7 @@ class CreditsControllerTest < ActionController::TestCase
         account_trans_attributes: {
           "0" => {
             account_id: accounts(:one).id,
-            amount: 500,
+            amount: "500",
             memo: "foo",
             property_id: properties(:four).id
           }
@@ -123,13 +123,14 @@ class CreditsControllerTest < ActionController::TestCase
       account_trans_attributes: {
         "0" => {
           account_id: accounts(:two).id,
-          amount: "700.25",
+          amount: "710.24",
           memo: "foobar",
           property_id: properties(:four).id
         }
       }
     }
 
+    debugger
     assert_redirected_to edit_customer_credit_path(assigns(:credit).customer, assigns(:credit))
   end
 
