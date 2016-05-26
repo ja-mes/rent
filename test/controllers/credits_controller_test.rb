@@ -130,7 +130,6 @@ class CreditsControllerTest < ActionController::TestCase
       }
     }
 
-    debugger
     assert_redirected_to edit_customer_credit_path(assigns(:credit).customer, assigns(:credit))
   end
 

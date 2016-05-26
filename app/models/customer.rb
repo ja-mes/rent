@@ -1,4 +1,5 @@
 class Customer < ActiveRecord::Base
+  # ASSOCIATIONS
   belongs_to :user
   belongs_to :property
   has_many :payments
@@ -7,12 +8,23 @@ class Customer < ActiveRecord::Base
   has_many :notes
   has_many :credits
 
+  # VALIDATIONS
   validates :user_id, presence: true
   validates :property_id, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  after_find do
+
+  # HOOKS
+  after_find :charge_rent
+
+  def should_charge_today
+    today = Date.today
+
+    return true if today.day.to_s == self.due_date
+  end
+
+  def charge_rent
     today = Date.today
 
     if self.active && (today.day.to_s == self.due_date)

@@ -4,3 +4,7 @@
 #  args: 
 #  description: "Run testjob every 30 seconds"
 
+ChargeRent:
+  cron: '5 0 * * *'
+
+
