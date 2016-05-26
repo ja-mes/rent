@@ -1,0 +1,12 @@
+TestJob:
+  every: "20s"
+  class: TestJob
+  args: 
+  description: "Run testjob every 30 seconds"
+
+MyJob:
+  every: "30s"
+  class: MyJob
+  args:
+  description: "blah blah"
+

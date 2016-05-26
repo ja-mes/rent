@@ -1,8 +1,7 @@
-class TestJob < ActiveJob::Base
-  queue_as :default
+class TestJob
+  @queue = :default
 
-  def perform(*args)
-    print "foo"
-    # Do something later
+  def self.perform
+    Vendor.create(name: Faker::Name.name, user: User.first)
   end
 end
