@@ -22,7 +22,5 @@ Rails.application.routes.draw do
 
   get '/register', to: 'register#index', as: 'register'
 
-  require 'resque/scheduler/server'
-  Resque.schedule = YAML.load_file(File.join(Rails.root, 'config', 'resque_schedule.yml'))
   mount Resque::Server.new, :at => '/resque'
 end

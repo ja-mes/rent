@@ -16,12 +16,25 @@ class Customer < ActiveRecord::Base
 
 
   # HOOKS
-  after_find :charge_rent
+  after_find :should_charge_today
 
   def should_charge_today
     today = Date.today
 
-    return true if today.day.to_s == self.due_date
+    if !self.charged_today?
+      last_charged = self.last_charged
+
+      if last_charged && last_charged <= Date.today.prev_month
+        num_months = (today.year * 12 + today.month) - (last_charged.year * 12 + last_charged.month)
+
+        num_months.times do
+          # schedule job here
+          debugger
+        end
+      end
+    else
+      false 
+    end
   end
 
   def charge_rent

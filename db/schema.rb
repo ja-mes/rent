@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520203312) do
+ActiveRecord::Schema.define(version: 20160526230332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20160520203312) do
     t.decimal "rent"
     t.string  "due_date"
     t.boolean "active",        default: true,  null: false
+    t.date    "last_charged"
   end
 
   create_table "deposits", force: :cascade do |t|
