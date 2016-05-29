@@ -1,0 +1,2 @@
+class RecurringTransController < ApplicationController
+end

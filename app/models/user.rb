@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :vendors
   has_many :notes
   has_many :credits
+  has_many :recurring_trans
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :recurring_trans
   resources :vendors
 
   devise_for :users
