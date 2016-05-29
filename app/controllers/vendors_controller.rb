@@ -6,7 +6,7 @@ class VendorsController < ApplicationController
   end
 
   def index
-    @vendors = current_user.vendors
+    @vendors = current_user.vendors.paginate(page: params[:page])
   end
 
   def new
