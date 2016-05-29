@@ -5,7 +5,7 @@ class ChargeRentJob < ActiveJob::Base
     today = Date.today
     user = User.find(user_id)
 
-    user.customers.where(due_date: today.day.to_s).find_each do |customer|
+    user.customers.where(due_date: today.day.to_s, charged_today: false).find_each do |customer|
       invoice = customer.invoices.build do |i|
         i.amount = customer.rent
         i.date = today
