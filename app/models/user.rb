@@ -45,4 +45,8 @@ class User < ActiveRecord::Base
   def grab_trans(customer)
     self.trans.where(customer: customer)
   end
+
+  def after_database_authentication
+    ChargeRentJob.perform_later self.id
+  end 
 end

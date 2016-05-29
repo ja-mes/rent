@@ -23,4 +23,5 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @user.accounts.fourth.name, "Deposit Discrepancies"
     assert_equal @user.accounts.fifth.name, "Repairs and Maintenance"
   end
+
 end
