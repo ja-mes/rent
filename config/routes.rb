@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'pages#index'
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+  get '/dashboard/charge_rent', to: 'dashboard#charge_rent', as: 'charge_rent'
 
   resources :properties
 
