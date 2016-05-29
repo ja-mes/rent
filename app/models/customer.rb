@@ -17,60 +17,6 @@ class Customer < ActiveRecord::Base
   validates :last_name, presence: true
 
 
-  # HOOKS
-  #after_find :should_charge_today, unless: :skip_rent_check
-
-  #def should_charge_today
-  #  today = Date.today
-
-  #  last_charged = self.last_charged
-
-  #  if last_charged && last_charged <= Date.today.prev_month
-  #    if !self.charged_today?
-  #      self.skip_rent_check = true
-
-  #      num_months = (today.year * 12 + today.month) - (last_charged.year * 12 + last_charged.month)
-
-  #      num_months.times do
-  #        ChargeRentJob.perform_later self.id
-  #      end
-  #    end
-  #  end
-  #end
-
-  #def charge_rent
-  #  today = Date.today
-
-  #  if self.active && (today.day.to_s == self.due_date)
-  #    unless self.charged_today?
-  #      invoice = self.invoices.build do |i|
-  #        i.amount = self.rent
-  #        i.date = today
-  #        i.memo = "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}"
-  #        i.user = self.user
-  #      end
-  #      invoice.skip_tran_validation = true
-  #      invoice.save
-
-  #      account_tran = AccountTran.create do |t|
-  #        t.user = self.user
-  #        t.account_id = Account.find_by(name: "Rental Income", user: self.user).id
-  #        t.account_transable = invoice
-  #        t.amount = self.rent
-  #        t.memo = "Rent for #{Date::MONTHNAMES[today.month]} #{today.year}"
-  #        t.property_id = self.property.id
-  #        t.date = invoice.date
-  #      end
-
-  #      self.toggle!(:charged_today)
-  #    end
-  #  else
-  #    if self.charged_today?
-  #      self.toggle!(:charged_today)
-  #    end
-  #  end
-  #end
-
   after_create do
     self.property.update_attribute(:rented, true)
   end

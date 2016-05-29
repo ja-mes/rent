@@ -61,7 +61,6 @@ class VendorsControllerTest < ActionController::TestCase
     assert_template :show
     assert_response :success
     assert_not_nil assigns(:trans)
-    assert_equal assigns(:total), vendors(:one).checks.sum(:amount)
   end
 
   test "show should not work if the user is not logged in" do
