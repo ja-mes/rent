@@ -1,4 +1,6 @@
 class Customer < ActiveRecord::Base
+  attr_accessor :skip_rent_check
+
   # ASSOCIATIONS
   belongs_to :user
   belongs_to :property
@@ -16,24 +18,23 @@ class Customer < ActiveRecord::Base
 
 
   # HOOKS
-  after_find :should_charge_today
+  after_find :should_charge_today, unless: :skip_rent_check
 
   def should_charge_today
     today = Date.today
 
-    if !self.charged_today?
-      last_charged = self.last_charged
+    last_charged = self.last_charged
 
-      if last_charged && last_charged <= Date.today.prev_month
+    if last_charged && last_charged <= Date.today.prev_month
+      if !self.charged_today?
+        self.skip_rent_check = true
+
         num_months = (today.year * 12 + today.month) - (last_charged.year * 12 + last_charged.month)
 
         num_months.times do
-          # schedule job here
-          debugger
+          ChargeRentJob.perform_later self.id
         end
       end
-    else
-      false 
     end
   end
 
