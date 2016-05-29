@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   root 'pages#index'
-  get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
+  get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
   resources :properties
 
