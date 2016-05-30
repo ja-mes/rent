@@ -24,6 +24,6 @@ class RecurringTran < ActiveRecord::Base
       }
     end
 
-    debugger
+    tran.save
   end
 end
