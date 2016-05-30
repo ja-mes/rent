@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class RecurringTranTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @tran = recurring_trans(:one)
+  end
+
+  test "shoulld be valid" do
+    debugger
+  end
 end
