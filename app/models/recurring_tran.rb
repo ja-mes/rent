@@ -4,5 +4,5 @@ class RecurringTran < ActiveRecord::Base
   validates :user_id, presence: true
   validates :amount, presence: true
   validates :due_date, presence: true
-  validates :type, presence: true
+  validates :tran_type, presence: true
 end

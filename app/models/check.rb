@@ -81,13 +81,11 @@ class Check < ActiveRecord::Base
         t.user_id = tran.user.id
         t.account = Account.first
         t.account_transable = check
-        t.amount = act_tran.amount
-        t.memo = act_tran.memo
+        t.amount = act_tran["amount"]
+        t.memo = act_tran["memo"]
         t.property = Property.first
         t.date = check.date
       end
-
-      debugger
     end
   end
 end
