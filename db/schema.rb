@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530001924) do
+ActiveRecord::Schema.define(version: 20160530014109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 20160530001924) do
     t.datetime "updated_at",    null: false
     t.hstore   "account_trans",              array: true
     t.string   "due_date"
-    t.string   "type"
+    t.string   "tran_type"
   end
 
   create_table "trans", force: :cascade do |t|

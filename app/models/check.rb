@@ -30,7 +30,7 @@ class Check < ActiveRecord::Base
 
   # account trans
   has_many :account_trans, as: :account_transable, dependent: :destroy
-  validates_presence_of :account_trans
+  validates_presence_of :account_trans, unless: :skip_tran_validation
   accepts_nested_attributes_for :account_trans, allow_destroy: :true
 
   after_create do
@@ -64,9 +64,9 @@ class Check < ActiveRecord::Base
     end
   end
 
-  def enter_recurring_tran(tran)
+  def self.enter_recurring_tran(tran)
     check = Check.new do |t|
-      t.user = self.user
+      t.user_id = tran.user.id
       t.num = rand(5..30) # generate num or use tran num?
       t.date = Date.today
       t.amount = tran.amount
@@ -76,16 +76,18 @@ class Check < ActiveRecord::Base
     check.skip_tran_validation = true
     check.save
 
-    tran.account_trans.each do |t|
+    tran.account_trans.each do |act_tran|
       account_tran = AccountTran.create do |t|
-        t.user = self.user
+        t.user_id = tran.user.id
         t.account = Account.first
         t.account_transable = check
-        t.amount = tran.amount
-        t.memo = check.memo
+        t.amount = act_tran.amount
+        t.memo = act_tran.memo
         t.property = Property.first
         t.date = check.date
       end
+
+      debugger
     end
   end
 end
