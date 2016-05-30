@@ -13,10 +13,10 @@ class RecurringTran < ActiveRecord::Base
     item.account_trans.each do |act_tran|
       debugger
       tran.account_trans << {
-        account_id: act_tran[:account_id]
+        account_id: act_tran[:account_id],
         amount: act_tran[:amount], 
-        memo: act_tran[:memo]  
-        property_id: act_tran[:property_id]
+        memo: act_tran[:memo],
+        property_id: act_tran[:property_id],
       }
     end
 
