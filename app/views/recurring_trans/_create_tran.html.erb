@@ -11,11 +11,8 @@
       <%= form_tag "/recurring_trans", method: "post" do %>
         <div class="modal-body">
 
-          Every 
-          <select>
-            <option>1st</option>
-            <option>2nd</option>
-          </select>
+          One the
+          <%= select_tag "due_date", options_for_select(%w[1 2])%>
           day of the month.
         </div>
         <div class="modal-footer">
