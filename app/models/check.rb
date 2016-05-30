@@ -1,4 +1,6 @@
 class Check < ActiveRecord::Base
+  attr_accessor :skip_tran_validation
+
   belongs_to :user
   validates :user_id, presence: true
 
@@ -10,7 +12,7 @@ class Check < ActiveRecord::Base
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
   validates :num, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validate :totals_must_equal
+  validate :totals_must_equal, unless: :skip_tran_validation
 
   def totals_must_equal
     amount = 0
@@ -59,6 +61,31 @@ class Check < ActiveRecord::Base
       Check.where(date: from..to)
     else
       Check.where(date: 1.month.ago..Date.today)
+    end
+  end
+
+  def enter_recurring_tran(tran)
+    check = Check.new do |t|
+      t.user = self.user
+      t.num = rand(5..30) # generate num or use tran num?
+      t.date = Date.today
+      t.amount = tran.amount
+      t.memo = Faker::Name.name
+      t.vendor = Vendor.first
+    end
+    check.skip_tran_validation = true
+    check.save
+
+    tran.account_trans.each do |t|
+      account_tran = AccountTran.create do |t|
+        t.user = self.user
+        t.account = Account.first
+        t.account_transable = check
+        t.amount = tran.amount
+        t.memo = check.memo
+        t.property = Property.first
+        t.date = check.date
+      end
     end
   end
 end
