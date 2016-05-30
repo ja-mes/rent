@@ -1,3 +1,5 @@
+<%= render "recurring_trans/create_tran", obj: @check %>
+
 <h1 class="display-4 margin-40">
   Check 
   <% unless @check.new_record? %>
@@ -16,7 +18,7 @@
     <%= f.label :vendor %>
     <%= f.collection_select :vendor_id, Vendor.where(user: current_user), :id, :name, {}, class: "form-control chosen_select" %>
   </div>
-  
+
   <div class="form-group">
     <%= f.label :num %>
     <%= f.number_field :num, class: "form-control" %>
@@ -47,6 +49,10 @@
 
     <% unless @check.new_record? %>
       <%= link_to 'Delete', check_path(@check), method: :delete, class: "btn btn-danger" %>
+
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+        Make Recurring
+      </button>
     <% end %>
   </div>
 <% end %>
