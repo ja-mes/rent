@@ -67,7 +67,7 @@ class Check < ActiveRecord::Base
   def self.enter_recurring_tran(tran)
     check = Check.new do |t|
       t.user_id = tran.user.id
-      t.num = rand(5..30) # generate num or use tran num?
+      t.num = tran.num
       t.date = Date.today
       t.amount = tran.amount
       t.memo = Faker::Name.name

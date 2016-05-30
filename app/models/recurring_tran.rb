@@ -8,10 +8,14 @@ class RecurringTran < ActiveRecord::Base
 
   def self.memorize(item, due_date)
     # add num, vendor
-    tran = RecurringTran.new(user: item.user, amount: item.amount, due_date: due_date, tran_type: item.class.name, account_trans: [])
+    tran = RecurringTran.new(user: item.user, amount: item.amount, memo: item.memo, due_date: due_date, tran_type: item.class.name, account_trans: [])
+
+    if item.class.name == "Check"
+      tran.num = item.num
+      tran.charge_id = item.vendor_id
+    end
 
     item.account_trans.each do |act_tran|
-      debugger
       tran.account_trans << {
         account_id: act_tran[:account_id],
         amount: act_tran[:amount], 
