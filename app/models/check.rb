@@ -70,8 +70,8 @@ class Check < ActiveRecord::Base
       t.num = tran.num
       t.date = Date.today
       t.amount = tran.amount
-      t.memo = Faker::Name.name
-      t.vendor = Vendor.first
+      t.memo = tran.memo
+      t.vendor_id = tran.charge_id
     end
     check.skip_tran_validation = true
     check.save
@@ -79,11 +79,11 @@ class Check < ActiveRecord::Base
     tran.account_trans.each do |act_tran|
       account_tran = AccountTran.create do |t|
         t.user_id = tran.user.id
-        t.account = Account.first
         t.account_transable = check
+        t.account_id = act_tran["account_id"]
         t.amount = act_tran["amount"]
         t.memo = act_tran["memo"]
-        t.property = Property.first
+        t.property_id = act_tran["property_id"]
         t.date = check.date
       end
     end
