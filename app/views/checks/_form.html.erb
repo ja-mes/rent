@@ -50,7 +50,7 @@
     <% unless @check.new_record? %>
       <%= link_to 'Delete', check_path(@check), method: :delete, class: "btn btn-danger" %>
 
-      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#recurrTranModal">
         Make Recurring
       </button>
     <% end %>
