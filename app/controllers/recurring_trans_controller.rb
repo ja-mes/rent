@@ -2,8 +2,7 @@ class RecurringTransController < ApplicationController
   def create
     model = tran_params[:type].singularize.classify.constantize
     item = model.find_by(user: current_user, id: tran_params[:id])
-
-    debugger
+    RecurringTran.memorize item, tran_params[:due_date]
   end
 
   private
