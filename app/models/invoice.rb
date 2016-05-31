@@ -52,4 +52,30 @@ class Invoice < ActiveRecord::Base
       self.customer.increment!(:balance, by = self.amount)
     end
   end
+
+  def self.enter_recurring_tran(tran)
+    invoice = Invoice.new do |t|
+      t.user_id = tran.user.id
+      t.date = Date.today
+      t.amount = tran.amount
+      t.memo = tran.memo
+      t.customer_id = tran.charge_id
+    end
+    invoice.skip_tran_validation = true
+    invoice.save
+
+    tran.account_trans.each do |act_tran|
+      AccountTran.create do |t|
+        t.user_id = tran.user_id
+        t.account_transable = invoice
+        t.account_id = act_tran["account_id"]
+        t.amount = act_tran["amount"]
+        t.memo = act_tran["memo"]
+        t.property_id = act_tran["property_id"]
+        t.date = invoice.date
+      end
+    end
+
+    invoice
+  end
 end
