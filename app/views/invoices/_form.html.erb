@@ -1,4 +1,4 @@
-<% unless @invoice.new_record %>
+<% unless @invoice.new_record? %>
   <%= render "recurring_trans/create_tran", id: @invoice.id, type: "Invoice" %>
 <% end %>
 

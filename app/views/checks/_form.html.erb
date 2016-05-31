@@ -1,5 +1,5 @@
-<% unless @invoice.new_record %>
-  <%= render "recurring_trans/create_tran", id: @invoice.id, type: "Invoice" %>
+<% unless @check.new_record? %>
+  <%= render "recurring_trans/create_tran", id: @check.id, type: "Check" %>
 <% end %>
 
 <h1 class="display-4 margin-40">
