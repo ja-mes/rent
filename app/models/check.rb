@@ -87,6 +87,8 @@ class Check < ActiveRecord::Base
         t.date = check.date
       end
     end
+
+    check
   end
 end
 
