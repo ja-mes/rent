@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class InvoiceTest < ActiveSupport::TestCase
   def setup
     @invoice = invoices(:one)
@@ -85,5 +87,20 @@ class InvoiceTest < ActiveSupport::TestCase
     @invoice.calculate_balance(200, customers(:one))
     assert_equal @invoice.customer.balance, 500
     assert_equal customers(:one).balance, -200
+  end
+
+  test "enter recurring tran should create invoice from supplied tran" do
+    tran = recurring_trans(:one)
+    invoice = nil
+
+    assert_difference ['Invoice.count', 'AccountTran.count', 'Tran.count'] do
+      invoice = Invoice.enter_recurring_tran(tran)
+    end
+
+    assert_equal invoice.user_id, tran.user_id
+    assert_equal invoice.date, Date.today
+    assert_equal invoice.amount, tran.amount
+    assert_equal invoice.memo, tran.memo
+    assert_equal invoice.customer_id, tran.charge_id
   end
 end
