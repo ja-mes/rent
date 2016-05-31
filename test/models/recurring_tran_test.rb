@@ -50,4 +50,26 @@ class RecurringTranTest < ActiveSupport::TestCase
       property_id: account_tran.property_id
     }]
   end
+
+  test "memorize should save invoices" do
+    invoice = invoices(:one)
+    account_tran = invoice.account_trans.first
+    tran = nil
+
+    assert_difference "RecurringTran.count" do
+      tran = RecurringTran.memorize invoice, "5"
+    end
+
+    assert_equal tran.user, invoice.user
+    assert_equal tran.amount, invoice.amount
+    assert_equal tran.memo, invoice.memo
+    assert_equal tran.due_date, "5"
+    assert_equal tran.tran_type, "Invoice"
+    assert_equal tran.account_trans, [{
+      account_id: account_tran.account_id,
+      amount: account_tran.amount,
+      memo: account_tran.memo,
+      property_id: account_tran.property_id,
+    }]
+  end
 end
