@@ -10,9 +10,12 @@ class RecurringTran < ActiveRecord::Base
     # add num, vendor
     tran = RecurringTran.new(user: item.user, amount: item.amount, memo: item.memo, due_date: due_date, tran_type: item.class.name, account_trans: [])
 
-    if item.class.name == "Check"
+    case item.class.name
+    when "Check"
       tran.num = item.num
       tran.charge_id = item.vendor_id
+    when "Invoice"
+      tran.charge_id = item.customer_id
     end
 
     item.account_trans.each do |act_tran|

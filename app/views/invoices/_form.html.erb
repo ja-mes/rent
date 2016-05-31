@@ -1,3 +1,7 @@
+<% unless @invoice.new_record %>
+  <%= render "recurring_trans/create_tran", id: @invoice.id, type: "Invoice" %>
+<% end %>
+
 <h1 class="display-4 margin-40">Invoice</h1>
 
 <%= render 'shared/errors', obj: @invoice %>
@@ -37,6 +41,10 @@
 
     <% unless @invoice.new_record? %>
       <%= link_to 'Delete', customer_invoice_path(@customer, @invoice), method: :delete, class: "btn btn-danger" %>
+
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#recurrTranModal">
+        Make Recurring
+      </button>
     <% end %>
   </div>
 <% end %>
