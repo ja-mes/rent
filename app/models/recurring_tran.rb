@@ -25,5 +25,6 @@ class RecurringTran < ActiveRecord::Base
     end
 
     tran.save
+    tran
   end
 end
