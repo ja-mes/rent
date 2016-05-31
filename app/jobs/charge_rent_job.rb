@@ -25,7 +25,7 @@ class ChargeRentJob < ActiveJob::Base
         t.date = invoice.date
       end
 
-      customer.update_attribute(:charged_today, false)
+      customer.update_attribute(:charged_today, true)
       customer.update_attribute(:last_charged, today)
     end
   end
