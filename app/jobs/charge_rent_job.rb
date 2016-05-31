@@ -26,6 +26,7 @@ class ChargeRentJob < ActiveJob::Base
       end
 
       customer.update_attribute(:charged_today, false)
+      customer.update_attribute(:last_charged, today)
     end
   end
 end
