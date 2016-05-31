@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'pages#index'
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
   get '/dashboard/charge_rent', to: 'dashboard#charge_rent', as: 'charge_rent'
+  get '/dashboard/enter_recurring_trans', to: 'dashboard#enter_recurring_trans', as: 'enter_recurring_trans'
 
   resources :properties
 

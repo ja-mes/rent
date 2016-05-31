@@ -8,7 +8,14 @@ class DashboardController < ApplicationController
     ChargeRentJob.perform_later current_user.id
 
     respond_to do |f|
-      f.html
+      f.js
+    end
+  end
+
+  def enter_recurring_trans
+    EnterRecurringTransJob.perform_later current_user.id
+
+    respond_to do |f|
       f.js
     end
   end
