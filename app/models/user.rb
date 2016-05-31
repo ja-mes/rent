@@ -49,5 +49,6 @@ class User < ActiveRecord::Base
 
   def after_database_authentication
     ChargeRentJob.perform_later self.id
+    EnterRecurringTransJob.perform_later self.id
   end 
 end
