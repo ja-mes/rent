@@ -46,8 +46,16 @@ class Customer < ActiveRecord::Base
   end
 
   def setup_last_charged
-    rent_date_this_month = Date.new(Date.today.year, Date.today.month, self.due_date.to_i)
-    self.last_charged = rent_date_this_month.prev_month
+    self.last_charged = Date.new(Date.today.year, Date.today.month, self.due_date.to_i)
+
+    # prorate rent 
+    rent_amount = self.rent
+    days_in_month = Date.today.end_of_month.day
+    todays_day = Date.today.day
+
+    prorated_rent = ((rent_amount / days_in_month) * (days_in_month - todays_day)).round(2)
+
+    
   end
 
   def update_last_charged

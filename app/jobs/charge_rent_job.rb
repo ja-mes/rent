@@ -7,7 +7,6 @@ class ChargeRentJob < ActiveJob::Base
 
     user.customers.where('last_charged <= ?', today.prev_month).find_each do |customer|
       num_months = (today.year * 12 + today.month) - (customer.last_charged.year * 12 + customer.last_charged.month)
-      debugger
 
       num_months.times do
         invoice = customer.invoices.build do |i|
