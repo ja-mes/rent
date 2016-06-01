@@ -17,6 +17,7 @@ class Customer < ActiveRecord::Base
   validates :last_name, presence: true
 
   # HOOKS
+  before_create :setup_last_charged
   before_update :update_last_charged
 
   after_create do
@@ -44,6 +45,10 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def setup_last_charged
+    rent_date_this_month = Date.new(Date.today.year, Date.today.month, self.due_date.to_i)
+    self.last_charged = rent_date_this_month.prev_month
+  end
 
   def update_last_charged
     if self.last_charged && self.last_charged.day.to_s != self.due_date
