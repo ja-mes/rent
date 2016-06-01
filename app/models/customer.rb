@@ -45,6 +45,27 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def enter_rent(amount = self.rent)
+    invoice = self.invoices.build do |i|
+      i.amount = amount
+      i.date = Date.today
+      i.memo = "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
+      i.user = user
+    end
+    invoice.skip_tran_validation = true
+    invoice.save
+
+    account_tran = AccountTran.create do |t|
+      t.user = user
+      t.account_id = Account.find_by(name: "Rental Income", user: self.user).id
+      t.account_transable = invoice
+      t.amount = invoice.amount
+      t.memo = "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
+      t.property_id = self.property.id
+      t.date = invoice.date
+    end
+  end
+
   def setup_last_charged
     self.last_charged = Date.new(Date.today.year, Date.today.month, self.due_date.to_i)
 
