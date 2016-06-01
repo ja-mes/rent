@@ -16,6 +16,8 @@ class Customer < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
 
+  # HOOKS
+  before_update :update_last_charged
 
   after_create do
     self.property.update_attribute(:rented, true)
@@ -42,6 +44,12 @@ class Customer < ActiveRecord::Base
     end
   end
 
+
+  def update_last_charged
+    if self.last_charged && self.last_charged.day.to_s != self.due_date
+      self.last_charged = Date.new(self.last_charged.year, self.last_charged.month, self.due_date.to_i)
+    end
+  end
 
   def self.search(search, display_param, user)
     if search
