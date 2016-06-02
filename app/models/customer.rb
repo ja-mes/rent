@@ -74,7 +74,11 @@ class Customer < ActiveRecord::Base
     days_in_month = Date.today.end_of_month.day
     todays_day = Date.today.day
 
-    prorated_rent = ((rent_amount / days_in_month) * (days_in_month - todays_day)).round(2)
+    prorated_rent = self.rent
+
+    unless Date.today.day == 1
+      prorated_rent = ((rent_amount / days_in_month) * (days_in_month - todays_day)).round(2)
+    end
 
     enter_rent prorated_rent
   end
