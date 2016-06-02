@@ -25,33 +25,14 @@ class Customer < ActiveRecord::Base
     self.property.update_attribute(:rented, true)
   end
 
-  def create_deposit(amount)
+  def enter_rent(amount = self.rent, memo = nil, account_id = nil)
+    memo ||= "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
+    account_id ||= Account.find_by(name: "Rental Income", user: self.user).id
+
     invoice = self.invoices.build do |i|
       i.amount = amount
       i.date = Date.today
-      i.memo = "Security Deposit"
-      i.user = self.user
-    end
-    invoice.skip_tran_validation = true
-    invoice.save
-
-    AccountTran.create do |t|
-      t.user = self.user
-      t.account_id = Account.find_by(name: "Security Deposits", user: self.user).id
-      t.account_transable = invoice
-      t.amount = amount
-      t.memo = "Security Deposit"
-      t.property_id = self.property.id
-      t.date = invoice.date
-    end
-
-  end
-
-  def enter_rent(amount = self.rent)
-    invoice = self.invoices.build do |i|
-      i.amount = amount
-      i.date = Date.today
-      i.memo = "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
+      i.memo = memo
       i.user = user
     end
     invoice.skip_tran_validation = true
@@ -59,10 +40,10 @@ class Customer < ActiveRecord::Base
 
     account_tran = AccountTran.create do |t|
       t.user = user
-      t.account_id = Account.find_by(name: "Rental Income", user: self.user).id
+      t.account_id = account_id
       t.account_transable = invoice
       t.amount = amount
-      t.memo = "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
+      t.memo = memo
       t.property_id = self.property.id
       t.date = invoice.date
     end

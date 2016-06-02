@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
     @customer = current_user.customers.build(customer_params)
 
     if @customer.save
-      @customer.create_deposit params[:customer][:deposit]
+      @customer.enter_rent params[:customer][:deposit], "Security Deposits", Account.find_by(name: "Security Deposits", user: current_user).id
       flash[:success] = "Customer successfully created"
       redirect_to customer_path(@customer)
     else
