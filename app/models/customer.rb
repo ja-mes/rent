@@ -76,7 +76,7 @@ class Customer < ActiveRecord::Base
 
     prorated_rent = ((rent_amount / days_in_month) * (days_in_month - todays_day)).round(2)
 
-    
+    enter_rent prorated_rent
   end
 
   def update_last_charged
