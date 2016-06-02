@@ -19,6 +19,7 @@ class Customer < ActiveRecord::Base
   # HOOKS
   before_create :setup_last_charged
   before_update :update_last_charged
+  after_create :charge_prorated_rent
 
   after_create do
     self.property.update_attribute(:rented, true)
@@ -28,7 +29,7 @@ class Customer < ActiveRecord::Base
     invoice = self.invoices.build do |i|
       i.amount = amount
       i.date = Date.today
-      i.memo = "Deposit"
+      i.memo = "Security Deposit"
       i.user = self.user
     end
     invoice.skip_tran_validation = true
@@ -39,10 +40,11 @@ class Customer < ActiveRecord::Base
       t.account_id = Account.find_by(name: "Security Deposits", user: self.user).id
       t.account_transable = invoice
       t.amount = amount
-      t.memo = "Deposit"
+      t.memo = "Security Deposit"
       t.property_id = self.property.id
       t.date = invoice.date
     end
+
   end
 
   def enter_rent(amount = self.rent)
@@ -59,17 +61,19 @@ class Customer < ActiveRecord::Base
       t.user = user
       t.account_id = Account.find_by(name: "Rental Income", user: self.user).id
       t.account_transable = invoice
-      t.amount = invoice.amount
+      t.amount = amount
       t.memo = "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
       t.property_id = self.property.id
       t.date = invoice.date
     end
+
   end
 
   def setup_last_charged
     self.last_charged = Date.new(Date.today.year, Date.today.month, self.due_date.to_i)
+  end
 
-    # prorate rent 
+  def charge_prorated_rent
     rent_amount = self.rent
     days_in_month = Date.today.end_of_month.day
     todays_day = Date.today.day
