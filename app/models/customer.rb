@@ -76,7 +76,7 @@ class Customer < ActiveRecord::Base
   def charge_prorated_rent
     rent_amount = self.rent
     days_in_month = Date.today.end_of_month.day
-    todays_day = Date.today.day
+    todays_day = Date.yesterday.day
 
     prorated_rent = self.rent
 
