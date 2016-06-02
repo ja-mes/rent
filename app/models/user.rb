@@ -23,12 +23,14 @@ class User < ActiveRecord::Base
     income = AccountType.create(user: self, name: "Income", inc: true)
     bank = AccountType.create(user: self, name: "Bank", inc: true)
     other_current_assets = AccountType.create(user: self, name: "Other Current Assets", inc: true)
+    other_current_liabilities = AccountType.create(user: self, name: "Other Current Liabilities", inc: false)
     other_income = AccountType.create(user: self, name: "Other Income", inc: true)
     expenses = AccountType.create(user: self, name: "Expenses", inc: false)
 
     Account.create([
       {name: "Rental Income", account_type: income, balance: 0, required: true, user: self},       
       {name: "Checking", account_type: bank, balance: 0, required: true, user: self},
+      {name: "Security Deposits", account_type: other_current_liabilities, balance: 0, required: true, user: self},
       {name: "Undeposited Funds", account_type: other_current_assets, balance: 0, required: true, user: self},
       {name: "Deposit Discrepancies", account_type: expenses, balance: 0, required: true, user: self},
       {name: "Repairs and Maintenance", account_type: expenses, balance: 0, required: true, user: self},

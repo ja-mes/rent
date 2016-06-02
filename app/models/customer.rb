@@ -36,7 +36,7 @@ class Customer < ActiveRecord::Base
 
     AccountTran.create do |t|
       t.user = self.user
-      t.account_id = Account.find_by(name: "Deposits", user: self.user).id
+      t.account_id = Account.find_by(name: "Security Deposits", user: self.user).id
       t.account_transable = invoice
       t.amount = amount
       t.memo = "Deposit"
