@@ -23,7 +23,6 @@ class CustomersController < ApplicationController
     @properties = current_user.vacant_properties
     @customer = current_user.customers.build(customer_params)
 
-    debugger
     if @customer.save
       @customer.enter_rent params[:customer][:deposit], "Security Deposits", Account.find_by(name: "Security Deposits", user: current_user).id
       flash[:success] = "Customer successfully created"
