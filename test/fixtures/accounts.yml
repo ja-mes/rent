@@ -1,5 +1,4 @@
 one: 
-  id: 1
   name: "Rental Income"
   balance: 0.00
   account_type: income
