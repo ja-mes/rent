@@ -11,6 +11,7 @@ one:
   property: one
   user: one
   active: true
+  last_charged: 2016-01-06
 
 two:
   first_name: "joe"
@@ -21,6 +22,7 @@ two:
   property: three
   user: two
   active: true
+  last_charged: 2016-01-06
 
 three:
   first_name: "First"
@@ -35,3 +37,4 @@ three:
   property: four
   user: one
   active: false
+  last_charged: 2016-01-06

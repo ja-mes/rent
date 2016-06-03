@@ -44,7 +44,6 @@ class AccountTranTest < ActiveSupport::TestCase
 
   test "calculate total should work for dec accounts" do
     trans = accounts(:one).account_trans
-    debugger
     assert_equal trans.calculate_total(accounts(:two)), -480.24
   end
 

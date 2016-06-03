@@ -39,12 +39,14 @@ class CustomersControllerTest < ActionController::TestCase
 
     assert_difference 'Customer.count', 1 do
       post :create, customer: {
+        due_date: "3",
         first_name: "Joe",
         middle_name: "Foo",
         last_name: "Blah",
         phone: "123567",
         property_id: properties(:one).id,
-        deposit: "300"
+        deposit: "300",
+        rent: "500",
       }
     end
 

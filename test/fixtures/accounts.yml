@@ -11,7 +11,7 @@ two:
   user: one
 
 three:
-  name: "Deposits"
+  name: "Security Deposits"
   balance: 0.00
   account_type: other_current_assets
   user: one
@@ -32,10 +32,4 @@ six:
   name: "Deposit Discrepancies"
   balance: 0.00
   account_type: expenses
-  user: one
-
-recurring_one:
-  name: "Rental Income"
-  balance: 0.00
-  account_type: income
   user: one
