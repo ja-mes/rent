@@ -17,11 +17,15 @@ class UserTest < ActiveSupport::TestCase
     assert_difference 'Account.count', 6 do
       @user = User.create(:email => 'never_before_used_email_address@blah.com', :password => 'password', :password_confirmation => 'password')
     end
-    assert_equal @user.accounts.first.name, "Rental Income"
-    assert_equal @user.accounts.second.name, "Checking"
-    assert_equal @user.accounts.third.name, "Undeposited Funds"
-    assert_equal @user.accounts.fourth.name, "Deposit Discrepancies"
-    assert_equal @user.accounts.fifth.name, "Repairs and Maintenance"
+
+    accounts = @user.accounts.limit(6)
+
+    assert_equal @user.accounts[0].name, "Rental Income"
+    assert_equal @user.accounts[1].name, "Checking"
+    assert_equal @user.accounts[2].name, "Security Deposits"
+    assert_equal @user.accounts[3].name, "Undeposited Funds"
+    assert_equal @user.accounts[4].name, "Deposit Discrepancies"
+    assert_equal @user.accounts[5].name, "Repairs and Maintenance"
   end
 
 end
