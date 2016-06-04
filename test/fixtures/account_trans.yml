@@ -6,8 +6,8 @@ one:
   memo: MyString
   account_transable: one (Invoice)
   date: 2016-08-07
-  account: one
-  property: one
+  account_id: 1
+  property_id: 1
 
 two:
   user: one
@@ -22,8 +22,8 @@ check1:
   memo: MyString
   account_transable: one (Check)
   date: 2016-08-07
-  account: one
-  property: one
+  account_id: 1
+  property_id: 1
 
 check2:
   user: one
@@ -66,5 +66,5 @@ credit1:
   memo: MyString
   account_transable: one (Credit)
   date: 2016-08-07
-  account: one
+  account_id: 1
 

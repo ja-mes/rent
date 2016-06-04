@@ -2,7 +2,7 @@
 
 one:
   user: one
-  customer: one
+  customer_id: 1
   content: MyString
   date: 2016-05-08
 

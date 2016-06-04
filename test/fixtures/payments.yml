@@ -4,7 +4,7 @@ one:
   memo: "this is the memo"
   user: one
   account: five 
-  customer: one
+  customer_id: 1
 
 two:
   amount: 200
@@ -19,7 +19,7 @@ three:
   date: 2016-05-06
   memo: MyString
   user: one
-  customer: one
+  customer_id: 1
   account: five 
   deposit: one
 
@@ -29,13 +29,13 @@ four:
   memo: "the string"
   user: one
   account: five 
-  customer: one
+  customer_id: 1
 
 five:
   amount: 68.20
   date: 2016-05-06
   memo: MyString
   user: one
-  customer: one
+  customer_id: 1
   account: five 
   deposit: one

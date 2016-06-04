@@ -1,13 +1,13 @@
 one:
   date: 2016-05-08
   user: one
-  customer: one
+  customer_id: 1
   transactionable: one (Payment)
 
 two:
   date: 2016-05-07
   user: one
-  customer: one
+  customer_id: 1
   transactionable: one (Invoice)
 
 three:
@@ -23,25 +23,25 @@ four:
 five:
   date: 2016-05-08
   user: one
-  customer: one
+  customer_id: 1
   transactionable: four (Payment)
 
 six:
   date: 2016-05-08
   user: one
-  customer: one
+  customer_id: 1
   transactionable: three (Payment)
 
 seven:
   date: 2016-05-08
   user: one
-  customer: one
+  customer_id: 1
   transactionable: five (Payment)
 
 credit1:
   date: 2016-05-20
   user: one
-  customer: one
+  customer_id: 1
   transactionable: one (Credit)
 
 

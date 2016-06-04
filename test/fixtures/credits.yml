@@ -3,13 +3,13 @@
 one:
   user: one
   amount: 9.99
-  customer: one
+  customer_id: 1
   date: 2016-05-20
   memo: MyString
 
 two:
   user: two
   amount: 9.99
-  customer: one
+  customer_id: 1
   date: 2016-05-20
   memo: MyString

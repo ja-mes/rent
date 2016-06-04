@@ -3,7 +3,7 @@ one:
   date: 2016-08-07
   memo: "this is an amazing memo"
   user: one
-  customer: one
+  customer_id: 1
 
 two:
   amount: 300

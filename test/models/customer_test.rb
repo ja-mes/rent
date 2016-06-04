@@ -88,6 +88,7 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "search should find either active or all customers depending on search param" do
+    #debugger
     assert_equal 1, Customer.search('Foo', nil, users(:one)).length
     assert_equal 0, Customer.search('First Last', 'active', users(:one)).length
     assert_equal 1, Customer.search('First Last', 'all', users(:one)).length

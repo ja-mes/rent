@@ -25,7 +25,7 @@ class PaymentsControllerTest < ActionController::TestCase
   end
 
   test "new should redirect to sign in if no current user" do
-    get :new, customer_id: users(:one)
+    get :new, customer_id: customers(:one)
     assert_redirected_to new_user_session_path
   end
 
@@ -54,7 +54,7 @@ class PaymentsControllerTest < ActionController::TestCase
     sign_in :user, users(:one)
 
     assert_difference 'Payment.count', 0 do
-      post :create, customer_id: users(:one), payment: {
+      post :create, customer_id: customers(:one), payment: {
         amount: nil,
         date: nil,
         memo: " ",
@@ -67,7 +67,7 @@ class PaymentsControllerTest < ActionController::TestCase
 
   test "create should only work if customer belongs to user" do
     sign_in :user, users(:user_without_properties)
-    post :create, customer_id: users(:one)
+    post :create, customer_id: customers(:one)
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end
