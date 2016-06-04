@@ -1,10 +1,29 @@
 class RecurringTran < ActiveRecord::Base
+  # ASSOCIATIONS
   belongs_to :user
   
+  # VALIDATIONS
   validates :user_id, presence: true
   validates :amount, presence: true
   validates :due_date, presence: true
   validates :tran_type, presence: true
+  validates :last_charged, presence: true
+  
+  # HOOKS
+  after_initialize :setup_last_charged
+  before_update :update_last_charged
+
+  def setup_last_charged
+    if self.new_record?
+      self.last_charged = Date.new(Date.today.year, Date.today.month, self.due_date.to_i)
+    end
+  end
+
+  def update_last_charged
+    if self.last_charged.day.to_s != self.due_date
+      self.last_charged = Date.new(self.last_charged.year, self.last_charged.month, self.due_date.to_i)
+    end
+  end
 
   def self.memorize(item, due_date)
     # add num, vendor
