@@ -49,6 +49,30 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal invoice.account_trans.first.account, accounts(:one)
   end
 
+  test "setup_last_charged should add last_charged attr to customer" do
+    @customer.last_charged = nil
+    @customer.setup_last_charged
+    assert_equal @customer.last_charged, Date.new(Date.today.year, Date.today.month, @customer.due_date.to_i)
+  end
+
+  test "charge_prorated_rent should charge entire rent on the first" do
+    Timecop.freeze(Date.today.beginning_of_month) do
+      assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
+        rent = @customer.charge_prorated_rent
+        assert_equal rent.amount, @customer.rent
+      end
+    end
+  end
+
+  test "charge_prorated_rent should charge prorated rent for any other day than the first" do
+    Timecop.freeze(Date.today.beginning_of_year + 10) do
+      assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
+        rent = @customer.charge_prorated_rent
+        assert_equal rent.amount, 338.71
+      end
+    end
+  end
+
   test "search should find customers by the specified search" do
     assert_equal 1, Customer.search('Foo', nil, users(:one)).length
     assert_equal 1, Customer.search('Foo Blah', nil, users(:one)).length

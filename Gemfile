@@ -17,6 +17,7 @@ gem 'compass-rails'
 gem 'chosen-rails'
 gem 'faker'
 gem 'resque', require: "resque/server"
+gem 'timecop'
 
 # Use pg as the database for Active Record
 gem 'pg'
