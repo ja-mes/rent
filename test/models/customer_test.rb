@@ -76,7 +76,6 @@ class CustomerTest < ActiveSupport::TestCase
   test "update last charged should update last_charged for updated due date" do
     @customer.last_charged = Date.today.beginning_of_month
     @customer.due_date = "12"
-    @customer.save
     @customer.update_last_charged
     assert_equal @customer.last_charged, Date.today.beginning_of_month + 11
   end
