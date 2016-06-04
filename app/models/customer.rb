@@ -1,6 +1,4 @@
 class Customer < ActiveRecord::Base
-  attr_accessor :skip_rent_check
-
   # ASSOCIATIONS
   belongs_to :user
   belongs_to :property
