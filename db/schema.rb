@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604232445) do
+ActiveRecord::Schema.define(version: 20160604233148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20160604232445) do
     t.integer  "charge_id"
     t.integer  "num"
     t.string   "memo"
+    t.date     "last_charged"
   end
 
   create_table "trans", force: :cascade do |t|
