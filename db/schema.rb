@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531204354) do
+ActiveRecord::Schema.define(version: 20160604232445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,12 +74,11 @@ ActiveRecord::Schema.define(version: 20160531204354) do
     t.integer "user_id"
     t.integer "property_id"
     t.string  "alt_phone"
-    t.decimal "balance",       default: 0.0
+    t.decimal "balance",      default: 0.0
     t.string  "first_name"
-    t.boolean "charged_today", default: false, null: false
     t.decimal "rent"
     t.string  "due_date"
-    t.boolean "active",        default: true,  null: false
+    t.boolean "active",       default: true, null: false
     t.date    "last_charged"
   end
 

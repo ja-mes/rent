@@ -6,7 +6,6 @@ one:
   phone: "(123)456-7891"
   alt_phone: "(456)124-1011"
   balance: 0.00
-  charged_today: false
   rent: 500
   due_date: "1"
   property_id: 1
@@ -32,7 +31,6 @@ three:
   phone: "(123)456-7891"
   alt_phone: "(456)124-1011"
   balance: 0.00
-  charged_today: false
   rent: 200
   due_date: "2"
   property: four
