@@ -29,8 +29,24 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
   end
 
-  test "full_name should return full_name for customer" do
-    assert_equal @customer.full_name, "Foo Test Blah"
+  test "after_create should set properties rented attribute to false" do
+    customer = @customer.dup
+    customer.property = properties(:two)
+    customer.save
+    assert_equal properties(:two).rented, true
+  end
+
+  test "enter rent should enter rent for the customer" do
+    invoice = nil
+
+    assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
+      invoice = @customer.enter_rent
+    end
+
+    assert_equal invoice.amount, @customer.rent
+    assert_equal invoice.memo, "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
+    assert_equal invoice.account_trans.count, 1
+    assert_equal invoice.account_trans.first.account, accounts(:one)
   end
 
   test "search should find customers by the specified search" do
@@ -47,30 +63,13 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal 0, Customer.search('First Middle', 'active', users(:one)).length
   end
 
+  test "full_name should return full_name for customer" do
+    assert_equal @customer.full_name, "Foo Test Blah"
+  end
 
   test "archive should archive customer" do
     @customer.archive
     assert_not @customer.active
     assert_not @customer.property.rented?
-  end
-
-  test "enter rent should enter rent for the customer" do
-    invoice = nil
-
-    assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
-      invoice = @customer.enter_rent
-    end
-
-    assert_equal invoice.amount, @customer.rent
-    assert_equal invoice.memo, "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
-    assert_equal invoice.account_trans.count, 1
-    assert_equal invoice.account_trans.first.account, accounts(:one)
-  end
-
-  test "after_create should set properties rented attribute to false" do
-    customer = @customer.dup
-    customer.property = properties(:two)
-    customer.save
-    assert_equal properties(:two).rented, true
   end
 end
