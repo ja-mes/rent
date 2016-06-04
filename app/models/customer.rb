@@ -48,6 +48,7 @@ class Customer < ActiveRecord::Base
       t.date = invoice.date
     end
 
+    invoice
   end
 
   def setup_last_charged

@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class CustomerTest < ActiveSupport::TestCase
   def setup
     @customer = customers(:one)
@@ -52,10 +54,17 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.property.rented?
   end
 
-  test "create deposit should create deposit" do
-    assert_difference ['Invoice.count', 'Tran.count', 'AccountTran.count'] do
-      @customer.create_deposit "300"
+  test "enter rent should enter rent for the customer" do
+    invoice = nil
+
+    assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
+      invoice = @customer.enter_rent
     end
+
+    assert_equal invoice.amount, @customer.rent
+    assert_equal invoice.memo, "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
+    assert_equal invoice.account_trans.count, 1
+    assert_equal invoice.account_trans.first.account, accounts(:one)
   end
 
   test "after_create should set properties rented attribute to false" do
