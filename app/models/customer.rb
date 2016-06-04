@@ -15,6 +15,7 @@ class Customer < ActiveRecord::Base
   validates :property_id, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :rent, presence: true
 
   # HOOKS
   before_create :setup_last_charged
