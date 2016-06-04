@@ -73,6 +73,14 @@ class CustomerTest < ActiveSupport::TestCase
     end
   end
 
+  test "update last charged should update last_charged for updated due date" do
+    @customer.last_charged = Date.today.beginning_of_month
+    @customer.due_date = "12"
+    @customer.save
+    @customer.update_last_charged
+    assert_equal @customer.last_charged, Date.today.beginning_of_month + 11
+  end
+
   test "search should find customers by the specified search" do
     assert_equal 1, Customer.search('Foo', nil, users(:one)).length
     assert_equal 1, Customer.search('Foo Blah', nil, users(:one)).length
