@@ -1,19 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# XXX <%= X.find_by appears to be causing all tests to randomly fail
+one:
+  user: one
+  amount: 9.99
+  account_trans: [{
+    account_id: 1,
+    amount: 300,
+    memo: "foobar",
+    property_id: 1
+  }]
+  due_date: "1"
+  tran_type: "Check"
+  charge_id: 1
+  num: 100
+  memo: "foobar"
 
-#one:
-#  user: one
-#  amount: 9.99
-#  account_trans: [{
-#    account_id: 1,
-#    amount: 300,
-#    memo: "foobar",
-#    property_id: 1
-#  }]
-#  due_date: "1"
-#  tran_type: "Check"
-#  charge_id: 1
-#  num: 100
-#  memo: "foobar"
-#

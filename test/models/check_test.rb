@@ -109,19 +109,19 @@ class CheckTest < ActiveSupport::TestCase
    assert_equal trans.count, 2
   end
 
- # test "enter recurring tran should create check from the supplied tran" do
- #   tran = recurring_trans(:one)
- #   check = nil
+  test "enter recurring tran should create check from the supplied tran" do
+    tran = recurring_trans(:one)
+    check = nil
 
- #   assert_difference ['Check.count', 'AccountTran.count', 'Tran.count'] do
- #     check = Check.enter_recurring_tran(tran)
- #   end
+    assert_difference ['Check.count', 'AccountTran.count', 'Tran.count'] do
+      check = Check.enter_recurring_tran(tran)
+    end
 
- #   assert_equal check.user_id, tran.user_id
- #   assert_equal check.num, tran.num
- #   assert_equal check.date, Date.today
- #   assert_equal check.amount, tran.amount
- #   assert_equal check.memo, tran.memo
- #   assert_equal check.vendor_id, tran.charge_id
- # end
+    assert_equal check.user_id, tran.user_id
+    assert_equal check.num, tran.num
+    assert_equal check.date, Date.today
+    assert_equal check.amount, tran.amount
+    assert_equal check.memo, tran.memo
+    assert_equal check.vendor_id, tran.charge_id
+  end
 end

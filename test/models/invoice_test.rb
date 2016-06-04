@@ -89,18 +89,18 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal customers(:one).balance, -200
   end
 
- # test "enter recurring tran should create invoice from supplied tran" do
- #   tran = recurring_trans(:one)
- #   invoice = nil
+  test "enter recurring tran should create invoice from supplied tran" do
+    tran = recurring_trans(:one)
+    invoice = nil
 
- #   assert_difference ['Invoice.count', 'AccountTran.count', 'Tran.count'] do
- #     invoice = Invoice.enter_recurring_tran(tran)
- #   end
+    assert_difference ['Invoice.count', 'AccountTran.count', 'Tran.count'] do
+      invoice = Invoice.enter_recurring_tran(tran)
+    end
 
- #   assert_equal invoice.user_id, tran.user_id
- #   assert_equal invoice.date, Date.today
- #   assert_equal invoice.amount, tran.amount
- #   assert_equal invoice.memo, tran.memo
- #   assert_equal invoice.customer_id, tran.charge_id
- # end
+    assert_equal invoice.user_id, tran.user_id
+    assert_equal invoice.date, Date.today
+    assert_equal invoice.amount, tran.amount
+    assert_equal invoice.memo, tran.memo
+    assert_equal invoice.customer_id, tran.charge_id
+  end
 end
