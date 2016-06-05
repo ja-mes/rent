@@ -37,6 +37,6 @@ class RecurringTransController < ApplicationController
   end
 
   def update_params
-    params.require(:recurring_tran).permit(:due_date)
+    params.require(:recurring_tran).permit(:due_date, :description)
   end
 end
