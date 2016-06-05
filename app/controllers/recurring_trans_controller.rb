@@ -13,7 +13,7 @@ class RecurringTransController < ApplicationController
   def create
     model = tran_params[:type].singularize.classify.constantize
     item = model.find_by(user: current_user, id: tran_params[:id])
-    RecurringTran.memorize item, tran_params[:due_date]
+    RecurringTran.memorize item, tran_params[:due_date], tran_params[:description]
   end
 
   def edit
@@ -33,7 +33,7 @@ class RecurringTransController < ApplicationController
   end
 
   def tran_params
-    params.permit(:id, :type, :due_date)
+    params.permit(:id, :type, :due_date, :description)
   end
 
   def update_params
