@@ -1,4 +1,9 @@
 class RecurringTransController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_tran, only: [:edit, :update]
+  before_action only: [:edit, :update] do
+    require_same_user(@tran)
+  end
   def index
     @trans = current_user.recurring_trans
   end
@@ -10,18 +15,17 @@ class RecurringTransController < ApplicationController
   end
 
   def edit
-    @tran = RecurringTran.find(params[:id])
   end
 
   def update
-    @tran = RecurringTran.find(params[:id])
-    
-    if @tran.update(update_params)
-    else
-    end
+    @tran.update(update_params)
   end
 
   private
+  def set_tran
+    @tran = RecurringTran.find(params[:id])
+  end
+
   def tran_params
     params.permit(:id, :type, :due_date)
   end
