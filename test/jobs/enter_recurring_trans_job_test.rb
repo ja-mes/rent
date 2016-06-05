@@ -10,11 +10,11 @@ class EnterRecurringTransJobTest < ActiveJob::TestCase
   end
 
   test "should not enter trans that have been entered in the last month" do
-    recurring_trans(:one).last_charged = Date.today.prev_month + 10
-
-    debugger
-    assert_difference ['Check.count', 'AccountTran.count'], 0 do
-      EnterRecurringTransJob.perform_now users(:one).id
+    recurring_trans(:one).update_attribute(:last_charged, Date.today)
+    Timecop.freeze(Date.today.next_month - 10) do
+      assert_difference ['Check.count', 'AccountTran.count'], 0 do
+        EnterRecurringTransJob.perform_now users(:one).id
+      end
     end
   end
 end
