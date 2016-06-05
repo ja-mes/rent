@@ -17,7 +17,6 @@ gem 'compass-rails'
 gem 'chosen-rails'
 gem 'faker'
 gem 'resque', require: "resque/server"
-gem 'timecop'
 
 # Use pg as the database for Active Record
 gem 'pg'
@@ -49,6 +48,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'timecop'
 end
 
 group :development do
