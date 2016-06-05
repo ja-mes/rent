@@ -9,9 +9,9 @@
     <%= form_for @tran, remote: true do |f| %>
       <div class="modal-body">
 
-        One the
+        On the
         <%= f.select :due_date, options_for_select(%w[1 2], @tran.due_date)%>
-        day of the month.
+        day of every month.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

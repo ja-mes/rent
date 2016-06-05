@@ -10,7 +10,7 @@
       <%= form_tag "/recurring_trans", method: "post", remote: true do %>
         <div class="modal-body">
 
-          One the
+          On the
           <%= select_tag "due_date", options_for_select(%w[1 2])%>
           <%= hidden_field_tag :id, id %>
           <%= hidden_field_tag :type, type %>

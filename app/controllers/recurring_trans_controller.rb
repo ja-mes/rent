@@ -7,11 +7,6 @@ class RecurringTransController < ApplicationController
     model = tran_params[:type].singularize.classify.constantize
     item = model.find_by(user: current_user, id: tran_params[:id])
     RecurringTran.memorize item, tran_params[:due_date]
-
-    respond_to do |f|
-      f.html
-      f.js
-    end
   end
 
   def edit
@@ -23,11 +18,6 @@ class RecurringTransController < ApplicationController
     
     if @tran.update(update_params)
     else
-    end
-
-    respond_to do |f|
-      f.html
-      f.js
     end
   end
 
