@@ -42,6 +42,11 @@ class RecurringTranTest < ActiveSupport::TestCase
     assert_equal @tran.last_charged, Date.today.beginning_of_month + 11
   end
 
+  test "next_entry date should return 1 month from last charged date" do
+    @tran.last_charged = Date.today.prev_month
+    assert_equal @tran.next_entry_date, Date.today
+  end
+
   test "memorize should save checks" do
     check = checks(:one)
     account_tran = check.account_trans.first

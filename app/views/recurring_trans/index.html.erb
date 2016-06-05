@@ -12,7 +12,7 @@
   <tbody id="customer_notes_display">
     <% @trans.each do |tran| %>
       <tr>
-        <td><%= Date.today %></td>
+        <td><%= tran.next_entry_date %></td>
       </tr>
     <% end %>
   </tbody>
