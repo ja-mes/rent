@@ -29,6 +29,19 @@ class RecurringTranTest < ActiveSupport::TestCase
     assert_not @tran.valid?
   end
 
+  test "setup_last_charged should add last_charged attr to tran" do
+    tran = RecurringTran.new(due_date: "5")
+
+    assert_equal tran.last_charged, Date.new(Date.today.year, Date.today.month, tran.due_date.to_i)
+  end
+
+  test "update_last_charged should update last_charged for updated due_date" do
+    @tran.last_charged = Date.today.beginning_of_month
+    @tran.due_date = "12"
+    @tran.update_last_charged
+    assert_equal @tran.last_charged, Date.today.beginning_of_month + 11
+  end
+
   test "memorize should save checks" do
     check = checks(:one)
     account_tran = check.account_trans.first
