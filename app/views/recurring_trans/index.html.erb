@@ -3,8 +3,9 @@
 <table class="table">
   <thead class="thead-default">
     <tr>
-      <th>Next Entry Date</th>
+      <th>Description</th>
       <th>Last Entry Date</th>
+      <th>Next Entry Date</th>
       <th></th>
     </tr>
   </thead>
@@ -12,7 +13,18 @@
   <tbody id="customer_notes_display">
     <% @trans.each do |tran| %>
       <tr>
-        <td><%= tran.next_entry_date %></td>
+        <td></td>
+        <td><%= tran.last_charged.strftime("%m/%d/%Y") %></td>
+        <td><%= tran.next_entry_date.strftime("%m/%d/%Y") %></td>
+        <td class="text-xs-right">
+          <button class="btn btn-secondary btn-sm">
+            <i class="fa fa-pencil"></i>
+          </button>
+
+          <button class="btn btn-danger btn-sm">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
       </tr>
     <% end %>
   </tbody>
