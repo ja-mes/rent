@@ -14,11 +14,18 @@ class Customer < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :rent, presence: true
+  validate :due_date_range
 
   # HOOKS
   before_create :setup_last_charged
   before_update :update_last_charged
   after_create :charge_prorated_rent
+
+  def due_date_range
+    unless (1..28).include?(self.due_date.to_i) 
+      errors.add(:base, "Due date must be between 1 and 28")
+    end
+  end
 
   after_create do
     self.property.update_attribute(:rented, true)
