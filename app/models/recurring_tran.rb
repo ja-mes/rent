@@ -36,6 +36,10 @@ class RecurringTran < ActiveRecord::Base
     self.last_charged + 1.month
   end
 
+  def after_entry
+    self.update_attributes(last_charged: Date.today, last_entry: Date.today)
+  end
+
   def self.memorize(item, due_date, description)
     # add num, vendor
     tran = RecurringTran.new(user: item.user, amount: item.amount, memo: item.memo, due_date: due_date, description: description, tran_type: item.class.name, account_trans: [])

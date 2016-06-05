@@ -10,7 +10,7 @@ class EnterRecurringTransJob < ActiveJob::Base
       
       num_months.times do
         tran.tran_type.singularize.classify.constantize.enter_recurring_tran(tran)
-        tran.update_attribute(:last_charged, today)
+        tran.after_entry
       end
     end
   end
