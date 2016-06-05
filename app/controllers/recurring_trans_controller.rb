@@ -1,4 +1,8 @@
 class RecurringTransController < ApplicationController
+  def index
+    @trans = current_user.recurring_trans
+  end
+
   def create
     model = tran_params[:type].singularize.classify.constantize
     item = model.find_by(user: current_user, id: tran_params[:id])

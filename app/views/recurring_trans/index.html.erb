@@ -10,8 +10,10 @@
   </thead>
 
   <tbody id="customer_notes_display">
-    <tr>
-      <td><%= Date.today %></td>
-    </tr>
+    <% @trans.each do |tran| %>
+      <tr>
+        <td><%= Date.today %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
