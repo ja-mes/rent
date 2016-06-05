@@ -75,4 +75,32 @@ class RecurringTransControllerTest < ActionController::TestCase
 
     assert_redirected_to root_path
   end
+
+  test "delete destroy" do
+    sign_in :user, users(:one)
+
+    assert_difference 'RecurringTran.count', -1 do
+      xhr :delete, :destroy, id: recurring_trans(:one)
+    end
+
+    assert_not_nil assigns(:tran)
+  end
+
+  test "delete destroy requires logged in user" do
+    assert_difference 'RecurringTran.count', 0 do
+      xhr :delete, :destroy, id: recurring_trans(:one)
+    end
+
+    assert_response :unauthorized
+  end
+
+  test "delete destroy requires same tran user" do
+    sign_in :user, users(:user_without_properties)
+
+    assert_difference 'RecurringTran.count', 0 do
+      delete :destroy, id: recurring_trans(:one)
+    end
+
+    assert_redirected_to root_path
+  end
 end

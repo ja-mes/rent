@@ -1,8 +1,8 @@
 class RecurringTransController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_tran, only: [:edit, :update]
+  before_action :set_tran, only: [:edit, :update, :destroy]
 
-  before_action only: [:edit, :update] do
+  before_action only: [:edit, :update, :destroy] do
     require_same_user(@tran)
   end
 
@@ -21,6 +21,10 @@ class RecurringTransController < ApplicationController
 
   def update
     @tran.update(update_params)
+  end
+
+  def destroy
+    @tran.destroy
   end
 
   private

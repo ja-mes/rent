@@ -7,8 +7,9 @@
       <i class="fa fa-pencil"></i>
     <% end %>
 
-    <button class="btn btn-danger btn-sm">
+    
+    <%= link_to recurring_tran_path(recurring_tran), method: :delete, remote: true, class: "btn btn-danger btn-sm" do %>
       <i class="fa fa-trash"></i>
-    </button>
+    <% end %>
   </td>
 </tr>
