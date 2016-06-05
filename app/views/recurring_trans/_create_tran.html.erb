@@ -12,7 +12,8 @@
 
           <div class="form-group">
             On the
-            <%= select_tag "due_date", options_for_select(%w[1 2])%>
+            <% days = %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28) %>
+            <%= select_tag "due_date", options_for_select(days) %>
             day of the month.
           </div>
 
