@@ -17,11 +17,16 @@
         </li>
 
         <li class="nav-item">
-          <%= link_to 'Accounts', accounts_path, class: "nav-link #{isActive 'accounts'}" %>
+          <%= link_to 'Vendors', vendors_path, class: "nav-link #{isActive 'vendors'}" %>
         </li>
 
-        <li class="nav-item">
-          <%= link_to 'Vendors', vendors_path, class: "nav-link #{isActive 'vendors'}" %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Transactions</a>
+
+          <div class="dropdown-menu" aria-labelledby="Preview">
+            <%= link_to 'Chart of Accounts', accounts_path, class: "dropdown-item #{isActive 'accounts'}" %>
+            <%= link_to "Recurring Transactions", recurring_trans_path, class: "dropdown-item #{isActive 'recurring_trans'}" %>
+          </div>
         </li>
 
         <li class="nav-item dropdown">
