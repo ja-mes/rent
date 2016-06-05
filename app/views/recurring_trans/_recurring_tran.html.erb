@@ -1,5 +1,5 @@
 <tr id="<%= recurring_tran.id %>">
-  <td></td>
+  <td><%= truncate(recurring_tran.description, length: 30) %></td>
   <td><%= recurring_tran.last_charged.strftime("%m/%d/%Y") %></td>
   <td><%= recurring_tran.next_entry_date.strftime("%m/%d/%Y") %></td>
   <td class="text-xs-right">
