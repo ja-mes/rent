@@ -53,9 +53,10 @@ class RecurringTranTest < ActiveSupport::TestCase
     tran = nil
 
     assert_difference "RecurringTran.count" do
-      tran = RecurringTran.memorize check, "3"
+      tran = RecurringTran.memorize check, "3", "foobar"
     end
 
+    assert_equal tran.description, "foobar"
     assert_equal tran.user, check.user
     assert_equal tran.amount, check.amount
     assert_equal tran.memo, check.memo
@@ -75,9 +76,10 @@ class RecurringTranTest < ActiveSupport::TestCase
     tran = nil
 
     assert_difference "RecurringTran.count" do
-      tran = RecurringTran.memorize invoice, "5"
+      tran = RecurringTran.memorize invoice, "5", "test"
     end
 
+    assert_equal tran.description, "test"
     assert_equal tran.user, invoice.user
     assert_equal tran.amount, invoice.amount
     assert_equal tran.memo, invoice.memo
