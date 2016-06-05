@@ -8,13 +8,13 @@ class RecurringTran < ActiveRecord::Base
   validates :due_date, presence: true
   validates :tran_type, presence: true
   validates :last_charged, presence: true
-  validate :due_date_between_1_and_28
+  validate :due_date_range
   
   # HOOKS
   after_initialize :setup_last_charged
   before_update :update_last_charged
 
-  def due_date_between_1_and_28
+  def due_date_range
     unless (1..28).include?(self.due_date.to_i) 
       errors.add(:base, "Due date must be between 1 and 28")
     end
