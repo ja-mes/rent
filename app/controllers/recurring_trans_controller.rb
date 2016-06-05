@@ -1,9 +1,11 @@
 class RecurringTransController < ApplicationController
   before_action :authenticate_user!
   before_action :set_tran, only: [:edit, :update]
+
   before_action only: [:edit, :update] do
     require_same_user(@tran)
   end
+
   def index
     @trans = current_user.recurring_trans
   end
