@@ -14,8 +14,29 @@ class RecurringTransController < ApplicationController
     end
   end
 
+  def edit
+    @tran = RecurringTran.find(params[:id])
+  end
+
+  def update
+    @tran = RecurringTran.find(params[:id])
+    
+    if @tran.update(update_params)
+    else
+    end
+
+    respond_to do |f|
+      f.html
+      f.js
+    end
+  end
+
   private
   def tran_params
     params.permit(:id, :type, :due_date)
+  end
+
+  def update_params
+    params.require(:recurring_tran).permit(:due_date)
   end
 end

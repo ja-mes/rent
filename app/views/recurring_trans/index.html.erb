@@ -1,3 +1,6 @@
+<div class="modal fade" id="recurringTransModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
 <h1 class="display-4 margin-40">Recurring Transactions</h1>
 
 <table class="table">
@@ -17,9 +20,9 @@
         <td><%= tran.last_charged.strftime("%m/%d/%Y") %></td>
         <td><%= tran.next_entry_date.strftime("%m/%d/%Y") %></td>
         <td class="text-xs-right">
-          <button class="btn btn-secondary btn-sm">
+          <%= link_to edit_recurring_tran_path(tran), remote: true, class: "btn btn-secondary btn-sm" do %>
             <i class="fa fa-pencil"></i>
-          </button>
+          <% end %>
 
           <button class="btn btn-danger btn-sm">
             <i class="fa fa-trash"></i>
