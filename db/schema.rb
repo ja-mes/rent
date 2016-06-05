@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605185127) do
+ActiveRecord::Schema.define(version: 20160605220812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20160605185127) do
     t.string   "memo"
     t.date     "last_charged"
     t.string   "description"
+    t.date     "last_entry"
   end
 
   create_table "trans", force: :cascade do |t|
