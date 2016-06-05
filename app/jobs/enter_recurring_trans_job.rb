@@ -2,6 +2,7 @@ class EnterRecurringTransJob < ActiveJob::Base
   queue_as :default
 
   def perform(user_id)
+    today = Date.today
     user = User.find(user_id)
 
     user.recurring_trans.where('last_charged <= ?', today.prev_month).find_each do |tran|
