@@ -1,6 +1,12 @@
 <tr id="<%= recurring_tran.id %>">
   <td><%= truncate(recurring_tran.description, length: 30) %></td>
-  <td><%= recurring_tran.last_charged.strftime("%m/%d/%Y") %></td>
+
+  <td>
+    <% if recurring_tran.last_entry %>
+      <%= recurring_tran.last_entry.strftime("%m/%d/%Y") %>
+    <% end %>
+  </td>
+
   <td><%= recurring_tran.next_entry_date.strftime("%m/%d/%Y") %></td>
   <td class="text-xs-right">
     <%= link_to edit_recurring_tran_path(recurring_tran), remote: true, class: "btn btn-secondary btn-sm" do %>
