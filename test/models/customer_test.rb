@@ -104,4 +104,25 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.active
     assert_not @customer.property.rented?
   end
+
+  test "archive should credit customer for balance if it is greater than zero" do
+    @customer.balance = 500
+    credit = nil
+
+    assert_difference ['Credit.count', 'AccountTran.count', 'Tran.count'] do
+      credit = @customer.archive
+    end
+    account_tran = credit.account_trans.first
+
+    assert_equal credit.user, @customer.user
+    assert_equal credit.amount, 500
+    assert_equal credit.date, Date.today
+    assert_equal credit.memo, "Write off remaining balance"
+
+    assert_equal credit.account_trans.length, 1
+    assert_equal account_tran.user, @customer.user
+    assert_equal account_tran.account, accounts(:one)
+    assert_equal account_tran.account_transable, credit
+    assert_equal account_tran.amount, -500
+  end
 end

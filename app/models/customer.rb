@@ -81,13 +81,45 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def full_name
+    "#{self.first_name} #{self.middle_name} #{self.last_name}"
+  end
+
+  def archive
+    self.toggle!(:active)
+    self.property.toggle!(:rented)
+
+    if self.balance > 0
+      credit = self.credits.build do |c|
+        c.user = self.user
+        c.amount = self.balance
+        c.date = Date.today
+        c.memo = "Write off remaining balance"
+      end
+      credit.skip_tran_validation = true
+      credit.save
+
+      account_tran = AccountTran.create do |c|
+        c.user = self.user
+        c.account = Account.find_by(name: "Rental Income", user: self.user)
+        c.account_transable = credit
+        c.amount = -credit.amount
+        c.memo = credit.memo
+        c.property = self.property
+        c.date = credit.date
+      end
+
+      credit
+    end
+  end
+
   def self.search(search, display_param, user)
     if search
       query = "first_name LIKE ? OR middle_name LIKE ?"\
-       " OR last_name LIKE ? OR concat_ws(' ' , first_name, middle_name, last_name) LIKE ?"\
-       " OR concat_ws(' ' , first_name, last_name) LIKE ?"\
-       " OR properties.address LIKE ?",
-       "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
+        " OR last_name LIKE ? OR concat_ws(' ' , first_name, middle_name, last_name) LIKE ?"\
+        " OR concat_ws(' ' , first_name, last_name) LIKE ?"\
+        " OR properties.address LIKE ?",
+        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
 
       if display_param.blank? || display_param == 'active'
         return joins(:property).where(query).where(user: user, active: true).order(:last_name)
@@ -101,14 +133,5 @@ class Customer < ActiveRecord::Base
         return where(user: user)
       end
     end
-  end
-
-  def full_name
-    "#{self.first_name} #{self.middle_name} #{self.last_name}"
-  end
-
-  def archive
-    self.toggle!(:active)
-    self.property.toggle!(:rented)
   end
 end
