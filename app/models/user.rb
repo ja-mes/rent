@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :credits
   has_many :recurring_trans
+  has_many :registers
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -20,6 +21,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   after_create do
+    checkbook = Register.create(user: self, name: "Checking", balance: 0)
+
     income = AccountType.create(user: self, name: "Income", inc: true)
     bank = AccountType.create(user: self, name: "Bank", inc: true)
     other_current_assets = AccountType.create(user: self, name: "Other Current Assets", inc: true)
