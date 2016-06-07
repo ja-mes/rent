@@ -50,6 +50,7 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "setup_last_charged should add last_charged attr to customer" do
+    @customer = @customer.dup
     @customer.last_charged = nil
     @customer.setup_last_charged
     assert_equal @customer.last_charged, Date.new(Date.today.year, Date.today.month, @customer.due_date.to_i)
