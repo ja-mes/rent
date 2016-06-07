@@ -63,7 +63,7 @@ class ChecksController < ApplicationController
     @check.destroy
 
     flash[:danger] = "Check successfully deleted"
-    redirect_to register_path
+    redirect_to check_register_path
   end
 
   private

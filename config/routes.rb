@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :registers
   resources :reconciliations
   resources :recurring_trans
   resources :vendors
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   resources :checks
   resources :deposits
 
-  get '/register', to: 'register#index', as: 'register'
+  get '/register', to: 'register#index', as: 'check_register'
 
   mount Resque::Server.new, :at => '/resque'
 end
