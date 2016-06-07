@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605220812) do
+ActiveRecord::Schema.define(version: 20160607182411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,12 @@ ActiveRecord::Schema.define(version: 20160605220812) do
     t.decimal "deposit"
     t.integer "user_id"
     t.boolean "rented",  default: false, null: false
+  end
+
+  create_table "reconciliations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "recurring_trans", force: :cascade do |t|
