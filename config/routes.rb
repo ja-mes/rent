@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reconciliations
   resources :recurring_trans
   resources :vendors
 
