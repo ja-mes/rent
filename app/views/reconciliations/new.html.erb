@@ -41,18 +41,20 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th><input type="checkbox" class="" /></td></th>
+            <th><input type="checkbox" class="" /></th>
             <th>Date</th>
             <th>Amount</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td><input type="checkbox" class="" /></td></td>
-            <td>06/07/2016</td>
-            <td>$500.00</td>
-          </tr>
+          <% @deposits.each do |deposit| %>
+            <tr>
+              <td><input type="checkbox" class="" /></td>
+              <td><%= deposit.date %></td>
+              <td><%= deposit.amount %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
