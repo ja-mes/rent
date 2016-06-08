@@ -35,7 +35,7 @@ class Check < ActiveRecord::Base
 
   after_create do
     self.create_tran(user: self.user, date: self.date)
-    account = Account.find_by(user: self.user, name: "Checking")
+    account = Register.find_by(user: self.user, name: "Checking")
     account.increment!(:balance, by = -self.amount)
   end
 
@@ -44,12 +44,12 @@ class Check < ActiveRecord::Base
   end
 
   after_destroy do
-    account = Account.find_by(user: self.user, name: "Checking")
+    account = Register.find_by(user: self.user, name: "Checking")
     account.increment!(:balance, by = self.amount)
   end
 
   def calculate_balance(old_amount)
-    account = Account.find_by(user: self.user, name: "Checking")
+    account = Register.find_by(user: self.user, name: "Checking")
     account.increment(:balance, by = old_amount)
     account.increment!(:balance, by = -self.amount)
   end
