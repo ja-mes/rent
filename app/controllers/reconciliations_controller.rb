@@ -11,7 +11,7 @@ class ReconciliationsController < ApplicationController
   
   def create
     @reconciliation = Reconciliation.new(user: current_user)
-    @reconciliation.setup_trans deposit_params
+    @reconciliation.setup_trans(reconciliation_params)
   end
 
   def edit
@@ -21,7 +21,7 @@ class ReconciliationsController < ApplicationController
   end
 
   private
-  def deposit_params
+  def reconciliation_params
     params.require(:reconciliation).permit(deposits: [:id, :selected])
   end
 end

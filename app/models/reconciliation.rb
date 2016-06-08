@@ -8,9 +8,16 @@ class Reconciliation < ActiveRecord::Base
     checks = Check.where(user: self.user, cleared: false).order('date DESC')
     deposits = Deposit.where(user: self.user, cleared: false).order('date DESC')
 
-    deposits.each do |c|
-      if params[:deposits].key?(c.id.to_s)
+    deposits.each do |d|
+      if params[:deposits].key?(d.id.to_s)
+        self.deposits << d
       end 
+    end
+
+    checks.each do |c|
+      if params[:checks].key?(c.id.to_s)
+        self.checks << c
+      end
     end
   end
 end
