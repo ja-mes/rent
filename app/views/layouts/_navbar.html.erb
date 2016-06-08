@@ -36,6 +36,7 @@
             <%= link_to 'Write Check', new_check_path, class: "dropdown-item #{isActive 'checks', ['new', 'create']}" %>
             <%= link_to 'Record Deposit', new_deposit_path, class: "dropdown-item #{isActive 'deposits', ['new', 'create']}" %>
             <div class="dropdown-divider"></div>
+            <%= link_to 'Reconcile Checkbook', reconciliations_path, class: "dropdown-item #{isActive 'index'}" %>
             <%= link_to 'Check Register', check_register_path, class: "dropdown-item #{isActive 'register'}" %>
           </div>
         </li>
