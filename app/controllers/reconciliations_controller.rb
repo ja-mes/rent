@@ -5,7 +5,6 @@ class ReconciliationsController < ApplicationController
   def new
     @checks = Check.where(user: current_user, cleared: false).order('date DESC')
     @deposits = Deposit.where(user: current_user, cleared: false).order('date DESC')
-    debugger
     render layout: "fluid"
   end
   

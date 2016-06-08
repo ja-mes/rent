@@ -24,7 +24,7 @@
               <td><input type="checkbox" class="" /></td>
               <td><%= check.num %></td>
               <td><%= check.vendor.name %></td>
-              <td><%= check.date %></td>
+              <td><%= check.date.strftime("%m/%d/%Y") %></td>
               <td><%= number_to_currency check.amount %></td>
             </tr>
           <% end %>
@@ -51,7 +51,7 @@
           <% @deposits.each do |deposit| %>
             <tr>
               <td><input type="checkbox" class="" /></td>
-              <td><%= deposit.date %></td>
+              <td><%= deposit.date.strftime("%m/%d/%Y") %></td>
               <td><%= deposit.amount %></td>
             </tr>
           <% end %>
