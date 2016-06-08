@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rent</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container-fluid">
+  <%= render 'layouts/messages' %>
+  <% if user_signed_in? %>
+    <%= render 'layouts/navbar' %>
+  <% end %>
+  <%= yield %>
+</div>
+
+</body>
+</html>

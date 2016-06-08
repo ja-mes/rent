@@ -3,6 +3,7 @@ class ReconciliationsController < ApplicationController
   end
 
   def new
+    render layout: "fluid"
   end
   
   def create
