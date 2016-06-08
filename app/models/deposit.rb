@@ -60,12 +60,12 @@ class Deposit < ActiveRecord::Base
   end
 
   def remove_amount
-    account = Account.find_by(user: self.user, name: "Checking")
+    account = Register.find_by(user: self.user, name: "Checking")
     account.increment!(:balance, by = -self.amount)
   end
 
   def calculate_balance(old_amount = nil)
-    account = Account.find_by(user: self.user, name: "Checking")
+    account = Register.find_by(user: self.user, name: "Checking")
     account.increment(:balance, by = -old_amount) if old_amount
     account.increment!(:balance, by = self.amount)
   end
