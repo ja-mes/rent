@@ -1,63 +1,64 @@
 <h1 class="display-4 margin-40">Reconcile Checkbook</h1>
 
 
-<div class="card-group">
-  <div class="card">
-    <div class="card-header">
-      Checks and Payments
-    </div>
-    <div class="card-block">
-      <table class="table">
-        <thead>
-          <tr>
-            <th><input type="checkbox" class="" /></td></th>
-            <th>Number</th>
-            <th>Payee</th>
-            <th>Date</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @checks.each do |check| %>
+<%= form_for @reconciliation do |f| %>
+  <div class="card-group">
+    <div class="card">
+      <div class="card-header">
+        Checks and Payments
+      </div>
+      <div class="card-block">
+        <table class="table">
+          <thead>
             <tr>
-              <td><input type="checkbox" class="" /></td>
-              <td><%= check.num %></td>
-              <td><%= check.vendor.name %></td>
-              <td><%= check.date.strftime("%m/%d/%Y") %></td>
-              <td><%= number_to_currency check.amount %></td>
+              <th><input type="checkbox" class="" /></td></th>
+              <th>Number</th>
+              <th>Payee</th>
+              <th>Date</th>
+              <th>Amount</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% @checks.each do |check| %>
+              <tr>
+                <td><input type="checkbox" class="" /></td>
+                <td><%= check.num %></td>
+                <td><%= check.vendor.name %></td>
+                <td><%= check.date.strftime("%m/%d/%Y") %></td>
+                <td><%= number_to_currency check.amount %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Deposits and Other Credits
+      </div>
+      <div class="card-block">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th><input type="checkbox" class="" /></th>
+              <th>Date</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @deposits.each do |deposit| %>
+              <tr>
+                <td><input type="checkbox" class="" /></td>
+                <td><%= deposit.date.strftime("%m/%d/%Y") %></td>
+                <td><%= deposit.amount %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="card-header">
-      Deposits and Other Credits
-    </div>
-    <div class="card-block">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th><input type="checkbox" class="" /></th>
-            <th>Date</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @deposits.each do |deposit| %>
-            <tr>
-              <td><input type="checkbox" class="" /></td>
-              <td><%= deposit.date.strftime("%m/%d/%Y") %></td>
-              <td><%= deposit.amount %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
+<% end %>
