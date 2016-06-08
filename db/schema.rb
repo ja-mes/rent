@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608182117) do
+ActiveRecord::Schema.define(version: 20160608183607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,10 +52,11 @@ ActiveRecord::Schema.define(version: 20160608182117) do
     t.date     "date"
     t.decimal  "amount"
     t.string   "memo"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "vendor_id"
-    t.boolean  "cleared",    default: false, null: false
+    t.boolean  "cleared",           default: false, null: false
+    t.integer  "reconciliation_id"
   end
 
   create_table "credits", force: :cascade do |t|
@@ -86,11 +87,12 @@ ActiveRecord::Schema.define(version: 20160608182117) do
   create_table "deposits", force: :cascade do |t|
     t.integer  "user_id"
     t.decimal  "amount"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.date     "date"
     t.decimal  "discrepancies"
-    t.boolean  "cleared",       default: false, null: false
+    t.boolean  "cleared",           default: false, null: false
+    t.integer  "reconciliation_id"
   end
 
   create_table "invoices", force: :cascade do |t|

@@ -2,6 +2,7 @@ class Check < ActiveRecord::Base
   attr_accessor :skip_tran_validation
 
   belongs_to :user
+  belongs_to :reconciliation
   validates :user_id, presence: true
 
   has_one :tran, as: :transactionable, dependent: :destroy

@@ -1,5 +1,6 @@
 class Deposit < ActiveRecord::Base
   belongs_to :user
+  belongs_to :reconciliation
 
   has_one :tran, as: :transactionable, dependent: :destroy
 
