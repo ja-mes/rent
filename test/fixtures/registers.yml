@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
+  user: one
+  name: "Checking"
+  balance: 0
 
-two:
-  user_id: 1

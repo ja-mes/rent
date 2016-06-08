@@ -55,7 +55,7 @@ class DepositsControllerTest < ActionController::TestCase
     assert_equal payment.deposit, deposit
     assert_equal payment2.deposit, deposit
     assert_equal deposit.amount, (payment.amount + payment2.amount + deposit.discrepancies)
-    assert_equal accounts(:four).balance, (payment.amount + payment2.amount + deposit.discrepancies)
+    assert_equal registers(:one).balance, (payment.amount + payment2.amount + deposit.discrepancies)
     assert_equal deposit.tran.date, deposit.date
   end
 

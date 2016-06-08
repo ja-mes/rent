@@ -58,7 +58,7 @@ class CheckTest < ActiveSupport::TestCase
   end
 
   test "after_create should update account balance" do
-    account = accounts(:four)
+    account = registers(:one)
     check = @check.dup
     check.amount = 500
     @check.account_trans.each do |t| 
@@ -88,11 +88,11 @@ class CheckTest < ActiveSupport::TestCase
   test "after_destroy should update account balance" do
     @check.amount = 500
     @check.destroy
-    assert_equal accounts(:four).balance, @check.amount
+    assert_equal registers(:one).balance, @check.amount
   end
 
   test "calculate balance should update check balance" do
-    account = accounts(:four)
+    account = registers(:one)
     @check.amount = 200.25
     assert_difference 'account.balance', 299.75 do
       @check.calculate_balance 500

@@ -17,12 +17,6 @@ three:
   account_type: other_current_assets
   user: one
 
-four:
-  name: "Checking"
-  balance: 0.00
-  account_type: bank
-  user: one
-
 five:
   name: "Undeposited Funds"
   balance: 0.00

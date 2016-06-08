@@ -96,7 +96,7 @@ class DepositTest < ActiveSupport::TestCase
   end
 
   test "remove amount should remove amount from checking account" do
-    account = accounts(:four)
+    account = registers(:one)
 
     assert_difference 'account.balance', -@deposit.amount do
       @deposit.remove_amount
@@ -105,7 +105,7 @@ class DepositTest < ActiveSupport::TestCase
   end
 
   test "calculate balance should increment balance if no old_amount is supplied" do
-    account = accounts(:four)
+    account = registers(:one)
     @deposit.amount = 500
     
     assert_difference 'account.balance', 500 do
@@ -115,7 +115,7 @@ class DepositTest < ActiveSupport::TestCase
   end
 
   test "calculate balance should update balance if old_amont is supplied" do
-    account = accounts(:four)
+    account = registers(:one)
     @deposit.amount = 500 # 500 is the old amount
 
     assert_difference 'account.balance', 300 do
