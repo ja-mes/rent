@@ -19,13 +19,15 @@
         </thead>
 
         <tbody>
-          <tr class=''>
-            <td><input type="checkbox" class="" /></td>
-            <td>134</td>
-            <td>Joe Foo Blah</td>
-            <td>06/07/2016</td>
-            <td>$500.00</td>
-          </tr>
+          <% @checks.each do |check| %>
+            <tr>
+              <td><input type="checkbox" class="" /></td>
+              <td><%= check.num %></td>
+              <td><%= check.vendor.name %></td>
+              <td><%= check.date %></td>
+              <td><%= number_to_currency check.amount %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

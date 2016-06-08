@@ -3,6 +3,7 @@ class ReconciliationsController < ApplicationController
   end
 
   def new
+    @checks = Check.where(user: current_user, cleared: false).order('date DESC')
     render layout: "fluid"
   end
   
