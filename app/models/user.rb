@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :credits
   has_many :recurring_trans
   has_many :registers
+  has_many :reconciliations
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
