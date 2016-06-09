@@ -14,7 +14,6 @@ class ReconciliationsController < ApplicationController
   
   def create
     @reconciliation = Reconciliation.new(user: current_user)
-    debugger
     @reconciliation.setup_trans(tran_params)
   end
 

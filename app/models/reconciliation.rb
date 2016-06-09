@@ -4,6 +4,9 @@ class Reconciliation < ActiveRecord::Base
   has_many :checks
   has_many :deposits
 
+  # HOOKS
+  after_create :mark_trans_cleared
+
   def setup_trans(params)
     checks = Check.where(user: self.user, cleared: false).order('date DESC')
     deposits = Deposit.where(user: self.user, cleared: false).order('date DESC')
@@ -11,7 +14,6 @@ class Reconciliation < ActiveRecord::Base
     if params[:deposits]
       deposits.each do |d|
         if params[:deposits].key?(d.id.to_s)
-          d.update_attribute(:cleared, true)
           self.deposits << d
         end 
       end
@@ -20,12 +22,14 @@ class Reconciliation < ActiveRecord::Base
     if params[:checks]
       checks.each do |c|
         if params[:checks].key?(c.id.to_s)
-          c.update_attribute(:cleared, true)
           self.checks << c
         end
       end
     end
+  end
 
-    debugger
+  def mark_trans_cleared
+    self.checks.update_all(cleared: true)
+    self.deposits.update_all(cleared: true)
   end
 end
