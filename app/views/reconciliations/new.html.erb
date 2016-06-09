@@ -25,7 +25,7 @@
           <tbody>
             <% @checks.each do |check| %>
               <tr>
-                <td><input type="checkbox" class="reconcile_check_box" /></td>
+                <td><input name="reconciliation[checks][<%= check.id %>][selected]" type="checkbox" class="reconcile_check_box" /></td>
                 <td><%= check.num %></td>
                 <td><%= check.vendor.name %></td>
                 <td><%= check.date.strftime("%m/%d/%Y") %></td>
