@@ -1,7 +1,9 @@
-<h1 class="display-4 margin-40">Reconcile Checkbook</h1>
+<h1 class="display-4 margin-30">Reconcile Checkbook</h1>
 
 <%= form_for @reconciliation do |f| %>
-  <%= f.date_select :date, order: [:month, :day, :year] %>
+  <div class="margin-30">
+    <%= f.date_select :date, order: [:month, :day, :year] %>
+  </div>
 
   <div class="card-group margin-25">
     <div class="card">
@@ -52,9 +54,9 @@
           <tbody>
             <% @deposits.each do |deposit| %>
               <tr>
-                <td><input name="reconciliation[deposits][<%= deposit.id %>][selected]" type="checkbox" class="" /></td>
+                <td><input name="reconciliation[deposits][<%= deposit.id %>][selected]" type="checkbox" class="reconcile_deposit_check_box" /></td>
                 <td><%= deposit.date.strftime("%m/%d/%Y") %></td>
-                <td><%= deposit.amount %></td>
+                <td class="reconcile_deposit_amount"><%= deposit.amount %></td>
               </tr>
             <% end %>
           </tbody>
@@ -66,7 +68,7 @@
   <div class="row">
     <div class="col-md-6">
       <div style="margin-bottom: 25px">
-        <p>Cleared Balance: <strong><%= number_to_currency @register.cleared_balance %></strong></p>
+        <p>Cleared Balance: <strong id="reconcile_cleared_balance"><%= number_to_currency @register.cleared_balance %></strong></p>
         <p>Ending Balance: <input type="text" /> </p>
         <p>Difference: <strong>$20,035.75</strong>
       </div>
