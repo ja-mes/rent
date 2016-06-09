@@ -61,5 +61,18 @@
     </div>
   </div>
 
-  <%= f.submit "Reconcile", class: "btn btn-primary" %>
+  <div class="row">
+    <div class="col-md-6">
+      <div style="margin-bottom: 25px">
+        <p>Cleared Balance: <strong>$40,823.25</strong></p>
+        <p>Ending Balance: <strong>$60,334.25</strong></p>
+        <p>Difference: <strong>$20,035.75</strong>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.submit "Reconcile", class: "btn btn-primary pull-xs-right" %>
+    </div>
+  </div>
+
 <% end %>
