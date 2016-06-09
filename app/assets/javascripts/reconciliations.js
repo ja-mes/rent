@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', function() {
 
       if (checkbox.prop('checked')) {
         if ($(this).hasClass('reconcile_check_amount')) {
-          total += num_from_elem(val);
+          total -= num_from_elem(val);
         }
         else if($(this).hasClass('reconcile_deposit_amount')) {
           total += num_from_elem(val);
