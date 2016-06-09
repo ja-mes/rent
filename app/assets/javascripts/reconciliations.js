@@ -1,6 +1,12 @@
 $(document).on('turbolinks:load', function() {
   function num_from_elem(elem) {
-    return +$(elem).html().replace(/[^0-9\.]+/g,"")
+    if ($(elem)[0].nodeName.toLowerCase() === 'input') {
+      var val = $(elem).val()
+    }
+    else {
+      var val = $(elem).html()
+    }
+    return +val.replace(/[^0-9\.]+/g,"")
   }
 
   function format_currency(elem, amount) {
@@ -8,7 +14,8 @@ $(document).on('turbolinks:load', function() {
   }
 
   function calculate_cleared_balance() {
-    var total = num_from_elem('#reconcile_cleared_balance')
+    var total = num_from_elem('#reconcile_saved_cleared_balance');
+    var ending_balance = num_from_elem('#reconcile_ending_balance');
 
     $('.reconcile_deposit_amount').each(function(i, val) {
       var checkbox = $(val).parent().closest('tr').find('.reconcile_deposit_check_box');
@@ -18,12 +25,14 @@ $(document).on('turbolinks:load', function() {
       }
     });
 
-    format_currency('#reconcile_cleared_balance', total)
+    var difference = total - ending_balance
 
-    //debugger;
+    format_currency('#reconcile_cleared_balance', total);
+    format_currency('#reconcile_difference', total - ending_balance)
   }
 
   $('.reconcile_deposit_check_box').click(calculate_cleared_balance)
+  $('#reconcile_ending_balance').change(calculate_cleared_balance)
 
   calculate_cleared_balance()
 });

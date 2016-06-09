@@ -56,7 +56,7 @@
               <tr>
                 <td><input name="reconciliation[deposits][<%= deposit.id %>][selected]" type="checkbox" class="reconcile_deposit_check_box" /></td>
                 <td><%= deposit.date.strftime("%m/%d/%Y") %></td>
-                <td class="reconcile_deposit_amount"><%= deposit.amount %></td>
+                <td class="reconcile_deposit_amount"><%= number_to_currency deposit.amount %></td>
               </tr>
             <% end %>
           </tbody>
@@ -68,9 +68,10 @@
   <div class="row">
     <div class="col-md-6">
       <div style="margin-bottom: 25px">
+        <input type="hidden" value="<%= @register.cleared_balance %>" id="reconcile_saved_cleared_balance" />
         <p>Cleared Balance: <strong id="reconcile_cleared_balance"><%= number_to_currency @register.cleared_balance %></strong></p>
-        <p>Ending Balance: <input type="text" /> </p>
-        <p>Difference: <strong>$20,035.75</strong>
+        <p>Ending Balance: <input type="text" id="reconcile_ending_balance"/> </p>
+        <p>Difference: <strong id="reconcile_difference">$0.00</strong>
       </div>
     </div>
 
