@@ -70,7 +70,7 @@
       <div style="margin-bottom: 25px">
         <input type="hidden" value="<%= @register.cleared_balance %>" id="reconcile_saved_cleared_balance" />
         <p>Cleared Balance: <strong id="reconcile_cleared_balance"><%= number_to_currency @register.cleared_balance %></strong></p>
-        <p>Ending Balance: <input type="text" id="reconcile_ending_balance"/> </p>
+        <p>Ending Balance: <%= f.text_field :ending_balance, id: "reconcile_ending_balance" %></p>
         <p>Difference: <strong id="reconcile_difference">$0.00</strong>
       </div>
     </div>
