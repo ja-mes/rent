@@ -25,14 +25,12 @@ $(document).on('turbolinks:load', function() {
       }
     });
 
-    var difference = total - ending_balance
-
     format_currency('#reconcile_cleared_balance', total);
     format_currency('#reconcile_difference', total - ending_balance)
   }
 
-  $('.reconcile_deposit_check_box').click(calculate_cleared_balance)
-  $('#reconcile_ending_balance').change(calculate_cleared_balance)
+  $('.reconcile_deposit_check_box').click(calculate_cleared_balance);
+  $('#reconcile_ending_balance').change(calculate_cleared_balance);
 
-  calculate_cleared_balance()
+  calculate_cleared_balance();
 });
