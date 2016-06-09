@@ -3,6 +3,10 @@ $(document).on('turbolinks:load', function() {
     return +$(elem).html().replace(/[^0-9\.]+/g,"")
   }
 
+  function format_currency(elem, amount) {
+    $(elem).html('$' + amount.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+  }
+
   function calculate_cleared_balance() {
     var total = num_from_elem('#reconcile_cleared_balance')
 
@@ -14,7 +18,9 @@ $(document).on('turbolinks:load', function() {
       }
     });
 
-    debugger;
+    format_currency('#reconcile_cleared_balance', total)
+
+    //debugger;
   }
 
   $('.reconcile_deposit_check_box').click(calculate_cleared_balance)
