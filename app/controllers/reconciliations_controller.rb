@@ -13,8 +13,17 @@ class ReconciliationsController < ApplicationController
   end
   
   def create
-    @reconciliation = Reconciliation.new(user: current_user)
-    @reconciliation.setup_trans(tran_params)
+    @reconciliation = current_user.reconciliations.new(reconciliation_params.except(:deposits, :checks))
+    @reconciliation.prepare(reconciliation_params)
+
+    debugger
+
+    if @reconciliation.save
+      flash[:success] = "Successfully reconciled"
+      redirect_to reconciliations_path
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -24,11 +33,7 @@ class ReconciliationsController < ApplicationController
   end
 
   private
-  def tran_params
-    params.require(:reconciliation).permit(deposits: [:id, :selected], checks: [:id, :selected])
-  end
-
   def reconciliation_params
-    params.require(:reconciliation).permit(:ending_balance)
+    params.require(:reconciliation).permit(:date, :ending_balance, deposits: [:id, :selected], checks: [:id, :selected])
   end
 end

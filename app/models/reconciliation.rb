@@ -7,7 +7,7 @@ class Reconciliation < ActiveRecord::Base
   # HOOKS
   after_create :mark_trans_cleared
 
-  def setup_trans(params)
+  def prepare(params)
     checks = Check.where(user: self.user, cleared: false).order('date DESC')
     deposits = Deposit.where(user: self.user, cleared: false).order('date DESC')
     register = Register.find_by(user: self.user, name: "Checking")
@@ -32,7 +32,8 @@ class Reconciliation < ActiveRecord::Base
       end
     end
 
-    debugger
+    if cleared_balance != params[:ending_balance].to_d
+    end
   end
 
   def mark_trans_cleared
