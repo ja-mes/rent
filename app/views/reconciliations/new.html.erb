@@ -1,6 +1,8 @@
 <h1 class="display-4 margin-40">Reconcile Checkbook</h1>
 
 <%= form_for @reconciliation do |f| %>
+  <%= f.date_select :date, order: [:month, :day, :year] %>
+
   <div class="card-group margin-25">
     <div class="card">
       <div class="card-header">
@@ -65,7 +67,7 @@
     <div class="col-md-6">
       <div style="margin-bottom: 25px">
         <p>Cleared Balance: <strong><%= number_to_currency @register.cleared_balance %></strong></p>
-        <p>Ending Balance: <strong>$60,334.25</strong></p>
+        <p>Ending Balance: <input type="text" /> </p>
         <p>Difference: <strong>$20,035.75</strong>
       </div>
     </div>
