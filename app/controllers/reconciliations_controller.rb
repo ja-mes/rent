@@ -1,4 +1,6 @@
 class ReconciliationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
   end
 
@@ -6,6 +8,7 @@ class ReconciliationsController < ApplicationController
     @reconciliation = Reconciliation.new
     @checks = Check.where(user: current_user, cleared: false).order('date DESC')
     @deposits = Deposit.where(user: current_user, cleared: false).order('date DESC')
+    @register = Register.find_by(user: current_user, name: "Checking")
     render layout: "fluid"
   end
   
