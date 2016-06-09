@@ -10,12 +10,14 @@ class Reconciliation < ActiveRecord::Base
 
     deposits.each do |d|
       if params[:deposits].key?(d.id.to_s)
+        d.update_attribute(:cleared, true)
         self.deposits << d
       end 
     end
 
     checks.each do |c|
       if params[:checks].key?(c.id.to_s)
+        c.update_attribute(:cleared, true)
         self.checks << c
       end
     end
