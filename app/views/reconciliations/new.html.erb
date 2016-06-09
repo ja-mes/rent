@@ -25,11 +25,11 @@
           <tbody>
             <% @checks.each do |check| %>
               <tr>
-                <td><input type="checkbox" class="" /></td>
+                <td><input type="checkbox" class="reconcile_check_box" /></td>
                 <td><%= check.num %></td>
                 <td><%= check.vendor.name %></td>
                 <td><%= check.date.strftime("%m/%d/%Y") %></td>
-                <td><%= number_to_currency check.amount %></td>
+                <td class="reconcile_amount reconcile_check_amount"><%= number_to_currency check.amount %></td>
               </tr>
             <% end %>
           </tbody>
@@ -54,9 +54,9 @@
           <tbody>
             <% @deposits.each do |deposit| %>
               <tr>
-                <td><input name="reconciliation[deposits][<%= deposit.id %>][selected]" type="checkbox" class="reconcile_deposit_check_box" /></td>
+                <td><input name="reconciliation[deposits][<%= deposit.id %>][selected]" type="checkbox" class="reconcile_check_box" /></td>
                 <td><%= deposit.date.strftime("%m/%d/%Y") %></td>
-                <td class="reconcile_deposit_amount"><%= number_to_currency deposit.amount %></td>
+                <td class="reconcile_amount reconcile_deposit_amount"><%= number_to_currency deposit.amount %></td>
               </tr>
             <% end %>
           </tbody>
