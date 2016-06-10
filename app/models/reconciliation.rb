@@ -33,6 +33,8 @@ class Reconciliation < ActiveRecord::Base
     end
 
     if cleared_balance != params[:ending_balance].to_d
+      self.errors.add(:base, "Cleared balance does not equal ending balance")
+      false
     end
   end
 
