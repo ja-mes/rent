@@ -8,6 +8,18 @@
   <thead>
     <tr>
       <th>Checkbook balance</th>
+      <th>Ending Balance</th>
     </tr>
   </thead>
+
+  <tbody>
+    <thead>
+      <% @reconciliations.each do |r| %>
+        <tr>
+          <td><%= r.date.strftime("%m/%d/%Y") %></td>
+          <td><%= number_to_currency r.ending_balance %></td>
+        </tr>
+      <% end %>
+    </thead>
+  </tbody>
 </table>

@@ -2,6 +2,7 @@ class ReconciliationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @reconciliations = current_user.reconciliations
   end
 
   def new
