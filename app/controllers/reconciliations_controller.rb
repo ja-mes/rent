@@ -15,6 +15,8 @@ class ReconciliationsController < ApplicationController
   
   def create
     @reconciliation = current_user.reconciliations.new(reconciliation_params.except(:deposits, :checks))
+
+    # TODO pass theses records to prepare method instead of reloading them
     @checks = Check.where(user: current_user, cleared: false).order('date DESC')
     @deposits = Deposit.where(user: current_user, cleared: false).order('date DESC')
     @register = Register.find_by(user: current_user, name: "Checking")
@@ -23,7 +25,6 @@ class ReconciliationsController < ApplicationController
       flash[:success] = "Successfully reconciled"
       redirect_to reconciliations_path
     else
-      debugger
       render 'new', layout: 'fluid'
     end
   end

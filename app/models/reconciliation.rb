@@ -7,6 +7,7 @@ class Reconciliation < ActiveRecord::Base
   # VALIDATIONS
   validates :user_id, presence: true
   validates :ending_balance, presence: true
+  validate :cleared_equals_end_balance
 
   # HOOKS
   after_create :mark_trans_cleared
@@ -37,10 +38,12 @@ class Reconciliation < ActiveRecord::Base
       end
     end
 
-    # TODO do this in a validation
-    if cleared_balance != params[:ending_balance].to_d
-      self.errors.add(:base, "Cleared balance does not equal ending balance")
-      false
+    self.cleared_balance = cleared_balance
+  end
+
+  def cleared_equals_end_balance
+    unless self.cleared_balance == self.ending_balance
+      self.errors.add(:base, "Cleared balance does not equal ending balance") 
     end
   end
 
