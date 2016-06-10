@@ -1,5 +1,9 @@
 <h1 class="display-4 margin-30">Reconcile Checkbook</h1>
 
+<div style="margin-bottom: 25px">
+  <%= render 'shared/errors', obj: @reconciliation %>
+</div>
+
 <%= form_for @reconciliation do |f| %>
   <div class="margin-30">
     <%= f.date_select :date, order: [:month, :day, :year] %>
