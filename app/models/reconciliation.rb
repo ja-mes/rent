@@ -6,6 +6,7 @@ class Reconciliation < ActiveRecord::Base
 
   # HOOKS
   after_create :mark_trans_cleared
+  after_destroy :mark_trans_uncleared
 
   def prepare(params)
     checks = Check.where(user: self.user, cleared: false).order('date DESC')
@@ -41,5 +42,10 @@ class Reconciliation < ActiveRecord::Base
   def mark_trans_cleared
     self.checks.update_all(cleared: true)
     self.deposits.update_all(cleared: true)
+  end
+
+  def mark_trans_uncleared
+    self.checks.update_all(cleared: false)
+    self.deposits.update_all(cleared: false)
   end
 end
