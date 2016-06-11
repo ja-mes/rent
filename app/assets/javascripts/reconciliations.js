@@ -47,6 +47,8 @@ $(document).on('turbolinks:load', function() {
     else if($(this).hasClass('reconcile_select_all_deposits')) {
       $('#reconciliation_deposits input[type="checkbox"]').prop({ 'checked': bool });
     }
+
+    calculate_cleared_balance()
   });
 
   $('.reconcile_check_box').click(calculate_cleared_balance);
