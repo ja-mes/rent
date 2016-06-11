@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
       {name: "Security Deposits", account_type: other_current_liabilities, balance: 0, required: true, user: self},
       {name: "Undeposited Funds", account_type: other_current_assets, balance: 0, required: true, user: self},
       {name: "Deposit Discrepancies", account_type: expenses, balance: 0, required: true, user: self},
+      {name: "Reconciliation Discrepancies", account_type: expenses, balance: 0, required: true, user: self},
       {name: "Repairs and Maintenance", account_type: expenses, balance: 0, required: true, user: self},
     ])
   end
