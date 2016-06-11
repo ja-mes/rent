@@ -35,6 +35,20 @@ $(document).on('turbolinks:load', function() {
     format_currency('#reconcile_difference', total - ending_balance)
   }
 
+  $('.reconcile_select_all').click(function() {
+    var bool = false;
+    if ($(this).prop('checked') === true) {
+      bool = true
+    }
+
+    if ($(this).hasClass('reconcile_select_all_checks')) {
+      $('#reconciliation_checks input[type="checkbox"]').prop({ 'checked': bool });
+    }
+    else if($(this).hasClass('reconcile_select_all_deposits')) {
+      $('#reconciliation_deposits input[type="checkbox"]').prop({ 'checked': bool });
+    }
+  });
+
   $('.reconcile_check_box').click(calculate_cleared_balance);
   $('#reconcile_ending_balance').change(calculate_cleared_balance);
 
