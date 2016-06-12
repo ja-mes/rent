@@ -43,6 +43,14 @@ class CheckTest < ActiveSupport::TestCase
     assert @check.valid?
   end
 
+  test "num can be any string value" do
+    @check.num = "50"
+    assert @check.valid?
+
+    @check.num = "ADJ"
+    assert @check.valid?
+  end
+
   test "should have many account trans" do
     assert @check.account_trans
   end
@@ -113,7 +121,7 @@ class CheckTest < ActiveSupport::TestCase
     end
 
     assert_equal check.user_id, tran.user_id
-    assert_equal check.num, tran.num
+    assert_equal check.num, tran.num.to_s
     assert_equal check.date, Date.today
     assert_equal check.amount, tran.amount
     assert_equal check.memo, tran.memo
