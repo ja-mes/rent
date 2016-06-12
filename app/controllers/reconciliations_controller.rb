@@ -31,12 +31,6 @@ class ReconciliationsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   private
   def reconciliation_params
     params.require(:reconciliation).permit(:date, :ending_balance, deposits: [:id, :selected], checks: [:id, :selected])
