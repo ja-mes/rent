@@ -70,4 +70,8 @@ class Deposit < ActiveRecord::Base
     account.increment(:balance, by = -old_amount) if old_amount
     account.increment!(:balance, by = self.amount)
   end
+
+  def enter_reconciliation_discrepancy(user, amount)
+
+  end
 end
