@@ -47,9 +47,9 @@ class Reconciliation < ActiveRecord::Base
 
     unless difference == 0
       if difference > 0
-        # enter check
-      elsif difference < 0
         # enter deposit
+      elsif difference < 0
+        Check.enter_reconciliation_discrepancy(self.user, difference)
       end
     end
   end
