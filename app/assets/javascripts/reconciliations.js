@@ -2,12 +2,12 @@ $(document).on('turbolinks:load', function() {
   function num_from_elem(elem) {
     if ($(elem)[0]) {
       if ($(elem)[0].nodeName.toLowerCase() === 'input') {
-        var val = $(elem).val()
+        var val = $(elem).val();
       }
       else {
-        var val = $(elem).html()
+        var val = $(elem).html();
       }
-      return +val.replace(/[^0-9\.]+/g,"")
+      return +val.replace(/[^0-9\.-]+/g,"");
     }
   }
 
