@@ -66,27 +66,12 @@ class Check < ActiveRecord::Base
   end
 
   def self.enter_recurring_tran(tran)
-    check = Check.new do |t|
-      t.user_id = tran.user.id
-      t.num = tran.num
-      t.date = Date.today
-      t.amount = tran.amount
-      t.memo = tran.memo
-      t.vendor_id = tran.charge_id
-    end
+    check = Check.new(user_id: tran.user.id, num: tran.num, date: Date.today, amount: tran.amount, memo: tran.memo, vendor_id: tran.charge_id)
     check.skip_tran_validation = true
     check.save
 
     tran.account_trans.each do |act_tran|
-      account_tran = AccountTran.create do |t|
-        t.user_id = tran.user.id
-        t.account_transable = check
-        t.account_id = act_tran["account_id"]
-        t.amount = act_tran["amount"]
-        t.memo = act_tran["memo"]
-        t.property_id = act_tran["property_id"]
-        t.date = check.date
-      end
+      account_tran = AccountTran.create(user_id: tran.user.id, account_transable: check, account_id: act_tran["account_id"], amount: act_tran["amount"], memo: act_tran["memo"], property_id: act_tran["property_id"], date: check.date)
     end
 
     check
