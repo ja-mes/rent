@@ -15,6 +15,11 @@ three:
   user: one
   transactionable: one (Check)
 
+check2:
+  date: 2016-04-28
+  user: one
+  transactionable: two (Check)
+
 four:
   date: 2016-05-07
   user: one
