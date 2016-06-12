@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class ReconciliationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @rec = reconciliations(:one)
+  end
+
+  test "should be valid" do
+    assert @rec.valid?
+  end
 end

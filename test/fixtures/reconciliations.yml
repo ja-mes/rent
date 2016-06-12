@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
-
-two:
-  user_id: 1
+  user: one
+  date: 2016-04-28
+  ending_balance: 50
+  cleared_balance: 50
