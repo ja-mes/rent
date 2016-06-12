@@ -9,8 +9,7 @@ class Reconciliation < ActiveRecord::Base
   validates :ending_balance, presence: true
 
   # HOOKS
-  after_create :create_discrepancies
-  after_create :mark_trans_cleared
+  after_create :create_discrepancies, :mark_trans_cleared, :update_register
   after_destroy :mark_trans_uncleared
 
   def setup_trans(params)
@@ -37,18 +36,25 @@ class Reconciliation < ActiveRecord::Base
         end
       end
     end
+
+    self.cleared_balance = cleared_balance
   end
 
   def create_discrepancies
-    difference = self.ending_balance - cleared_balance
+    difference = ending_balance - cleared_balance
 
     unless difference == 0
       if difference > 0
         # enter deposit
       elsif difference < 0
-        Check.enter_reconciliation_discrepancy(self.user, difference.abs)
+        Check.enter_reconciliation_discrepancy(user, difference.abs)
       end
     end
+  end
+
+  def update_register
+    register = Register.find_by(user: self.user, name: "Checking")
+    register.update_attribute(:cleared_balance, cleared_balance)
   end
 
   def mark_trans_cleared
