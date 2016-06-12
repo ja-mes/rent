@@ -3,12 +3,12 @@ class Check < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :reconciliation
+  belongs_to :vendor
+
   validates :user_id, presence: true
 
   has_one :tran, as: :transactionable, dependent: :destroy
 
-  belongs_to :vendor
-  #validates :vendor, presence: true
 
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
