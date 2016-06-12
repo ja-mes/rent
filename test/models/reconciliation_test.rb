@@ -49,4 +49,11 @@ class ReconciliationTest < ActiveSupport::TestCase
 
     assert_equal check.amount, 20
   end
+
+  test "update register should update registers cleared balance" do
+    @rec.cleared_balance = 300
+    @rec.update_register
+
+    assert_equal registers(:one).cleared_balance, 300
+  end
 end
