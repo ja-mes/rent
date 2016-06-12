@@ -1,16 +1,20 @@
 $(document).on('turbolinks:load', function() {
   function num_from_elem(elem) {
-    if ($(elem)[0].nodeName.toLowerCase() === 'input') {
-      var val = $(elem).val()
+    if ($(elem)[0]) {
+      if ($(elem)[0].nodeName.toLowerCase() === 'input') {
+        var val = $(elem).val()
+      }
+      else {
+        var val = $(elem).html()
+      }
+      return +val.replace(/[^0-9\.]+/g,"")
     }
-    else {
-      var val = $(elem).html()
-    }
-    return +val.replace(/[^0-9\.]+/g,"")
   }
 
   function format_currency(elem, amount) {
-    $(elem).html('$' + amount.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+    if ($(elem)[0]) {
+      $(elem).html('$' + amount.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+    }
   }
 
   function calculate_cleared_balance() {
@@ -27,7 +31,7 @@ $(document).on('turbolinks:load', function() {
         else if($(this).hasClass('reconcile_deposit_amount')) {
           total += num_from_elem(val);
         }
-          
+
       }
     });
 

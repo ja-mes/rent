@@ -9,7 +9,6 @@ class Check < ActiveRecord::Base
 
   has_one :tran, as: :transactionable, dependent: :destroy
 
-
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
   validate :totals_must_equal, unless: :skip_tran_validation
