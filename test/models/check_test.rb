@@ -38,14 +38,9 @@ class CheckTest < ActiveSupport::TestCase
     assert_not @check.valid?
   end
 
-  test "num should be present" do
+  test "num can be nil" do
     @check.num = nil
-    assert_not @check.valid?
-  end
-
-  test "num should not be negative" do
-    @check.num = -25
-    assert_not @check.valid?
+    assert @check.valid?
   end
 
   test "should have many account trans" do
