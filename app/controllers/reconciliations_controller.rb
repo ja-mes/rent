@@ -21,8 +21,9 @@ class ReconciliationsController < ApplicationController
     @deposits = Deposit.where(user: current_user, cleared: false).order('date DESC')
     @register = Register.find_by(user: current_user, name: "Checking")
 
+    @reconciliation.setup_trans(reconciliation_params)
+
     if @reconciliation.save
-      @reconciliation.setup_trans(reconciliation_params)
       flash[:success] = "Successfully reconciled"
       redirect_to reconciliations_path
     else

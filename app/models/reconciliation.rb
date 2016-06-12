@@ -9,12 +9,13 @@ class Reconciliation < ActiveRecord::Base
   validates :ending_balance, presence: true
 
   # HOOKS
+  after_create :create_discrepancies
   after_create :mark_trans_cleared
   after_destroy :mark_trans_uncleared
 
   def setup_trans(params)
-    checks = Check.where(user: self.user, cleared: false).order('date DESC')
-    deposits = Deposit.where(user: self.user, cleared: false).order('date DESC')
+    checks = Check.where(user: self.user, cleared: false)
+    deposits = Deposit.where(user: self.user, cleared: false)
     register = Register.find_by(user: self.user, name: "Checking")
 
     cleared_balance = register.cleared_balance
@@ -39,8 +40,11 @@ class Reconciliation < ActiveRecord::Base
 
     # consider removing cleared_balance column as it does not appear to be in use
     self.cleared_balance = cleared_balance
+  end
 
+  def create_discrepancies
     difference = self.ending_balance - cleared_balance
+
     unless difference == 0
       if difference > 0
         # enter check
