@@ -32,7 +32,7 @@ $(document).on('turbolinks:load', function() {
     });
 
     format_currency('#reconcile_cleared_balance', total);
-    format_currency('#reconcile_difference', total - ending_balance)
+    format_currency('#reconcile_difference', ending_balance - total)
   }
 
   $('.reconcile_select_all').click(function() {
