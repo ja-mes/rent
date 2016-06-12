@@ -35,8 +35,6 @@ class ReconciliationTest < ActiveSupport::TestCase
     assert_equal @rec.checks.count, checks.count
     assert_equal @rec.deposits.count, deposits.count
 
-    debugger
-
     assert_equal @rec.cleared_balance, deposits.first.amount - checks.sum(:amount)
   end
 
@@ -44,8 +42,11 @@ class ReconciliationTest < ActiveSupport::TestCase
     @rec.ending_balance = 500
     @rec.cleared_balance = 520
 
+    check = nil
     assert_difference ["Check.count", "AccountTran.count", "Tran.count"] do
-      @rec.create_discrepancies
+      check = @rec.create_discrepancies
     end
+
+    assert_equal check.amount, 20
   end
 end

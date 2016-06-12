@@ -45,6 +45,8 @@ class Reconciliation < ActiveRecord::Base
         check = Check.enter_reconciliation_discrepancy(user, difference.abs)
         self.checks << check
         self.cleared_balance += difference
+
+        check
       end
     end
   end
