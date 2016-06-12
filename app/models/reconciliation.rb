@@ -37,9 +37,6 @@ class Reconciliation < ActiveRecord::Base
         end
       end
     end
-
-    # consider removing cleared_balance column as it does not appear to be in use
-    self.cleared_balance = cleared_balance
   end
 
   def create_discrepancies
