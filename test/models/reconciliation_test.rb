@@ -21,7 +21,7 @@ class ReconciliationTest < ActiveSupport::TestCase
 
   test "setup trans should get selected checks and deposits ready for reconcile" do
     checks = Check.where(user: users(:one), cleared: false)
-    deposits = Deposit.where(user: users(:one), cleared: false)
+    deposits = Deposit.where(user: users(:one), cleared: false).limit(1)
     
     # {"date(2i)"=>"6", "date(3i)"=>"12", "date(1i)"=>"2016", "ending_balance"=>"30", "deposits"=>{"1"=>{"selected"=>"on"}}, "checks"=>{"4"=>{"selected"=>"on"}}}
     params = {date: "06/07/2016", ending_balance: 30, checks: {
@@ -31,10 +31,21 @@ class ReconciliationTest < ActiveSupport::TestCase
     }}
 
     @rec.setup_trans(params, registers(:one).cleared_balance, checks, deposits)
-
+     
     assert_equal @rec.checks.count, checks.count
-    assert_equal @rec.deposits.size, deposits.count
+    assert_equal @rec.deposits.count, deposits.count
 
-    assert_equal @rec.cleared_balance, deposits.sum(:amount) - checks.sum(:amount)
+    debugger
+
+    assert_equal @rec.cleared_balance, deposits.first.amount - checks.sum(:amount)
+  end
+
+  test "create_discrepancies should create check if difference is < 0" do
+    @rec.ending_balance = 500
+    @rec.cleared_balance = 520
+
+    assert_difference ["Check.count", "AccountTran.count", "Tran.count"] do
+      @rec.create_discrepancies
+    end
   end
 end
