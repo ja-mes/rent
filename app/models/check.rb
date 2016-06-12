@@ -83,5 +83,7 @@ class Check < ActiveRecord::Base
 
     check.save
     account_tran.save
+
+    check
   end
 end
