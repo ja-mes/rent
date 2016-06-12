@@ -16,12 +16,11 @@ class ReconciliationsController < ApplicationController
   def create
     @reconciliation = current_user.reconciliations.new(reconciliation_params.except(:deposits, :checks))
 
-    # TODO pass theses records to prepare method instead of reloading them
     @checks = Check.where(user: current_user, cleared: false).order('date DESC')
     @deposits = Deposit.where(user: current_user, cleared: false).order('date DESC')
     @register = Register.find_by(user: current_user, name: "Checking")
 
-    @reconciliation.setup_trans(reconciliation_params)
+    @reconciliation.setup_trans(reconciliation_params, @register.cleared_balance, @checks, @deposits)
 
     if @reconciliation.save
       flash[:success] = "Successfully reconciled"

@@ -13,13 +13,7 @@ class Reconciliation < ActiveRecord::Base
   after_create :create_discrepancies, :update_register, :mark_trans_cleared
   after_destroy :mark_trans_uncleared
 
-  def setup_trans(params)
-    checks = Check.where(user: self.user, cleared: false)
-    deposits = Deposit.where(user: self.user, cleared: false)
-    register = Register.find_by(user: self.user, name: "Checking")
-
-    cleared_balance = register.cleared_balance
-
+  def setup_trans(params, cleared_balance, checks, deposits)
     if params[:deposits]
       deposits.each do |d|
         if params[:deposits].key?(d.id.to_s)
