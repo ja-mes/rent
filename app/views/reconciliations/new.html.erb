@@ -31,7 +31,7 @@
               <tr>
                 <td><input name="reconciliation[checks][<%= check.id %>][selected]" type="checkbox" class="reconcile_check_box" /></td>
                 <td><%= check.num %></td>
-                <td><%= check.vendor.name %></td>
+                <td><%= check.vendor.name if check.vendor %></td>
                 <td><%= check.date.strftime("%m/%d/%Y") %></td>
                 <td class="reconcile_amount reconcile_check_amount"><%= number_to_currency check.amount %></td>
               </tr>
