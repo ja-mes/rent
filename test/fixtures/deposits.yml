@@ -9,3 +9,4 @@ two:
   user: one
   amount: 9.99
   date: 2016-04-28
+  cleared: true
