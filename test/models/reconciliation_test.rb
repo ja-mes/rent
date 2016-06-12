@@ -31,5 +31,10 @@ class ReconciliationTest < ActiveSupport::TestCase
     }}
 
     @rec.setup_trans(params, registers(:one).cleared_balance, checks, deposits)
+
+    assert_equal @rec.checks.count, checks.count
+    assert_equal @rec.deposits.size, deposits.count
+
+    assert_equal @rec.cleared_balance, deposits.sum(:amount) - checks.sum(:amount)
   end
 end

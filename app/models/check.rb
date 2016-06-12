@@ -39,7 +39,6 @@ class Check < ActiveRecord::Base
   end
 
   after_update do
-    debugger 
     self.tran.update_attributes(date: self.date)
   end
 
