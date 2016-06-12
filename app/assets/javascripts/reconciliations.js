@@ -32,6 +32,17 @@ $(document).on('turbolinks:load', function() {
     });
 
     format_currency('#reconcile_cleared_balance', total);
+
+    var difference = ending_balance - total;
+
+    if (difference != 0) {
+      $('#reconcile_adj_messg').show();
+      format_currency('#reconcile_adj_messg #adj_amount', difference)
+    }
+    else {
+      $('#reconcile_adj_messg').hide()
+    }
+
     format_currency('#reconcile_difference', ending_balance - total)
   }
 

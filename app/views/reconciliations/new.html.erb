@@ -88,7 +88,14 @@
     </div>
 
     <div class="col-md-9">
-      <%= f.submit "Reconcile", class: "btn btn-primary pull-xs-right" %>
+      <div class="form-group pull-xs-right">
+        <p id="reconcile_adj_messg" style="display:none">Auto adjustment will be entered for <strong id="adj_amount">$0.00</strong</p>
+
+        <div class="pull-xs-right">
+        <%= f.submit "Reconcile", class: "btn btn-primary" %>
+        </div>
+      </div>
+
     </div>
   </div>
 
