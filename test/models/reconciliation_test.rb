@@ -66,4 +66,17 @@ class ReconciliationTest < ActiveSupport::TestCase
     @rec.checks.each {|c| assert c.reload.cleared }
     @rec.deposits.each {|d| assert d.reload.cleared }
   end
+
+  test "mark trans uncleared" do
+    @rec.checks = Check.where(user: users(:one), cleared: false)
+    @rec.deposits = Deposit.where(user: users(:one), cleared: false)
+
+    @rec.checks.each {|c| c.cleared = false }
+    @rec.deposits.each {|d| d.cleared = false }
+
+    @rec.mark_trans_uncleared
+
+    @rec.checks.each {|c| assert_not c.reload.cleared }
+    @rec.deposits.each {|d| assert_not d.reload.cleared }
+  end
 end
