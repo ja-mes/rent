@@ -28,3 +28,10 @@ six:
   balance: 0.00
   account_type: expenses
   user: one
+
+reconcile_discrepancies:
+  name: "Reconciliation Discrepancies"
+  balance: 0.00
+  account_type: expenses
+  required: true
+  user: one

@@ -127,4 +127,25 @@ class CheckTest < ActiveSupport::TestCase
     assert_equal check.memo, tran.memo
     assert_equal check.vendor_id, tran.charge_id
   end
+
+  test "enter_reconciliation_discrepancy should enter vendorless checks for reconciliation discrepancy" do
+    assert_difference ['Check.count', 'AccountTran.count', 'Tran.count'] do
+      check = Check.enter_reconciliation_discrepancy(users(:one), 35)
+      account_tran = check.account_trans.first
+
+      assert_equal check.user, users(:one)
+      assert_equal check.num, "ADJ"
+      assert_equal check.date, Date.today
+      assert_equal check.amount, 35
+      assert_equal check.memo, "Reconcile adjustment"
+
+      assert_equal check.account_trans.count, 1
+      assert_equal account_tran.user, users(:one)
+      assert_equal account_tran.account, accounts(:reconcile_discrepancies)
+      assert_equal account_tran.amount, -35
+      assert_equal account_tran.memo, ""
+      assert_nil account_tran.property
+      assert_equal account_tran.date, check.date
+    end
+  end
 end
