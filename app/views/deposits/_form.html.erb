@@ -4,51 +4,55 @@
   <%= render 'shared/errors', obj: @deposit %>
 </div>
 
-<%= form_for @deposit, html: { id: "deposit_form" } do |f| %>
-  <div class="form-group margin-20">
-    <%= f.date_select :date, order: [:month, :day, :year] %>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <span class="pull-right">
-        <%= f.number_field :discrepancies, value: number_with_precision(f.object.discrepancies, precision: 2), step: 0.01, placeholder: "Discrepancies", class: "form-control" %>
-      </span>
-      <h4>$0.00</h4>
+<% unless @deposit.internal? %>
+  <%= form_for @deposit, html: { id: "deposit_form" } do |f| %>
+    <div class="form-group margin-20">
+      <%= f.date_select :date, order: [:month, :day, :year] %>
     </div>
 
-    <div class="card-block">
-      <table class="table">
-        <thead>
-          <th><input type="checkbox" class="deposit_check_box_select_all" /></th>
-          <th>Received From</th>
-          <th>Date</th>
-          <th>Amount</th>
-        </thead>
+    <div class="card">
+      <div class="card-header">
+        <span class="pull-right">
+          <%= f.number_field :discrepancies, value: number_with_precision(f.object.discrepancies, precision: 2), step: 0.01, placeholder: "Discrepancies", class: "form-control" %>
+        </span>
+        <h4>$0.00</h4>
+      </div>
 
-        <tbody>
-          <% @payments.each_with_index do |payment, i| %>
-            <tr>
-              <td>
-                <input type="checkbox" name="deposit[payment][<%= payment.id %>][selected]" class="deposit_check_box"/>
-              </td>
+      <div class="card-block">
+        <table class="table">
+          <thead>
+            <th><input type="checkbox" class="deposit_check_box_select_all" /></th>
+            <th>Received From</th>
+            <th>Date</th>
+            <th>Amount</th>
+          </thead>
 
-              <td><%= link_to payment.customer.full_name, edit_customer_payment_path(payment.customer, payment) %></td>
-              <td><%= payment.date %></td>
-              <td class="deposit_amount"><%= number_to_currency(payment.amount) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+          <tbody>
+            <% @payments.each_with_index do |payment, i| %>
+              <tr>
+                <td>
+                  <input type="checkbox" name="deposit[payment][<%= payment.id %>][selected]" class="deposit_check_box"/>
+                </td>
+
+                <td><%= link_to payment.customer.full_name, edit_customer_payment_path(payment.customer, payment) %></td>
+                <td><%= payment.date %></td>
+                <td class="deposit_amount"><%= number_to_currency(payment.amount) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <%= f.submit class: "btn btn-primary" %>
-    <% unless @deposit.new_record? %>
-      <%= link_to 'Delete', deposit_path(@deposit), method: :delete, class: "btn btn-danger" %>
-    <% end %>
-  </div>
+    <div class="form-group">
+      <%= f.submit class: "btn btn-primary" %>
+      <% unless @deposit.new_record? %>
+        <%= link_to 'Delete', deposit_path(@deposit), method: :delete, class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Internal deposit for <strong><%= number_to_currency @deposit.amount %></p>
 <% end %>
 
 <% unless @deposit.new_record? %>
