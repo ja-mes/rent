@@ -31,6 +31,15 @@ class ReconciliationsController < ApplicationController
     end
   end
 
+  def destroy
+    @reconciliation = Reconciliation.find(params[:id])
+    require_same_user(@reconciliation)
+
+    @reconciliation.destroy
+    redirect_to reconciliations_path
+  end
+
+
   private
   def reconciliation_params
     params.require(:reconciliation).permit(:date, :ending_balance, deposits: [:id, :selected], checks: [:id, :selected])

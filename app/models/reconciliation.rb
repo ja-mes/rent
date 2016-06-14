@@ -11,6 +11,7 @@ class Reconciliation < ActiveRecord::Base
   # HOOKS
   before_save :create_discrepancies
   after_create :create_discrepancies, :update_register, :mark_trans_cleared
+  before_destroy :remove_reconciliation_from_register
   after_destroy :mark_trans_uncleared
 
   def setup_trans(params, cleared_balance, checks, deposits)
@@ -60,6 +61,14 @@ class Reconciliation < ActiveRecord::Base
   def update_register
     register = Register.find_by(user: self.user, name: "Checking")
     register.update_attribute(:cleared_balance, cleared_balance)
+  end
+
+  def remove_reconciliation_from_register
+    register = Register.find_by(user: self.user, name: "Checking")
+    
+    amount = deposits.sum(:amount) - checks.sum(:amount)
+
+    register.decrement!(:cleared_balance, amount)
   end
 
   def mark_trans_cleared
