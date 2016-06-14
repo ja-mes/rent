@@ -58,4 +58,14 @@ class ReconciliationsControllerTest < ActionController::TestCase
     post :create, reconciliation: {}
     assert_redirected_to new_user_session_path
   end
+
+  
+  # DELETE destroy
+  test "delete destroy" do
+    sign_in :user, users(:one)
+
+    assert_difference 'Reconciliation.count', -1 do
+      delete :destroy, id: reconciliations(:one)
+    end
+  end
 end
