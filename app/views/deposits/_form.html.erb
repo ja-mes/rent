@@ -4,8 +4,8 @@
   <%= render 'shared/errors', obj: @deposit %>
 </div>
 
-<% unless @deposit.internal? %>
-  <%= form_for @deposit, html: { id: "deposit_form" } do |f| %>
+<%= form_for @deposit, html: { id: "deposit_form" } do |f| %>
+  <% unless @deposit.internal? %>
     <div class="form-group margin-20">
       <%= f.date_select :date, order: [:month, :day, :year] %>
     </div>
@@ -43,16 +43,19 @@
         </table>
       </div>
     </div>
-
-    <div class="form-group">
-      <%= f.submit class: "btn btn-primary" %>
-      <% unless @deposit.new_record? %>
-        <%= link_to 'Delete', deposit_path(@deposit), method: :delete, class: "btn btn-danger" %>
-      <% end %>
-    </div>
+  <% else %>
+    <p>Internal deposit for <strong><%= number_to_currency @deposit.amount %></strong></p><br>
   <% end %>
-<% else %>
-  <p>Internal deposit for <strong><%= number_to_currency @deposit.amount %></p>
+
+  <div class="form-group">
+    <% unless @deposit.internal? %>
+      <%= f.submit class: "btn btn-primary" %>
+    <% end %>
+
+    <% unless @deposit.new_record? %>
+      <%= link_to 'Delete', deposit_path(@deposit), method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </div>
 <% end %>
 
 <% unless @deposit.new_record? %>
