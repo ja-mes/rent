@@ -1,13 +1,11 @@
 class Deposit < ActiveRecord::Base
-  attr_accessor :is_reconciliation_discrepancy
-
   belongs_to :user
   belongs_to :reconciliation
 
   has_one :tran, as: :transactionable, dependent: :destroy
 
   has_many :payments
-  validates_presence_of :payments, unless: :is_reconciliation_discrepancy
+  validates_presence_of :payments, unless: :internal
   has_many :account_trans, as: :account_transable, dependent: :destroy
 
   validates :user_id, presence: true
@@ -31,7 +29,7 @@ class Deposit < ActiveRecord::Base
     self.create_tran(user: self.user, date: self.date)
 
     account = nil
-    if self.is_reconciliation_discrepancy
+    if self.internal
       account = self.user.accounts.find_by(name: "Reconciliation Discrepancies")
     else
       account = self.user.accounts.find_by(name: "Undeposited Funds")
@@ -79,7 +77,7 @@ class Deposit < ActiveRecord::Base
   end
 
   def self.enter_reconciliation_discrepancy(user, amount)
-    deposit = Deposit.create(user: User.first, date: Date.today, amount: amount, is_reconciliation_discrepancy: true)
+    deposit = Deposit.create(user: User.first, date: Date.today, amount: amount, internal: true)
     deposit.calculate_balance
   end
 end
