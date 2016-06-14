@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612144141) do
+ActiveRecord::Schema.define(version: 20160614180022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160612144141) do
     t.decimal  "discrepancies"
     t.boolean  "cleared",           default: false, null: false
     t.integer  "reconciliation_id"
+    t.boolean  "internal",          default: false
   end
 
   create_table "invoices", force: :cascade do |t|
