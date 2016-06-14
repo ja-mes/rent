@@ -3,6 +3,7 @@ class ReconciliationsController < ApplicationController
 
   def index
     @reconciliations = current_user.reconciliations
+    @last_rec = current_user.reconciliations.last
   end
 
   def new
