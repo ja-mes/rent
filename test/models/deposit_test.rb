@@ -129,4 +129,15 @@ class DepositTest < ActiveSupport::TestCase
     @deposit.create_discrepancies
     assert_equal @deposit.account_trans.third.amount, 500.25
   end
+
+  test "enter_reconciliation_discrepancy should enter reconciliation adjustment" do
+    assert_difference ['Deposit.count', 'AccountTran.count', 'Tran.count'] do
+      deposit = Deposit.enter_reconciliation_discrepancy(users(:one), 500)
+      
+      assert_equal deposit.amount, 500
+      assert_equal deposit.user, users(:one)
+      assert_equal deposit.date, Date.today
+      assert deposit.internal
+    end
+  end
 end

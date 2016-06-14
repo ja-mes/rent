@@ -77,7 +77,9 @@ class Deposit < ActiveRecord::Base
   end
 
   def self.enter_reconciliation_discrepancy(user, amount)
-    deposit = Deposit.create(user: User.first, date: Date.today, amount: amount, internal: true)
+    deposit = Deposit.create(user: user, date: Date.today, amount: amount, internal: true)
     deposit.calculate_balance
+
+    deposit
   end
 end
