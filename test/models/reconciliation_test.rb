@@ -42,12 +42,24 @@ class ReconciliationTest < ActiveSupport::TestCase
     @rec.ending_balance = 500
     @rec.cleared_balance = 520
 
-    check = nil
     assert_difference ["Check.count", "AccountTran.count", "Tran.count"] do
       check = @rec.create_discrepancies
-    end
 
-    assert_equal check.amount, 20
+      assert_equal check.amount, 20
+      assert_equal check.user, @rec.user
+    end
+  end
+
+  test "create_discrepancies should create deposit if difference is > 0" do
+    @rec.ending_balance = 500
+    @rec.cleared_balance = 480
+
+    assert_difference ["Deposit.count", "AccountTran.count", "Tran.count"] do
+      deposit = @rec.create_discrepancies
+
+      assert_equal deposit.amount, 20
+      assert_equal deposit.user, @rec.user
+    end
   end
 
   test "update register should update registers cleared balance" do
