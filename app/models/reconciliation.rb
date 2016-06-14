@@ -65,9 +65,7 @@ class Reconciliation < ActiveRecord::Base
 
   def remove_reconciliation_from_register
     register = Register.find_by(user: self.user, name: "Checking")
-    
     amount = deposits.sum(:amount) - checks.sum(:amount)
-
     register.decrement!(:cleared_balance, amount)
   end
 

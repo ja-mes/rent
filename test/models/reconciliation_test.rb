@@ -69,6 +69,18 @@ class ReconciliationTest < ActiveSupport::TestCase
     assert_equal registers(:one).cleared_balance, 300
   end
 
+  test "remove_reconciliation_from_register should decrement register for total of reconcilation" do
+    register = registers(:one)
+    @rec.checks = Check.where(user: users(:one), cleared: false)
+    @rec.deposits = Deposit.where(user: users(:one), cleared: false)
+
+    amount = @rec.deposits.sum(:amount) - @rec.checks.sum(:amount)
+
+    assert_difference 'register.reload.cleared_balance', -amount do
+      @rec.remove_reconciliation_from_register
+    end
+  end
+
   test "mark_trans_cleared" do
     @rec.checks = Check.where(user: users(:one), cleared: false)
     @rec.deposits = Deposit.where(user: users(:one), cleared: false)
