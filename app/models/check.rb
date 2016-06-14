@@ -78,7 +78,7 @@ class Check < ActiveRecord::Base
   def self.enter_reconciliation_discrepancy(user, amount)
     check = Check.new(user: user, num: "ADJ", date: Date.today, amount: amount, memo: "Reconcile adjustment", skip_tran_validation: true)
 
-    discrepancies = Account.find_by(name: "Reconciliation Discrepanices", user: user)
+    discrepancies = Account.find_by(name: "Reconciliation Discrepancies", user: user)
     account_tran = check.account_trans.new(user: user, account: discrepancies, amount: -amount, memo: "", property: nil, date: check.date)
 
     check.save

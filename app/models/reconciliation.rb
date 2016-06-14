@@ -43,6 +43,7 @@ class Reconciliation < ActiveRecord::Base
         # enter deposit
       elsif difference < 0
         check = Check.enter_reconciliation_discrepancy(user, difference.abs)
+
         self.checks << check
         self.cleared_balance += difference
 
