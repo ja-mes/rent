@@ -13,20 +13,23 @@ class UserTest < ActiveSupport::TestCase
     assert @user.grab_trans(customers(:one))
   end
 
-  test "after create should add default accounts" do
+
+  test "create_default_accounts should create default accounts" do
+    @user.accounts.destroy_all
     assert_difference 'Account.count', 7 do
-      @user = User.create(:email => 'never_before_used_email_address@blah.com', :password => 'password', :password_confirmation => 'password')
+      @user.create_default_accounts
     end
 
-    accounts = @user.accounts.limit(6)
 
-    assert_equal @user.accounts[0].name, "Rental Income"
-    assert_equal @user.accounts[1].name, "Checking"
-    assert_equal @user.accounts[2].name, "Security Deposits"
-    assert_equal @user.accounts[3].name, "Undeposited Funds"
-    assert_equal @user.accounts[4].name, "Deposit Discrepancies"
-    assert_equal @user.accounts[5].name, "Reconciliation Discrepancies"
-    assert_equal @user.accounts[6].name, "Repairs and Maintenance"
+    @user.registers.destroy_all
+    assert_difference 'Register.count', 1 do
+      @user.create_default_accounts
+    end
+
+    @user.account_types.destroy_all
+    assert_difference 'AccountType.count', 6 do
+      @user.create_default_accounts
+    end
   end
 
 end
