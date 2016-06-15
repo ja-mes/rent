@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   end
 
   def security_deposits_account
-    Account.find_or_create_by(name: "Security Deposits", account_type: other_current_liabilities_account_type, balance: 0, required: true, user: self)
+    Account.create_with(account_type: other_current_liabilities_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Security Deposits")
   end
 
   def undeposited_funds_account
@@ -109,14 +109,14 @@ class User < ActiveRecord::Base
   end
 
   def deposit_discrepancies_account
-    Account.find_or_create_by(name: "Deposit Discrepancies", account_type: expenses_account_type, balance: 0, required: true, user: self)
+    Account.create_with(account_type: expenses_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Deposit Discrepancies")
   end
 
   def reconciliaton_discrepancies_account
-    Account.find_or_create_by(name: "Reconciliation Discrepancies", account_type: expenses_account_type, balance: 0, required: true, user: self)
+    Account.create_with(account_type: expenses_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Reconciliation Discrepancies")
   end
 
   def repairs_and_maintenance_account
-    Account.find_or_create_by(name: "Repairs and Maintenance", account_type: expenses_account_type, balance: 0, required: true, user: self)
+    Account.create_with(account_type: expenses_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Repairs and Maintenance")
   end
 end
