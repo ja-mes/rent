@@ -37,6 +37,7 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_difference ['Payment.count', 'Tran.count'], 1 do
       post :create, customer_id: customers(:one), payment: {
         customer_id: customers(:one).id,
+        method: "Money Order",
         amount: "300",
         date: "03/11/2016",
         memo: "hello world",
@@ -44,6 +45,7 @@ class PaymentsControllerTest < ActionController::TestCase
     end
 
     assert_equal assigns(:payment).account, accounts(:five)
+    assert_equal assigns(:payment).method, "Money Order"
     assert_equal assigns(:payment).customer.balance, -300.00
     assert_redirected_to customers(:one)
     assert_not_nil assigns(:payment)
@@ -104,11 +106,13 @@ class PaymentsControllerTest < ActionController::TestCase
     sign_in :user, users(:one)
     put :update, customer_id: customers(:one), id: payments(:one), payment: {
       amount: "200",
+      method: "Cash",
       date: "05/08/2016",
       memo: "blah memo",
     }
 
     assert_equal assigns(:payment).amount, 200
+    assert_equal assigns(:payment).method, "Cash"
     assert_equal assigns(:payment).date, Date.strptime("05/08/2016", "%d/%m/%Y")
     assert_equal assigns(:payment).memo, "blah memo"
 
