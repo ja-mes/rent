@@ -43,6 +43,7 @@ class DepositsControllerTest < ActionController::TestCase
           }
         }
       }
+
     end
 
     deposit = assigns(:deposit)

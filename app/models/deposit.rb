@@ -66,12 +66,12 @@ class Deposit < ActiveRecord::Base
   end
 
   def remove_amount
-    account = current_user.checkbook
+    account = self.user.checkbook
     account.increment!(:balance, by = -self.amount)
   end
 
   def calculate_balance(old_amount = nil)
-    account = current_user.checkbook
+    account = self.user.checkbook
     account.increment(:balance, by = -old_amount) if old_amount
     account.increment!(:balance, by = self.amount)
   end
