@@ -70,6 +70,16 @@ class CheckTest < ActiveSupport::TestCase
     end
   end
 
+  test "remove if cleared should remove check amount from checkbook cleared balance" do
+    checkbook = registers(:one)
+    @check.cleared = true
+    @check.amount = 500
+
+    assert_difference "checkbook.reload.cleared_balance", 500 do
+      @check.remove_cleared
+    end
+  end
+
   test "after_create should update account balance" do
     account = registers(:one)
     check = @check.dup
