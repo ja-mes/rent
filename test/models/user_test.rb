@@ -31,5 +31,4 @@ class UserTest < ActiveSupport::TestCase
       @user.create_default_accounts
     end
   end
-
 end
