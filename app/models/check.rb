@@ -15,6 +15,7 @@ class Check < ActiveRecord::Base
 
   # HOOKS
   before_update :update_if_cleared
+  before_destory :remove_cleared
 
   def totals_must_equal
     amount = 0
@@ -37,6 +38,10 @@ class Check < ActiveRecord::Base
       checkbook.increment(:cleared_balance, self.amount_was)
       checkbook.decrement!(:cleared_balance, self.amount)
     end
+  end
+
+  def remove_cleared
+    self.user.checkbook.increment!(:cleared_balance, self.amount) if self.cleared?
   end
 
   # account trans
