@@ -41,9 +41,11 @@ class PaymentsControllerTest < ActionController::TestCase
         amount: "300",
         date: "03/11/2016",
         memo: "hello world",
+        num: "foo"
       }
     end
 
+    assert_equal assigns(:payment).num, "foo"
     assert_equal assigns(:payment).account, accounts(:five)
     assert_equal assigns(:payment).method, "Money Order"
     assert_equal assigns(:payment).customer.balance, -300.00
@@ -109,8 +111,10 @@ class PaymentsControllerTest < ActionController::TestCase
       method: "Cash",
       date: "05/08/2016",
       memo: "blah memo",
+      num: "5"
     }
 
+    assert_equal assigns(:payment).num, "5"
     assert_equal assigns(:payment).amount, 200
     assert_equal assigns(:payment).method, "Cash"
     assert_equal assigns(:payment).date, Date.strptime("05/08/2016", "%d/%m/%Y")
