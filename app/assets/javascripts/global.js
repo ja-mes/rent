@@ -15,3 +15,4 @@ $(document).on('turbolinks:load', function() {
 
   $('.chosen_select').chosen()
 });
+

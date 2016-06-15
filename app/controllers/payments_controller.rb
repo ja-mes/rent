@@ -1,15 +1,14 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer
-  before_action :set_payment, only: [:edit, :update, :destroy]
+  before_action :set_payment, only: [:edit, :update, :destroy, :receipt]
 
   before_action do
     require_same_user(@customer)
   end
-  before_action only: [:edit, :update, :destroy] do
+  before_action only: [:edit, :update, :destroy, :receipt] do
     require_same_user(@payment)
   end
-
 
   def index
     redirect_to @customer
@@ -68,6 +67,7 @@ class PaymentsController < ApplicationController
   end
 
   def receipt
+    render layout: 'print'
   end
 
   private
