@@ -5,6 +5,7 @@ one:
   user: one
   account: five 
   customer_id: 1
+  method: "Cash"
 
 two:
   amount: 200
@@ -13,6 +14,7 @@ two:
   user: two
   account: five 
   customer: two
+  method: "Cash"
 
 three:
   amount: 200
@@ -22,6 +24,7 @@ three:
   customer_id: 1
   account: five 
   deposit: one
+  method: "Check"
 
 four:
   amount: 88.60  
@@ -30,6 +33,7 @@ four:
   user: one
   account: five 
   customer_id: 1
+  method: "Money Order"
 
 five:
   amount: 68.20
@@ -39,3 +43,4 @@ five:
   customer_id: 1
   account: five 
   deposit: one
+  method: "Cash"

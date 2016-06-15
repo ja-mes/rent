@@ -37,6 +37,15 @@ class PaymentTest < ActiveSupport::TestCase
     assert_not @payment.valid?
   end
 
+  test "method should be present" do
+    @payment.method = nil
+    assert_not @payment.valid?
+  end
+
+  test "method should be in list" do
+    @payment.method = 'foo'
+    assert_not @payment.valid?
+  end
 
   test "before_create should create account_tran" do
     payment = @payment.dup
