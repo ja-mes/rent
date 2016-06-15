@@ -15,6 +15,11 @@ other_current_assets:
   name: "Other Current Assets"
   inc: true
 
+other_current_liabilities:
+  user: one
+  name: "Other Current Liabilities"
+  inc: false
+
 other_income:
   user: one
   name: "Other Income"

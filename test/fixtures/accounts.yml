@@ -29,3 +29,9 @@ reconcile_discrepancies:
   account_type: expenses
   required: true
   user: one
+
+repairs:
+  name: "Repairs and Maintenance" 
+  account_type: expenses
+  required: true
+  user: one
