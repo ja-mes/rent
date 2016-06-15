@@ -62,7 +62,60 @@ class User < ActiveRecord::Base
 
 
   # ACCOUNT METHODS
+
+  # registers
   def checkbook
     Register.find_or_create_by(user: self, name: "Checking")
+  end
+
+  
+  # account types
+  def income_account_type
+    AccountType.find_or_create_by(user: self, name: "Income", inc: true)
+  end
+
+  def bank_account_type
+    AccountType.find_or_create_by(user: self, name: "Bank", inc: true)
+  end
+
+  def other_current_assets_account_type
+    AccountType.find_or_create_by(user: self, name: "Other Current Assets", inc: true)
+  end
+
+  def other_current_liabilities_account_type
+    AccountType.find_or_create_by(user: self, name: "Other Current Liabilities", inc: false)
+  end
+
+  def other_income_account_type
+    AccountType.find_or_create_by(user: self, name: "Other Income", inc: true)
+  end
+
+  def expenses_account_type
+    AccountType.find_or_create_by(user: self, name: "Expenses", inc: false)
+  end
+
+  # accounts
+  def rental_income_account
+    Account.find_or_create_by(name: "Rental Income", account_type: income_account_type, balance: 0, required: true, user: self)
+  end
+
+  def security_deposits_account
+    Account.find_or_create_by(name: "Security Deposits", account_type: other_current_liabilities, balance: 0, required: true, user: self)
+  end
+
+  def undeposited_funds_account
+    Account.find_or_create_by(name: "Undeposited Funds", account_type: other_current_assets, balance: 0, required: true, user: self)
+  end
+
+  def deposit_discrepancies_account
+    Account.find_or_create_by(name: "Deposit Discrepancies", account_type: expenses, balance: 0, required: true, user: self)
+  end
+
+  def reconciliaton_discrepancies_account
+    Account.find_or_create_by(name: "Reconciliation Discrepancies", account_type: expenses, balance: 0, required: true, user: self)
+  end
+
+  def repairs_and_maintenance_account
+    Account.find_or_create_by(name: "Repairs and Maintenance", account_type: expenses, balance: 0, required: true, user: self)
   end
 end
