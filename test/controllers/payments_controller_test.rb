@@ -213,4 +213,13 @@ class PaymentsControllerTest < ActionController::TestCase
 
     assert_redirected_to root_path
   end
+
+  test "receipt should work" do
+    sign_in :user, users(:one)
+
+    get :receipt, customer_id: customers(:one), id: payments(:one)
+
+    assert_response :success
+    assert_not_nil assigns(:payment)
+  end
 end
