@@ -31,4 +31,15 @@ class UserTest < ActiveSupport::TestCase
       @user.create_default_accounts
     end
   end
+
+  test "checkbook should find or create checking register" do
+    checkbook = registers(:one)
+    assert_equal users(:one).checkbook, checkbook
+
+    checkbook.destroy
+    
+    assert_difference 'Register.count' do
+      users(:one).checkbook
+    end
+  end
 end
