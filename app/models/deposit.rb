@@ -28,7 +28,7 @@ class Deposit < ActiveRecord::Base
   end
 
   def remove_cleared
-    self.user.checkbook.increment!(:cleared_balance, self.amount) if self.cleared?
+    self.user.checkbook.decrement!(:cleared_balance, self.amount) if self.cleared?
   end
 
   def create_discrepancies
