@@ -59,12 +59,12 @@ class Reconciliation < ActiveRecord::Base
   end
 
   def update_register
-    register = current_user.checkbook
+    register = self.user.checkbook
     register.update_attribute(:cleared_balance, cleared_balance)
   end
 
   def remove_reconciliation_from_register
-    register = current_user.checkbook
+    register = self.user.checkbook
     amount = deposits.sum(:amount) - checks.sum(:amount)
     register.decrement!(:cleared_balance, amount)
   end

@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
   
   # accounts
   def rental_income_account
-    Account.find_or_create_by(name: "Rental Income", account_type: income_account_type, balance: 0, required: true, user: self)
+    Account.create_with(account_type: income_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Rental Income")
   end
 
   def security_deposits_account
