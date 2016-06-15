@@ -10,7 +10,7 @@ class ReconciliationsController < ApplicationController
     @reconciliation = Reconciliation.new
     @checks = Check.where(user: current_user, cleared: false).order('date DESC')
     @deposits = Deposit.where(user: current_user, cleared: false).order('date DESC')
-    @register = Register.find_by(user: current_user, name: "Checking")
+    @register = current_user.checkbook
     render layout: "fluid"
   end
   
@@ -19,7 +19,7 @@ class ReconciliationsController < ApplicationController
 
     @checks = Check.where(user: current_user, cleared: false).order('date DESC')
     @deposits = Deposit.where(user: current_user, cleared: false).order('date DESC')
-    @register = Register.find_by(user: current_user, name: "Checking")
+    @register = current_user.checkbook
 
     @reconciliation.setup_trans(reconciliation_params, @register.cleared_balance, @checks, @deposits)
 

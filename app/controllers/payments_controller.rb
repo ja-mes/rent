@@ -22,7 +22,7 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(payment_params)
     @payment.user = current_user
-    @payment.account = Account.find_by(user: current_user, name: "Undeposited Funds")
+    @payment.account = current_user.undeposited_funds_account
 
     if @payment.save
       flash[:success] = "Payment successfully created"

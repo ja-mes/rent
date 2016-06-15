@@ -20,7 +20,7 @@ class Deposit < ActiveRecord::Base
 
   def create_discrepancies
     if self.discrepancies
-      discrepancies_account = self.user.accounts.find_by(name: "Deposit Discrepancies")
+      discrepancies_account = self.user.deposit_discrepancies_account
       self.account_trans.create(user: self.user, date: self.date, amount: self.discrepancies, account_id: discrepancies_account.id)
     end
   end
@@ -30,9 +30,9 @@ class Deposit < ActiveRecord::Base
 
     account = nil
     if self.internal
-      account = self.user.accounts.find_by(name: "Reconciliation Discrepancies")
+      account = self.user.reconciliaton_discrepancies_account
     else
-      account = self.user.accounts.find_by(name: "Undeposited Funds")
+      account = self.user.undeposited_funds_account
     end
 
     tran_amount = self.discrepancies ? self.amount - self.discrepancies : self.amount
@@ -66,12 +66,12 @@ class Deposit < ActiveRecord::Base
   end
 
   def remove_amount
-    account = Register.find_by(user: self.user, name: "Checking")
+    account = current_user.checkbook
     account.increment!(:balance, by = -self.amount)
   end
 
   def calculate_balance(old_amount = nil)
-    account = Register.find_by(user: self.user, name: "Checking")
+    account = current_user.checkbook
     account.increment(:balance, by = -old_amount) if old_amount
     account.increment!(:balance, by = self.amount)
   end

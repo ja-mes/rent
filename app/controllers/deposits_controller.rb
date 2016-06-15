@@ -11,14 +11,14 @@ class DepositsController < ApplicationController
 
   def new
     @deposit = Deposit.new
-    @account = Account.find_by(name: "Undeposited Funds", user: current_user)
+    @account = current_user.undeposited_funds_account
     @payments = @account.payments.where(deposit: nil)
   end
 
   def create
     @deposit = current_user.deposits.new(deposit_params)
     @deposit.amount = 0
-    @payments = Account.find_by(name: "Undeposited Funds", user: current_user).payments.where(deposit: nil)
+    @payments = current_user.undeposited_funds_account.payments.where(deposit: nil)
 
     if payment_params.length > 0
       @payments.each do |p|
@@ -55,7 +55,7 @@ class DepositsController < ApplicationController
     old_discrepancies = @deposit.discrepancies || 0
 
     @deposit.assign_attributes(deposit_params)
-    @account = Account.find_by(name: "Undeposited Funds", user: current_user)
+    @account = current_user.undeposited_funds_account
     @payments = @deposit.payments
 
     if payment_params.length > 0

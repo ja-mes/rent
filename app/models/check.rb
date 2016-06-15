@@ -43,7 +43,7 @@ class Check < ActiveRecord::Base
 
   after_create do
     self.create_tran(user: self.user, date: self.date)
-    account = Register.find_by(user: self.user, name: "Checking")
+    account = current_user.checkbook
     account.increment!(:balance, by = -self.amount)
   end
 
@@ -52,12 +52,12 @@ class Check < ActiveRecord::Base
   end
 
   after_destroy do
-    account = Register.find_by(user: self.user, name: "Checking")
+    account = current_user.checkbook
     account.increment!(:balance, by = self.amount)
   end
 
   def calculate_balance(old_amount)
-    account = Register.find_by(user: self.user, name: "Checking")
+    account = current_user.checkbook
     account.increment(:balance, by = old_amount)
     account.increment!(:balance, by = -self.amount)
   end
@@ -87,7 +87,7 @@ class Check < ActiveRecord::Base
   def self.enter_reconciliation_discrepancy(user, amount)
     check = Check.new(user: user, num: "ADJ", date: Date.today, amount: amount, memo: "Reconcile adjustment", skip_tran_validation: true)
 
-    discrepancies = Account.find_by(name: "Reconciliation Discrepancies", user: user)
+    discrepancies = current_user.reconciliaton_discrepancies_account
     account_tran = check.account_trans.new(user: user, account: discrepancies, amount: -amount, memo: "", property: nil, date: check.date)
 
     check.save

@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
   end
 
   def undeposited_funds_account
-    Account.find_or_create_by(name: "Undeposited Funds", account_type: other_current_assets, balance: 0, required: true, user: self)
+    Account.find_or_create_by(name: "Undeposited Funds", account_type: other_current_assets_account_type, balance: 0, required: true, user: self)
   end
 
   def deposit_discrepancies_account

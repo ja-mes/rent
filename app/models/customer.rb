@@ -34,7 +34,7 @@ class Customer < ActiveRecord::Base
 
   def enter_rent(amount = self.rent, memo = nil, account_id = nil)
     memo ||= "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
-    account_id ||= Account.find_by(name: "Rental Income", user: self.user).id
+    account_id ||= self.user.rental_income_account.id
 
     invoice = self.invoices.build do |i|
       i.amount = amount
@@ -104,7 +104,7 @@ class Customer < ActiveRecord::Base
 
       account_tran = AccountTran.create do |c|
         c.user = self.user
-        c.account = Account.find_by(name: "Rental Income", user: self.user)
+        c.account = self.user.rental_income_account
         c.account_transable = credit
         c.amount = -credit.amount
         c.memo = credit.memo

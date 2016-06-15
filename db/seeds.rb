@@ -9,11 +9,11 @@ user = User.create!(email: "test@example.com", password: 'password', password_co
     invoice.skip_tran_validation = true
     invoice.save
 
-    AccountTran.create!(user: user, amount: invoice.amount, memo: invoice.memo, account: Account.find_by(name: "Rental Income"), property: Property.order("RANDOM()").first, date: invoice.date, account_transable: invoice)
+    AccountTran.create!(user: user, amount: invoice.amount, memo: invoice.memo, account: user.rental_income_account, property: Property.order("RANDOM()").first, date: invoice.date, account_transable: invoice)
   end
 
   3.times do
-    Payment.create!(user: user, customer: customer, amount: Faker::Commerce.price, date: Date.today, memo: Faker::Lorem.sentence, account: Account.find_by(name: "Undeposited Funds"))
+    Payment.create!(user: user, customer: customer, amount: Faker::Commerce.price, date: Date.today, memo: Faker::Lorem.sentence, account: user.undeposited_funds_account)
   end
 
 end
