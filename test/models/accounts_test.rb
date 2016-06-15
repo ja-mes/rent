@@ -16,11 +16,6 @@ class AccountsTest < ActiveSupport::TestCase
     assert_not @account.valid?
   end
 
-  test "balance should be present" do
-    @account.balance = nil
-    assert_not @account.valid?
-  end
-
   test "should not be able to updated required accounts" do
     first_name = @account.name
 

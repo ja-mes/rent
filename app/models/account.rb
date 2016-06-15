@@ -8,7 +8,6 @@ class Account < ActiveRecord::Base
   # VALIDATIONS
   validates :user_id, presence: true
   validates :name, presence: true
-  validates :balance, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ } 
   validates :account_type, presence: true
   validate :not_required, on: :update
 

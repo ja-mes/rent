@@ -1,37 +1,31 @@
 one: 
   id: 1
   name: "Rental Income"
-  balance: 0.00
   account_type: income
   user: one
   
 two: 
   name: "Pest Control"
-  balance: 0.00
   account_type: expenses
   user: one
 
 three:
   name: "Security Deposits"
-  balance: 0.00
   account_type: other_current_assets
   user: one
 
 five:
   name: "Undeposited Funds"
-  balance: 0.00
   account_type: other_current_assets
   user: one
 
 six:
   name: "Deposit Discrepancies"
-  balance: 0.00
   account_type: expenses
   user: one
 
 reconcile_discrepancies:
   name: "Reconciliation Discrepancies"
-  balance: 0.00
   account_type: expenses
   required: true
   user: one

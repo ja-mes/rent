@@ -3,9 +3,8 @@
 <table class="table table-hover row-links">
   <thead class="thead-default">
     <tr>
-      <th>Name</th>
       <th>Type</th>
-      <th>Balance</th>
+      <th>Name</th>
     </tr>
   </thead>
 
@@ -16,9 +15,8 @@
       <% else %>
           <tr data-link="<%= account_path a %>">
       <% end %>
-        <td><%= a.name %></td>
         <td><%= a.account_type.name %></td>
-        <td><%= number_to_currency(a.balance) %></td>
+        <td><%= a.name %></td>
       </tr>
     <% end %>
   </tbody>

@@ -2,7 +2,7 @@ user = User.create!(email: "test@example.com", password: 'password', password_co
 
 5.times do
   property = Property.create!(user: user, address: Faker::Address.street_address, state: Faker::Address.state_abbr, city: Faker::Address.city, zip: Faker::Address.zip, rent: Faker::Commerce.price, deposit: Faker::Commerce.price)
-  customer = Customer.create!(user: user, property: property, first_name: Faker::Name.first_name, middle_name: Faker::Name.first_name, last_name: Faker::Name.last_name, phone: Faker::PhoneNumber.cell_phone, alt_phone: Faker::PhoneNumber.phone_number, balance: 0, rent: 500, due_date: "1", active: true)
+  customer = Customer.create!(user: user, property: property, first_name: Faker::Name.first_name, middle_name: Faker::Name.first_name, last_name: Faker::Name.last_name, phone: Faker::PhoneNumber.cell_phone, alt_phone: Faker::PhoneNumber.phone_number, rent: 500, due_date: "1", active: true)
 
   2.times do
     invoice = Invoice.new(user: user, customer: customer, amount: Faker::Commerce.price, date: Date.today, memo: Faker::Lorem.sentence)
