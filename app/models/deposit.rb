@@ -11,12 +11,21 @@ class Deposit < ActiveRecord::Base
   validates :user_id, presence: true
   validates :date, presence: true
   validates_numericality_of :amount
-  #validates :discrepancies, allow_blank: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
   validates_numericality_of :discrepancies, allow_blank: true
 
   after_create :create_deposit_trans
   after_update :update_tran
   after_destroy :remove_amount
+  before_update :update_if_cleared
+
+  def update_if_cleared
+    if self.cleared?
+      checkbook = self.user.checkbook
+
+      checkbook.decrement(:cleared_balance, self.amount_was)
+      checkbook.increment!(:cleared_balance, self.amount)
+    end
+  end
 
   def create_discrepancies
     if self.discrepancies

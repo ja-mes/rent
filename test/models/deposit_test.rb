@@ -41,6 +41,17 @@ class DepositTest < ActiveSupport::TestCase
     assert @deposit.valid?
   end
 
+
+  test "update if cleared should update cleared balance for checkbook" do
+    checkbook = registers(:one)
+    @deposit.cleared = true
+    @deposit.amount = 500
+
+    assert_difference 'checkbook.reload.cleared_balance', 490.01 do
+      @deposit.update_if_cleared
+    end
+  end
+
   test "create_deposit_trans should create account_tran for deposit and discrepancies" do
     @deposit.account_trans = []
     @deposit.amount = 50
