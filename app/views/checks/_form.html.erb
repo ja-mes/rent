@@ -9,6 +9,7 @@
   <% end %>
 </h1>
 
+<%= render 'shared/cleared_warning', tran: @check %>
 <%= render 'shared/errors', obj: @check %>
 
 <%= form_for [@check], html: { style: "margin-top: 20px" } do |f| %>
