@@ -11,6 +11,7 @@ class Payment < ActiveRecord::Base
   validates :customer_id, presence: true
   validates :amount, presence: true, :format => { :with => /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
+  validates :method, presence: true, inclusion: { in: ['Cash', 'Check', 'Money Order'] }
 
   before_create do
     self.create_account_tran(user: self.user, date: self.date, amount: self.amount, memo: self.memo, account_id: self.account.id)
