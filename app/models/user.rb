@@ -21,8 +21,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  
-  after_create do
+
+  after_create do 
+    CreateDefaultAccountsJob.perform_later self.id
+  end
+
+  def create_default_accounts
     checkbook = Register.create(user: self, name: "Checking", balance: 0)
 
     income = AccountType.create(user: self, name: "Income", inc: true)
