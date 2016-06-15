@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   resources :properties
 
   resources :customers do
-    resources :payments
+    resources :payments do
+      get 'receipt', on: :member
+    end
+
     resources :invoices
     resources :credits
     resources :notes

@@ -67,6 +67,8 @@ class PaymentsController < ApplicationController
     redirect_to edit_customer_payment_path(@customer, params[:id])
   end
 
+  def receipt
+  end
 
   private
   def set_customer
