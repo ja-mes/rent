@@ -17,6 +17,7 @@ class Deposit < ActiveRecord::Base
   after_update :update_tran
   after_destroy :remove_amount
   before_update :update_if_cleared
+  before_destroy :remove_cleared
 
   def update_if_cleared
     if self.cleared?
