@@ -1,4 +1,16 @@
 $(document).on('turbolinks:load', function() {
+  $('#new_reconciliation').submit(function() {
+    var box = $('#reconcile_ending_balance');
+
+    if (box.val() === '' || isNaN(box.val())) {
+      box.closest('.form-group').addClass('has-danger');
+      event.preventDefault();
+    }
+    else {
+      box.closest('.form-group').removeClass('has-danger');
+    }
+  });
+
   function num_from_elem(elem) {
     if ($(elem)[0]) {
       if ($(elem)[0].nodeName.toLowerCase() === 'input') {

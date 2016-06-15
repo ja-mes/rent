@@ -6,7 +6,7 @@ class Reconciliation < ActiveRecord::Base
 
   # VALIDATIONS
   validates :user_id, presence: true
-  validates :ending_balance, presence: true
+  validates :ending_balance, presence: true, numericality: true
 
   # HOOKS
   before_save :create_discrepancies
