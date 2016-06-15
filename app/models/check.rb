@@ -15,7 +15,7 @@ class Check < ActiveRecord::Base
 
   # HOOKS
   before_update :update_if_cleared
-  before_destory :remove_cleared
+  before_destory :remove_if_cleared
 
   def totals_must_equal
     amount = 0
