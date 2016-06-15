@@ -60,6 +60,16 @@ class CheckTest < ActiveSupport::TestCase
     assert_not @check.valid?
   end
 
+  test "update_if_cleared should update cleared balance for checkbook" do
+    checkbook = registers(:one)
+    @check.cleared = true
+    @check.amount = 500
+
+    assert_difference "checkbook.reload.cleared_balance", -490.01 do
+      @check.update_if_cleared
+    end
+  end
+
   test "after_create should update account balance" do
     account = registers(:one)
     check = @check.dup

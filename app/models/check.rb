@@ -14,7 +14,7 @@ class Check < ActiveRecord::Base
   validate :totals_must_equal, unless: :skip_tran_validation
 
   # HOOKS
-  after_create :update_if_cleared
+  before_update :update_if_cleared
 
   def totals_must_equal
     amount = 0
@@ -32,7 +32,10 @@ class Check < ActiveRecord::Base
 
   def update_if_cleared
     if self.cleared?
-      #Register.find_by(name: "Checking")
+      checkbook = self.user.checkbook
+
+      checkbook.increment(:cleared_balance, self.amount_was)
+      checkbook.decrement!(:cleared_balance, self.amount)
     end
   end
 
