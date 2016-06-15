@@ -94,6 +94,7 @@ class User < ActiveRecord::Base
     AccountType.find_or_create_by(user: self, name: "Expenses", inc: false)
   end
 
+  
   # accounts
   def rental_income_account
     Account.find_or_create_by(name: "Rental Income", account_type: income_account_type, balance: 0, required: true, user: self)
