@@ -1,6 +1,16 @@
-<h1>Payment Receipt</h1>
+<h2 style="margin-bottom: 35px">Payment Receipt</h2>
 
 <div>
-  <p>Date: <strong><%= @payment.date %></strong></p>
-  <p>Received From: <strong><%= @payment.customer.full_name %></strong</p>
+  <p style="margin-bottom: 25px"><strong><%= @payment.date.strftime("%B %d, %Y") %></strong></p>
+
+  <p><%= @payment.customer.full_name %></p>
+  
+  <address style="margin-bottom: 50px">
+    <%= @payment.customer.property.address %><br>
+    <%= @payment.customer.property.city %>, <%= @payment.customer.property.state %> <%= @payment.customer.property.zip %>
+  </address>
+
+  <p>Payment Method: <strong>Cash</strong></p>
+  <p>Amount: <strong><%= number_to_currency @payment.amount %></strong></p>
+
 </div>
