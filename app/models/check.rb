@@ -1,17 +1,20 @@
 class Check < ActiveRecord::Base
   attr_accessor :skip_tran_validation
-
+  
+  # ASSOCIATIONS
   belongs_to :user
   belongs_to :reconciliation
   belongs_to :vendor
-
-  validates :user_id, presence: true
-
   has_one :tran, as: :transactionable, dependent: :destroy
 
+  # VALIDATIONS
+  validates :user_id, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
   validate :totals_must_equal, unless: :skip_tran_validation
+
+  # HOOKS
+  after_create :update_if_cleared
 
   def totals_must_equal
     amount = 0
@@ -24,6 +27,12 @@ class Check < ActiveRecord::Base
     amount *= -1
     unless amount == self.amount
       errors.add(:base, "Check total must equal expenses total")
+    end
+  end
+
+  def update_if_cleared
+    if self.cleared?
+      #Register.find_by(name: "Checking")
     end
   end
 

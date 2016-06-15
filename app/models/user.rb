@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  
   after_create do
     checkbook = Register.create(user: self, name: "Checking", balance: 0)
 
@@ -58,4 +59,10 @@ class User < ActiveRecord::Base
     ChargeRentJob.perform_later self.id
     EnterRecurringTransJob.perform_later self.id
   end 
+
+
+  # ACCOUNT METHODS
+  def checkbook
+    Register.find_or_create_by(user: self, name: "Checking")
+  end
 end
