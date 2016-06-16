@@ -16,7 +16,8 @@ end
 gem 'compass-rails'
 gem 'chosen-rails'
 gem 'faker'
-gem 'resque', require: 'resque/server'
+gem 'resque', "~> 1.22.0", require: 'resque/server'
+
 
 gem 'rails_12factor', group: :production
 gem 'puma'
