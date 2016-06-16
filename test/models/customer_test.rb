@@ -36,6 +36,18 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal properties(:two).rented, true
   end
 
+  test "payments for customer should be destroyed when customer is destroyed" do
+    assert_difference 'Payment.count', -4 do
+      @customer.destroy
+    end
+  end
+
+  test "invoices for customer should be destroyed when customer is destoryed" do
+    assert_difference 'Invoice.count', -1 do
+      @customer.destroy
+    end
+  end
+
   test "enter rent should enter rent for the customer" do
     invoice = nil
 

@@ -2,8 +2,8 @@ class Customer < ActiveRecord::Base
   # ASSOCIATIONS
   belongs_to :user
   belongs_to :property
-  has_many :payments
-  has_many :invoices
+  has_many :payments, dependent: :destroy
+  has_many :invoices, dependent: :destroy
   has_many :trans
   has_many :notes
   has_many :credits
