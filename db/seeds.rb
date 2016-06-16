@@ -13,7 +13,7 @@ user = User.create!(email: "test@example.com", password: 'password', password_co
   end
 
   3.times do
-    Payment.create!(user: user, customer: customer, amount: Faker::Commerce.price, date: Date.today, memo: Faker::Lorem.sentence, account: user.undeposited_funds_account)
+    Payment.create!(user: user, customer: customer, method: "Cash", amount: Faker::Commerce.price, date: Date.today, memo: Faker::Lorem.sentence, account: user.undeposited_funds_account)
   end
 
 end
