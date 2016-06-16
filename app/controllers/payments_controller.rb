@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer
+  before_action :set_vars, except: [:index, :show, :destroy]
   before_action :set_payment, only: [:edit, :update, :destroy, :receipt]
 
   before_action do
@@ -81,5 +82,9 @@ class PaymentsController < ApplicationController
 
   def payment_params
     params.require(:payment).permit(:customer_id, :method, :amount, :date, :memo, :num)
+  end
+
+  def set_vars
+    @customers = Customer.where(user: current_user, active: true)
   end
 end
