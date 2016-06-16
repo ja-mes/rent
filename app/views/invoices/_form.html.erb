@@ -13,7 +13,14 @@
 
   <div class="form-group">
     <%= f.label :customer %>
-    <%= f.collection_select :customer_id, @customers, :id, :full_name, { selected: @customer.id }, class: "form-control chosen_select" %>
+    <% if @customer.active? %>
+      <%= f.collection_select :customer_id, @customers, :id, :full_name, { selected: @customer.id }, class: "form-control chosen_select" %>
+    <% else %>
+      <%= f.select :customer_id, nil, {}, class: "form-control chosen_select" do %>
+        <%= content_tag(:option, @customer.full_name, value: @customer.id) %>
+        <%= options_from_collection_for_select @customers, :id, :full_name %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="form-group">
