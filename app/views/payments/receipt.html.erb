@@ -10,7 +10,8 @@
     <%= @payment.customer.property.city %>, <%= @payment.customer.property.state %> <%= @payment.customer.property.zip %>
   </address>
 
-  <p>Payment Method: <strong>Cash</strong></p>
   <p>Amount: <strong><%= number_to_currency @payment.amount %></strong></p>
+  <p>Payment Method: <strong><%= @payment.method %></strong></p>
+  <p>Reference number: <strong><%= @payment.num %></strong>
 
 </div>
