@@ -28,7 +28,7 @@ class Payment < ActiveRecord::Base
   end
 
   after_destroy do
-    self.customer.increment!(:balance, by = self.amount)
+    self.customer.increment!(:balance, by = self.amount) if self.customer
   end
 
   def calculate_balance(old_amount, old_customer)
