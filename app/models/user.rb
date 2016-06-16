@@ -99,26 +99,26 @@ class User < ActiveRecord::Base
   
   # accounts
   def rental_income_account
-    Account.create_with(account_type: income_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Rental Income")
+    Account.create_with(account_type: income_account_type, balance: 0, required: true).find_or_create_by(name: "Rental Income", user: self)
   end
 
   def security_deposits_account
-    Account.create_with(account_type: other_current_liabilities_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Security Deposits")
+    Account.create_with(account_type: other_current_liabilities_account_type, balance: 0, required: true).find_or_create_by(name: "Security Deposits", user: self)
   end
 
   def undeposited_funds_account
-    Account.create_with(account_type: other_current_assets_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Undeposited Funds")
+    Account.create_with(account_type: other_current_assets_account_type, balance: 0, required: true).find_or_create_by(name: "Undeposited Funds", user: self)
   end
 
   def deposit_discrepancies_account
-    Account.create_with(account_type: expenses_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Deposit Discrepancies")
+    Account.create_with(account_type: expenses_account_type, balance: 0, required: true).find_or_create_by(name: "Deposit Discrepancies", user: self)
   end
 
   def reconciliaton_discrepancies_account
-    Account.create_with(account_type: expenses_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Reconciliation Discrepancies")
+    Account.create_with(account_type: expenses_account_type, balance: 0, required: true).find_or_create_by(name: "Reconciliation Discrepancies", user: self)
   end
 
   def repairs_and_maintenance_account
-    Account.create_with(account_type: expenses_account_type, balance: 0, required: true, user: self).find_or_create_by(name: "Repairs and Maintenance")
+    Account.create_with(account_type: expenses_account_type, balance: 0, required: true).find_or_create_by(name: "Repairs and Maintenance", user: self)
   end
 end

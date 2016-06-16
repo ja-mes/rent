@@ -40,5 +40,4 @@ class Payment < ActiveRecord::Base
       self.customer.increment!(:balance, by = -self.amount)
     end
   end
-
 end

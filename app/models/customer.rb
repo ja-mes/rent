@@ -36,6 +36,8 @@ class Customer < ActiveRecord::Base
     memo ||= "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
     account_id ||= self.user.rental_income_account.id
 
+    debugger
+
     invoice = self.invoices.build do |i|
       i.amount = amount
       i.date = Date.today
