@@ -18,6 +18,9 @@ gem 'chosen-rails'
 gem 'faker'
 gem 'resque', require: 'resque/server'
 
+gem 'rails_12factor', group: :production
+gem 'puma'
+
 # Use pg as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -59,6 +62,3 @@ group :development do
   gem 'spring'
 end
 
-gem 'rails_12factor', group: :production
-ruby "2.3.0"
-gem 'puma'
