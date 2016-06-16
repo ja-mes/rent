@@ -23,7 +23,7 @@ class Property < ActiveRecord::Base
 
   def self.search(search, user)
     if search
-      where('address LIKE ? OR city LIKE ? OR state LIKE ? or zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").where(user: user)
+      where('address ilike ? OR city ilike ? OR state ilike ? or zip ilike ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").where(user: user)
     else
       where(user: user)
     end
