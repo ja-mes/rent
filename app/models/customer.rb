@@ -118,10 +118,10 @@ class Customer < ActiveRecord::Base
 
   def self.search(search, display_param, user)
     if search
-      query = "first_name LIKE ? OR middle_name LIKE ?"\
-        " OR last_name LIKE ? OR concat_ws(' ' , first_name, middle_name, last_name) LIKE ?"\
-        " OR concat_ws(' ' , first_name, last_name) LIKE ?"\
-        " OR properties.address LIKE ?",
+      query = "first_name ilike ? OR middle_name ilike ?"\
+        " OR last_name ilike ? OR concat_ws(' ' , first_name, middle_name, last_name) ilike ?"\
+        " OR concat_ws(' ' , first_name, last_name) ilike ?"\
+        " OR properties.address ilike ?",
         "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
 
       if display_param.blank? || display_param == 'active'
