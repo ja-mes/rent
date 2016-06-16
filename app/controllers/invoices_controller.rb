@@ -84,6 +84,7 @@ class InvoicesController < ApplicationController
   end
 
   def set_vars
+    @customers = Customer.where(user: current_user, active: true)
     @accounts = current_user.accounts
     @properties = current_user.properties
   end
