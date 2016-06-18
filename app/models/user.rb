@@ -1,20 +1,21 @@
 class User < ActiveRecord::Base
-  has_many :properties
-  has_many :customers
-  has_many :payments
-  has_many :invoices
-  has_many :trans
-  has_many :accounts
-  has_many :account_types
-  has_many :account_trans
-  has_many :checks
-  has_many :deposits
-  has_many :vendors
-  has_many :notes
-  has_many :credits
-  has_many :recurring_trans
-  has_many :registers
-  has_many :reconciliations
+  # TODO dependent destroy
+  has_many :properties, dependent: :destroy
+  has_many :customers, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :invoices, dependent: :destroy
+  has_many :trans, dependent: :destroy
+  has_many :accounts, dependent: :destroy
+  has_many :account_types, dependent: :destroy
+  has_many :account_trans, dependent: :destroy
+  has_many :checks, dependent: :destroy
+  has_many :deposits, dependent: :destroy
+  has_many :vendors, dependent: :destroy
+  has_many :notes, dependent: :destroy
+  has_many :credits, dependent: :destroy
+  has_many :recurring_trans, dependent: :destroy
+  has_many :registers, dependent: :destroy
+  has_many :reconciliations, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
