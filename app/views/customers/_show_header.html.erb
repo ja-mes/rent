@@ -4,7 +4,12 @@
     <h4 style="<%= @customer.balance > 0 ? 'color: red;' : 'color: green;' %> display: inline">
       <span class="fa <%= @customer.balance > 0 ? 'fa-exclamation-circle' : 'fa-check' %>"></span> <%= number_to_currency(@customer.balance) %>
     </h4>
-    <p  style="margin-bottom: 30px; margin-top: 15px;"><%= @customer.property.address %> <br> <%= @customer.property.city %> <%= @customer.property.state %> <%= @customer.property.zip %></p>
+
+    <p style="margin-bottom: 30px; margin-top: 15px;">
+      <% unless @customer.customer_type == "blank" %>
+        <%= @customer.property.address %> <br> <%= @customer.property.city %> <%= @customer.property.state %> <%= @customer.property.zip %>
+      <% end %>
+    </p>
   </div>
 
   <div class="col-md-5" style="text-align: right">
