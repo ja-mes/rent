@@ -9,7 +9,6 @@ class Customer < ActiveRecord::Base
   has_many :credits
 
   # VALIDATIONS
-  # TODO validate customer_type with inclusion
   validates :user_id, presence: true
   validates :property_id, presence: true, unless: :is_blank?
   validates :first_name, presence: true
@@ -17,6 +16,7 @@ class Customer < ActiveRecord::Base
   validates :rent, presence: true, unless: :is_blank?
   validate :due_date_range, unless: :is_blank?
   validates :last_charged, presence: true, unless: :is_blank?
+  validates :customer_type, inclusion: { in: ['blank', 'tenant'] }
 
   # HOOKS
   before_validation :setup_last_charged, unless: :is_blank?
