@@ -1,7 +1,7 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer, only: [:show, :edit, :update, :archive]
-  before_action only: [:show, :edit, :update] do
+  before_action only: [:show, :edit, :update, :edit_blank] do
     require_same_user(@customer)
   end
 

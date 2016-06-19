@@ -187,6 +187,11 @@ class CustomersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:customer)
   end
 
+  test "blank requires user" do
+    get :blank
+    assert_redirected_to new_user_session_path
+  end
+
   test "edit_blank should work" do
     sign_in :user, users(:one)
 
@@ -195,5 +200,18 @@ class CustomersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :edit_blank
     assert_not_nil assigns(:customer)
+  end
+
+  test "edit_blank requires user" do
+    customers(:one).update_attribute(:customer_type, "blank")
+    get :edit, id: customers(:one)
+    assert_redirected_to new_user_session_path
+  end
+
+  test "edit blank requires customer to belong to user" do
+    sign_in :user, users(:user_without_properties)
+    customers(:one).update_attribute(:customer_type, "blank")
+    get :edit, id: customers(:one)
+    assert_redirected_to root_path
   end
 end
