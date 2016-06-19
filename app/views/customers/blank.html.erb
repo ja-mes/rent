@@ -1,0 +1,33 @@
+<%= render 'header' %>
+
+<%= render 'shared/errors', obj: @customer %>
+
+<%= form_for @customer do |f| %>
+  <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :middle_name %>
+    <%= f.text_field :middle_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :phone %>
+    <%= f.telephone_field :phone, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :alt_phone, "Alt. Phone" %>
+    <%= f.telephone_field :alt_phone, class: "form-control" %>
+  </div>
+
+  <%= f.hidden_field :customer_type, value: "blank" %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

@@ -3,20 +3,17 @@
 <%= form_for @customer do |f| %>
   <div class="row">
     <div class="col-md-6">
-
-      <% unless @customer.customer_type == "blank" %>
-        <div class="form-group">
-          <%= f.label :property %>
-          <% if @customer.new_record? %>
-            <%= f.collection_select :property_id, @properties, :id, :address, {}, class: "form-control" %>
-          <% else %>
-            <%= f.select :property_id, nil, {}, class: "form-control" do %>
-              <%= content_tag(:option, @customer.property.address, value: @customer.property_id) %>
-              <%= options_from_collection_for_select @properties, :id, :address %>
-            <% end %>
+      <div class="form-group">
+        <%= f.label :property %>
+        <% if @customer.new_record? %>
+          <%= f.collection_select :property_id, @properties, :id, :address, {}, class: "form-control" %>
+        <% else %>
+          <%= f.select :property_id, nil, {}, class: "form-control" do %>
+            <%= content_tag(:option, @customer.property.address, value: @customer.property_id) %>
+            <%= options_from_collection_for_select @properties, :id, :address %>
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
 
 
       <div class="form-group">
@@ -35,7 +32,7 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+   <div class="col-md-6">
       <div class="form-group">
         <%= f.label :phone %>
         <%= f.telephone_field :phone, class: "form-control" %>
@@ -46,25 +43,21 @@
         <%= f.telephone_field :alt_phone, class: "form-control" %>
       </div>
 
-      <% unless @customer.customer_type == "blank" %>
-        <div class="form-group">
-          <%= f.label :due_date, "Monthly due date" %><br>
-          <% days = %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28) %>
-          <%= f.select :due_date, options_for_select(days, @customer.due_date), {}, class: "form-control" %>
-        </div>
-      <% end %>
+      <div class="form-group">
+        <%= f.label :due_date, "Monthly due date" %><br>
+        <% days = %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28) %>
+        <%= f.select :due_date, options_for_select(days, @customer.due_date), {}, class: "form-control" %>
+      </div>
 
-      <% unless @customer.customer_type == "blank" %>
-        <div class="form-group">
-          <%= f.label :rent, "Rent amount" %>
-          <div class="input-group">
-            <div class="input-group-addon">$</div>
-            <%= f.number_field :rent, value: number_with_precision(f.object.rent, precision: 2), step: 0.01, class: "form-control" %>
-          </div>
+      <div class="form-group">
+        <%= f.label :rent, "Rent amount" %>
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <%= f.number_field :rent, value: number_with_precision(f.object.rent, precision: 2), step: 0.01, class: "form-control" %>
         </div>
-      <% end %>
+      </div>
 
-      <% if @customer.new_record? && @customer.customer_type != "blank" %>
+      <% if @customer.new_record? %>
         <div class="form-group">
           <%= f.label :deposit, "Deposit amount" %>
           <div class="input-group">

@@ -9,6 +9,7 @@ class Customer < ActiveRecord::Base
   has_many :credits
 
   # VALIDATIONS
+  # TODO validate customer_type with inclusion
   validates :user_id, presence: true
   validates :property_id, presence: true
   validates :first_name, presence: true

@@ -21,7 +21,6 @@ class CustomersController < ApplicationController
 
   def blank
     @customer = Customer.new(customer_type: "blank")
-    render 'new'
   end
 
 
@@ -34,7 +33,7 @@ class CustomersController < ApplicationController
       flash[:success] = "Customer successfully created"
       redirect_to customer_path(@customer)
     else
-      render 'new'
+      if @customer.customer_type == "blank" then render 'blank' else render 'new' end
     end
   end
 
@@ -65,7 +64,7 @@ class CustomersController < ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone, :alt_phone, :property_id, :due_date, :rent)
+    params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone, :alt_phone, :property_id, :due_date, :rent, :customer_type)
   end
 
   def note_params
