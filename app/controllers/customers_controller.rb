@@ -20,7 +20,7 @@ class CustomersController < ApplicationController
   end
 
   def blank
-    @customer = Customer.new(customer_type: "blank")
+    @customer = Customer.new
   end
 
   def create

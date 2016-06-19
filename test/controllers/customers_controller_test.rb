@@ -178,4 +178,22 @@ class CustomersControllerTest < ActionController::TestCase
     assert_redirected_to assigns(:customer)
     assert_not_nil flash[:danger]
   end
+
+  test "blank should work" do
+    sign_in :user, users(:one)
+
+    get :blank
+    assert_response :success
+    assert_not_nil assigns(:customer)
+  end
+
+  test "edit_blank should work" do
+    sign_in :user, users(:one)
+
+    customers(:one).update_attribute(:customer_type, "blank")
+    get :edit, id: customers(:one)
+    assert_response :success
+    assert_template :edit_blank
+    assert_not_nil assigns(:customer)
+  end
 end
