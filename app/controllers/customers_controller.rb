@@ -21,6 +21,7 @@ class CustomersController < ApplicationController
 
   def blank
     @customer = Customer.new(customer_type: "blank")
+    render 'new'
   end
 
 
