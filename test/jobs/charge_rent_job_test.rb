@@ -24,4 +24,13 @@ class ChargeRentJobTest < ActiveJob::TestCase
       User.first.after_database_authentication
     end
   end
+
+  test "rent should not be charged if customer_type is not tenant" do
+    customers(:one).update_attributes(last_charged: Date.today.prev_month, customer_type: "blank")
+    customers(:three).update_attributes(last_charged: Date.today.prev_month, active: true, customer_type: "blank")
+
+    assert_difference ['Invoice.count', 'AccountTran.count', 'Tran.count'], 0 do
+      ChargeRentJob.perform_now users(:one).id
+    end
+  end
 end
