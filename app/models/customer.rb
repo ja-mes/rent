@@ -22,6 +22,7 @@ class Customer < ActiveRecord::Base
   before_validation :setup_last_charged, unless: :is_blank?
   before_update :update_last_charged, unless: :is_blank?
   after_create :charge_prorated_rent, unless: :is_blank?
+  after_create :update_property, unless: :is_blank?
 
   def is_blank?
     customer_type == "blank"
@@ -33,7 +34,7 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  after_create do
+  def update_property
     self.property.update_attribute(:rented, true)
   end
 
