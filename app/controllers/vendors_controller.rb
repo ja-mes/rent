@@ -35,7 +35,7 @@ class VendorsController < ApplicationController
   def update
     if @vendor.update(vendor_params)
       flash[:success] = "Vendor successfully updated"
-      redirect_to edit_account_path
+      redirect_to edit_vendor_path
     else
       render 'edit'
     end
