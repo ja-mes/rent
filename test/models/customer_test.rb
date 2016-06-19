@@ -19,6 +19,12 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
   end
 
+  test "property not required if customer_type is blank " do
+    @customer.customer_type = "blank"
+    @customer.property = nil
+    assert @customer.valid?
+  end
+
   test "first_name should be present" do
     @customer.first_name = " "
     assert_not @customer.valid?
@@ -26,6 +32,54 @@ class CustomerTest < ActiveSupport::TestCase
 
   test "last_name should be present" do
     @customer.last_name = " "
+    assert_not @customer.valid?
+  end
+
+  test "rent should be present" do
+    @customer.rent = nil
+    assert_not @customer.valid?
+  end
+
+  test "rent not required if customer_type blank" do
+    @customer.customer_type = "blank"
+    @customer.rent = nil
+    assert @customer.valid?
+  end
+
+  test "due_date should be present" do
+    @customer.due_date = nil
+    assert_not @customer.valid?
+  end
+
+  test "due_date not required if customer_type blank" do
+    @customer.customer_type = "blank"
+    @customer.due_date = nil
+    assert @customer.valid?
+  end
+  
+  test "last_charged should be present" do
+    @customer.last_charged = nil
+    assert_not @customer.valid?
+  end
+
+  test "last_charged not required if customer_type blank" do
+    @customer.customer_type = "blank"
+    @customer.last_charged = nil
+    assert @customer.valid?
+  end
+
+  test "customer_type should be present" do
+    @customer.customer_type = nil
+    assert_not @customer.valid?
+  end
+
+  test "customer_type should be either blank or tenant" do
+    @customer.customer_type = "blank"
+    assert @customer.valid?
+    @customer.customer_type = "tenant" 
+    assert @customer.valid?
+
+    @customer.customer_type = "foo"
     assert_not @customer.valid?
   end
 
@@ -136,5 +190,10 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal account_tran.account, accounts(:one)
     assert_equal account_tran.account_transable, credit
     assert_equal account_tran.amount, -500
+  end
+
+  test "is_blank should return true if customer_type is 'blank'" do
+    @customer.customer_type = "blank"
+    assert @customer.is_blank?
   end
 end
