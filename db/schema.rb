@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615235025) do
+ActiveRecord::Schema.define(version: 20160619133600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 20160615235025) do
     t.integer "account_type_id"
   end
 
+  create_table "blank_customers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "checks", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "num"
@@ -75,12 +82,13 @@ ActiveRecord::Schema.define(version: 20160615235025) do
     t.integer "user_id"
     t.integer "property_id"
     t.string  "alt_phone"
-    t.decimal "balance",      default: 0.0
+    t.decimal "balance",       default: 0.0
     t.string  "first_name"
     t.decimal "rent"
     t.string  "due_date"
-    t.boolean "active",       default: true, null: false
+    t.boolean "active",        default: true,     null: false
     t.date    "last_charged"
+    t.string  "customer_type", default: "tenant"
   end
 
   create_table "deposits", force: :cascade do |t|
