@@ -26,8 +26,15 @@ class Credit < ActiveRecord::Base
   # VALIDATION METHODS
   def totals_must_equal
     amount = 0
-    self.account_trans.each { |t| amount -= t.amount}
-    errors.add(:base, "Credit total must equal expenses total") unless amount == self.amount
+    self.account_trans.each do |tran|
+      if tran.amount
+        amount -= tran.amount
+      end
+    end
+
+    unless amount == self.amount
+      errors.add(:base, "Invoice total must equal expenses total")
+    end
   end
 
   # TRANS
