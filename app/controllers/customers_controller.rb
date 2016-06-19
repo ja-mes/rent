@@ -23,7 +23,6 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_type: "blank")
   end
 
-
   def create
     @properties = current_user.vacant_properties
     @customer = current_user.customers.build(customer_params)

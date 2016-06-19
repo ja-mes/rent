@@ -11,17 +11,21 @@ class Customer < ActiveRecord::Base
   # VALIDATIONS
   # TODO validate customer_type with inclusion
   validates :user_id, presence: true
-  validates :property_id, presence: true
+  validates :property_id, presence: true, unless: :is_blank?
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :rent, presence: true
-  validate :due_date_range
-  validates :last_charged, presence: true
+  validates :rent, presence: true, unless: :is_blank?
+  validate :due_date_range, unless: :is_blank?
+  validates :last_charged, presence: true, unless: :is_blank?
 
   # HOOKS
-  before_validation :setup_last_charged
-  before_update :update_last_charged
-  after_create :charge_prorated_rent
+  before_validation :setup_last_charged, unless: :is_blank?
+  before_update :update_last_charged, unless: :is_blank?
+  after_create :charge_prorated_rent, unless: :is_blank?
+
+  def is_blank?
+    customer_type == "blank"
+  end
 
   def due_date_range
     unless (1..28).include?(self.due_date.to_i) 
