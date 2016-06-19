@@ -5,7 +5,11 @@
     <%= link_to 'All Customers', customers_path, class: "nav-link #{isActive 'customers', 'index'}" %>
   </li>
 
-  <li class="nav-item">
-    <%= link_to 'Add Customer', new_customer_path, class: "nav-link #{isActive 'customers', ['new', 'create']}" %>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle <%= isActive 'customers', ['new', 'create'] %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Create Customer</a>
+    <div class="dropdown-menu">
+      <%= link_to 'Create Tenant', new_customer_path, class: "dropdown-item" %>
+      <a class="dropdown-item" href="#">Create Blank Customer</a>
+    </div>
   </li>
 </ul>

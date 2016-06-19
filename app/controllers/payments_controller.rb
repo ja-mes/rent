@@ -86,6 +86,5 @@ class PaymentsController < ApplicationController
 
   def set_vars
     @customers = Customer.where(user: current_user, active: true)
-    debugger unless @customer
   end
 end
