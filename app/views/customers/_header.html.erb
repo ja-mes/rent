@@ -9,7 +9,7 @@
     <a class="nav-link dropdown-toggle <%= isActive 'customers', ['new', 'create'] %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Create Customer</a>
     <div class="dropdown-menu">
       <%= link_to 'Create Tenant', new_customer_path, class: "dropdown-item" %>
-      <a class="dropdown-item" href="#">Create Blank Customer</a>
+      <%= link_to 'Create Blank Customer', blank_new_customer_path, class: "dropdown-item" %>
     </div>
   </li>
 </ul>

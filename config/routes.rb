@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :properties
 
   resources :customers do
+    get 'blank', on: :new
     resources :payments do
       get 'receipt', on: :member
     end
