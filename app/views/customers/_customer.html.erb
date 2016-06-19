@@ -3,7 +3,9 @@
     <%= customer.full_name %>
   </td>
   <td>
-    <%= customer.property.address %>, <%= customer.property.city %>, <%= customer.property.state %> <%= customer.property.zip %>
+    <% unless customer.customer_type == "blank" %>
+      <%= customer.property.address %>, <%= customer.property.city %>, <%= customer.property.state %> <%= customer.property.zip %>
+    <% end %>
   </td>
   <td>
     <%= number_to_currency(customer.balance) %>

@@ -44,7 +44,15 @@ class CustomersController < ApplicationController
   end
 
   def edit
-    @properties = current_user.rentable_properties
+    if @customer.customer_type == "blank" 
+      render 'edit_blank'
+    else
+      @properties = current_user.rentable_properties
+    end
+  end
+
+  def edit_blank
+    @customer = Customer.find(params[:id])
   end
 
   def update
@@ -54,7 +62,7 @@ class CustomersController < ApplicationController
       flash[:success] = "Customer successfully updated"
       redirect_to edit_customer_path
     else
-      render 'edit'
+      if @customer.customer_type == "blank" then render 'edit' else render 'edit_blank' end
     end
   end
 
