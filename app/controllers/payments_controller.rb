@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_customer
-  before_action :set_vars, except: [:index, :show, :destroy]
+  before_action :set_vars, except: [:index, :show]
   before_action :set_payment, only: [:edit, :update, :destroy, :receipt]
 
   before_action do
@@ -86,5 +86,6 @@ class PaymentsController < ApplicationController
 
   def set_vars
     @customers = Customer.where(user: current_user, active: true)
+    debugger unless @customer
   end
 end
