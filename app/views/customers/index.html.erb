@@ -1,14 +1,10 @@
 <%= render 'header' %>
 
-<div class="row margin-25">
-  <%= render 'shared/search', path: customers_path %>
-  <div class="col-md-3">
-    <%= form_tag customers_path, method: 'get', class: 'form-inline', id: 'customer_display' do %>
-      <%= hidden_field_tag :search, params[:search] %>
-      <%= select_tag :display, options_for_select([['Active', 'active'], ['All', 'all']], params[:display]), class: "form-control pull-xs-right" %>
-      <%= label_tag :display, nil, class: 'pull-xs-right', style: 'margin-right: 10px' %>
-    <% end %>
-  </div>
+<div style="margin-bottom: 20px">
+  <%= form_tag customers_path, method: 'get', class: 'form-inline', id: 'customer_display' do %>
+    <%= label_tag :display, nil, class: '', style: 'margin-right: 10px' %>
+    <%= select_tag :display, options_for_select([['Active', 'active'], ['All', 'all']], params[:display]), class: "form-control" %>
+  <% end %>
 </div>
 
 <table class="table table-hover row-links">

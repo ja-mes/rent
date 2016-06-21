@@ -130,25 +130,11 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  def self.search(search, display_param, user)
-    if search
-      query = "first_name ilike ? OR middle_name ilike ?"\
-        " OR last_name ilike ? OR concat_ws(' ' , first_name, middle_name, last_name) ilike ?"\
-        " OR concat_ws(' ' , first_name, last_name) ilike ?"\
-        " OR properties.address ilike ?",
-        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
-
-      if display_param.blank? || display_param == 'active'
-        return joins(:property).where(query).where(user: user, active: true).order(:last_name)
-      else
-        return joins(:property).where(query).where(user: user)
-      end
+  def self.grab_all(user, display_param = nil)
+    if display_param.blank? || display_param == 'active' 
+      where(user: user, active: true).order(:last_name)
     else
-      if display_param.blank? || display_param == 'active'
-        return where(user: user, active: true).order(:last_name)
-      else
-        return where(user: user)
-      end
+      where(user: user)
     end
   end
 end
