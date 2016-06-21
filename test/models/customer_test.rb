@@ -25,14 +25,28 @@ class CustomerTest < ActiveSupport::TestCase
     assert @customer.valid?
   end
 
-  test "first_name should be present" do
+  test "name_is_present should ensure that either customer name or company name exists" do
     @customer.first_name = " "
+    @customer.last_name = ""
+    @customer.company_name = ""
+    
     assert_not @customer.valid?
   end
 
-  test "last_name should be present" do
-    @customer.last_name = " "
-    assert_not @customer.valid?
+  test "should be valid if company name is present but not first or last name" do
+    @customer.first_name = " "
+    @customer.last_name = ""
+    @customer.company_name = "foobar"
+    
+    assert @customer.valid?
+  end
+
+  test "should be valid if first or last_name is present but not company name" do
+    @customer.first_name = "joe"
+    @customer.last_name = "blah"
+    @customer.company_name = ""
+    
+    assert @customer.valid?
   end
 
   test "rent should be present" do
