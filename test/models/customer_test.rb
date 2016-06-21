@@ -161,20 +161,6 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal @customer.last_charged, Date.today.beginning_of_month + 11
   end
 
-  test "search should find customers by the specified search" do
-    assert_equal 1, Customer.search('Foo', nil, users(:one)).length
-    assert_equal 1, Customer.search('Foo Blah', nil, users(:one)).length
-    assert_equal 1, Customer.search('Foo Test Blah', nil, users(:one)).length
-    assert_equal 1, Customer.search('Foo Test', nil, users(:one)).length
-  end
-
-  test "search should find either active or all customers depending on search param" do
-    assert_equal 1, Customer.search('Foo', nil, users(:one)).length
-    assert_equal 0, Customer.search('First Last', 'active', users(:one)).length
-    assert_equal 1, Customer.search('First Last', 'all', users(:one)).length
-    assert_equal 0, Customer.search('First Middle', 'active', users(:one)).length
-  end
-
   test "full_name should return full_name for customer" do
     assert_equal @customer.full_name, "Foo Test Blah"
   end
@@ -218,5 +204,11 @@ class CustomerTest < ActiveSupport::TestCase
   test "is_blank should return true if customer_type is 'blank'" do
     @customer.customer_type = "blank"
     assert @customer.is_blank?
+  end
+
+  test "grab_all should return all customers or active customers only depending on display param" do
+    assert_equal Customer.grab_all(users(:one), 'active').count, 1 
+    assert_equal Customer.grab_all(users(:one)).count, 1
+    assert_equal Customer.grab_all(users(:one), 'all').count, 2
   end
 end

@@ -99,12 +99,4 @@ class PropertyTest < ActiveSupport::TestCase
   test "full address should return full address for property" do
     assert_equal @property.full_address, "#{@property.address}, #{@property.city}, #{@property.state} #{@property.zip}"
   end
-
-  test "search should return search results" do
-    assert_equal 1, Property.search('Foo', users(:one)).length
-    assert_equal 1, Property.search('Qux', users(:one)).length
-    assert_equal 1, Property.search('Blah', users(:one)).length
-    assert_equal 1, Property.search('CA', users(:one)).length
-  end
-
 end
