@@ -15,12 +15,9 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  #def work_accounts(fixture)
-
   test "vacant_properties should return vacant properties for the user" do
     assert_equal @user.vacant_properties.count, 1
   end
-
 
   test "create_default_accounts should create default accounts" do
     @user.accounts.destroy_all
