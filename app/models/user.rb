@@ -54,10 +54,6 @@ class User < ActiveRecord::Base
     self.properties.where(rented: false)
   end
 
-  def grab_trans(customer)
-    self.trans.where(customer: customer)
-  end
-
   def after_database_authentication
     ChargeRentJob.perform_later self.id
     EnterRecurringTransJob.perform_later self.id

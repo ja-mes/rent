@@ -21,10 +21,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @user.vacant_properties.count, 1
   end
 
-  test "grab_trans should return transactions for the specified customer" do
-    assert @user.grab_trans(customers(:one))
-  end
-
 
   test "create_default_accounts should create default accounts" do
     @user.accounts.destroy_all
