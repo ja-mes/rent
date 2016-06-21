@@ -132,7 +132,7 @@ class Customer < ActiveRecord::Base
 
   def self.grab_all(user, display_param = nil)
     if display_param.blank? || display_param == 'active' 
-      where(user: user, active: true).order(last_name: :asc, company_name: :asc)
+      includes(:property).where(user: user, active: true).order(last_name: :asc, company_name: :asc)
     else
       where(user: user)
     end
