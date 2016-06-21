@@ -11,12 +11,11 @@ class Customer < ActiveRecord::Base
   # VALIDATIONS
   validates :user_id, presence: true
   validates :property_id, presence: true, unless: :is_blank?
-  validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :rent, presence: true, unless: :is_blank?
   validate :due_date_range, unless: :is_blank?
   validates :last_charged, presence: true, unless: :is_blank?
   validates :customer_type, inclusion: { in: ['blank', 'tenant'] }
+  validate :name_is_present
 
   # HOOKS
   before_validation :setup_last_charged, unless: :is_blank?
@@ -24,8 +23,16 @@ class Customer < ActiveRecord::Base
   after_create :charge_prorated_rent, unless: :is_blank?
   after_create :update_property, unless: :is_blank?
 
+
+  # CUSTOM VALIDATIONS
   def is_blank?
     customer_type == "blank"
+  end
+
+  def name_is_present
+    if company_name.blank? && first_name.blank? && last_name.blank?
+      errors.add(:base, 'Customer name must be present')
+    end
   end
 
   def due_date_range
@@ -91,7 +98,8 @@ class Customer < ActiveRecord::Base
   end
 
   def full_name
-    "#{self.first_name} #{self.middle_name} #{self.last_name}"
+    full_name = "#{first_name} #{middle_name} #{last_name}"
+    if full_name.blank? then "#{company_name}" else full_name end
   end
 
   def archive

@@ -74,7 +74,7 @@ class CustomersController < ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :middle_name, :phone, :alt_phone, :property_id, :due_date, :rent, :customer_type)
+    params.require(:customer).permit(:first_name, :last_name, :middle_name, :company_name, :phone, :alt_phone, :property_id, :due_date, :rent, :customer_type)
   end
 
   def note_params
