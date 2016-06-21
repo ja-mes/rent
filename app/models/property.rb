@@ -20,12 +20,4 @@ class Property < ActiveRecord::Base
   def full_address
     "#{self.address}, #{self.city}, #{self.state} #{self.zip}"
   end
-
-  def self.search(search, user)
-    if search
-      where('address ilike ? OR city ilike ? OR state ilike ? or zip ilike ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%").where(user: user)
-    else
-      where(user: user)
-    end
-  end
 end
