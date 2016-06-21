@@ -179,6 +179,15 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal @customer.full_name, "Foo Test Blah"
   end
 
+  test "full_name should return company name if first and last name don't exist" do
+    @customer.first_name = "   "
+    @customer.middle_name = ""
+    @customer.last_name = ""
+    @customer.company_name = "foobar"
+
+    assert_equal @customer.full_name, "foobar"
+  end
+
   test "archive should archive customer" do
     @customer.archive
     assert_not @customer.active
