@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622210404) do
+ActiveRecord::Schema.define(version: 20160622210617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,8 @@ ActiveRecord::Schema.define(version: 20160622210404) do
     t.string  "memo"
   end
 
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
+
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "content"
@@ -127,6 +129,8 @@ ActiveRecord::Schema.define(version: 20160622210404) do
     t.integer  "customer_id"
     t.date     "date"
   end
+
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.integer "user_id"
@@ -139,6 +143,8 @@ ActiveRecord::Schema.define(version: 20160622210404) do
     t.string  "method"
     t.string  "num"
   end
+
+  add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
 
   create_table "properties", force: :cascade do |t|
     t.string  "address"
