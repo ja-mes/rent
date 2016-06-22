@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622113321) do
+ActiveRecord::Schema.define(version: 20160622125618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20160622113321) do
     t.string   "account_transable_type"
     t.date     "date"
   end
+
+  add_index "account_trans", ["user_id"], name: "index_account_trans_on_user_id", using: :btree
 
   create_table "account_types", force: :cascade do |t|
     t.integer  "user_id"
