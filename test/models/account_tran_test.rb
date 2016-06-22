@@ -37,6 +37,11 @@ class AccountTranTest < ActiveSupport::TestCase
     assert_not @tran.valid?
   end
 
+  test "account should be present" do
+    @tran.account = nil
+    assert_not @tran.valid?
+  end
+
   test "calculate total should calculate balance" do
     trans = accounts(:one).account_trans
     assert_equal trans.calculate_total(accounts(:one)), 480.24

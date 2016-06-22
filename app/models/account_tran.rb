@@ -7,6 +7,8 @@ class AccountTran < ActiveRecord::Base
   validates :user_id, presence: true
   validates_numericality_of :amount
   validates :date, presence: true
+  validates :account, presence: true
+
 
   def self.calculate_total(account)
     total = 0
