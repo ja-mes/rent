@@ -12,7 +12,7 @@ class DepositsController < ApplicationController
   def new
     @deposit = Deposit.new
     @account = current_user.undeposited_funds_account
-    @payments = @account.payments.where(deposit: nil)
+    @payments = @account.payments.includes(:customer).where(deposit: nil)
   end
 
   def create
