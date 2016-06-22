@@ -18,7 +18,7 @@ class DepositsController < ApplicationController
   def create
     @deposit = current_user.deposits.new(deposit_params)
     @deposit.amount = 0
-    @payments = current_user.undeposited_funds_account.payments.where(deposit: nil)
+    @payments = current_user.undeposited_funds_account.payments.includes(:customer).where(deposit: nil)
 
     if payment_params.length > 0
       @payments.each do |p|
@@ -47,7 +47,7 @@ class DepositsController < ApplicationController
   end
 
   def edit
-    @payments = @deposit.payments
+    @payments = @deposit.payments.includes(:customer)
   end
 
   def update
@@ -56,7 +56,7 @@ class DepositsController < ApplicationController
 
     @deposit.assign_attributes(deposit_params)
     @account = current_user.undeposited_funds_account
-    @payments = @deposit.payments
+    @payments = @deposit.payments.includes(:customer)
 
     if payment_params.length > 0
       @payments.each do |p|
