@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622210617) do
+ActiveRecord::Schema.define(version: 20160622210719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,8 @@ ActiveRecord::Schema.define(version: 20160622210617) do
     t.decimal  "ending_balance"
     t.decimal  "cleared_balance"
   end
+
+  add_index "reconciliations", ["user_id"], name: "index_reconciliations_on_user_id", using: :btree
 
   create_table "recurring_trans", force: :cascade do |t|
     t.integer  "user_id"
