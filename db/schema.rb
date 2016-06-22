@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622210841) do
+ActiveRecord::Schema.define(version: 20160622210939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,8 @@ ActiveRecord::Schema.define(version: 20160622210841) do
     t.decimal  "balance",         default: 0.0
     t.decimal  "cleared_balance", default: 0.0
   end
+
+  add_index "registers", ["user_id"], name: "index_registers_on_user_id", using: :btree
 
   create_table "trans", force: :cascade do |t|
     t.integer "transactionable_id"
