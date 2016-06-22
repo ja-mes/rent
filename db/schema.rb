@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622202416) do
+ActiveRecord::Schema.define(version: 20160622210404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 20160622202416) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "credits", ["user_id"], name: "index_credits_on_user_id", using: :btree
+
   create_table "customers", force: :cascade do |t|
     t.string  "last_name"
     t.string  "middle_name"
@@ -106,6 +108,8 @@ ActiveRecord::Schema.define(version: 20160622202416) do
     t.integer  "reconciliation_id"
     t.boolean  "internal",          default: false
   end
+
+  add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
 
   create_table "invoices", force: :cascade do |t|
     t.integer "user_id"
