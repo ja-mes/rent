@@ -11,6 +11,7 @@ one:
 
 two:
   user: one
+  account_id: 1
   amount: 300
   memo: MyString
   account_transable: two (Invoice)
@@ -28,12 +29,14 @@ check1:
 check2:
   user: one
   amount: -9.99
+  account_id: 1
   memo: MyString
   account_transable: two (Check)
   date: 2016-08-07
 
 deposit1:
   user: one
+  account_id: 1
   amount: 9.99
   memo: MyString
   account_transable: one (Deposit)
@@ -41,6 +44,7 @@ deposit1:
 
 deposit2:
   user: one
+  account_id: 1
   amount: 10.99
   memo: MyString
   account_transable: one (Deposit)
@@ -48,6 +52,7 @@ deposit2:
 
 payment1: 
   user: one
+  account_id: 1
   amount: 500.25
   memo: "this is the memo"
   account_transable: one (Payment)
@@ -55,6 +60,7 @@ payment1:
 
 payment2: 
   user: one
+  account_id: 1
   amount: 88.60
   memo: "the string"
   account_transable: four (Payment)
@@ -62,6 +68,7 @@ payment2:
 
 credit1:
   user: one
+  account_id: 1
   amount: -9.99
   memo: MyString
   account_transable: one (Credit)
