@@ -23,7 +23,7 @@ class Customer < ActiveRecord::Base
   # HOOKS
   before_validation :setup_last_charged, unless: :is_blank?
   before_update :update_last_charged, unless: :is_blank?
-  after_create :charge_prorated_rent, unless: :is_blank?
+  after_create :charge_prorated_rent, if: :should_charge_rent
   after_create :update_property, unless: :is_blank?
 
 
@@ -91,7 +91,7 @@ class Customer < ActiveRecord::Base
       prorated_rent = ((rent_amount / days_in_month) * (days_in_month - todays_day)).round(2)
     end
 
-    enter_rent prorated_rent if should_charge_rent
+    enter_rent prorated_rent
   end
 
   def update_last_charged

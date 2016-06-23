@@ -24,6 +24,7 @@ class CustomersController < ApplicationController
   end
 
   def create
+    debugger
     @properties = current_user.vacant_properties
     @customer = current_user.customers.build(customer_params)
 
@@ -73,7 +74,7 @@ class CustomersController < ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :middle_name, :company_name, :phone, :alt_phone, :property_id, :due_date, :rent, :customer_type)
+    params.require(:customer).permit(:first_name, :last_name, :middle_name, :company_name, :phone, :alt_phone, :property_id, :due_date, :rent, :customer_type, :should_charge_rent, :should_charge_deposit)
   end
 
   def note_params
