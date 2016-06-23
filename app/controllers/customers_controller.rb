@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: [:show, :edit, :update, :archive]
+  before_action :set_customer, only: [:show, :edit, :update, :archive, :edit_blank]
   before_action only: [:show, :edit, :update, :edit_blank] do
     require_same_user(@customer)
   end
@@ -52,7 +52,6 @@ class CustomersController < ApplicationController
   end
 
   def edit_blank
-    @customer = Customer.find(params[:id])
   end
 
   def update
