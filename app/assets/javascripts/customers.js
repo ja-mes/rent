@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function() {
-  if ($('.customers.new')) {
+  if ($('body')[0].className === 'customers new') {
     function format_currency(elem, amount) {
       if ($(elem)[0]) {
         $(elem).html('$' + amount.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
