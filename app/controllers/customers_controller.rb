@@ -24,7 +24,6 @@ class CustomersController < ApplicationController
   end
 
   def create
-    debugger
     @properties = current_user.vacant_properties
     @customer = current_user.customers.build(customer_params)
 
