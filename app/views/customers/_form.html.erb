@@ -66,7 +66,7 @@
 
       <% if @customer.new_record? %>
         <div class="form-group">
-          <%= f.label :deposit, "Deposit amount" %>
+          <%= f.label :deposit, "Security deposit amount" %>
           <div class="input-group">
             <div class="input-group-addon">$</div>
             <%= f.number_field :deposit, value: number_with_precision(f.object.rent, precision: 2), step: 0.01, class: "form-control" %>
@@ -79,14 +79,14 @@
 
   <div class="form-group pull-right">
     <label class="c-input c-checkbox">
-      <input type="checkbox">
+      <input type="checkbox" id="customer_prorated_rent_checkbox">
       <span class="c-indicator"></span>
-      Charge prorated rent for <strong id="customer_prorated_rent_amount">$500.25</strong>
+      Charge <strong id="customer_prorated_rent_amount">$0.00</strong> in rent for <span id="customer_days_in_month">23</span> days 
     </label>
     <label class="c-input c-checkbox">
-      <input type="checkbox">
+      <input type="checkbox" id="customer_deposit_checkbox">
       <span class="c-indicator"></span>
-      Charge deposit for <strong id="customer_deposit_amount">$300</strong>
+      Charge security deposit for <strong id="customer_deposit_amount">$0.00</strong>
     </label>
   </div>
 
