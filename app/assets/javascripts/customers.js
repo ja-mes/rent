@@ -31,6 +31,5 @@ $(document).on('turbolinks:load', function() {
     $('#customer_deposit').on('change', function() {
       format_currency('#customer_deposit_amount', +$(this).val())
     });
-
   }
 });

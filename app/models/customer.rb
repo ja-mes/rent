@@ -1,4 +1,7 @@
 class Customer < ActiveRecord::Base
+  attr_accessor :should_charge_rent
+  attr_accessor :should_charge_deposit
+
   # ASSOCIATIONS
   belongs_to :user
   belongs_to :property
@@ -88,7 +91,7 @@ class Customer < ActiveRecord::Base
       prorated_rent = ((rent_amount / days_in_month) * (days_in_month - todays_day)).round(2)
     end
 
-    enter_rent prorated_rent
+    enter_rent prorated_rent if should_charge_rent
   end
 
   def update_last_charged
