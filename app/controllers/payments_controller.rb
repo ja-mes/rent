@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
 
     if @payment.save
       flash[:success] = "Payment successfully created"
-      redirect_to @payment.customer
+      redirect_to edit_customer_payment_path(@payment.customer, @payment)
     else
       render 'new'
     end
