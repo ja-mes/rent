@@ -77,18 +77,20 @@
 
   </div>
 
-  <div class="form-group pull-right">
-    <label class="c-input c-checkbox">
-      <%= f.check_box :should_charge_rent, {id: "customer_prorated_rent_checkbox"}, true, false %>
-      <span class="c-indicator"></span>
-      Charge <strong id="customer_prorated_rent_amount">$0.00</strong> in rent for <span id="customer_days_in_month">23</span> days 
-    </label>
-    <label class="c-input c-checkbox">
-      <%= f.check_box :should_charge_deposit, {id: "customer_deposit_checkbox"}, true, false %>
-      <span class="c-indicator"></span>
-      Charge security deposit for <strong id="customer_deposit_amount">$0.00</strong>
-    </label>
-  </div>
+  <% if @customer.new_record? %>
+    <div class="form-group pull-right">
+      <label class="c-input c-checkbox">
+        <%= f.check_box :should_charge_rent, {id: "customer_prorated_rent_checkbox"}, true, false %>
+        <span class="c-indicator"></span>
+        Charge <strong id="customer_prorated_rent_amount">$0.00</strong> in rent for <span id="customer_days_in_month">23</span> days 
+      </label>
+      <label class="c-input c-checkbox">
+        <%= f.check_box :should_charge_deposit, {id: "customer_deposit_checkbox"}, true, false %>
+        <span class="c-indicator"></span>
+        Charge security deposit for <strong id="customer_deposit_amount">$0.00</strong>
+      </label>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= f.submit class: 'btn btn-primary' %>

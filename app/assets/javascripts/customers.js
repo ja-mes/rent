@@ -18,8 +18,8 @@ $(document).on('turbolinks:load', function() {
       var rent_amount = +$(this).val();
 
       var date = new Date();
-      var yesterday = new Date(date.setDate(date.getDate() - 1))
-        var days_in_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
+      var yesterday = new Date(date.setDate(date.getDate() - 1));
+      var days_in_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
 
       if (yesterday.getDate() != 1) {
         rent_amount = +((rent_amount / days_in_month) * (days_in_month - yesterday.getDate())).toFixed(2)
