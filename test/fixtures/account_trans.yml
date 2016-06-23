@@ -11,11 +11,11 @@ one:
 
 two:
   user: one
-  account_id: 1
   amount: 300
   memo: MyString
   account_transable: two (Invoice)
   date: 2016-08-07
+  account: repairs
 
 check1:
   user: one
@@ -29,46 +29,43 @@ check1:
 check2:
   user: one
   amount: -9.99
-  account_id: 1
   memo: MyString
   account_transable: two (Check)
   date: 2016-08-07
+  account: repairs
 
 deposit1:
   user: one
-  account_id: 1
   amount: 9.99
   memo: MyString
   account_transable: one (Deposit)
   date: 2016-08-07
+  account: repairs
 
 deposit2:
   user: one
-  account_id: 1
   amount: 10.99
   memo: MyString
   account_transable: one (Deposit)
   date: 2016-08-07
+  account: repairs
 
 payment1: 
   user: one
-  account_id: 1
   amount: 500.25
   memo: "this is the memo"
   account_transable: one (Payment)
-  account_id: five
+  account: repairs
 
 payment2: 
   user: one
-  account_id: 1
   amount: 88.60
   memo: "the string"
   account_transable: four (Payment)
-  account_id: five
+  account: repairs
 
 credit1:
   user: one
-  account_id: 1
   amount: -9.99
   memo: MyString
   account_transable: one (Credit)
