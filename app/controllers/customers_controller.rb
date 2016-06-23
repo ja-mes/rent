@@ -24,11 +24,12 @@ class CustomersController < ApplicationController
   end
 
   def create
+    debugger
     @properties = current_user.vacant_properties
     @customer = current_user.customers.build(customer_params)
 
     if @customer.save
-      unless @customer.customer_type == "blank"
+      if @customer.customer_type == "tenant" && @customer.should_charge_deposit
         @customer.enter_rent params[:customer][:deposit], "Security Deposits", current_user.security_deposits_account.id
       end
 
