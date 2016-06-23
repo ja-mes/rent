@@ -3,11 +3,13 @@
 <div>
   <p style="margin-bottom: 25px"><strong><%= @payment.date.strftime("%B %d, %Y") %></strong></p>
 
-  <p><%= @payment.customer.full_name %></p>
+  <p><i><%= @payment.customer.full_name %></i></p>
   
   <address style="margin-bottom: 50px">
-    <%= @payment.customer.property.address %><br>
-    <%= @payment.customer.property.city %>, <%= @payment.customer.property.state %> <%= @payment.customer.property.zip %>
+    <% unless @customer.customer_type == "blank" %>
+      <%= @payment.customer.property.address %><br>
+      <%= @payment.customer.property.city %>, <%= @payment.customer.property.state %> <%= @payment.customer.property.zip %>
+    <% end %>
   </address>
 
   <p>Amount: <strong><%= number_to_currency @payment.amount %></strong></p>
