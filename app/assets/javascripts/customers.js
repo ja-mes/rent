@@ -1,2 +1,3 @@
-$(document).on('turbolinks:load', function() {
+$('.customer .new').ready(function() {
+  console.log('yes')
 });
