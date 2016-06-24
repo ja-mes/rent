@@ -23,7 +23,7 @@ class Customer < ActiveRecord::Base
   # HOOKS
   before_validation :setup_last_charged, unless: :is_blank?
   before_update :update_last_charged, unless: :is_blank?
-  after_create :charge_prorated_rent, if: :should_charge_rent
+  after_create :charge_prorated_rent, unless: :is_blank?, if: :should_charge_rent
   after_create :update_property, unless: :is_blank?
 
 
