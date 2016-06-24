@@ -59,6 +59,26 @@ class CustomersControllerTest < ActionController::TestCase
     assert_equal "Customer successfully created", flash[:success]
   end
 
+  test "post create should create deposit and prorated rent if should_charge_deposit or should_charge_rent is supplied" do
+    sign_in :user, users(:one)
+
+    assert_difference ['Invoice.count', 'AccountTran.count', 'Tran.count'], 2 do
+      post :create, customer: {
+        due_date: "3",
+        first_name: "Joe",
+        middle_name: "Foo",
+        last_name: "Blah",
+        phone: "123567",
+        property_id: properties(:one).id,
+        deposit: "300",
+        rent: "500",
+        should_charge_deposit: true,
+        should_charge_rent: true
+      }
+    end
+
+  end
+
   test "should not allow creation of customer with invalid form" do
     sign_in :user, users(:one)
 
