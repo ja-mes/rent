@@ -80,11 +80,6 @@ class PropertyTest < ActiveSupport::TestCase
     assert_not @property.valid?
   end
 
-  test "deposit should be present" do
-    @property.deposit = nil
-    assert_not @property.valid?
-  end
-
   test "deposit should be a number" do
     @property.deposit = "foo"
     assert_not @property.valid?

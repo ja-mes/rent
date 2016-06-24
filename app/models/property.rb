@@ -10,7 +10,7 @@ class Property < ActiveRecord::Base
   validates :city, presence: true
   validates :zip, presence: true
   validates :rent, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :deposit, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :deposit, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   before_save :upcase_state
 
   def upcase_state
