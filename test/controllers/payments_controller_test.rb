@@ -49,7 +49,7 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_equal assigns(:payment).account, accounts(:five)
     assert_equal assigns(:payment).method, "Money Order"
     assert_equal assigns(:payment).customer.balance, -300.00
-    assert_redirected_to customers(:one)
+    assert_redirected_to edit_customer_payment_path(assigns(:payment).customer, assigns(:payment))
     assert_not_nil assigns(:payment)
     assert_equal "Payment successfully created", flash[:success]
   end
