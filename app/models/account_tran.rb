@@ -1,4 +1,4 @@
-class AccountTran < ActiveRecord::Base
+class AccountTran < ApplicationRecord
   belongs_to :user
   belongs_to :account
   belongs_to :property

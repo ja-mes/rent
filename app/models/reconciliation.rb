@@ -1,4 +1,4 @@
-class Reconciliation < ActiveRecord::Base
+class Reconciliation < ApplicationRecord
   # ASSOCIATIONS
   belongs_to :user
   has_many :checks

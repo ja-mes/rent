@@ -1,4 +1,4 @@
-class AccountType < ActiveRecord::Base
+class AccountType < ApplicationRecord
   belongs_to :user
   has_many :accounts
 

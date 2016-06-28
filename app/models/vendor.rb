@@ -1,4 +1,4 @@
-class Vendor < ActiveRecord::Base
+class Vendor < ApplicationRecord
   belongs_to :user
   has_many :checks
 

@@ -1,4 +1,4 @@
-class Deposit < ActiveRecord::Base
+class Deposit < ApplicationRecord
   belongs_to :user
   belongs_to :reconciliation
 

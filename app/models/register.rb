@@ -1,4 +1,4 @@
-class Register < ActiveRecord::Base
+class Register < ApplicationRecord
   belongs_to :user
 
   validates :user_id, presence: true

@@ -1,4 +1,4 @@
-class Tran < ActiveRecord::Base
+class Tran < ApplicationRecord
   belongs_to :user
   belongs_to :customer
   belongs_to :transactionable, polymorphic: true

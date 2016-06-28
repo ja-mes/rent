@@ -1,4 +1,4 @@
-class Check < ActiveRecord::Base
+class Check < ApplicationRecord
   attr_accessor :skip_tran_validation
   
   # ASSOCIATIONS

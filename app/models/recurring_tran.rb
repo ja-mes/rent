@@ -1,4 +1,4 @@
-class RecurringTran < ActiveRecord::Base
+class RecurringTran < ApplicationRecord
   # ASSOCIATIONS
   belongs_to :user
   

@@ -1,4 +1,4 @@
-class Credit < ActiveRecord::Base
+class Credit < ApplicationRecord
   attr_accessor :skip_tran_validation
 
   # ASSOCIATIONS

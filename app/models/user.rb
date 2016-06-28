@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # TODO dependent destroy
   has_many :properties, dependent: :destroy
   has_many :customers, dependent: :destroy

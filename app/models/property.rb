@@ -1,4 +1,4 @@
-class Property < ActiveRecord::Base
+class Property < ApplicationRecord
   belongs_to :user
   has_many :customers
   has_many :account_trans

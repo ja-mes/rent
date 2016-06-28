@@ -1,4 +1,4 @@
-class Invoice < ActiveRecord::Base
+class Invoice < ApplicationRecord
   attr_accessor :skip_tran_validation
 
   belongs_to :user

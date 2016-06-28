@@ -54,6 +54,6 @@ gem 'faker'
 gem 'resque', "~> 1.22.0", require: 'resque/server'
 
 gem 'rails_12factor', group: :production
-#
+
 # Use sinatra master
 gem 'sinatra', github: 'sinatra'
