@@ -40,7 +40,7 @@ class CustomersControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference 'Customer.count', 1 do
-      post :create, customer: {
+      post :create, params: {customer: {
         due_date: "3",
         first_name: "Joe",
         middle_name: "Foo",
@@ -49,7 +49,7 @@ class CustomersControllerTest < ActionController::TestCase
         property_id: properties(:one).id,
         deposit: "300",
         rent: "500",
-      }
+      }}
     end
 
     assert_not_nil assigns(:properties)
@@ -65,7 +65,7 @@ class CustomersControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference ['Invoice.count', 'AccountTran.count', 'Tran.count'], 2 do
-      post :create, customer: {
+      post :create, params: { customer: {
         due_date: "3",
         first_name: "Joe",
         middle_name: "Foo",
@@ -76,7 +76,7 @@ class CustomersControllerTest < ActionController::TestCase
         rent: "500",
         should_charge_deposit: true,
         should_charge_rent: true
-      }
+      }}
     end
 
   end
@@ -85,14 +85,14 @@ class CustomersControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference 'Customer.count', 0 do
-      post :create, customer: {
+      post :create, params: { customer: {
         first_name: "",
         middle_name: "",
         last_name: "",
         phone: "",
         property_id: nil,
         deposit: nil
-      }
+      }}
     end
 
     assert_template :new
@@ -108,7 +108,7 @@ class CustomersControllerTest < ActionController::TestCase
   test "show should show customer" do
     sign_in users(:one), scope: :user
 
-    get :show, id: customers(:one)
+    get :show, params: { id: customers(:one) }
     assert_response :success
     assert_template :show
     assert_not_nil assigns(:customer)
@@ -116,20 +116,20 @@ class CustomersControllerTest < ActionController::TestCase
 
   test "show should only show customer if it belongs to current user" do
     sign_in users(:user_without_properties), scope: :user
-    get :show, id: customers(:one)
+    get :show, params: { id: customers(:one) }
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end
 
   test "show should redirect to sigin if no current user" do
-    get :show, id: customers(:one)
+    get :show, params: { id: customers(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "should be able to edit customer" do
     sign_in users(:one), scope: :user
 
-    get :edit, id: customers(:one)
+    get :edit, params: { id: customers(:one) }
     assert_response :success
     assert_template :edit
     assert_not_nil assigns(:customer)
@@ -138,25 +138,25 @@ class CustomersControllerTest < ActionController::TestCase
 
   test "should only allow users to edit their own customers" do
     sign_in users(:user_without_properties), scope: :user
-    get :edit, id: customers(:one)
+    get :edit, params: { id: customers(:one) }
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end
 
   test "edit should redirect to signin if no current user" do
-    get :edit, id: customers(:one)
+    get :edit, params: { id: customers(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "should be able to update customer" do
     sign_in users(:one), scope: :user
 
-    put :update, id: customers(:one), customer: {
+    put :update, params: { id: customers(:one) , customer: {
       first_name: "Foo",
       last_name: "Blah",
       middle_name: "Bar",
       phone: "1234",
-    }
+    }}
 
     assert_equal "Foo", assigns(:customer).first_name
     assert_equal "Blah", assigns(:customer).last_name
@@ -167,26 +167,26 @@ class CustomersControllerTest < ActionController::TestCase
   test "update should not save if form is filled out incorrectly" do
     sign_in users(:one), scope: :user
 
-    put :update, id: customers(:one), customer: {
+    put :update, params: { id: customers(:one), customer: {
       first_name: "",
       last_name: "",
       middle_name: "",
       phone: "",
-    }
+    }}
 
     assert_template :edit
     assert_select '.form-errors'
   end
 
   test "update should redirect to signin if no current user" do
-    post :update, id: customers(:one)
+    post :update, params: { id: customers(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "users should only be allowed to update their own customers" do
     sign_in users(:two), scope: :user
-    post :update, id: customers(:one)
-
+    post :update, params: { id: customers(:one) }
+ 
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end
@@ -194,7 +194,7 @@ class CustomersControllerTest < ActionController::TestCase
   test "archive should work" do
     sign_in users(:one), scope: :user
 
-    get :archive, id: customers(:one)
+    get :archive, params: { id: customers(:one) }
     assert_not_nil assigns(:customer)
     assert_not assigns(:customer).active
     assert_redirected_to assigns(:customer)
@@ -218,7 +218,7 @@ class CustomersControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     customers(:one).update_attribute(:customer_type, "blank")
-    get :edit, id: customers(:one)
+    get :edit, params: { id: customers(:one) }
     assert_response :success
     assert_template :edit_blank
     assert_not_nil assigns(:customer)
@@ -226,14 +226,14 @@ class CustomersControllerTest < ActionController::TestCase
 
   test "edit_blank requires user" do
     customers(:one).update_attribute(:customer_type, "blank")
-    get :edit, id: customers(:one)
+    get :edit, params: { id: customers(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "edit blank requires customer to belong to user" do
     sign_in users(:user_without_properties), scope: :user
     customers(:one).update_attribute(:customer_type, "blank")
-    get :edit, id: customers(:one)
+    get :edit, params: { id: customers(:one) }
     assert_redirected_to root_path
   end
 end
