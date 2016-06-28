@@ -39,7 +39,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-gem 'devise'
+gem 'devise', github: 'plataformatec/devise'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'font-awesome-sass', '~> 4.5.0'
 gem 'will_paginate', '~> 3.1.0'
