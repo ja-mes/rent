@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class AccountsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :index
     assert_response :success
@@ -18,7 +18,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "get new" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :new
     assert_response :success
@@ -31,7 +31,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "post create" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Account.count' do
       post :create, account: {
@@ -45,7 +45,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "post create shoud fail with invalid data" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Account.count', 0 do
       post :create, account: {
@@ -64,7 +64,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "get show" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :show, id: accounts(:one)
     assert_response :success
@@ -79,7 +79,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "get edit" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :edit, id: accounts(:one)
     assert_response :success
@@ -93,7 +93,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "post update" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     post :update, id: accounts(:one), account: {
       name: "Bar"
@@ -103,7 +103,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "post update should not update type" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     post :update, id: accounts(:one), account: {
       name: "Bar",
@@ -114,7 +114,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test "post update should not work if invalid form data is submitted" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     post :update, id: accounts(:one), account: {
       name: ""
