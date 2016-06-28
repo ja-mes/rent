@@ -1,8 +1,10 @@
+require 'test_helper'
+
 class CustomersControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :index
     assert_response :success
     assert_template :index
@@ -15,7 +17,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "get new" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :new
     assert_response :success
     assert_not_nil assigns(:customer)
@@ -23,7 +25,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "should only get new if there are properties aviable to rent" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
     get :new
     assert_redirected_to customers_path
     assert_equal "No properties avaiable to rent", flash[:danger]
@@ -35,7 +37,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "create should successfully create customer" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Customer.count', 1 do
       post :create, customer: {
@@ -60,7 +62,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "post create should create deposit and prorated rent if should_charge_deposit or should_charge_rent is supplied" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference ['Invoice.count', 'AccountTran.count', 'Tran.count'], 2 do
       post :create, customer: {
@@ -80,7 +82,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "should not allow creation of customer with invalid form" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Customer.count', 0 do
       post :create, customer: {
@@ -104,7 +106,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "show should show customer" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :show, id: customers(:one)
     assert_response :success
@@ -113,7 +115,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "show should only show customer if it belongs to current user" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
     get :show, id: customers(:one)
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
@@ -125,7 +127,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "should be able to edit customer" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :edit, id: customers(:one)
     assert_response :success
@@ -135,7 +137,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "should only allow users to edit their own customers" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
     get :edit, id: customers(:one)
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
@@ -147,7 +149,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "should be able to update customer" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     put :update, id: customers(:one), customer: {
       first_name: "Foo",
@@ -163,7 +165,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "update should not save if form is filled out incorrectly" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     put :update, id: customers(:one), customer: {
       first_name: "",
@@ -182,7 +184,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "users should only be allowed to update their own customers" do
-    sign_in :user, users(:two)
+    sign_in users(:two), scope: :user
     post :update, id: customers(:one)
 
     assert_redirected_to root_path
@@ -190,7 +192,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "archive should work" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :archive, id: customers(:one)
     assert_not_nil assigns(:customer)
@@ -200,7 +202,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "blank should work" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :blank
     assert_response :success
@@ -213,7 +215,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "edit_blank should work" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     customers(:one).update_attribute(:customer_type, "blank")
     get :edit, id: customers(:one)
@@ -229,7 +231,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "edit blank requires customer to belong to user" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
     customers(:one).update_attribute(:customer_type, "blank")
     get :edit, id: customers(:one)
     assert_redirected_to root_path
