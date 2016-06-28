@@ -54,7 +54,6 @@ gem 'faker'
 gem 'resque', "~> 1.22.0", require: 'resque/server'
 
 gem 'rails_12factor', group: :production
-gem 'rack-mini-profiler'
 #
 # Use sinatra master
 gem 'sinatra', github: 'sinatra'
