@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class DashboardControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :index
     assert_response :success
   end
@@ -15,13 +15,13 @@ class DashboardControllerTest < ActionController::TestCase
   end
 
   test "charge rent should work" do
-    sign_in :user, users(:one)
-    xhr :get, :index
+    sign_in users(:one), scope: :user
+    get :index, xhr: true
     assert_response :success
   end
 
   test "charge rent should not work if the user is not logged in" do
-    xhr :get, :index
+    get :index, xhr: true
     assert_response :unauthorized
   end
 end
