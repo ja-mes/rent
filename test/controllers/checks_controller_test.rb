@@ -1,17 +1,17 @@
 require 'test_helper'
 
 class ChecksControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   test "get index should redirect to new check path" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :index
     assert_redirected_to new_check_path
   end
 
   # GET new
   test "get new should setup vars" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :new
     assert_response :success
@@ -24,10 +24,10 @@ class ChecksControllerTest < ActionController::TestCase
 
   # POST create
   test "post create" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference ['Check.count', 'AccountTran.count', 'Tran.count'] do
-      post :create, check: {
+      post :create, params: { check: {
         vendor_id: vendors(:one).id,
         num: "2",
         amount: "500",
@@ -41,7 +41,7 @@ class ChecksControllerTest < ActionController::TestCase
             property_id: properties(:four).id
           }
         }
-      }
+      }}
     end
 
     assert_not_nil assigns(:check)
@@ -56,21 +56,21 @@ class ChecksControllerTest < ActionController::TestCase
   end
 
   test "get show" do
-    sign_in :user, users(:one)
-    get :show, id: checks(:one)
+    sign_in users(:one), scope: :user
+    get :show, params: { id: checks(:one) }
     assert_redirected_to edit_check_path(checks(:one))
   end
 
 
   # GET show
   test "get show should only work if user is logged in" do
-    get :show, id: checks(:one)
+    get :show, params: { id: checks(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "get show should only work if the the check belongs to the customer" do
-    sign_in :user, users(:user_without_properties)
-    get :show, id: checks(:one)
+    sign_in users(:user_without_properties), scope: :user
+    get :show, params: { id: checks(:one) }
     assert_redirected_to root_path
     assert_not_nil flash[:danger]
   end
@@ -78,31 +78,31 @@ class ChecksControllerTest < ActionController::TestCase
 
   # GET edit
   test "get edit" do
-    sign_in :user, users(:one)
-    get :edit, id: checks(:one)
+    sign_in users(:one), scope: :user
+    get :edit, params: { id: checks(:one) }
     assert_response :success
     assert_template :edit
   end
 
   test "get edit should only work if the user is logged in" do 
-    get :edit, id: checks(:one)
+    get :edit, params: { id: checks(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "get edit should only work if the check belongs to the user" do
-    sign_in :user, users(:user_without_properties)
-    get :edit, id: checks(:one)
+    sign_in users(:user_without_properties), scope: :user
+    get :edit, params: { id: checks(:one) }
     assert_redirected_to root_path
   end
 
 
   # PUT update
   test "put update" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     checks(:one).account_trans.destroy_all
 
-    put :update, id: checks(:one), check: {
+    put :update, params: { id: checks(:one), check: {
       vendor_id: vendors(:one).id,
       num: "3",
       amount: "609.99",
@@ -116,7 +116,7 @@ class ChecksControllerTest < ActionController::TestCase
           property_id: properties(:one).id
         }
       }
-    }
+    }}
 
     check = assigns(:check)
 
@@ -128,23 +128,23 @@ class ChecksControllerTest < ActionController::TestCase
   end
 
   test "user must be logged in for update" do
-    put :update, id: checks(:one), check: {}
+    put :update, params: { id: checks(:one), check: {} }
     assert_redirected_to new_user_session_path
   end
 
   test "check must belong to user for update" do
-    sign_in :user, users(:user_without_properties)
-    put :update, id: checks(:one), check: {}
+    sign_in users(:user_without_properties), scope: :user
+    put :update, params: { id: checks(:one), check: {} }
     assert_redirected_to root_path
   end
 
 
   # DELETE destroy
   test "destroy" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Check.count', -1 do
-      delete :destroy, id: checks(:one)
+      delete :destroy, params: { id: checks(:one) }
     end
 
     assert_not_nil assigns(:check)
@@ -152,13 +152,13 @@ class ChecksControllerTest < ActionController::TestCase
   end
 
   test "destroy should only work if the user is logged in" do
-    delete :destroy, id: checks(:one)
+    delete :destroy, params: { id: checks(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "destroy should only work if the check belongs to the user" do
-    sign_in :user, users(:user_without_properties)
-    delete :destroy, id: checks(:one)
+    sign_in users(:user_without_properties), scope: :user
+    delete :destroy, params: { id: checks(:one) }
     assert_redirected_to root_path
   end
 end
