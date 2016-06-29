@@ -71,10 +71,10 @@ class RecurringTranTest < ActiveSupport::TestCase
     assert_equal tran.due_date, "3"
     assert_equal tran.tran_type, "Check"
     assert_equal tran.account_trans, [{
-      account_id: account_tran.account_id,
-      amount: account_tran.amount,
-      memo: account_tran.memo,
-      property_id: account_tran.property_id
+      "account_id" => account_tran.account_id.to_s,
+      "amount" => account_tran.amount.to_s,
+      "memo" => account_tran.memo,
+      "property_id" => account_tran.property_id.to_s
     }]
   end
 
@@ -94,10 +94,10 @@ class RecurringTranTest < ActiveSupport::TestCase
     assert_equal tran.due_date, "5"
     assert_equal tran.tran_type, "Invoice"
     assert_equal tran.account_trans, [{
-      account_id: account_tran.account_id,
-      amount: account_tran.amount,
-      memo: account_tran.memo,
-      property_id: account_tran.property_id,
+      "account_id" => account_tran.account_id.to_s,
+      "amount" => account_tran.amount.to_s,
+      "memo" => account_tran.memo,
+      "property_id" => account_tran.property_id.to_s,
     }]
   end
 end
