@@ -2,7 +2,10 @@
 
 <div class="margin-25">
   <%= link_to "Reconcile Now", new_reconciliation_path, class: "btn btn-primary" %>
-  <%= link_to "Undo Previous Reconciliation", @last_rec, method: :delete, class: "btn btn-secondary" %>
+
+  <% if @last_rec %>
+    <%= link_to "Undo Previous Reconciliation", @last_rec, method: :delete, class: "btn btn-secondary" %>
+  <% end %>
 </div>
 
 <table class="table">
