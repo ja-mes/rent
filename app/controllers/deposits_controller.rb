@@ -1,5 +1,3 @@
-require 'test_helper'
-
 class DepositsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_deposit, only: [:update, :edit, :destroy]
