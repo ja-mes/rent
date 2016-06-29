@@ -5,13 +5,13 @@ class InvoicesControllerTest < ActionController::TestCase
 
   test "index should redirect to customer" do
     sign_in users(:one), scope: :user
-    get :index, customer_id: customers(:one)
+    get :index, params:{ customer_id: customers(:one) }
     assert_redirected_to customers(:one)
   end
 
   test "get new" do
     sign_in users(:one), scope: :user
-    get :new, customer_id: customers(:one)
+    get :new, params: { customer_id: customers(:one) }
 
     assert_response :success
     assert_template :new
@@ -23,13 +23,13 @@ class InvoicesControllerTest < ActionController::TestCase
   end
 
   test "get new should not work if user is not logged in" do
-    get :new, customer_id: customers(:one)
+    get :new, params: { customer_id: customers(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "new should not work if the customer does not belong to the user" do
     sign_in users(:user_without_properties), scope: :user
-    get :new, customer_id: customers(:one)
+    get :new, params: { customer_id: customers(:one) }
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end
@@ -38,7 +38,7 @@ class InvoicesControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference ['Invoice.count', 'Tran.count', 'AccountTran.count'] do
-      post :create, customer_id: customers(:one), invoice: {
+      post :create, params: { customer_id: customers(:one), invoice: {
         customer_id: customers(:three),
         amount: "500",
         date: "03/10/2016",
@@ -51,7 +51,7 @@ class InvoicesControllerTest < ActionController::TestCase
             property_id: properties(:four).id
           }
         }
-      }
+      }}
     end
 
     assert_not_nil assigns(:invoice)
@@ -66,7 +66,7 @@ class InvoicesControllerTest < ActionController::TestCase
   end
 
   test "create should only work if the user is logged in" do
-    post :create, customer_id: customers(:one)
+    post :create, params: { customer_id: customers(:one) }
     assert_redirected_to new_user_session_path
   end
 
@@ -74,11 +74,11 @@ class InvoicesControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference 'Invoice.count', 0 do
-      post :create, customer_id: customers(:one), invoice: {
+      post :create, params: { customer_id: customers(:one), invoice: {
         amount: nil,
         date: nil,
         memo: nil
-      }
+      }}
     end
 
     assert_template :new
@@ -87,14 +87,14 @@ class InvoicesControllerTest < ActionController::TestCase
 
   test "create should only work if customer belongs to user" do
     sign_in users(:user_without_properties), scope: :user
-    post :create, customer_id: 1
+    post :create, params: { customer_id: 1 }
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end
 
   test "get edit" do
     sign_in users(:one), scope: :user
-    get :edit, customer_id: customers(:one), id: invoices(:one)
+    get :edit, params: { customer_id: customers(:one), id: invoices(:one) }
     assert_response :success
     assert_template :edit
     assert_not_nil assigns(:invoice)
@@ -102,19 +102,19 @@ class InvoicesControllerTest < ActionController::TestCase
   end
 
   test "edit should only work if the user is logged in" do
-    get :edit, customer_id: customers(:one), id: invoices(:one)
+    get :edit, params: { customer_id: customers(:one), id: invoices(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "edit should only work if the customer belongs to user" do
     sign_in users(:user_without_properties), scope: :user
-    get :edit, customer_id: customers(:one), id: invoices(:one)
+    get :edit, params: { customer_id: customers(:one), id: invoices(:one) }
     assert_redirected_to root_path
   end
 
   test "edit should only work if invoice belongs to user" do
     sign_in users(:one), scope: :user
-    get :edit, customer_id: customers(:one), id: invoices(:two)
+    get :edit, params: { customer_id: customers(:one), id: invoices(:two) }
     assert_redirected_to root_path
   end
 
@@ -123,7 +123,7 @@ class InvoicesControllerTest < ActionController::TestCase
   test "update should successfully update invoice" do
     sign_in users(:one), scope: :user
 
-    put :update, customer_id: customers(:one), id: invoices(:one), invoice: {
+    put :update, params: { customer_id: customers(:one), id: invoices(:one), invoice: { 
       customer_id: customers(:three).id,
       amount: "700.22",
       date: "05/08/2016",
@@ -136,7 +136,7 @@ class InvoicesControllerTest < ActionController::TestCase
           property_id: properties(:four).id
         }
       }
-    }
+    }}
 
     assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))
     assert_equal assigns(:invoice).amount, 700.22
@@ -147,11 +147,11 @@ class InvoicesControllerTest < ActionController::TestCase
   test "update should not work with invalid data" do
     sign_in users(:one), scope: :user
 
-    put :update, customer_id: customers(:one), id: invoices(:one), invoice: {
+    put :update, params: { customer_id: customers(:one), id: invoices(:one), invoice: {
       amount: "",
       date: "",
       memo: ""
-    }
+    }}
 
     assert_not_nil assigns(:invoice)
     assert_template :edit
@@ -159,20 +159,20 @@ class InvoicesControllerTest < ActionController::TestCase
   end
 
   test "update should only work if the user is logged in" do
-    put :update, customer_id: customers(:one), id: invoices(:one)
+    put :update, params: { customer_id: customers(:one), id: invoices(:one) }
     assert_redirected_to new_user_session_path
   end
 
   test "update should only work if customer belongs to user" do
     sign_in users(:user_without_properties), scope: :user
 
-    put :update, customer_id: customers(:one), id: invoices(:one)
+    put :update, params: { customer_id: customers(:one), id: invoices(:one) }
     assert_redirected_to root_path
   end
 
   test "update should only work if invoice belongs to user" do
     sign_in users(:one), scope: :user
-    get :edit, customer_id: customers(:one), id: invoices(:two)
+    get :edit, params: { customer_id: customers(:one), id: invoices(:two) }
     assert_redirected_to root_path
   end
 
@@ -182,7 +182,7 @@ class InvoicesControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference ['Invoice.count', 'Tran.count'], -1 do
-      delete :destroy, customer_id: customers(:one), id: invoices(:one)
+      delete :destroy, params: { customer_id: customers(:one), id: invoices(:one) }
     end
 
     assert_not_nil assigns(:invoice)
@@ -191,7 +191,7 @@ class InvoicesControllerTest < ActionController::TestCase
 
   test "destroy should not work if the user is not logged in" do
     assert_difference 'Invoice.count', 0 do
-      delete :destroy, customer_id: customers(:one), id: invoices(:one)
+      delete :destroy, params: { customer_id: customers(:one), id: invoices(:one) }
     end
 
     assert_redirected_to new_user_session_path
@@ -201,7 +201,7 @@ class InvoicesControllerTest < ActionController::TestCase
     sign_in users(:user_without_properties), scope: :user
 
     assert_difference 'Invoice.count', 0 do
-      delete :destroy, customer_id: customers(:one), id: invoices(:one)
+      delete :destroy, params: { customer_id: customers(:one), id: invoices(:one) }
     end
 
     assert_redirected_to root_path
@@ -211,7 +211,7 @@ class InvoicesControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference 'Invoice.count', 0 do
-      delete :destroy, customer_id: customers(:one), id: invoices(:two)
+      delete :destroy, params: { customer_id: customers(:one), id: invoices(:two) }
     end
 
     assert_redirected_to root_path
@@ -219,7 +219,7 @@ class InvoicesControllerTest < ActionController::TestCase
 
   test "show should redirect to edit" do
     sign_in users(:one), scope: :user
-    get :show, customer_id: customers(:one), id: invoices(:one)
+    get :show, params: { customer_id: customers(:one), id: invoices(:one) }
 
     assert_redirected_to edit_customer_invoice_path
   end
