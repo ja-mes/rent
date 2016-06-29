@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class RecurringTransControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :index
     assert_response :success
   end
@@ -15,43 +15,43 @@ class RecurringTransControllerTest < ActionController::TestCase
   end
   
   test "post create should work for checks" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference "RecurringTran.count" do
-      xhr :post, :create, id: checks(:one).id, type: "Check", due_date: "5"
+      post :create, xhr: true, id: checks(:one).id, type: "Check", due_date: "5"
     end
   end
 
   test "post create should not work if the user is not logged in" do
     assert_difference "RecurringTran.count", 0 do
-      xhr :post, :create, id: checks(:one).id, type: "Check", due_date: "5"
+      post :create, xhr: true, id: checks(:one).id, type: "Check", due_date: "5"
     end
 
     assert_response :unauthorized
   end
 
   test "get edit" do
-    sign_in :user, users(:one)
-    xhr :get, :edit, id: recurring_trans(:one)
+    sign_in users(:one), scope: :user
+    get :edit, xhr: true, id: recurring_trans(:one)
     assert_response :success
     assert_not_nil assigns(:tran)
   end
 
   test "get edit requires logged in user" do
-    xhr :get, :edit, id: recurring_trans(:one)
+    get :edit, xhr: true, id: recurring_trans(:one)
     assert_response :unauthorized
   end
 
   test "get edit should not work if the tran does not belong to the user" do
-    sign_in :user, users(:user_without_properties)
-    xhr :get, :edit, id: recurring_trans(:one)
+    sign_in users(:user_without_properties), scope: :user
+    get :edit, xhr: true, id: recurring_trans(:one)
     assert_redirected_to root_path
   end
 
   test "put update" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
-    xhr :put, :update, id: recurring_trans(:one), recurring_tran: {
+    put :update, xhr: true, id: recurring_trans(:one), recurring_tran: {
       due_date: "3",
     }
 
@@ -59,7 +59,7 @@ class RecurringTransControllerTest < ActionController::TestCase
   end
 
   test "put update requires logged in user" do
-    xhr :put, :update, id: recurring_trans(:one), recurring_tran: {
+    put :update, xhr: true, id: recurring_trans(:one), recurring_tran: {
       due_date: "3",
     }
 
@@ -67,7 +67,7 @@ class RecurringTransControllerTest < ActionController::TestCase
   end
 
   test "put update requires tran to belong to user" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
 
     put :update, id: recurring_trans(:one), recurring_tran: {
       due_date: "3",
@@ -77,10 +77,10 @@ class RecurringTransControllerTest < ActionController::TestCase
   end
 
   test "delete destroy" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'RecurringTran.count', -1 do
-      xhr :delete, :destroy, id: recurring_trans(:one)
+      delete :destroy, xhr: true, id: recurring_trans(:one)
     end
 
     assert_not_nil assigns(:tran)
@@ -88,14 +88,14 @@ class RecurringTransControllerTest < ActionController::TestCase
 
   test "delete destroy requires logged in user" do
     assert_difference 'RecurringTran.count', 0 do
-      xhr :delete, :destroy, id: recurring_trans(:one)
+      delete :destroy, xhr: true, id: recurring_trans(:one)
     end
 
     assert_response :unauthorized
   end
 
   test "delete destroy requires same tran user" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
 
     assert_difference 'RecurringTran.count', 0 do
       delete :destroy, id: recurring_trans(:one)
