@@ -148,7 +148,7 @@ class ChecksControllerTest < ActionController::TestCase
     end
 
     assert_not_nil assigns(:check)
-    assert_redirected_to check_register_path
+    assert_redirected_to registers_path
   end
 
   test "destroy should only work if the user is logged in" do

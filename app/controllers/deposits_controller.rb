@@ -85,7 +85,7 @@ class DepositsController < ApplicationController
     @deposit.destroy
     @deposit.payments.each {|p| p.update_attribute(:deposit, nil)}
     flash[:danger] = "Deposit successfully destroyed"
-    redirect_to check_register_path
+    redirect_to registers_path
   end
 
   private

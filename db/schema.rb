@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -28,9 +27,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.integer  "account_transable_id"
     t.string   "account_transable_type"
     t.date     "date"
+    t.index ["user_id"], name: "index_account_trans_on_user_id", using: :btree
   end
-
-  add_index "account_trans", ["user_id"], name: "index_account_trans_on_user_id", using: :btree
 
   create_table "account_types", force: :cascade do |t|
     t.integer  "user_id"
@@ -38,19 +36,17 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.boolean  "inc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_account_types_on_user_id", using: :btree
   end
-
-  add_index "account_types", ["user_id"], name: "index_account_types_on_user_id", using: :btree
 
   create_table "accounts", force: :cascade do |t|
     t.string  "name"
     t.integer "user_id"
     t.boolean "required",        default: false
     t.integer "account_type_id"
+    t.index ["name"], name: "index_accounts_on_name", using: :btree
+    t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
-
-  add_index "accounts", ["name"], name: "index_accounts_on_name", using: :btree
-  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
   create_table "checks", force: :cascade do |t|
     t.integer  "user_id"
@@ -63,9 +59,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.integer  "vendor_id"
     t.boolean  "cleared",           default: false, null: false
     t.integer  "reconciliation_id"
+    t.index ["user_id"], name: "index_checks_on_user_id", using: :btree
   end
-
-  add_index "checks", ["user_id"], name: "index_checks_on_user_id", using: :btree
 
   create_table "credits", force: :cascade do |t|
     t.integer  "user_id"
@@ -75,9 +70,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.string   "memo"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_credits_on_user_id", using: :btree
   end
-
-  add_index "credits", ["user_id"], name: "index_credits_on_user_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string  "last_name"
@@ -86,7 +80,7 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.integer "user_id"
     t.integer "property_id"
     t.string  "alt_phone"
-    t.decimal "balance",       default: 0.0
+    t.decimal "balance",       default: "0.0"
     t.string  "first_name"
     t.decimal "rent"
     t.string  "due_date"
@@ -94,9 +88,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.date    "last_charged"
     t.string  "customer_type", default: "tenant"
     t.string  "company_name"
+    t.index ["user_id"], name: "index_customers_on_user_id", using: :btree
   end
-
-  add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
 
   create_table "deposits", force: :cascade do |t|
     t.integer  "user_id"
@@ -108,9 +101,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.boolean  "cleared",           default: false, null: false
     t.integer  "reconciliation_id"
     t.boolean  "internal",          default: false
+    t.index ["user_id"], name: "index_deposits_on_user_id", using: :btree
   end
-
-  add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
 
   create_table "invoices", force: :cascade do |t|
     t.integer "user_id"
@@ -118,9 +110,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.decimal "amount"
     t.date    "date"
     t.string  "memo"
+    t.index ["user_id"], name: "index_invoices_on_user_id", using: :btree
   end
-
-  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id"
@@ -129,9 +120,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.datetime "updated_at",  null: false
     t.integer  "customer_id"
     t.date     "date"
+    t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
   end
-
-  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.integer "user_id"
@@ -143,9 +133,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.integer "account_id"
     t.string  "method"
     t.string  "num"
+    t.index ["user_id"], name: "index_payments_on_user_id", using: :btree
   end
-
-  add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
 
   create_table "properties", force: :cascade do |t|
     t.string  "address"
@@ -156,9 +145,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.decimal "deposit"
     t.integer "user_id"
     t.boolean "rented",  default: false, null: false
+    t.index ["user_id"], name: "index_properties_on_user_id", using: :btree
   end
-
-  add_index "properties", ["user_id"], name: "index_properties_on_user_id", using: :btree
 
   create_table "reconciliations", force: :cascade do |t|
     t.integer  "user_id"
@@ -167,9 +155,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.date     "date"
     t.decimal  "ending_balance"
     t.decimal  "cleared_balance"
+    t.index ["user_id"], name: "index_reconciliations_on_user_id", using: :btree
   end
-
-  add_index "reconciliations", ["user_id"], name: "index_reconciliations_on_user_id", using: :btree
 
   create_table "recurring_trans", force: :cascade do |t|
     t.integer  "user_id"
@@ -185,20 +172,18 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.date     "last_charged"
     t.string   "description"
     t.date     "last_entry"
+    t.index ["user_id"], name: "index_recurring_trans_on_user_id", using: :btree
   end
-
-  add_index "recurring_trans", ["user_id"], name: "index_recurring_trans_on_user_id", using: :btree
 
   create_table "registers", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "name"
-    t.decimal  "balance",         default: 0.0
-    t.decimal  "cleared_balance", default: 0.0
+    t.decimal  "balance",         default: "0.0"
+    t.decimal  "cleared_balance", default: "0.0"
+    t.index ["user_id"], name: "index_registers_on_user_id", using: :btree
   end
-
-  add_index "registers", ["user_id"], name: "index_registers_on_user_id", using: :btree
 
   create_table "trans", force: :cascade do |t|
     t.integer "transactionable_id"
@@ -206,9 +191,8 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.integer "user_id"
     t.integer "customer_id"
     t.date    "date"
+    t.index ["user_id"], name: "index_trans_on_user_id", using: :btree
   end
-
-  add_index "trans", ["user_id"], name: "index_trans_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -223,10 +207,9 @@ ActiveRecord::Schema.define(version: 20160622211832) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vendors", force: :cascade do |t|
     t.string   "name"

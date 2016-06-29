@@ -11,7 +11,7 @@
   <tbody>
     <% @accounts.each do |a| %>
       <% if a.name == "Checking" %>
-        <tr data-link="<%= check_register_path %>">
+        <tr data-link="<%= registers_path %>">
       <% else %>
           <tr data-link="<%= account_path a %>">
       <% end %>
