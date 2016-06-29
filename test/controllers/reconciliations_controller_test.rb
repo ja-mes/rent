@@ -41,13 +41,13 @@ class ReconciliationsControllerTest < ActionController::TestCase
     deposits = Deposit.where(user: users(:one), cleared: false)
 
     assert_difference ["Reconciliation.count"] do
-      post :create, reconciliation: {
+      post :create, params: { reconciliation: {
         date: Date.today,
         ending_balance: 30, checks: {
           checks.first.id.to_s => {"selected"=>"on"}, checks.second.id.to_s => {"selected"=>"on"} 
         }, deposits: {
           deposits.first.id.to_s => {"selected"=>"on"}
-        }}
+        }}}
     end
 
     assert_redirected_to reconciliations_path
@@ -55,7 +55,7 @@ class ReconciliationsControllerTest < ActionController::TestCase
   end
 
   test "post create requires logged in user" do
-    post :create, reconciliation: {}
+    post :create, params: { reconciliation: {} }
     assert_redirected_to new_user_session_path
   end
 
@@ -65,7 +65,7 @@ class ReconciliationsControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
 
     assert_difference 'Reconciliation.count', -1 do
-      delete :destroy, id: reconciliations(:one)
+      delete :destroy, params: { id: reconciliations(:one) }
     end
   end
 end
