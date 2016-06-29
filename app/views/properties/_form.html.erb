@@ -36,7 +36,7 @@
       <div class="form-group">
         <%= f.label :state %>
         <% states = %w(AK AL AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY) %>
-        <%= f.select :state, options_for_select(states), {}, class: "form-control" %>
+        <%= f.select :state, options_for_select(states, @property.state), {}, class: "form-control" %>
       </div>
     </div>
     <div class="col-sm-4">
