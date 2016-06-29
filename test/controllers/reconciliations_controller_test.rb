@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class ReconciliationsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   # GET index
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :index
   end
 
@@ -17,7 +17,7 @@ class ReconciliationsControllerTest < ActionController::TestCase
   
   # GET new
   test "get new" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :new
     assert_response :success
 
@@ -35,7 +35,7 @@ class ReconciliationsControllerTest < ActionController::TestCase
 
   # POST create
   test "post create" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     checks = Check.where(user: users(:one), cleared: false)
     deposits = Deposit.where(user: users(:one), cleared: false)
@@ -62,7 +62,7 @@ class ReconciliationsControllerTest < ActionController::TestCase
   
   # DELETE destroy
   test "delete destroy" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Reconciliation.count', -1 do
       delete :destroy, id: reconciliations(:one)
