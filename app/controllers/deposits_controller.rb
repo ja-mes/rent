@@ -20,7 +20,7 @@ class DepositsController < ApplicationController
     @deposit.amount = 0
     @payments = current_user.undeposited_funds_account.payments.includes(:customer).where(deposit: nil)
 
-    if payment_params.length > 0
+    if payment_params.present?
       @payments.each do |p|
         if payment_params[:payment].key?(p.id.to_s)
           @deposit.payments << p
@@ -58,7 +58,7 @@ class DepositsController < ApplicationController
     @account = current_user.undeposited_funds_account
     @payments = @deposit.payments.includes(:customer)
 
-    if payment_params.length > 0
+    if payment_params.present?
       @payments.each do |p|
         unless payment_params[:payment].key?(p.id.to_s)
           @deposit.payments.delete(p)
