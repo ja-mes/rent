@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class VendorsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   # GET index
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :index
     assert_response :success
@@ -21,7 +21,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   # GET new
   test "get new" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :new
     assert_response :success
@@ -36,7 +36,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   # POST create
   test "post create should successfully create vendor" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Vendor.count' do
       post :create, vendor: {
@@ -55,7 +55,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   # GET show
   test "show should work" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :show, id: vendors(:one)
     assert_template :show
@@ -69,7 +69,7 @@ class VendorsControllerTest < ActionController::TestCase
   end
 
   test "show should not work if the if the vendor does not belong to the user" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
     get :show, id: vendors(:one)
     assert_redirected_to root_path
   end
@@ -77,7 +77,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   # GET edit
   test "get edit" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :edit, id: vendors(:one)
     assert_response :success
@@ -90,7 +90,7 @@ class VendorsControllerTest < ActionController::TestCase
   end
 
   test "get edit should not work if the vendor does not belong to the user" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
     get :edit, id: vendors(:one)
     assert_redirected_to root_path
   end
@@ -98,7 +98,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   # PUT update
   test "put update" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     put :update, id: vendors(:one), vendor: {
       name: "A new name"
@@ -113,7 +113,7 @@ class VendorsControllerTest < ActionController::TestCase
   end
 
   test "put update should not work if the vendor does not belong to the user" do
-    sign_in :user, users(:user_without_properties)
+    sign_in users(:user_without_properties), scope: :user
     put :update, id: vendors(:one), vendor: {}
     assert_redirected_to root_path
   end
