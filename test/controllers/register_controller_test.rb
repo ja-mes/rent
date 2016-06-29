@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class RegisterControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
-  
+  include Devise::Test::ControllerHelpers
+
   # GET index
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :index
     assert_not_nil assigns(:trans)
