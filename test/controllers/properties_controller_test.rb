@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class PropertiesControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   test "get index" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :index
     assert_template :index
     assert_response :success
@@ -17,7 +17,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "test new" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
     get :new
     assert_template :new
     assert_response :success
@@ -30,7 +30,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "create should successfully create property" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Property.count', 1 do
       post :create, property: {
@@ -48,7 +48,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "create should not save property if form is filled out incorrectly" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     assert_difference 'Property.count', 0 do
       post :create, property: {
@@ -71,7 +71,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "show should show properties details page" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :show, id: properties(:one)
     assert_response :success
@@ -80,7 +80,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "should only show property if it belongs to current user" do
-    sign_in :user, users(:two)
+    sign_in users(:two), scope: :user
 
     get :show, id: properties(:one)
     assert_redirected_to root_path
@@ -93,7 +93,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "get edit" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     get :edit, id: properties(:one)
     assert_response :success
@@ -102,7 +102,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "should only allow editing if property belongs to current user" do
-    sign_in :user, users(:two)
+    sign_in users(:two), scope: :user
 
     get :edit, id: properties(:one)
     assert_redirected_to root_path
@@ -115,7 +115,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "should be able to update property" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     put :update, id: properties(:one), property: {
       address: "NewAddress",
@@ -137,7 +137,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "should not be able to update property if form is filled out incorrectly" do
-    sign_in :user, users(:one)
+    sign_in users(:one), scope: :user
 
     put :update, id: properties(:one), property: {
       address: "",
@@ -153,7 +153,7 @@ class PropertiesControllerTest < ActionController::TestCase
   end
 
   test "should only allow updating property if it belongs to current user" do
-    sign_in :user, users(:two)
+    sign_in users(:two), scope: :user
 
     get :update, id: properties(:one)
     assert_redirected_to root_path
