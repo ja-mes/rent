@@ -23,4 +23,10 @@ class RegisterTest < ActiveSupport::TestCase
     @register.name = "  "
     assert_not @register.valid?
   end
+
+  test "set_beginning_balance should increment register balance" do
+    assert_difference '@register.balance', 500 do
+      @register.set_beginning_balance(500)
+    end
+  end
 end
