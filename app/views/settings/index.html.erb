@@ -1,3 +1,27 @@
+<!-- Modal -->
+<%= form_tag(:settings_update_checkbook, method: "post", remote: true) do %>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <%= label_tag "Beginning balance" %>
+          <%= text_field_tag :balance, nil, class: "form-control" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <h1 class="display-4 margin-40">Settings</h1>
 
 <div class="card">
@@ -7,5 +31,19 @@
   <div class="card-block">
     <%= link_to 'Charge Rent', charge_rent_path, class: "btn btn-primary", remote: true %>
     <%= link_to 'Enter Recurring Trans', enter_recurring_trans_path, class: "btn btn-primary", remote: true %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    Beginning Balances
+  </div>
+
+  <div class="card-block">
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      Set checking beginning balance
+    </button>
+
   </div>
 </div>

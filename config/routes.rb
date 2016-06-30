@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # SETTINGS
   get '/settings', to: 'settings#index', as: 'settings'
+  post '/settings/update_checkbook', to: 'settings#update_checkbook_balance', as: 'settings_update_checkbook'
+
   resources :registers
   resources :reconciliations
   resources :recurring_trans
