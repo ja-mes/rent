@@ -4,7 +4,7 @@ $(document).on('turbolinks:load', function() {
 
     if (box.val() === '' || isNaN(box.val())) {
       box.closest('.form-group').addClass('has-danger');
-      event.preventDefault();
+      return false;
     }
     else {
       box.closest('.form-group').removeClass('has-danger');
