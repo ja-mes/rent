@@ -1,5 +1,7 @@
 <%= render 'show_header' %>
 
+<p>Next due date: <strong><%= (@customer.last_charged + 1.month).strftime("%m/%d/%Y") %></strong></p>
+
 <table class="table table-hover row-links">
   <thead class="thead-default">
     <tr>
