@@ -17,13 +17,13 @@
       <tbody>
         <% @trans.each do |t| %>
           <% if t.account_transable_type == "Invoice" %>
-            <tr data-link="<%= edit_customer_invoice_path(t.account_transable_id, t.account_transable) %>">
+            <tr data-link="<%= edit_customer_invoice_path(t.account_transable) %>">
               <td>Invoice</td>
             <% elsif  t.account_transable_type == "Check" %>
               <tr data-link="<%= edit_check_path(t.account_transable) %>">
                 <td>Check</td>
             <% elsif t.account_transable_type == "Credit" %>
-              <tr data-link="<%= edit_customer_credit_path(t.account_transable_id, t.account_transable) %>">
+              <tr data-link="<%= edit_customer_credit_path(t.account_transable) %>">
                 <td>Credit</td>
               <% end %>
               <td><%= t.date.strftime("%m/%d/%Y") %></td>

@@ -44,7 +44,7 @@ class CustomersController < ApplicationController
   end
 
   def edit
-    if @customer.customer_type == "blank" 
+    if @customer.customer_type == "blank"
       render 'edit_blank'
     else
       @properties = current_user.rentable_properties
