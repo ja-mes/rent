@@ -26,6 +26,8 @@
         <td>
           <% if property.rented %>
             <span class="label label-primary">Rented</span>
+          <% elsif property.internal? %>
+            <span class="label label-warning">Internal</span>
           <% else %>
             <span class="label label-success">Vacant</span>
           <% end %>
