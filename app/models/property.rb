@@ -7,7 +7,7 @@ class Property < ApplicationRecord
   validates :address, presence: true
   validates_uniqueness_of :address
   validates :state, length: { is: 2 }, allow_blank: true
-  validates :rent, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :rent, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   validates :deposit, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   before_save :upcase_state
 
