@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  # TODO dependent destroy
   has_many :properties, dependent: :destroy
   has_many :customers, dependent: :destroy
   has_many :payments, dependent: :destroy
@@ -17,13 +16,15 @@ class User < ApplicationRecord
   has_many :registers, dependent: :destroy
   has_many :reconciliations, dependent: :destroy
 
+  after_create :create_default_accounts, on: :commit
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
 
-  after_create do 
+  def create_default_accounts
     CreateDefaultAccountsJob.perform_later self.id
   end
 
@@ -49,7 +50,7 @@ class User < ApplicationRecord
     Account.find_or_create_by(name: "Repairs and Maintenance", account_type: expenses, required: true, user: self)
 
     # all properties property
-    Property.create_all_properties_property
+    #Property.create_all_properties_property
   end
 
   def rentable_properties
@@ -63,7 +64,7 @@ class User < ApplicationRecord
   def after_database_authentication
     ChargeRentJob.perform_later self.id
     EnterRecurringTransJob.perform_later self.id
-  end 
+  end
 
 
   # ACCOUNT METHODS
@@ -73,7 +74,7 @@ class User < ApplicationRecord
     Register.find_or_create_by(user: self, name: "Checking")
   end
 
-  
+
   # account types
   def income_account_type
     AccountType.find_or_create_by(user: self, name: "Income", inc: true)
@@ -99,7 +100,7 @@ class User < ApplicationRecord
     AccountType.find_or_create_by(user: self, name: "Expenses", inc: false)
   end
 
-  
+
   # accounts
   def rental_income_account
     Account.create_with(account_type: income_account_type, balance: 0, required: true).find_or_create_by(name: "Rental Income", user: self)
