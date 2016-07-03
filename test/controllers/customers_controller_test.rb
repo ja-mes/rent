@@ -114,6 +114,14 @@ class CustomersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:customer)
   end
 
+  test "show should work for blank customers" do
+    sign_in users(:one), scope: :user
+
+    get :show, params: { id: customers(:blank) }
+    assert_response :success
+    assert_template :show
+  end
+
   test "show should only show customer if it belongs to current user" do
     sign_in users(:user_without_properties), scope: :user
     get :show, params: { id: customers(:one) }

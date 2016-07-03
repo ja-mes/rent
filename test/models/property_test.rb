@@ -44,9 +44,9 @@ class PropertyTest < ActiveSupport::TestCase
     assert_not @property.valid?
   end
 
-  test "state should be upcased before saved" do
+  test "upcase state should upcase state" do
     @property.state = "al"
-    @property.save
+    @property.upcase_state
     assert_equal @property.state, "AL", "it didn't work"
   end
 
