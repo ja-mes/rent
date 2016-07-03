@@ -1,8 +1,10 @@
 class Property < ApplicationRecord
+  # ASSOCIATIONS
   belongs_to :user
   has_many :customers
   has_many :account_trans
 
+  # VALIDATIONS
   validates :user_id, presence: true
   validates :address, presence: true
   validates_uniqueness_of :address
@@ -13,7 +15,14 @@ class Property < ApplicationRecord
 
   validates :rent, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   validates :deposit, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
+  validate :not_internal, on: :update
+
+  # HOOKS
   before_save :upcase_state, if: :state
+
+  def not_internal
+    self.errors.add(:base, "Cannot update internal property") if self.internal
+  end
 
   def upcase_state
     self.state = self.state.upcase
