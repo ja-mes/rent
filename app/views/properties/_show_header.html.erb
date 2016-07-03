@@ -7,7 +7,7 @@
     <%= @property.city %>, <%= @property.state %> <%= @property.zip %>
   <% end %>
 
-  <% if @property.address = "All Properties" %>
+  <% if @property.address == "All Properties" %>
     <i style='display: inline-block; margin-top: 10px'>Use this property for tracking expenses that belong to all houses</i>
   <% end %>
 </p>

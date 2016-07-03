@@ -28,8 +28,10 @@ class User < ApplicationRecord
   end
 
   def create_default_accounts
+    # checkbook
     checkbook = Register.find_or_create_by(user: self, name: "Checking", balance: 0)
 
+    # account types
     income = AccountType.find_or_create_by(user: self, name: "Income", inc: true)
     bank = AccountType.find_or_create_by(user: self, name: "Bank", inc: true)
     other_current_assets = AccountType.find_or_create_by(user: self, name: "Other Current Assets", inc: true)
@@ -37,6 +39,7 @@ class User < ApplicationRecord
     other_income = AccountType.find_or_create_by(user: self, name: "Other Income", inc: true)
     expenses = AccountType.find_or_create_by(user: self, name: "Expenses", inc: false)
 
+    # accounts
     Account.find_or_create_by(name: "Rental Income", account_type: income, required: true, user: self)
     Account.find_or_create_by(name: "Checking", account_type: bank, required: true, user: self)
     Account.find_or_create_by(name: "Security Deposits", account_type: other_current_liabilities, required: true, user: self)
@@ -44,6 +47,9 @@ class User < ApplicationRecord
     Account.find_or_create_by(name: "Deposit Discrepancies", account_type: expenses, required: true, user: self)
     Account.find_or_create_by(name: "Reconciliation Discrepancies", account_type: expenses, required: true, user: self)
     Account.find_or_create_by(name: "Repairs and Maintenance", account_type: expenses, required: true, user: self)
+
+    # all properties property
+    Property.create_all_properties_property
   end
 
   def rentable_properties
