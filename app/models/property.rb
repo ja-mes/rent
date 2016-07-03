@@ -6,9 +6,7 @@ class Property < ApplicationRecord
   validates :user_id, presence: true
   validates :address, presence: true
   validates_uniqueness_of :address
-  validates :state, presence: true, length: { is: 2 }
-  validates :city, presence: true
-  validates :zip, presence: true
+  validates :state, length: { is: 2 }, allow_blank: true
   validates :rent, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :deposit, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   before_save :upcase_state
