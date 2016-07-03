@@ -70,6 +70,38 @@ class PropertyTest < ActiveSupport::TestCase
     assert_not @property.valid?
   end
 
+  test "city should be present" do
+    @property.city = nil
+    assert_not @property.valid?
+  end
+
+  test "city is not required if property is internal" do
+    @property.internal = true
+    @property.city = nil
+    assert @property.valid?
+  end
+
+  test "state should be present" do
+    @property.state = nil
+    assert_not @property.valid?
+  end
+
+  test "state is not required if property is internal" do
+    @property.internal = true
+    @property.state = nil
+    assert @property.valid?
+  end
+
+  test "zip should be present" do
+    @property.zip = nil
+    assert_not @property.valid?
+  end
+
+  test "zip is optional if property is internal" do
+    @property.internal = true
+    @property.zip = nil
+    assert @property.valid?
+  end
 
   test "full address should return full address for property" do
     @property.address = "1"
