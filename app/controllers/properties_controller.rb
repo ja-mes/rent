@@ -35,7 +35,10 @@ class PropertiesController < ApplicationController
   end
 
   def update
-    if @property.update(property_params)
+    if @property.internal?
+      flash[:danger] = "Cannot edit internal property"
+      redirect_to property_path
+    elsif @property.update(property_params)
       flash[:success] = "Property successfully updated"
       redirect_to edit_property_path
     else
