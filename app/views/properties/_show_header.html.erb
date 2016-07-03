@@ -1,7 +1,12 @@
 <h3 style="">
   <%= @property.address %>
 </h3>
-<p class="margin-35"><%= @property.city %>, <%= @property.state %> <%= @property.zip %></p>
+
+<p class="margin-35">
+  <% unless @property.internal? %>
+    <%= @property.city %>, <%= @property.state %> <%= @property.zip %>
+  <% end %>
+</p>
 
 <ul class="nav nav-tabs header-tabs">
   <li class="nav-item">
