@@ -39,8 +39,9 @@ three:
   last_charged: 2016-01-06
 
 blank:
+  user: one
   company_name: "foobar"
   phone: "222"
-  user: one
   customer_type: "blank"
+  active: true
 

@@ -207,8 +207,8 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "grab_all should return all customers or active customers only depending on display param" do
-    assert_equal Customer.grab_all(users(:one), 'active').count, 1 
-    assert_equal Customer.grab_all(users(:one)).count, 1
-    assert_equal Customer.grab_all(users(:one), 'all').count, 2
+    assert_equal Customer.grab_all(users(:one), 'active').count, 2 
+    assert_equal Customer.grab_all(users(:one)).count, 2
+    assert_equal Customer.grab_all(users(:one), 'all').count, 3
   end
 end
