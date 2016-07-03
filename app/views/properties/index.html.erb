@@ -14,7 +14,7 @@
     <% @properties.each do |property| %>
       <tr data-link="<%= property_path property %>">
         <td>
-          <%= property.address %>, <%= property.city %> <%= property.state %> <%= property.zip %>
+          <%= property.full_address %>
         </td>
         <td>
           <%= number_to_currency(property.rent) %>
