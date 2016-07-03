@@ -16,7 +16,10 @@
   <li class="nav-item">
     <%= link_to 'Transactions', @property, class: "#{isActive 'properties', 'show'} nav-link" %>
   </li>
-  <li class="nav-item">
-    <%= link_to 'Edit Property', edit_property_path(@property), class: "#{isActive 'properties', ['edit', 'update']} nav-link" %>
-  </li>
+
+  <% unless @property.internal %>
+    <li class="nav-item">
+      <%= link_to 'Edit Property', edit_property_path(@property), class: "#{isActive 'properties', ['edit', 'update']} nav-link" %>
+    </li>
+  <% end %>
 </ul>
