@@ -17,7 +17,12 @@ class Property < ApplicationRecord
 
   def full_address
     only_address = self.city.blank? && self.state.blank? && self.zip.blank?
-    "#{self.address}#{',' unless only_address} #{self.city} #{self.state} #{self.zip}"
+
+    if only_address
+      "#{self.address}"
+    else
+      "#{self.address}, #{self.city} #{self.state} #{self.zip}"
+    end
   end
 
   def self.create_all_properties_property(user_id)

@@ -34,11 +34,6 @@ class PropertyTest < ActiveSupport::TestCase
     assert_not @property2.valid?
   end
 
-  test "state should be present" do
-    @property.state = " "
-    assert_not @property.valid?
-  end
-
   test "state length should not be greater than 2" do
     @property.state = "AAA"
     assert_not @property.valid?
@@ -53,21 +48,6 @@ class PropertyTest < ActiveSupport::TestCase
     @property.state = "al"
     @property.save
     assert_equal @property.state, "AL", "it didn't work"
-  end
-
-  test "city should be present" do
-    @property.city = " "
-    assert_not @property.valid?
-  end
-
-  test "zip should be present" do
-    @property.zip = " "
-    assert_not @property.valid?
-  end
-
-  test "rent should be present" do
-    @property.rent = nil
-    assert_not @property.valid?
   end
 
   test "rent should be a number" do
@@ -92,6 +72,19 @@ class PropertyTest < ActiveSupport::TestCase
 
 
   test "full address should return full address for property" do
-    assert_equal @property.full_address, "#{@property.address}, #{@property.city}, #{@property.state} #{@property.zip}"
+    @property.address = "1"
+    @property.city = "2"
+    @property.state = "3"
+    @property.zip = "4"
+    assert_equal @property.full_address, "1, 2 3 4"
+  end
+
+  test "full address should return only address without comma if city state and zip don't exist" do
+    @property.address = "1"
+    @property.city = nil
+    @property.state = nil
+    @property.zip = nil
+
+    assert_equal @property.full_address, "1"
   end
 end
