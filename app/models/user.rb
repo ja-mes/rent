@@ -50,7 +50,7 @@ class User < ApplicationRecord
     Account.find_or_create_by(name: "Repairs and Maintenance", account_type: expenses, required: true, user: self)
 
     # all properties property
-    #Property.create_all_properties_property
+    Property.create_all_properties_property self.id
   end
 
   def rentable_properties
