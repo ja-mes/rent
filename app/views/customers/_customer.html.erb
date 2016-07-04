@@ -1,10 +1,10 @@
-<tr data-link="<%= customer_path customer %>" class="<%= customer.balance > 0 ? 'table-danger' : '' %> ">
+<tr class="<%= customer.balance > 0 ? 'table-danger' : '' %> ">
   <td>
-    <%= customer.full_name %>
+    <%= link_to customer.full_name, customer %>
   </td>
   <td>
     <% unless customer.customer_type == "blank" %>
-      <%= customer.property.address %>, <%= customer.property.city %>, <%= customer.property.state %> <%= customer.property.zip %>
+      <%= link_to customer.property.full_address, customer.property %>
     <% end %>
   </td>
   <td>
