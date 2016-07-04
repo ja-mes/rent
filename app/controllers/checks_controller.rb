@@ -6,6 +6,7 @@ class ChecksController < ApplicationController
     require_same_user(@check)
   end
 
+  layout "fluid"
 
   def index
     redirect_to new_check_path
