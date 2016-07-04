@@ -11,6 +11,8 @@ class InvoicesController < ApplicationController
     require_same_user(@invoice)
   end
 
+  layout "fluid"
+
   def index
     redirect_to @customer
   end
