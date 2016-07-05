@@ -11,7 +11,7 @@ Option 2
 Calculate customer balance when the record is found
 
 cons
- - difficult to calculate
- - will make records load slower
+- difficult to calculate
+- will make records load slower
 
 
