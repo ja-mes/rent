@@ -8,8 +8,17 @@
 
 <%= form_for [@customer, @invoice], html: { style: "margin-top: 20px" } do |f| %>
   <div class="form-group margin-20">
-    <%= f.date_select :date, order: [:month, :day, :year] %>
+    <div style="display: inline-block; margin-right: 30px;">
+      <%= f.label :date, "Invoice Date" %>
+      <%= f.date_select :date, order: [:month, :day, :year] %>
+    </div>
+
+    <div style="display: inline-block;">
+      <%= f.label :date, "Due date" %>
+      <%= f.date_select :date, order: [:month, :day, :year] %>
+    </div>
   </div>
+  <hr>
 
   <div class="form-group">
     <%= f.label :customer %>
@@ -42,7 +51,7 @@
       <%= render 'shared/account_trans', f: f, obj: @invoice %>
     </div>
   </div>
-  
+
   <div class="form-group">
     <%= f.submit class: "btn btn-success" %>
 
