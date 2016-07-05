@@ -74,7 +74,7 @@ class InvoicesController < ApplicationController
 
   private
   def invoice_params
-    params.require(:invoice).permit(:customer_id, :amount, :date, :memo, account_trans_attributes: [:id, :account_id, :property_id, :amount, :memo, :_destroy])
+    params.require(:invoice).permit(:customer_id, :amount, :date, :due_date, :memo, account_trans_attributes: [:id, :account_id, :property_id, :amount, :memo, :_destroy])
   end
 
   def set_customer

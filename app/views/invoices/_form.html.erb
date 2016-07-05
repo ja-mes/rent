@@ -14,8 +14,8 @@
     </div>
 
     <div style="display: inline-block;">
-      <%= f.label :date, "Due date" %>
-      <%= f.date_select :date, order: [:month, :day, :year] %>
+      <%= f.label :due_date, "Due date" %>
+      <%= f.date_select :due_date, order: [:month, :day, :year] %>
     </div>
   </div>
   <hr>
@@ -42,7 +42,7 @@
 
   <div class="form-group">
     <%= f.label :memo %>
-    <%= f.text_area :memo, class: "form-control" %>
+    <%= f.text_field :memo, class: "form-control" %>
   </div>
 
   <div class="card">
