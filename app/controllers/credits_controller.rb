@@ -7,6 +7,8 @@ class CreditsController < ApplicationController
   before_action { require_same_user(@customer) }
   before_action only: [:edit, :update, :destroy] { require_same_user(@credit) }
 
+  layout "fluid"
+
   def index
     redirect_to @customer
   end
