@@ -35,7 +35,7 @@ class Invoice < ApplicationRecord
   end
 
   after_update do
-    self.tran.update_attributes(customer: self.customer, date: self.date)
+    self.tran.update_attributes(customer: self.customer, date: self.date) if self.tran
   end
 
   after_destroy do
@@ -47,7 +47,11 @@ class Invoice < ApplicationRecord
   end
   
   def inc_balance
-    self.customer.increment!(:balance, by = self.amount)
+    if self.due_date == Date.today
+      self.customer.increment!(:balance, by = self.amount)
+    else
+      #InvoiceDueDateJob.set(wait_until: self.due_date.to_time).perform_later(self.id)
+    end
   end
 
   def calculate_balance(old_amount, old_customer)
