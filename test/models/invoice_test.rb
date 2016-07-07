@@ -111,4 +111,11 @@ class InvoiceTest < ActiveSupport::TestCase
       @invoice.inc_balance
     end
   end
+
+  test "create_invoice_tran" do
+    @invoice.tran.destroy
+    assert_difference 'Tran.count', 1 do
+      @invoice.create_invoice_tran
+    end
+  end
 end
