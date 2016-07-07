@@ -21,6 +21,14 @@ class Invoice < ApplicationRecord
   # HOOKS
   after_create :create_invoice_tran, :inc_balance
 
+  after_update do
+    self.tran.update_attributes(customer: self.customer, date: self.date) if self.tran
+  end
+
+  after_destroy do
+    self.customer.increment!(:balance, by = -self.amount) if self.customer
+  end
+
   def totals_must_equal
     amount = 0
     self.account_trans.each do |tran|
@@ -32,14 +40,6 @@ class Invoice < ApplicationRecord
     unless amount == self.amount
       errors.add(:base, "Invoice total must equal expenses total")
     end
-  end
-
-  after_update do
-    self.tran.update_attributes(customer: self.customer, date: self.date) if self.tran
-  end
-
-  after_destroy do
-    self.customer.increment!(:balance, by = -self.amount) if self.customer
   end
 
   def create_invoice_tran
