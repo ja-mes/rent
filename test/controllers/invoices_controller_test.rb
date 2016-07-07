@@ -42,6 +42,7 @@ class InvoicesControllerTest < ActionController::TestCase
         customer_id: customers(:three),
         amount: "500",
         date: "03/10/2016",
+        due_date: "03/11/2016",
         memo: "this is the memo",
         account_trans_attributes: {
           "0" => {
@@ -77,6 +78,7 @@ class InvoicesControllerTest < ActionController::TestCase
       post :create, params: { customer_id: customers(:one), invoice: {
         amount: nil,
         date: nil,
+        due_date: nil,
         memo: nil
       }}
     end
@@ -127,6 +129,7 @@ class InvoicesControllerTest < ActionController::TestCase
       customer_id: customers(:three).id,
       amount: "700.22",
       date: "05/08/2016",
+      due_date: "05/08/2016",
       memo: "blah memo",
       account_trans_attributes: {
         "0" => {
@@ -150,6 +153,7 @@ class InvoicesControllerTest < ActionController::TestCase
     put :update, params: { customer_id: customers(:one), id: invoices(:one), invoice: {
       amount: "",
       date: "",
+      due_date: "",
       memo: ""
     }}
 

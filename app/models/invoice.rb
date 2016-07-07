@@ -50,6 +50,7 @@ class Invoice < ApplicationRecord
     if self.due_date == Date.today
       self.customer.increment!(:balance, by = self.amount)
     else
+      self.customer.increment!(:balance, by = self.amount)
       #InvoiceDueDateJob.set(wait_until: self.due_date.to_time).perform_later(self.id)
     end
   end
