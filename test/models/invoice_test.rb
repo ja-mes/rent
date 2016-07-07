@@ -103,4 +103,12 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal invoice.memo, tran.memo
     assert_equal invoice.customer_id, tran.charge_id
   end
+
+  test "inc balance should increment customer balance for amount of invoice" do
+    @invoice.amount = 500
+
+    assert_difference '@invoice.customer.balance', 500 do
+      @invoice.inc_balance
+    end
+  end
 end
