@@ -55,6 +55,7 @@ class Customer < ApplicationRecord
     invoice = self.invoices.build do |i|
       i.amount = amount
       i.date = Date.today
+      i.due_date = Date.today
       i.memo = memo
       i.user = user
     end
