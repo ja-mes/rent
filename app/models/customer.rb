@@ -25,6 +25,7 @@ class Customer < ApplicationRecord
   before_update :update_last_charged, unless: :is_blank?
   after_create :charge_prorated_rent, unless: :is_blank?, if: :should_charge_rent
   after_create :update_property, unless: :is_blank?
+  after_find :check_charges
 
 
   # CUSTOM VALIDATIONS
@@ -42,6 +43,10 @@ class Customer < ApplicationRecord
     unless (1..28).include?(self.due_date.to_i) 
       errors.add(:base, "Due date must be between 1 and 28")
     end
+  end
+
+  # METHODS
+  def check_charges
   end
 
   def update_property
