@@ -1,6 +1,7 @@
 one:
   amount: 500.22
   date: 2016-08-07
+  due_date: 2016-08-08
   memo: "this is an amazing memo"
   user: one
   customer_id: 1
@@ -8,6 +9,7 @@ one:
 two:
   amount: 300
   date: 2016-07-05
+  due_date: 2016-07-06
   memo: "test memo"
   user: two
   customer: two

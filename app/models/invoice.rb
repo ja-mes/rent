@@ -69,6 +69,7 @@ class Invoice < ApplicationRecord
     invoice = Invoice.new do |t|
       t.user_id = tran.user.id
       t.date = Date.today
+      t.due_date = Date.today
       t.amount = tran.amount
       t.memo = tran.memo
       t.customer_id = tran.charge_id
