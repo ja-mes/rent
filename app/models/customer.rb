@@ -47,6 +47,9 @@ class Customer < ApplicationRecord
 
   # METHODS
   def check_charges
+    if self.due_date == Date.today && !self.charged_today
+      # Envoke charge rent job
+    end
   end
 
   def update_property
