@@ -50,7 +50,7 @@
 
       <div class="form-group">
         <%= f.label :due_date do %>
-          Monthly due date <i>(Next payment on <strong id="customer_due_date_display"></strong>)</i>
+          Monthly due date <% if @customer.new_record? %> <i>(Next payment on <strong id="customer_due_date_display"></strong>)</i> <% end %>
         <% end %><br>
         <% days = %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28) %>
         <%= f.select :due_date, options_for_select(days, @customer.due_date), {}, class: "form-control" %>
