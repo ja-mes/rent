@@ -1,4 +1,4 @@
-class ChargeRentJob < ActiveJob::Base
+class ChargeRentJob < ApplicationJob
   queue_as :default
 
   def perform(user_id)
