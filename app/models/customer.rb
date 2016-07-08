@@ -47,6 +47,13 @@ class Customer < ApplicationRecord
 
   # METHODS
   def check_charges
+    # check if includes
+  end
+
+  def add_future_charge(date)
+    self.future_dates ||= []
+    self.future_dates << date
+    self.save
   end
 
   def update_property
