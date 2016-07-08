@@ -25,8 +25,6 @@ class Customer < ApplicationRecord
   before_update :update_last_charged, unless: :is_blank?
   after_create :charge_prorated_rent, unless: :is_blank?, if: :should_charge_rent
   after_create :update_property, unless: :is_blank?
-  after_find :check_charges
-
 
   # CUSTOM VALIDATIONS
   def is_blank?
@@ -46,16 +44,6 @@ class Customer < ApplicationRecord
   end
 
   # METHODS
-  def check_charges
-    # check if includes
-  end
-
-  def add_future_charge(date)
-    self.future_dates ||= []
-    self.future_dates << date
-    self.save
-  end
-
   def update_property
     self.property.update_attribute(:rented, true)
   end

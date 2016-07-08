@@ -50,7 +50,7 @@ class Invoice < ApplicationRecord
     if self.due_date == Date.today
       self.customer.increment!(:balance, by = self.amount)
     else
-      self.customer.add_future_charge(self.due_date.to_date)
+      self.customer.increment!(:balance, by = self.amount)
     end
   end
 
