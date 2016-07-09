@@ -48,11 +48,7 @@ class Invoice < ApplicationRecord
   end
   
   def inc_balance
-    if self.due_date == Date.today
-      self.customer.increment!(:balance, by = self.amount)
-    else
-      self.customer.increment!(:balance, by = self.amount)
-    end
+    self.customer.increment!(:balance, by = self.amount) if self.due_date == Date.today
   end
 
   def check_due_date

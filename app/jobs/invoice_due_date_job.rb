@@ -5,7 +5,7 @@ class InvoiceDueDateJob < ApplicationJob
     user = User.find(user_id)
 
     user.invoices.includes(:customer).where(due_date: Date.today, charged: false).find_each do |i|
-      customer.increment!(:balance, by = i.amount)
+      i.customer.increment!(:balance, by = i.amount)
       i.update_attribute(:charged, false)
     end
   end
