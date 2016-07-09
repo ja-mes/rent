@@ -20,6 +20,7 @@ class Invoice < ApplicationRecord
 
   # HOOKS
   after_create :create_invoice_tran, :inc_balance
+  before_update :check_due_date
 
   after_update do
     self.tran.update_attributes(customer: self.customer, date: self.date) if self.tran
@@ -52,6 +53,10 @@ class Invoice < ApplicationRecord
     else
       self.customer.increment!(:balance, by = self.amount)
     end
+  end
+
+  def check_due_date
+    self.charged = false if self.due_date > Date.today
   end
 
   def calculate_balance(old_amount, old_customer)
