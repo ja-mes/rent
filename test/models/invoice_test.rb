@@ -67,7 +67,6 @@ class InvoiceTest < ActiveSupport::TestCase
   test "after_update should work" do
     @invoice.date = "2016-08-07"
     @invoice.customer = customers(:three)
-    debugger
     @invoice.save
     assert_equal @invoice.tran.date, @invoice.date
     assert_equal @invoice.tran.customer, customers(:three)
@@ -108,6 +107,7 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   test "inc balance should increment customer balance for amount of invoice" do
+    @invoice.due_date = Date.today
     @invoice.amount = 500
 
     assert_difference '@invoice.customer.balance', 500 do

@@ -5,6 +5,7 @@ one:
   memo: "this is an amazing memo"
   user: one
   customer_id: 1
+  charged: true
 
 two:
   amount: 300
@@ -13,3 +14,4 @@ two:
   memo: "test memo"
   user: two
   customer: two
+  charged: true

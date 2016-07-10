@@ -23,6 +23,7 @@ class Invoice < ApplicationRecord
   before_update :check_due_date
 
   after_update do
+    debugger
     self.tran.update_attributes(customer: self.customer, date: self.date) if self.tran
   end
 
