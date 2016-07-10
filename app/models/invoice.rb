@@ -16,6 +16,7 @@ class Invoice < ApplicationRecord
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
   validates :due_date, presence: true
+  validates :charged, presence: true
   validate :totals_must_equal, unless: :skip_tran_validation
 
   # HOOKS
