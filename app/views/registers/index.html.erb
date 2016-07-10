@@ -12,6 +12,7 @@
           <th>Type</th>
           <th>Num</th>
           <th>Date</th>
+          <th>Payee</th>
           <th>Payment</th>
           <th>Deposit</th>
         </tr>
@@ -24,6 +25,7 @@
               <td>Deposit</td>
               <td></td>
               <td><%= t.date.strftime("%m/%d/%Y") %></td>
+              <td></td>
               <td>
               <td><%= number_to_currency(t.transactionable.amount) %></td>
             <% else %>
@@ -31,6 +33,7 @@
                 <td>Check</td>
                 <td><%= t.transactionable.num %></td>
                 <td><%= t.date.strftime("%m/%d/%Y") %></td>
+                <td><%= t.transactionable.vendor.name if t.transactionable.vendor %></td>
                 <td><%= number_to_currency(t.transactionable.amount) %></td>
                 <td>
               <% end %>
