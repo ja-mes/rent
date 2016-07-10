@@ -51,6 +51,8 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test "after_create should work" do
     invoice = @invoice.dup 
+    invoice.due_date = Date.today
+
     @invoice.account_trans.each do |t| 
       t.user = users(:one)
       invoice.account_trans << t.dup 
@@ -65,6 +67,7 @@ class InvoiceTest < ActiveSupport::TestCase
   test "after_update should work" do
     @invoice.date = "2016-08-07"
     @invoice.customer = customers(:three)
+    debugger
     @invoice.save
     assert_equal @invoice.tran.date, @invoice.date
     assert_equal @invoice.tran.customer, customers(:three)
