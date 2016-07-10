@@ -27,7 +27,8 @@ class Invoice < ApplicationRecord
   end
 
   after_destroy do
-    self.customer.increment!(:balance, by = -self.amount) if self.customer
+    c = self.customer
+    c.increment!(:balance, by = -self.amount) if c && self.charged
   end
 
   def totals_must_equal
