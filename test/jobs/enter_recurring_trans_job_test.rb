@@ -17,4 +17,10 @@ class EnterRecurringTransJobTest < ActiveJob::TestCase
       end
     end
   end
+
+  test "job should be run after the user logs in" do
+    assert_enqueued_with(job: EnterRecurringTransJob) do
+      User.first.after_database_authentication
+    end
+  end
 end
