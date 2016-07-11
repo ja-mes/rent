@@ -44,6 +44,10 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
+  test "charged should default to true" do
+    assert_equal Invoice.new.charged, true
+  end
+
   test "totals must equal should ensure that totals of expenses and invoice equal" do
     @invoice.amount = 200
     assert_not @invoice.valid?
