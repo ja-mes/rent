@@ -148,6 +148,19 @@ class InvoiceTest < ActiveSupport::TestCase
     end
   end
 
+  test "check_due_date should check to see if due_date is in the future and if it is then set charged to false" do
+    @invoice.charged = true
+    @invoice.due_date = Date.tomorrow
+
+    @invoice.check_due_date
+    assert_equal @invoice.charged, false
+
+    @invoice.charged = true
+    @invoice.due_date = Date.tomorrow + 10.days + 5.months
+
+    @invoice.check_due_date
+    assert_equal @invoice.charged, false
+  end
 
   test "create_invoice_tran" do
     @invoice.tran.destroy
