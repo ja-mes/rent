@@ -156,13 +156,17 @@ class InvoiceTest < ActiveSupport::TestCase
     @invoice.charged = true
     @invoice.due_date = Date.tomorrow
 
-    @invoice.check_due_date
+    assert_difference '@invoice.customer.balance', -@invoice.amount do
+      @invoice.check_due_date
+    end
     assert_equal @invoice.charged, false
 
     @invoice.charged = true
     @invoice.due_date = Date.tomorrow + 10.days + 5.months
 
-    @invoice.check_due_date
+    assert_difference '@invoice.customer.balance', -@invoice.amount do
+      @invoice.check_due_date
+    end
     assert_equal @invoice.charged, false
   end
 
