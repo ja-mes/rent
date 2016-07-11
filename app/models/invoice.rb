@@ -47,7 +47,7 @@ class Invoice < ApplicationRecord
   def create_invoice_tran
     self.create_tran(user: self.user, customer: self.customer, date: self.date)
   end
-  
+
   def inc_balance
     self.customer.increment!(:balance, by = self.amount) if self.due_date <= Date.today
   end
