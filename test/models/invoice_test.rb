@@ -115,7 +115,7 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal invoice.customer_id, tran.charge_id
   end
 
-  test "inc balance should increment customer balance for amount of invoice" do
+  test "inc balance should increment customer balance for amount of invoice if due_date is today" do
     @invoice.due_date = Date.today
     @invoice.amount = 500
 
@@ -123,6 +123,31 @@ class InvoiceTest < ActiveSupport::TestCase
       @invoice.inc_balance
     end
   end
+
+  test "inc balance should increment customer blaance for amount of invoice if due_date is < today" do
+    @invoice.due_date = Date.yesterday
+    @invoice.amount = 500
+
+    assert_difference '@invoice.customer.balance', 500 do
+      @invoice.inc_balance
+    end
+  end
+
+  test "inc balance should not inc balance if due_date is greater than todays date" do
+    @invoice.due_date = Date.tomorrow
+    @invoice.amount = 500
+
+    assert_difference '@invoice.customer.balance', 0 do
+      @invoice.inc_balance
+    end
+
+    @invoice.due_date = Date.tomorrow + 2.months
+
+    assert_difference '@invoice.customer.balance', 0 do
+      @invoice.inc_balance
+    end
+  end
+
 
   test "create_invoice_tran" do
     @invoice.tran.destroy
