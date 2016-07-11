@@ -42,7 +42,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal users(:one).checkbook, checkbook
 
     checkbook.destroy
-    
+
     assert_difference 'Register.count' do
       users(:one).checkbook
     end

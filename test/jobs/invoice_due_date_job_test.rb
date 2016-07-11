@@ -19,4 +19,10 @@ class InvoiceDueDateJobTest < ActiveJob::TestCase
       InvoiceDueDateJob.perform_now users(:one).id
     end
   end
+
+  test "job should be run after user logs in" do
+    assert_enqueued_with(job: InvoiceDueDateJob) do
+      User.first.after_database_authentication
+    end
+  end
 end
