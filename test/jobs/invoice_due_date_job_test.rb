@@ -10,4 +10,13 @@ class InvoiceDueDateJobTest < ActiveJob::TestCase
       InvoiceDueDateJob.perform_now users(:one).id
     end
   end
+
+  test "should not work for charged invoices" do
+    invoices(:one).update_attributes(charged: true, due_date: Date.today, amount: 20, skip_tran_validation: true)
+    invoices(:two).update_attributes(user: users(:one), customer: customers(:one), charged: true, due_date: 5.days.ago, amount: 50, skip_tran_validation: true)
+
+    assert_difference 'customers(:one).reload.balance', 0 do
+      InvoiceDueDateJob.perform_now users(:one).id
+    end
+  end
 end
