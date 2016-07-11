@@ -53,7 +53,12 @@ class Invoice < ApplicationRecord
   end
 
   def check_due_date
-    self.charged = false if self.due_date > Date.today
+    if self.due_date > Date.today && self.charged
+      self.customer.increment(:balance, by = -self.amount)
+      self.charged = false
+    elsif self.due_date > Date.today
+      self.charged = false
+    end
     true # future callbacks get cancelled if we don't return true
   end
 
