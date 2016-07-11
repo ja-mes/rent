@@ -50,12 +50,12 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   test "after_create should work" do
-    invoice = @invoice.dup 
+    invoice = @invoice.dup
     invoice.due_date = Date.today
 
-    @invoice.account_trans.each do |t| 
+    @invoice.account_trans.each do |t|
       t.user = users(:one)
-      invoice.account_trans << t.dup 
+      invoice.account_trans << t.dup
     end
 
     assert_difference 'Tran.count' do
@@ -76,6 +76,14 @@ class InvoiceTest < ActiveSupport::TestCase
   test "after_destroy should work" do
     @invoice.destroy
     assert_equal @invoice.customer.balance, -@invoice.amount
+  end
+
+  test "after_destroy should not remove balance if charged is false" do
+    @invoice.charged = false
+
+    assert_difference "@invoice.customer.balance", 0 do
+      @invoice.destroy
+    end
   end
 
   test "calculate_balance should work" do
