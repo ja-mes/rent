@@ -66,6 +66,7 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test "after_update should work" do
     @invoice.date = "2016-08-07"
+    @invoice.due_date = @invoice.date
     @invoice.customer = customers(:three)
     @invoice.save
     assert_equal @invoice.tran.date, @invoice.date

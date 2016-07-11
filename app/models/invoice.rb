@@ -23,7 +23,6 @@ class Invoice < ApplicationRecord
   before_update :check_due_date
 
   after_update do
-    debugger
     self.tran.update_attributes(customer: self.customer, date: self.date) if self.tran
   end
 
@@ -55,6 +54,7 @@ class Invoice < ApplicationRecord
 
   def check_due_date
     self.charged = false if self.due_date > Date.today
+    true # future callbacks get cancelled if we don't return true
   end
 
   def calculate_balance(old_amount, old_customer)

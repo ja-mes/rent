@@ -41,8 +41,8 @@ class InvoicesControllerTest < ActionController::TestCase
       post :create, params: { customer_id: customers(:one), invoice: {
         customer_id: customers(:three),
         amount: "500",
-        date: "03/10/2016",
-        due_date: "03/11/2016",
+        date: Date.today,
+        due_date: Date.today,
         memo: "this is the memo",
         account_trans_attributes: {
           "0" => {
@@ -56,10 +56,11 @@ class InvoicesControllerTest < ActionController::TestCase
     end
 
     assert_not_nil assigns(:invoice)
+
     assert_equal assigns(:invoice).customer.balance, 500.00
 
     # account trans should have date and user assigned
-    assert_equal assigns(:invoice).account_trans.first.date, Date.strptime("03/10/2016", "%d/%m/%Y") 
+    assert_equal assigns(:invoice).account_trans.first.date, Date.today
     assert_equal assigns(:invoice).account_trans.first.user, users(:one)
 
     assert_redirected_to edit_customer_invoice_path(assigns(:invoice).customer, assigns(:invoice))
@@ -121,11 +122,11 @@ class InvoicesControllerTest < ActionController::TestCase
   end
 
 
-  
+
   test "update should successfully update invoice" do
     sign_in users(:one), scope: :user
 
-    put :update, params: { customer_id: customers(:one), id: invoices(:one), invoice: { 
+    put :update, params: { customer_id: customers(:one), id: invoices(:one), invoice: {
       customer_id: customers(:three).id,
       amount: "700.22",
       date: "05/08/2016",
