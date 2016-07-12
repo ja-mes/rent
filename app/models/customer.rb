@@ -19,6 +19,7 @@ class Customer < ApplicationRecord
   validates :last_charged, presence: true, unless: :is_blank?
   validates :customer_type, inclusion: { in: ['blank', 'tenant'] }
   validate :name_is_present
+  validate :property_not_internal, unless: :is_blank?
 
   # HOOKS
   before_validation :setup_last_charged, unless: :is_blank?
@@ -41,6 +42,10 @@ class Customer < ApplicationRecord
     unless (1..28).include?(self.due_date.to_i)
       errors.add(:base, "Due date must be between 1 and 28")
     end
+  end
+
+  def property_not_internal
+    errors.add(:base, "Cannot rent internal property") if self.property && self.property.internal?
   end
 
   # METHODS
