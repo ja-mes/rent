@@ -28,6 +28,7 @@
       <td><%= trns.transactionable_type %></td>
       <td><%= number_to_currency(trns.transactionable.amount) %></td>
       <td><%= trns.transactionable.date.strftime("%m/%d/%Y") %></td>
+      <td><%= trns.transactionable.date.strftime("%m/%d/%Y") %></td>
       <td><%= truncate(trns.transactionable.memo, length: 25) %>
     </tr>
     <% end %>
