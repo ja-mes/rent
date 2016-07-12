@@ -14,7 +14,7 @@ function add_fields(link, association, content) {
   $('.account_tran_fields:last').after(content.replace(regexp, new_id));
   $(this).closest('.remove_account_tran').show();
 
-  $('.select2').chosen();
+  $('.select2').select2();
   update_delete_button()
 }
 
