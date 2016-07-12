@@ -54,11 +54,11 @@ class User < ApplicationRecord
   end
 
   def rentable_properties
-    self.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers)')
+    self.properties.where('id NOT IN (SELECT DISTINCT(property_id) FROM customers) AND internal = false')
   end
 
   def vacant_properties
-    self.properties.where(rented: false)
+    self.properties.where(rented: false, internal: false)
   end
 
   def after_database_authentication
