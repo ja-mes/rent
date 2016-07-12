@@ -13,5 +13,8 @@ $(document).on('turbolinks:load', function() {
     $(this).submit()
   });
 
-  $('.select2').select2()
+
+  $('.select2').select2({
+    theme: "bootstrap"
+  });
 });
