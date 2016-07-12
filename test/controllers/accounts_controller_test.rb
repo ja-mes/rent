@@ -102,22 +102,12 @@ class AccountsControllerTest < ActionController::TestCase
     assert_equal assigns(:account).name, "Bar"
   end
 
-  test "post update should not update type" do
-    sign_in users(:one), scope: :user
-
-    post :update, params: { id: accounts(:one), account: {
-      name: "Bar",
-      account_type_id: account_types(:expenses)
-    }}
-
-    assert_equal assigns(:account).account_type, account_types(:income)
-  end
-
   test "post update should not work if invalid form data is submitted" do
     sign_in users(:one), scope: :user
 
     post :update, params: { id: accounts(:one), account: {
-      name: ""
+      name: "",
+      account_type: "Income"
     }}
 
     assert_template :edit

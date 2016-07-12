@@ -39,6 +39,8 @@ class AccountsController < ApplicationController
   end
 
   def update
+    @account_types = current_user.account_types.all
+    
     if @account.update(update_params)
       flash[:success] = 'Account successfully updated'
       redirect_to edit_account_path(@account)
