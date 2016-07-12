@@ -35,6 +35,7 @@ class User < ApplicationRecord
     # account types
     income = AccountType.find_or_create_by(user: self, name: "Income", inc: true)
     bank = AccountType.find_or_create_by(user: self, name: "Bank", inc: true)
+    liabilities = AccountType.find_or_create_by(user: self, name: "Liabilities", inc: false)
     other_current_assets = AccountType.find_or_create_by(user: self, name: "Other Current Assets", inc: true)
     other_current_liabilities = AccountType.find_or_create_by(user: self, name: "Other Current Liabilities", inc: false)
     other_income = AccountType.find_or_create_by(user: self, name: "Other Income", inc: true)
