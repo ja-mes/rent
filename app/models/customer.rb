@@ -115,7 +115,8 @@ class Customer < ApplicationRecord
 
   def archive
     self.toggle!(:active)
-    self.property.toggle!(:rented)
+
+    self.property.toggle!(:rented) if self.property
 
     if self.balance > 0
       credit = self.credits.build do |c|
@@ -133,7 +134,7 @@ class Customer < ApplicationRecord
         c.account_transable = credit
         c.amount = -credit.amount
         c.memo = credit.memo
-        c.property = self.property
+        c.property = self.property if self.property
         c.date = credit.date
       end
 

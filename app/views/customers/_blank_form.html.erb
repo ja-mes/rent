@@ -38,5 +38,12 @@
   </div>
 
   <%= f.hidden_field :customer_type, value: "blank" %>
-  <%= f.submit class: 'btn btn-primary' %>
+
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary' %>
+
+    <% unless @customer.new_record? || @customer.active == false %>
+      <%= link_to 'Archive Customer', archive_customer_path(@customer), class: 'btn btn-warning' %>
+    <% end %>
+  </div>
 <% end %>
