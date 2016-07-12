@@ -1,21 +1,17 @@
 <%= render 'shared/errors', obj: @account %>
 
 <%= form_for @account do |f| %>
-
-  <% if @account.new_record? %>
-    <div class="form-group">
-      <%= f.label :type %>
-      <%= f.collection_select :account_type_id, @account_types, :id, :name, {}, class: "form-control chosen_select" %>
-    </div>
-  <% end %>
+  <div class="form-group">
+    <%= f.label :type %>
+    <%= f.collection_select :account_type_id, @account_types, :id, :name, {}, class: "form-control chosen_select" %>
+  </div>
 
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
-    <div class="form-group">
+  <div class="form-group">
     <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
-

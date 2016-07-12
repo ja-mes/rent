@@ -30,11 +30,12 @@ class AccountsController < ApplicationController
     trans = @account.account_trans.date_range(params[:from], params[:to])
     @total = trans.calculate_total(@account)
     @trans = trans.paginate(page: params[:page])
-    
+
     @negate = !@account.account_type.inc
   end
-  
+
   def edit
+    @account_types = current_user.account_types.all
   end
 
   def update
@@ -52,7 +53,7 @@ class AccountsController < ApplicationController
   end
 
   def update_params
-    params.require(:account).permit(:name)
+    params.require(:account).permit(:name, :account_type_id)
   end
 
   def set_account
