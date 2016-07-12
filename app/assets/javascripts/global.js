@@ -13,6 +13,5 @@ $(document).on('turbolinks:load', function() {
     $(this).submit()
   });
 
-  $('.chosen_select').chosen()
+  $('.select2').select2()
 });
-

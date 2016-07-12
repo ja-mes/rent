@@ -50,8 +50,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 
-gem 'compass-rails'
-gem 'chosen-rails'
+gem "select2-rails"
 gem 'faker'
 gem 'resque', "~> 1.22.0", require: 'resque/server'
 

@@ -14,6 +14,6 @@
 //= require tether
 //= require bootstrap
 //= require jquery_ujs
-//= require chosen-jquery
 //= require turbolinks
+//= require select2-full
 //= require_tree .

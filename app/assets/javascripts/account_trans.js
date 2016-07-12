@@ -6,15 +6,15 @@ function update_delete_button() {
     $('.remove_account_tran').closest('.form-group').show();
   }
 }
-  
-function add_fields(link, association, content) {  
+
+function add_fields(link, association, content) {
   event.preventDefault();
-  var new_id = new Date().getTime();  
-  var regexp = new RegExp("new_" + association, "g");  
-  $('.account_tran_fields:last').after(content.replace(regexp, new_id));  
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  $('.account_tran_fields:last').after(content.replace(regexp, new_id));
   $(this).closest('.remove_account_tran').show();
 
-  $('.chosen_select').chosen();
+  $('.select2').chosen();
   update_delete_button()
 }
 
