@@ -4,34 +4,43 @@
   <p>Next due date: <strong><%= (@customer.last_charged + 1.month).strftime("%m/%d/%Y") %></strong></p>
 <% end %>
 
-<table class="table table-hover row-links">
-  <thead class="thead-default">
-    <tr>
-      <th>Type</th>
-      <th>Amount</th>
-      <th>Date</th>
-      <th>Memo</th>
-    </tr>
-  </thead>
+<div class="card">
+  <div class="card-header">
+    foo
+  </div>
 
-  <tbody>
-    <% @transactions.each do |trns| %>
-      <tr data-link="
+  <div class="card-block">
+    <table class="table table-hover row-links">
+      <thead class="thead-default">
+        <tr>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Memo</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @transactions.each do |trns| %>
+        <tr data-link="
         <% if trns.transactionable_type == "Invoice" %>
-          <%= edit_customer_invoice_path @customer, trns.transactionable %>
+        <%= edit_customer_invoice_path @customer, trns.transactionable %>
         <% elsif trns.transactionable_type == "Payment" %>
-          <%= edit_customer_payment_path @customer, trns.transactionable %>
+        <%= edit_customer_payment_path @customer, trns.transactionable %>
         <% elsif trns.transactionable_type == "Credit" %>
-          <%= edit_customer_credit_path @customer, trns.transactionable %>
+        <%= edit_customer_credit_path @customer, trns.transactionable %>
         <% end %>
-      ">
-      <td><%= trns.transactionable_type %></td>
-      <td><%= number_to_currency(trns.transactionable.amount) %></td>
-      <td><%= trns.transactionable.date.strftime("%m/%d/%Y") %></td>
-      <td><%= truncate(trns.transactionable.memo, length: 25) %>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+        ">
+        <td><%= trns.transactionable_type %></td>
+        <td><%= number_to_currency(trns.transactionable.amount) %></td>
+        <td><%= trns.transactionable.date.strftime("%m/%d/%Y") %></td>
+        <td><%= truncate(trns.transactionable.memo, length: 25) %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
 
 <%= will_paginate @transactions %>
