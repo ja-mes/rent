@@ -194,7 +194,7 @@ class CustomersControllerTest < ActionController::TestCase
   test "users should only be allowed to update their own customers" do
     sign_in users(:two), scope: :user
     post :update, params: { id: customers(:one) }
- 
+
     assert_redirected_to root_path
     assert_equal "You are not authorized to do that", flash[:danger]
   end
@@ -204,6 +204,15 @@ class CustomersControllerTest < ActionController::TestCase
 
     get :archive, params: { id: customers(:one) }
     assert_not_nil assigns(:customer)
+    assert_not assigns(:customer).active
+    assert_redirected_to assigns(:customer)
+    assert_not_nil flash[:danger]
+  end
+
+  test "archive should work for blank customers" do
+    sign_in users(:one), scope: :user
+
+    get :archive, params: { id: customers(:blank) }
     assert_not assigns(:customer).active
     assert_redirected_to assigns(:customer)
     assert_not_nil flash[:danger]
