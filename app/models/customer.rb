@@ -38,7 +38,7 @@ class Customer < ApplicationRecord
   end
 
   def due_date_range
-    unless (1..28).include?(self.due_date.to_i) 
+    unless (1..28).include?(self.due_date.to_i)
       errors.add(:base, "Due date must be between 1 and 28")
     end
   end
@@ -52,27 +52,29 @@ class Customer < ApplicationRecord
     memo ||= "Rent for #{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
     account_id ||= self.user.rental_income_account.id
 
-    invoice = self.invoices.build do |i|
-      i.amount = amount
-      i.date = Date.today
-      i.due_date = Date.today
-      i.memo = memo
-      i.user = user
-    end
-    invoice.skip_tran_validation = true
-    invoice.save
+    unless amount.to_d == 0
+      invoice = self.invoices.build do |i|
+        i.amount = amount
+        i.date = Date.today
+        i.due_date = Date.today
+        i.memo = memo
+        i.user = user
+      end
+      invoice.skip_tran_validation = true
+      invoice.save
 
-    account_tran = AccountTran.create do |t|
-      t.user = user
-      t.account_id = account_id
-      t.account_transable = invoice
-      t.amount = amount
-      t.memo = memo
-      t.property_id = self.property.id
-      t.date = invoice.date
-    end
+      account_tran = AccountTran.create do |t|
+        t.user = user
+        t.account_id = account_id
+        t.account_transable = invoice
+        t.amount = amount
+        t.memo = memo
+        t.property_id = self.property.id
+        t.date = invoice.date
+      end
 
-    invoice
+      invoice
+    end
   end
 
   def setup_last_charged
@@ -92,7 +94,7 @@ class Customer < ApplicationRecord
       prorated_rent = ((rent_amount / days_in_month) * (days_in_month - todays_day)).round(2)
     end
 
-    enter_rent prorated_rent
+    enter_rent(prorated_rent)
   end
 
   def update_last_charged
@@ -135,7 +137,7 @@ class Customer < ApplicationRecord
   end
 
   def self.grab_all(user, display_param = nil)
-    if display_param.blank? || display_param == 'active' 
+    if display_param.blank? || display_param == 'active'
       includes(:property).where(user: user, active: true).order(last_name: :asc, company_name: :asc)
     else
       where(user: user)

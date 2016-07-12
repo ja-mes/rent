@@ -28,8 +28,9 @@ class CustomersController < ApplicationController
     @customer = current_user.customers.build(customer_params)
 
     if @customer.save
-      if @customer.customer_type == "tenant" && @customer.should_charge_deposit
-        @customer.enter_rent params[:customer][:deposit], "Security Deposits", current_user.security_deposits_account.id
+      deposit_amount = params[:customer][:deposit]
+      if @customer.customer_type == "tenant" && @customer.should_charge_deposit && deposit_amount != 0
+        @customer.enter_rent deposit_amount, "Security Deposits", current_user.security_deposits_account.id
       end
 
       flash[:success] = "Customer successfully created"
