@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = current_user.accounts.order(:name)
+    @accounts = current_user.accounts.includes(:account_type).joins(:account_type).order('account_types.name')
   end
 
   def new
@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
 
   def update
     @account_types = current_user.account_types.all
-    
+
     if @account.update(update_params)
       flash[:success] = 'Account successfully updated'
       redirect_to edit_account_path(@account)
