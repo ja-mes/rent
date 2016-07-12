@@ -29,7 +29,7 @@ class CustomerTest < ActiveSupport::TestCase
     @customer.first_name = " "
     @customer.last_name = ""
     @customer.company_name = ""
-    
+
     assert_not @customer.valid?
   end
 
@@ -37,7 +37,7 @@ class CustomerTest < ActiveSupport::TestCase
     @customer.first_name = " "
     @customer.last_name = ""
     @customer.company_name = "foobar"
-    
+
     assert @customer.valid?
   end
 
@@ -45,7 +45,7 @@ class CustomerTest < ActiveSupport::TestCase
     @customer.first_name = "joe"
     @customer.last_name = "blah"
     @customer.company_name = ""
-    
+
     assert @customer.valid?
   end
 
@@ -70,7 +70,7 @@ class CustomerTest < ActiveSupport::TestCase
     @customer.due_date = nil
     assert @customer.valid?
   end
-  
+
   test "last_charged should be present" do
     @customer.last_charged = nil
     assert_not @customer.valid?
@@ -90,7 +90,7 @@ class CustomerTest < ActiveSupport::TestCase
   test "customer_type should be either blank or tenant" do
     @customer.customer_type = "blank"
     assert @customer.valid?
-    @customer.customer_type = "tenant" 
+    @customer.customer_type = "tenant"
     assert @customer.valid?
 
     @customer.customer_type = "foo"
@@ -201,13 +201,37 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal account_tran.amount, -500
   end
 
+  test "archive should work for blank customers" do
+    customer = customers(:blank)
+    customer.balance = 500
+    credit = nil
+
+    assert_difference ['Credit.count', 'AccountTran.count', 'Tran.count'] do
+      credit = customer.archive
+    end
+    account_tran = credit.account_trans.first
+
+    assert_not customer.active
+
+    assert_equal credit.user, @customer.user
+    assert_equal credit.amount, 500
+    assert_equal credit.date, Date.today
+    assert_equal credit.memo, "Write off remaining balance"
+
+    assert_equal credit.account_trans.length, 1
+    assert_equal account_tran.user, @customer.user
+    assert_equal account_tran.account, accounts(:one)
+    assert_equal account_tran.account_transable, credit
+    assert_equal account_tran.amount, -500
+  end
+
   test "is_blank should return true if customer_type is 'blank'" do
     @customer.customer_type = "blank"
     assert @customer.is_blank?
   end
 
   test "grab_all should return all customers or active customers only depending on display param" do
-    assert_equal Customer.grab_all(users(:one), 'active').count, 2 
+    assert_equal Customer.grab_all(users(:one), 'active').count, 2
     assert_equal Customer.grab_all(users(:one)).count, 2
     assert_equal Customer.grab_all(users(:one), 'all').count, 3
   end
