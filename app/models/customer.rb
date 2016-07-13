@@ -142,6 +142,14 @@ class Customer < ApplicationRecord
     end
   end
 
+  def grab_trans(display_param = nil)
+    if display_param.blank? || display_param == 'payments'
+      trans.includes(:transactionable).where(transactionable_type: "Payment").order(date: :desc)
+    else
+      trans.includes(:transactionable).order(date: :desc)
+    end
+  end
+
   def self.grab_all(user, display_param = nil)
     if display_param.blank? || display_param == 'active'
       includes(:property).where(user: user, active: true).order(last_name: :asc, company_name: :asc)

@@ -1,4 +1,17 @@
 $(document).on('turbolinks:load', function() {
+
+  if ($('body')[0].className == 'customers index') {
+    $('#customer_display').change(function() {
+      $(this).submit()
+    });
+  }
+
+  if ($('body')[0].className == 'customers show') {
+    $('#customer_show_display').change(function() {
+      $(this).submit();
+    });
+  }
+
   if ($('body')[0].className === 'customers new') {
     function format_currency(elem, amount) {
       if ($(elem)[0]) {
@@ -18,10 +31,10 @@ $(document).on('turbolinks:load', function() {
       var yyyy = date.getFullYear();
       if(dd<10){
         dd='0'+dd
-      } 
+      }
       if(mm<10){
         mm='0'+mm
-      } 
+      }
       var next_due_date = mm+'/'+dd+'/'+yyyy;
 
       $('#customer_due_date_display').html(next_due_date)

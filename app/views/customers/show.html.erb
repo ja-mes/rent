@@ -6,7 +6,10 @@
 
 <div class="card">
   <div class="card-header">
-    foo
+    <%= form_tag customer_path(@customer), method: 'get', class: 'form-inline', id: 'customer_show_display' do %>
+      <%= label_tag :display %>
+      <%= select_tag :display, options_for_select([['Payments', 'payments'], ['All', 'all']], params[:display]) %>
+    <% end %>
   </div>
 
   <div class="card-block">

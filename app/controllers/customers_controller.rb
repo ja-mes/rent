@@ -40,7 +40,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @transactions = @customer.trans.includes(:transactionable).paginate(page: params[:page]).order(date: :desc)
+    @transactions = @customer.grab_trans(params[:display]).paginate(page: params[:page])
   end
 
   def edit

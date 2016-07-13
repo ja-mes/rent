@@ -5,14 +5,5 @@ $(document).on('turbolinks:load', function() {
     Turbolinks.visit($(this).data('link'))
   });
 
-  // focus customer search box when the page loads
-  $('#customers_search input').focus()
-
-  // automatically submit when customers ative or all select changes
-  $('#customer_display').change(function() {
-    $(this).submit()
-  });
-
-
   $('.select2').select2();
 });
