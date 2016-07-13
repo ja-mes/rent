@@ -230,6 +230,13 @@ class CustomerTest < ActiveSupport::TestCase
     assert @customer.is_blank?
   end
 
+  test "grab_trans should return either payments or all trans depending on display param" do
+    assert_equal customers(:one).grab_trans('payments').count, 4
+    assert_equal customers(:one).grab_trans.count, 4
+    assert_equal customers(:one).grab_trans('all').count, 6
+    assert_equal customers(:one).grab_trans('foobar').count, 6
+  end
+
   test "grab_all should return all customers or active customers only depending on display param" do
     assert_equal Customer.grab_all(users(:one), 'active').count, 2
     assert_equal Customer.grab_all(users(:one)).count, 2
