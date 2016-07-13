@@ -32,7 +32,7 @@
               <td><%= number_to_currency(t.amount) %></td>
 
           <% elsif t.account_transable_type == "Invoice" %>
-            <% if t.account_transable.customer %>
+            <% if t.account_transable %>
               <tr data-link="<%= edit_customer_invoice_path(t.account_transable.customer, t.account_transable) %>">
             <% else %>
               <tr>
