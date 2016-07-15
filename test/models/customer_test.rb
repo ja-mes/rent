@@ -139,7 +139,9 @@ class CustomerTest < ActiveSupport::TestCase
   test "charge_prorated_rent should charge entire rent on the first" do
     Timecop.freeze(Date.today.beginning_of_month) do
       assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
+        debugger
         rent = @customer.charge_prorated_rent
+        debugger
         assert_equal rent.amount, @customer.rent
       end
     end
@@ -150,6 +152,16 @@ class CustomerTest < ActiveSupport::TestCase
       assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
         rent = @customer.charge_prorated_rent
         assert_equal rent.amount, 338.71
+      end
+    end
+  end
+
+  test "charge_prorated rent should work for due_dates that are not the first of the month" do
+    @customer.due_date = 20
+    Timecop.freeze(Date.today.beginning_of_year + 1.month + 10.days) do
+      assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
+        rent = @customer.charge_prorated_rent
+        #assert_equal rent.amount, 
       end
     end
   end
