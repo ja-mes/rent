@@ -161,7 +161,8 @@ class CustomerTest < ActiveSupport::TestCase
     Timecop.freeze(Date.today.beginning_of_year + 1.month + 10.days) do
       assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
         rent = @customer.charge_prorated_rent
-        #assert_equal rent.amount, 
+        per_day = @customer.rent / Date.today.end_of_month.day
+        #assert_equal rent.amount,
       end
     end
   end
