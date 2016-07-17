@@ -92,16 +92,16 @@ class Customer < ApplicationRecord
     rent_day = self.due_date.to_i
     rent_amount = self.rent
     days_this_month = Date.today.end_of_month.day
-    todays_day = Date.yesterday.day
+    todays_day = Date.today.day
 
     if Date.today.day == rent_day
       prorated_rent = self.rent
     elsif rent_day == 1
       prorated_rent = ((rent_amount / days_this_month) * (days_this_month - todays_day)).round(2)
     else
-      due_date_this_month =  Date.new(Date.today.year, Date.today.month, rent_day)
+      due_date_this_month = Date.new(Date.today.year, Date.today.month, rent_day)
 
-      if due_date_this_month < Date.today
+      if rent_day < Date.today.day
         days_next_month = Date.today.next_month.end_of_month.day
 
         amount_for_this_month = ((rent_amount / days_this_month) * (days_this_month - todays_day))
@@ -109,7 +109,7 @@ class Customer < ApplicationRecord
 
         prorated_rent = (amount_for_this_month + amount_for_next_month).round(2)
       else
-        prorated_rent = ((rent_amount / days_this_month) * (days_this_month - due_date_this_month.day)).round(2)
+        prorated_rent = ((rent_amount / days_this_month) * (rent_day - todays_day)).round(2)
       end
 
     end
