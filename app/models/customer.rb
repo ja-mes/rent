@@ -89,25 +89,35 @@ class Customer < ApplicationRecord
   end
 
   def charge_prorated_rent
-    rent_day = self.due_date
+    rent_day = self.due_date.to_i
     rent_amount = self.rent
     days_this_month = Date.today.end_of_month.day
     todays_day = Date.yesterday.day
 
-    if Date.today.day == rent_day.to_i
+    if Date.today.day == rent_day
       prorated_rent = self.rent
-    elsif rent_day == "1"
+    elsif rent_day == 1
       prorated_rent = ((rent_amount / days_this_month) * (days_this_month - todays_day)).round(2)
-    elsif rent_day != Date.today
-      days_next_month = Date.today.next_month.end_of_month.day
+    else
+      # must determine if customer needs to be charged for days in the following month
 
-      rent_amount_this_month = rent_amount / days_this_month
-      rent_amount_next_month = rent_amount / days_next_month
+      # check due_date day is already passed this month
+      due_date_this_month =  Date.new(Date.today.year, Date.today.month, rent_day)
 
-      amount_for_this_month = rent_amount_this_month * (days_this_month - todays_day)
-      amount_for_next_month = rent_amount_next_month * (days_next_month - rent_day.to_i)
+      if due_date_this_month < Date.today
+        days_next_month = Date.today.next_month.end_of_month.day
 
-      prorated_rent = (amount_for_this_month + amount_for_next_month).round(2)
+        rent_amount_this_month = rent_amount / days_this_month
+        rent_amount_next_month = rent_amount / days_next_month
+
+        amount_for_this_month = rent_amount_this_month * (days_this_month - todays_day)
+        amount_for_next_month = rent_amount_next_month * (rent_day)
+
+        prorated_rent = (amount_for_this_month + amount_for_next_month).round(2)
+      else
+        prorated_rent = ((rent_amount / days_this_month) * (days_this_month - due_date_this_month.day)).round(2)
+      end
+
     end
 
     enter_rent(prorated_rent)
@@ -122,50 +132,50 @@ class Customer < ApplicationRecord
   def full_name
     full_name = "#{first_name} #{middle_name} #{last_name}"
     if full_name.blank? then "#{company_name}" else full_name end
-  end
+    end
 
-  def archive
-    self.toggle!(:active)
+    def archive
+      self.toggle!(:active)
 
-    self.property.toggle!(:rented) if self.property
+      self.property.toggle!(:rented) if self.property
 
-    if self.balance > 0
-      credit = self.credits.build do |c|
-        c.user = self.user
-        c.amount = self.balance
-        c.date = Date.today
-        c.memo = "Write off remaining balance"
+      if self.balance > 0
+        credit = self.credits.build do |c|
+          c.user = self.user
+          c.amount = self.balance
+          c.date = Date.today
+          c.memo = "Write off remaining balance"
+        end
+        credit.skip_tran_validation = true
+        credit.save
+
+        account_tran = AccountTran.create do |c|
+          c.user = self.user
+          c.account = self.user.rental_income_account
+          c.account_transable = credit
+          c.amount = -credit.amount
+          c.memo = credit.memo
+          c.property = self.property if self.property
+          c.date = credit.date
+        end
+
+        credit
       end
-      credit.skip_tran_validation = true
-      credit.save
+    end
 
-      account_tran = AccountTran.create do |c|
-        c.user = self.user
-        c.account = self.user.rental_income_account
-        c.account_transable = credit
-        c.amount = -credit.amount
-        c.memo = credit.memo
-        c.property = self.property if self.property
-        c.date = credit.date
+    def grab_trans(display_param = nil)
+      if display_param.blank? || display_param == 'payments'
+        trans.includes(:transactionable).where(transactionable_type: "Payment").order(date: :desc)
+      else
+        trans.includes(:transactionable).order(date: :desc)
       end
+    end
 
-      credit
+    def self.grab_all(user, display_param = nil)
+      if display_param.blank? || display_param == 'active'
+        includes(:property).where(user: user, active: true).order(last_name: :asc, first_name: :asc, company_name: :asc)
+      else
+        where(user: user).order(last_name: :asc, first_name: :asc, company_name: :asc)
+      end
     end
   end
-
-  def grab_trans(display_param = nil)
-    if display_param.blank? || display_param == 'payments'
-      trans.includes(:transactionable).where(transactionable_type: "Payment").order(date: :desc)
-    else
-      trans.includes(:transactionable).order(date: :desc)
-    end
-  end
-
-  def self.grab_all(user, display_param = nil)
-    if display_param.blank? || display_param == 'active'
-      includes(:property).where(user: user, active: true).order(last_name: :asc, first_name: :asc, company_name: :asc)
-    else
-      where(user: user).order(last_name: :asc, first_name: :asc, company_name: :asc)
-    end
-  end
-end

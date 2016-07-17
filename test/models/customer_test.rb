@@ -139,9 +139,7 @@ class CustomerTest < ActiveSupport::TestCase
   test "charge_prorated_rent should charge entire rent on the first" do
     Timecop.freeze(Date.today.beginning_of_month) do
       assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
-        debugger
         rent = @customer.charge_prorated_rent
-        debugger
         assert_equal rent.amount, @customer.rent
       end
     end
@@ -162,7 +160,22 @@ class CustomerTest < ActiveSupport::TestCase
       assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
         rent = @customer.charge_prorated_rent
         per_day = @customer.rent / Date.today.end_of_month.day
-        #assert_equal rent.amount,
+
+        assert_equal rent.amount, (per_day * 9).round(2)
+      end
+    end
+  end
+
+  test "prorated_rent should work when due_date is not on the first and when next rent day is next month" do
+    @customer.due_date = 5
+    Timecop.freeze(Date.today.beginning_of_year + 2.month + 17.days) do
+      assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
+        rent = @customer.charge_prorated_rent
+        amount_for_march = @customer.rent / Date.today.end_of_month.day
+        amount_for_april = @customer.rent / (Date.today + 1.month).end_of_month.day
+
+        # should be charge for 13 days in march + 1 for today, and 5 days in april
+        assert_equal rent.amount, ((amount_for_march * 14) + (amount_for_april * 5)).round(2)
       end
     end
   end

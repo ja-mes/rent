@@ -32,7 +32,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     @user.account_types.destroy_all
-    assert_difference 'AccountType.count', 7 do
+    assert_difference 'AccountType.count', 8 do
       @user.create_default_accounts
     end
   end
