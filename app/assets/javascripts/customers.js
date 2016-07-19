@@ -20,8 +20,8 @@ $(document).on('turbolinks:load', function() {
     }
 
     var date = new Date();
-    var yesterday = new Date(date.setDate(date.getDate() - 1));
-    var days_in_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
+    var days_this_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
+    var days_next_month = new Date(date.getFullYear(), date.getMonth() + 2, 0).getDate();
 
     function calculateDueDate() {
       var dd = $('#customer_due_date').val();
@@ -37,6 +37,27 @@ $(document).on('turbolinks:load', function() {
       var next_due_date = mm+'/'+dd+'/'+yyyy;
 
       $('#customer_due_date_display').html(next_due_date)
+
+
+      var today = date.getDate();
+      var rent_day = +$('#customer_due_date').val();
+
+      if (rent_day == today) {
+        var month1 = days_this_month - today
+        var month1 = days_this_month - rent_day
+        var total_days = month1 + month2;
+      }
+      else if (rent_day == 1) {
+        total_days = days_this_month - today
+      }
+      else if (rent_day < today) {
+        var total_days = rent_day + (days_this_month - today);
+      }
+      else {
+        var total_days = rent_day - today
+      }
+
+      $('#customer_days_in_month').html(total_days);
     }
 
     $('#customer_due_date').on('change', calculateDueDate);
@@ -45,7 +66,6 @@ $(document).on('turbolinks:load', function() {
 
     $('#customer_prorated_rent_checkbox').prop({ 'checked': true });
     $('#customer_deposit_checkbox').prop({ 'checked': true });
-    $('#customer_days_in_month').html(days_in_month - yesterday.getDate());
 
     $('#customer_rent, #customer_due_date').on('change', function() {
       var rent_day = +$('#customer_due_date').val();
@@ -63,7 +83,7 @@ $(document).on('turbolinks:load', function() {
       }
       else {
         if (rent_day < date.getDate()) {
-          var days_next_month = new Date(date.getFullYear(), date.getMonth() + 2, 0).getDate();
+          //var days_next_month = new Date(date.getFullYear(), date.getMonth() + 2, 0).getDate();
 
           amount_for_this_month = +((rent_amount / days_this_month) * (days_this_month - date.getDate()))
           amount_for_next_month = +((rent_amount / days_next_month) * (rent_day))
@@ -75,7 +95,6 @@ $(document).on('turbolinks:load', function() {
         }
       }
 
-      debugger;
       format_currency('#customer_prorated_rent_amount', prorated_rent)
     });
 
