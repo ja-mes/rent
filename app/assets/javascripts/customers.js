@@ -87,7 +87,7 @@ $(document).on('turbolinks:load', function() {
           prorated_rent = +(amount_for_this_month + amount_for_next_month).toFixed(2)
         }
         else {
-          prorated_rent = +((rent_amount / days_this_month) * (rent_day - todays_day)).toFixed(2)
+          prorated_rent = +((rent_amount / days_this_month) * (rent_day - date.getDate())).toFixed(2)
         }
       }
 
