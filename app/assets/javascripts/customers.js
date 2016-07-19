@@ -67,14 +67,16 @@ $(document).on('turbolinks:load', function() {
 
     $('#customer_rent, #customer_due_date').on('change', function() {
       var rent_day = +$('#customer_due_date').val();
-      var rent_amount = +$(this).val();
+      var rent_amount = +$('#customer_rent').val();
       var prorated_rent = 0
 
       var date = new Date();
       var days_this_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
 
+      debugger;
       if (date.getDate() === rent_day) {
         prorated_rent = rent_amount
+        debugger;
       }
       else if (rent_day === 1) {
         prorated_rent = +((rent_amount / days_this_month) * (days_this_month - date.getDate())).toFixed(2)
