@@ -99,8 +99,6 @@ class Customer < ApplicationRecord
     elsif rent_day == 1
       prorated_rent = ((rent_amount / days_this_month) * (days_this_month - todays_day)).round(2)
     else
-      due_date_this_month = Date.new(Date.today.year, Date.today.month, rent_day)
-
       if rent_day < Date.today.day
         days_next_month = Date.today.next_month.end_of_month.day
 
