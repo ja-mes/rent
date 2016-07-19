@@ -72,21 +72,21 @@ $(document).on('turbolinks:load', function() {
       var rent_amount = +$('#customer_rent').val();
       var prorated_rent = 0
 
-      if (date.getDate() === rent_day) {
+      if (today.getDate() === rent_day) {
         prorated_rent = rent_amount
       }
       else if (rent_day === 1) {
         prorated_rent = +((rent_amount / days_this_month) * (days_this_month - date.getDate())).toFixed(2)
       }
       else {
-        if (rent_day < date.getDate()) {
+        if (rent_day < today.getDate()) {
           amount_for_this_month = +((rent_amount / days_this_month) * (days_this_month - date.getDate()))
           amount_for_next_month = +((rent_amount / days_next_month) * (rent_day - 1))
 
           prorated_rent = +(amount_for_this_month + amount_for_next_month).toFixed(2)
         }
         else {
-          prorated_rent = +((rent_amount / days_this_month) * (rent_day - date.getDate())).toFixed(2)
+          prorated_rent = +((rent_amount / days_this_month) * (rent_day - today.getDate())).toFixed(2)
         }
       }
 
