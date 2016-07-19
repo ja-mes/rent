@@ -42,16 +42,14 @@ $(document).on('turbolinks:load', function() {
       var today = date.getDate();
       var rent_day = +$('#customer_due_date').val();
 
-      if (rent_day == today) {
-        var month1 = days_this_month - today
-        var month1 = days_this_month - rent_day
-        var total_days = month1 + month2;
+      if (rent_day === today) {
+        var total_days = days_this_month;
       }
       else if (rent_day == 1) {
-        total_days = days_this_month - today
+        total_days = (days_this_month - today) + 1
       }
       else if (rent_day < today) {
-        var total_days = rent_day + (days_this_month - today);
+        var total_days = (rent_day) + (days_this_month - today);
       }
       else {
         var total_days = rent_day - today
