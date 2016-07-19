@@ -81,8 +81,6 @@ $(document).on('turbolinks:load', function() {
       }
       else {
         if (rent_day < date.getDate()) {
-          //var days_next_month = new Date(date.getFullYear(), date.getMonth() + 2, 0).getDate();
-
           amount_for_this_month = +((rent_amount / days_this_month) * (days_this_month - date.getDate()))
           amount_for_next_month = +((rent_amount / days_next_month) * (rent_day))
 
