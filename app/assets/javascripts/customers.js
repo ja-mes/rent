@@ -20,6 +20,9 @@ $(document).on('turbolinks:load', function() {
     }
 
     var date = new Date();
+    date.setDate(date.getDate() - 1); // charge for today
+    var today = new Date();
+
     var days_this_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
     var days_next_month = new Date(date.getFullYear(), date.getMonth() + 2, 0).getDate();
 
@@ -39,20 +42,19 @@ $(document).on('turbolinks:load', function() {
       $('#customer_due_date_display').html(next_due_date)
 
 
-      var today = date.getDate();
       var rent_day = +$('#customer_due_date').val();
 
-      if (rent_day === today) {
-        var total_days = days_this_month - 1;
+      if (rent_day === today.getDate()) {
+        var total_days = days_this_month;
       }
-      else if (rent_day == 1) {
-        total_days = days_this_month - today
+      else if (rent_day === 1) {
+        total_days = days_this_month - date.getDate();
       }
-      else if (rent_day < today) {
-        var total_days = (rent_day - 1) + (days_this_month - today);
+      else if (rent_day < today.getDate()) {
+        var total_days = (rent_day - 1) + (days_this_month - date.getDate());
       }
       else {
-        var total_days = rent_day - today
+        var total_days = rent_day - today.getDate();
       }
 
       $('#customer_days_in_month').html(total_days);
@@ -69,9 +71,6 @@ $(document).on('turbolinks:load', function() {
       var rent_day = +$('#customer_due_date').val();
       var rent_amount = +$('#customer_rent').val();
       var prorated_rent = 0
-
-      var date = new Date();
-      var days_this_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
 
       if (date.getDate() === rent_day) {
         prorated_rent = rent_amount
