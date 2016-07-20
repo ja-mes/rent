@@ -16,4 +16,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require select2
+//= require Chart
 //= require_tree .

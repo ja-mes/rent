@@ -55,6 +55,7 @@ gem 'faker'
 gem 'resque', "~> 1.22.0", require: 'resque/server'
 
 gem 'rails_12factor', group: :production
+gem 'chart-js-rails'
 
 # Use sinatra master
 gem 'sinatra', github: 'sinatra'

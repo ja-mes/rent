@@ -149,7 +149,7 @@ class CustomerTest < ActiveSupport::TestCase
     Timecop.freeze(Date.today.beginning_of_year + 10) do
       assert_difference ["Invoice.count", "AccountTran.count", "Tran.count"] do
         rent = @customer.charge_prorated_rent
-        assert_equal rent.amount, 322.58
+        assert_equal rent.amount, 338.71
       end
     end
   end
@@ -188,8 +188,8 @@ class CustomerTest < ActiveSupport::TestCase
         amount_for_march = @customer.rent / Date.today.end_of_month.day
         amount_for_april = @customer.rent / (Date.today + 1.month).end_of_month.day
 
-        # should be charge for 13 days in march, and 5 days in april
-        assert_equal rent.amount, ((amount_for_march * 13) + (amount_for_april * 5)).round(2)
+        # should be charge for 13 + 1 days in march, and 4 days in april
+        assert_equal rent.amount, ((amount_for_march * 14) + (amount_for_april * 4)).round(2)
       end
     end
   end
@@ -203,8 +203,8 @@ class CustomerTest < ActiveSupport::TestCase
         amount_for_april = @customer.rent / Date.today.end_of_month.day
         amount_for_may = @customer.rent / (Date.today + 1.month).end_of_month.day
 
-        # should be charged for 18 days in april and 6 day for may
-        assert_equal rent.amount, ((amount_for_april * 18) + (amount_for_may * 6)).round(2)
+        # should be charged for 18 + 1 days in april and 5 day for may
+        assert_equal rent.amount, ((amount_for_april * 19) + (amount_for_may * 5)).round(2)
       end
     end
   end
