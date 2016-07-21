@@ -18,6 +18,8 @@
 <script>
   var ctx = document.getElementById('myChart');
 
+  var data = <%= @income %>
+  
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -71,7 +73,7 @@
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [2500, 0, 600, 1230.56, 3000, 300, 550],
+        data: data,
         spanGaps: false,
       }
     ]
