@@ -10,7 +10,6 @@ class Deposit < ApplicationRecord
 
   validates :user_id, presence: true
   validates :date, presence: true
-  validates :balance, presence: true
   validates_numericality_of :amount
   validates_numericality_of :discrepancies, allow_blank: true
 
