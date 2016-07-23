@@ -65,9 +65,4 @@ class AccountTranTest < ActiveSupport::TestCase
 
    assert_equal trans.count, 3
   end
-
-  test "date range should work with date objects" do
-    trans = AccountTran.all.limit(3).date_range(Date.parse("07/07/2016"), Date.parse("07/08/2016"))
-    assert_equal trans.count, 3
-  end
 end
