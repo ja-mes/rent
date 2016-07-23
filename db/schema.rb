@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722235914) do
+ActiveRecord::Schema.define(version: 20160710163357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20160722235914) do
     t.integer  "vendor_id"
     t.boolean  "cleared",           default: false, null: false
     t.integer  "reconciliation_id"
-    t.decimal  "balance"
     t.index ["user_id"], name: "index_checks_on_user_id", using: :btree
   end
 
@@ -102,7 +101,6 @@ ActiveRecord::Schema.define(version: 20160722235914) do
     t.boolean  "cleared",           default: false, null: false
     t.integer  "reconciliation_id"
     t.boolean  "internal",          default: false
-    t.decimal  "balance"
     t.index ["user_id"], name: "index_deposits_on_user_id", using: :btree
   end
 
