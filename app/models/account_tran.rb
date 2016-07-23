@@ -24,7 +24,9 @@ class AccountTran < ApplicationRecord
   end
 
   def self.date_range(from, to)
-    if from && to 
+    if from.is_a?(Date) && to.is_a?(Date)
+      AccountTran.where(date: from..to)
+    elsif from && to
       from = Date.new from['date(1i)'].to_i, from['date(2i)'].to_i, from['date(3i)'].to_i
       to = Date.new to['date(1i)'].to_i, to['date(2i)'].to_i, to['date(3i)'].to_i
       AccountTran.where(date: from..to)
