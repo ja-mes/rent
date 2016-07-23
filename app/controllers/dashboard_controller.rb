@@ -4,6 +4,14 @@ class DashboardController < ApplicationController
   def index
     income = [0, 0, 0, 0, 0, 0]
 
+    trans = current_user.rental_income_account.account_trans
+    0.upto(5) do |num|
+      income[num] = trans.where(date: num.months.ago.beginning_of_month..num.months.ago.end_of_month).sum(:amount).to_f
+    end
+
+    @income = income.reverse
+
+
     @property_count = [current_user.properties.where(rented: true).count, current_user.properties.where(rented: false).count]
   end
 
