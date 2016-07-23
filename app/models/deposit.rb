@@ -10,6 +10,7 @@ class Deposit < ApplicationRecord
 
   validates :user_id, presence: true
   validates :date, presence: true
+  validates :balance, presence: true
   validates_numericality_of :amount
   validates_numericality_of :discrepancies, allow_blank: true
 
@@ -58,7 +59,7 @@ class Deposit < ApplicationRecord
   end
 
   # deposit trans must be updated manually
-  def update_tran 
+  def update_tran
     self.tran.update_attributes(date: self.date)
 
     if self.account_trans.count == 1
@@ -71,7 +72,7 @@ class Deposit < ApplicationRecord
       tran_amount = self.discrepancies ? self.amount - self.discrepancies : self.amount
       tran_amount *= -1
       self.account_trans.first.update_attributes(date: self.date, amount: tran_amount)
-      if self.discrepancies 
+      if self.discrepancies
         self.account_trans.second.update_attributes(date: self.date, amount: self.discrepancies)
       else
         self.account_trans.second.destroy

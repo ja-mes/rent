@@ -1,6 +1,6 @@
 class Check < ApplicationRecord
   attr_accessor :skip_tran_validation
-  
+
   # ASSOCIATIONS
   belongs_to :user
   belongs_to :reconciliation
@@ -11,6 +11,7 @@ class Check < ApplicationRecord
   validates :user_id, presence: true
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than_or_equal_to: 0 }
   validates :date, presence: true
+  validates :balance, presence: true
   validate :totals_must_equal, unless: :skip_tran_validation
 
   # HOOKS
@@ -71,7 +72,7 @@ class Check < ApplicationRecord
   end
 
   def self.date_range(from, to)
-    if from && to 
+    if from && to
       from = Date.new from['date(1i)'].to_i, from['date(2i)'].to_i, from['date(3i)'].to_i
       to = Date.new to['date(1i)'].to_i, to['date(2i)'].to_i, to['date(3i)'].to_i
       Check.where(date: from..to)
