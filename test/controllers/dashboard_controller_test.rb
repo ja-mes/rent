@@ -7,6 +7,8 @@ class DashboardControllerTest < ActionController::TestCase
     sign_in users(:one), scope: :user
     get :index
     assert_response :success
+    assert_not_nil assigns(:income)
+    assert_not_nil assigns(:property_count)
   end
 
   test "get index should not work if the user is not logged in" do

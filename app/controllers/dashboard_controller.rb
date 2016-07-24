@@ -10,8 +10,6 @@ class DashboardController < ApplicationController
     end
 
     @income = income.reverse
-
-
     @property_count = [current_user.properties.where(rented: true).count, current_user.properties.where(rented: false).count]
   end
 
