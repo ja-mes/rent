@@ -3,7 +3,7 @@
 <%= form_for @account do |f| %>
   <div class="form-group">
     <%= f.label :type %>
-    <%= f.collection_select :account_type_id, @account_types, :id, :name, {}, class: "form-control select2" %>
+    <%= f.collection_select :account_type_id, @account_types, :id, :name, {}, class: "form-control selectize" %>
   </div>
 
   <div class="form-group">

@@ -25,9 +25,9 @@
       <div class="form-group">
         <%= f.label :customer %>
         <% if @customer.active? %>
-        <%= f.collection_select :customer_id, @customers, :id, :full_name, { selected: @customer.id }, class: "form-control select2" %>
+        <%= f.collection_select :customer_id, @customers, :id, :full_name, { selected: @customer.id }, class: "form-control selectize" %>
         <% else %>
-        <%= f.select :customer_id, nil, {}, class: "form-control select2" do %>
+        <%= f.select :customer_id, nil, {}, class: "form-control selectize" do %>
         <%= content_tag(:option, @customer.full_name, value: @customer.id) %>
         <%= options_from_collection_for_select @customers, :id, :full_name %>
         <% end %>

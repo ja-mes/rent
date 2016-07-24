@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <%= f.label :vendor %>
-    <%= f.collection_select :vendor_id, Vendor.where(user: current_user), :id, :name, { include_blank: true }, class: "form-control select2" %>
+    <%= f.collection_select :vendor_id, Vendor.where(user: current_user), :id, :name, { include_blank: true }, class: "form-control selectize" %>
   </div>
 
   <div class="form-group">
