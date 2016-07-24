@@ -40,11 +40,20 @@ class VendorsControllerTest < ActionController::TestCase
 
     assert_difference 'Vendor.count' do
       post :create, params: { vendor: {
-        name: "Foo Bar"
+        name: "Foo Bar",
+        phone: "(123)456-7890",
+        address: "100 test st.",
+        city: "mycity",
+        state: "AK",
+        zip: "35343"
       }}
     end
 
     assert_equal assigns(:vendor).name, "Foo Bar"
+    assert_equal assigns(:vendor).address, "100 test st."
+    assert_equal assigns(:vendor).city, "mycity"
+    assert_equal assigns(:vendor).state, "AK"
+    assert_equal assigns(:vendor).zip, "35343"
   end
 
   test "post create should not work if the user is not logged in" do
