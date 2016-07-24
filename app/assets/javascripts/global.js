@@ -5,5 +5,7 @@ $(document).on('turbolinks:load', function() {
     Turbolinks.visit($(this).data('link'))
   });
 
-  $('.select2').select2();
+  $('.select2').selectize({
+    sortField: 'text'
+  });
 });

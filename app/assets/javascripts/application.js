@@ -15,6 +15,6 @@
 //= require bootstrap
 //= require jquery_ujs
 //= require turbolinks
-//= require select2
+//= require selectize
 //= require Chart
 //= require_tree .
