@@ -11,6 +11,12 @@ class DashboardController < ApplicationController
 
     @income = income.reverse
     @property_count = [current_user.properties.where(rented: true).count, current_user.properties.where(rented: false).count]
+
+    accounts = current_user.accounts.includes(:account_trans).where(account_type: current_user.expenses_account_type)
+
+    accounts.each do |a|
+      print a.account_trans.where(date: Date.today).sum(:amount)
+    end
   end
 
   def charge_rent

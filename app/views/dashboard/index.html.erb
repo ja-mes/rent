@@ -22,7 +22,7 @@
   console.log(properties)
 
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'doughnut',
     data: {
       labels: ['Rented properties', 'Vacant properties'],
       datasets: [{
@@ -32,22 +32,12 @@
           'rgba(74, 255, 46, 0.3)',
           'rgba(255, 99, 132, 0.2)',
         ],
-        borderColor: [
-          'rgba(74, 255, 46, 1)',
-          'rgba(255,99,132,1)',
+        backgroundColor: [
+          "#36A2EB", // blue
+          "#FF6384", // red
         ],
-        borderWidth: 1
       }]
     },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
   });
 
   var netIncomeCtx = document.getElementById('netIncome');
@@ -84,4 +74,4 @@
     type: 'line',
     data: data,
   });
-</script>
+  </script>
