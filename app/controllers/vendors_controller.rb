@@ -44,12 +44,12 @@ class VendorsController < ApplicationController
   def destroy
   end
 
-  private 
+  private
   def set_vendor
     @vendor = Vendor.find(params[:id])
   end
 
   def vendor_params
-    params.require(:vendor).permit(:name)
+    params.require(:vendor).permit(:name, :address, :city, :state, :zip)
   end
 end
