@@ -50,6 +50,6 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
-    params.require(:vendor).permit(:name, :address, :city, :state, :zip)
+    params.require(:vendor).permit(:name, :address, :city, :state, :zip, :phone)
   end
 end

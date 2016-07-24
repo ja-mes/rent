@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
     accounts = current_user.accounts.includes(:account_trans).where(account_type: current_user.expenses_account_type)
 
     accounts.each do |a|
-      print a.account_trans.where(date: Date.today).sum(:amount)
+      #print a.account_trans.where(date: Date.today).sum(:amount)
     end
   end
 
