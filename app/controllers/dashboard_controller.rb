@@ -14,9 +14,21 @@ class DashboardController < ApplicationController
 
     accounts = current_user.accounts.includes(:account_trans).where(account_type: current_user.expenses_account_type)
 
+    accounts_hash = {}
     accounts.each do |a|
-      #print a.account_trans.where(date: Date.today).sum(:amount)
+      name = a.name
+      trans = a.account_trans.where(date: Date.today.beginning_of_month..Date.today.end_of_month)
+      trans.each do |t|
+        if accounts_hash[name]
+          accounts_hash[name] += 1
+        else
+          accounts_hash[name] = 1
+        end
+      end
     end
+
+
+    @accounts_data = accounts_hash.values
   end
 
   def charge_rent
