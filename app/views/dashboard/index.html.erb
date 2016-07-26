@@ -6,20 +6,29 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-5">
     <div class="card">
       <div class="card-header">Properties</div>
       <canvas id="myChart"></canvas>
     </div>
   </div>
+
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-header">Expenses</div>
+      <canvas id="expenses"></canvas>
+    </div>
+  </div>
 </div>
+
+<%= hidden_field_tag :account_keys, @accounts_keys %>
 
 <script>
   var ctx = document.getElementById('myChart');
 
   var data = <%= @income %>
   var properties = <%= @property_count %>
-  console.log(properties)
+  var accounts = <%= @accounts_data %>
 
   var myChart = new Chart(ctx, {
     type: 'doughnut',
@@ -43,7 +52,7 @@
   var netIncomeCtx = document.getElementById('netIncome');
 
   var data = {
-    labels: ["February", "March", "April", "May", "June", "July"],
+    labels: ["Rental Income"],
     datasets: [
       {
         label: "Rental Income",
@@ -74,4 +83,34 @@
     type: 'line',
     data: data,
   });
-  </script>
+
+  var expensesCtx = document.getElementById('expenses');
+
+  var expensesChart = new Chart(expensesCtx, {
+    type: 'bar',
+    data: {
+      labels: $('#account_keys').val().split(','),
+      datasets: [{
+        label: 'Expenses',
+        data: accounts,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+  });
+</script>

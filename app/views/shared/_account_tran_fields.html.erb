@@ -1,6 +1,6 @@
 <tr class="account_tran_fields">
   <td>
-    <%= f.collection_select :account_id, @accounts, :id, :name, { include_blank: true }, class: "selectize" %>
+    <%= f.collection_select :account_id, @accounts, :id, :name, { include_blank: true }, class: "selectize account_tran_account" %>
   </td>
 
   <td>
@@ -13,7 +13,7 @@
   </td>
 
   <td>
-    <%= f.collection_select :property_id, @properties, :id, :full_address, { include_blank: true }, class: "selectize" %>
+    <%= f.collection_select :property_id, @properties, :id, :full_address, { include_blank: true }, class: "selectize account_tran_property" %>
   </td>
 
   <td>

@@ -20,15 +20,16 @@ class DashboardController < ApplicationController
       trans = a.account_trans.where(date: Date.today.beginning_of_month..Date.today.end_of_month)
       trans.each do |t|
         if accounts_hash[name]
-          accounts_hash[name] += 1
+          accounts_hash[name] -= t.amount
         else
-          accounts_hash[name] = 1
+          accounts_hash[name] = -t.amount
         end
       end
     end
 
 
-    @accounts_data = accounts_hash.values
+    @accounts_data = accounts_hash.values.collect {|i| i.to_f}
+    @accounts_keys = accounts_hash.keys.join(',')
   end
 
   def charge_rent

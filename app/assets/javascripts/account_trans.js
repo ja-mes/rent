@@ -11,10 +11,12 @@ function add_fields(link, association, content) {
   event.preventDefault();
   var new_id = new Date().getTime();
   var regexp = new RegExp("new_" + association, "g");
-  $('.account_tran_fields:last').after(content.replace(regexp, new_id));
+  var item = $('.account_tran_fields:last').after(content.replace(regexp, new_id));
   $(this).closest('.remove_account_tran').show();
 
-  $('.selectize').selectize();
+  $('.account_tran_account').last().selectize();
+  $('.account_tran_property').last().selectize();
+
   update_delete_button()
 }
 
