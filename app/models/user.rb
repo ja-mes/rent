@@ -34,7 +34,6 @@ class User < ApplicationRecord
 
     # account types
     income = AccountType.find_or_create_by(user: self, name: "Income", inc: true)
-    bank = AccountType.find_or_create_by(user: self, name: "Bank", inc: true)
     liabilities = AccountType.find_or_create_by(user: self, name: "Liabilities", inc: false)
     assets = AccountType.find_or_create_by(user: self, name: "Assets", inc: true)
     other_current_assets = AccountType.find_or_create_by(user: self, name: "Other Current Assets", inc: true)
@@ -44,7 +43,6 @@ class User < ApplicationRecord
 
     # accounts
     Account.find_or_create_by(name: "Rental Income", account_type: income, required: true, user: self)
-    Account.find_or_create_by(name: "Checking", account_type: bank, required: true, user: self)
     Account.find_or_create_by(name: "Security Deposits", account_type: other_current_liabilities, required: true, user: self)
     Account.find_or_create_by(name: "Undeposited Funds", account_type: other_current_assets, required: true, user: self)
     Account.find_or_create_by(name: "Deposit Discrepancies", account_type: expenses, required: true, user: self)
