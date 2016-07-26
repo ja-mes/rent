@@ -21,8 +21,14 @@
   </div>
 </div>
 
-<%= hidden_field_tag :account_keys, @accounts_keys %>
+<%= hidden_field_tag :income, @income %>
 <%= hidden_field_tag :income_months, @income_months %>
+
+<%= hidden_field_tag :property_count, @property_count %>
+
+<%= hidden_field_tag :account_data, @accounts_data %>
+<%= hidden_field_tag :account_keys, @accounts_keys %>
+
 
 <script>
   var ctx = document.getElementById('myChart');
