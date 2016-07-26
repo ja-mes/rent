@@ -10,6 +10,8 @@ class DashboardController < ApplicationController
     end
 
     @income = income.reverse
+    @income_months = 6.downto(1).map { |n| DateTime::MONTHNAMES.drop(1)[(Date.today.month - n) % 12] }.join(',')
+
     @property_count = [current_user.properties.where(rented: true).count, current_user.properties.where(rented: false).count]
 
     accounts = current_user.accounts.includes(:account_trans).where(account_type: current_user.expenses_account_type)
