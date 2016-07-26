@@ -20,7 +20,7 @@ class Check < ApplicationRecord
   def totals_must_equal
     amount = 0
     self.account_trans.each do |tran|
-      if tran.amount
+      if tran.amount && !tran._destroy
         amount += tran.amount
       end
     end
