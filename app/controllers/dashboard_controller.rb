@@ -28,8 +28,9 @@ class DashboardController < ApplicationController
     end
 
 
-    @accounts_data = accounts_hash.values.collect {|i| i.to_f}
-    @accounts_keys = accounts_hash.keys.join(',')
+    accounts_top5 = accounts_hash.sort_by {|_key, value| -value}.take(5).to_h
+    @accounts_data = accounts_top5.values.collect {|i| i.to_f}
+    @accounts_keys = accounts_top5.keys.take(5).join(',')
   end
 
   def charge_rent
