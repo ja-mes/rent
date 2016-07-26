@@ -32,18 +32,14 @@
 
 <script>
   var ctx = document.getElementById('myChart');
-
-  var data = <%= @income %>
-  var properties = <%= @property_count %>
-  var accounts = <%= @accounts_data %>
-
+  
   var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: ['Rented properties', 'Vacant properties'],
       datasets: [{
         label: 'Properties',
-        data: properties,
+        data: $('#property_count').val().split(','),
         backgroundColor: [
           'rgba(74, 255, 46, 0.3)',
           'rgba(255, 99, 132, 0.2)',
@@ -80,7 +76,7 @@
         pointHoverBorderWidth: 2,
         pointRadius: 6,
         pointHitRadius: 10,
-        data: data,
+        data: $('#income').val().split(','),
         spanGaps: false,
       }
     ]
@@ -99,7 +95,7 @@
       labels: $('#account_keys').val().split(','),
       datasets: [{
         label: 'Expenses',
-        data: accounts,
+        data: $('#account_data').val().split(','),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
