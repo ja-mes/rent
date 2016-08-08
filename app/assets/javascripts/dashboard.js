@@ -34,7 +34,7 @@ $(document).on('turbolinks:load', function() {
 
     var propertyCtx = document.getElementById('property');
     var propertyChart = new Chart(propertyCtx, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         labels: ['Rented properties', 'Vacant properties'],
         datasets: [{
