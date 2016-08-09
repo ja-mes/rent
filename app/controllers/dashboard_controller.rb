@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
     accounts_hash = {}
     accounts.each do |a|
       name = a.name
-      trans = a.account_trans.where(date: Date.today.beginning_of_month..Date.today.end_of_month)
+      trans = a.account_trans.where(date: (Date.today - 30.days)..Date.today)
       trans.each do |t|
         if accounts_hash[name]
           accounts_hash[name] -= t.amount
