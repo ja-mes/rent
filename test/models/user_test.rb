@@ -21,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "create_default_accounts should create default accounts" do
     @user.accounts.destroy_all
-    assert_difference 'Account.count', 7 do
+    assert_difference 'Account.count', 6 do
       @user.create_default_accounts
     end
 
@@ -32,7 +32,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     @user.account_types.destroy_all
-    assert_difference 'AccountType.count', 8 do
+    assert_difference 'AccountType.count', 7 do
       @user.create_default_accounts
     end
   end
