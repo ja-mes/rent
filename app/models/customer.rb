@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+
   attr_accessor :should_charge_rent
   attr_accessor :should_charge_deposit
 
