@@ -1,5 +1,5 @@
 class VendorsController < ApplicationController
-  before_action :authenticate_user!
+  efore_action :authenticate_user!
   before_action :set_vendor, only: [:show, :edit, :update, :destroy]
   before_action only: [:show, :edit, :update, :destroy] do
     require_same_user(@vendor)
